@@ -13,7 +13,6 @@ const service = axios.create({
   baseURL: common.API_PATH, // api的base_url
   timeout: 15000 // 请求超时时间
 })
-alert(common.API_PATH)
 // request拦截器
 service.interceptors.request.use(config => {
   return config

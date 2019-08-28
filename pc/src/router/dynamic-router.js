@@ -56,7 +56,7 @@ const dynamicRoutes = [
         meta: {
           name: '提车退车'
         }
-      },
+      }
     ]
   },
   {
