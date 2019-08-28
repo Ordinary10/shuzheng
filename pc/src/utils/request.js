@@ -2,16 +2,18 @@ import store from '../store'
 import axios from 'axios'
 import qs from 'qs'
 import { Message, Spin, Icon } from 'iview'
+import common from './common'
+
 // 创建axios实例
 const service = axios.create({
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
     'Accept': '*/*'
   },
-  baseURL: 'http://test.c.zdxrchina.com/index/index', // api的base_url
+  baseURL: common.API_PATH, // api的base_url
   timeout: 15000 // 请求超时时间
 })
-
+alert(common.API_PATH)
 // request拦截器
 service.interceptors.request.use(config => {
   return config
