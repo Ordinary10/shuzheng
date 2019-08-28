@@ -2,7 +2,7 @@
    <div class="top-wrapper">
      <div class="title" v-if="PageMode===1">
        <Icon type="ios-car-outline" />
-       <span>租车管家</span>
+       <span>蜀蒸</span>
      </div>
      <div class="sidebar-wrapper" v-if="PageMode===1">
        <Menu mode="horizontal" theme="dark">
@@ -135,8 +135,8 @@ export default {
     align-items: center;
     font-size: 20px;
     color: #fff;
+    letter-spacing: 10px;
     .ivu-icon-ios-car-outline{
-      margin: 0 10px;
       font-size: 30px;
     }
   }

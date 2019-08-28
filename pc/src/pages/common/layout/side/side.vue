@@ -2,7 +2,7 @@
   <div class="sidebar-wrapper">
     <div class="title">
       <Icon type="ios-car-outline" />
-      <span>租车管家</span>
+      <span>蜀蒸</span>
     </div>
     <Menu theme="dark">
       <DynamicMenu :menuList="sidebarMenu"></DynamicMenu>
@@ -54,7 +54,7 @@ export default {
     color: #fff;
   }
   .sidebar-wrapper{
-    width: 240px;
+    width: 200px;
     background-color: #fff;
     height: calc(100% - 15px);
     box-sizing: border-box;
@@ -75,8 +75,8 @@ export default {
       align-items: center;
       font-size: 20px;
       color: #4B7BF3;
+      letter-spacing: 10px;
       .ivu-icon-ios-car-outline{
-        margin: 0 10px;
         font-size: 30px;
       }
     }
@@ -84,16 +84,16 @@ export default {
       background:inherit;
     }
     >.ivu-menu{
-      width: 240px!important;
+      width: 200px!important;
       /*text-align: center;*/
     }
     /deep/ .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item{
       color: #8A98AC;
       font-size: 16px;
       background:inherit;
-      padding: 10px 0 10px 10px;
+      padding: 10px 0 10px 27px;
       border-radius: 20px 0 0 20px;
-      padding-left: 70px !important;
+      margin-left: 10%;
       &:hover{
         @include active
       }

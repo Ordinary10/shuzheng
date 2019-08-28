@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-      <router-view class="content-wrapper" :style="{'padding':PageMode===1?'75px 15px 15px':'75px 15px 15px 255px'}" v-if="refresh"></router-view>
+      <router-view class="content-wrapper" :style="{'padding':PageMode===1?'75px 15px 15px':'75px 15px 15px 215px'}" v-if="refresh"></router-view>
   </transition>
 </template>
 
@@ -42,7 +42,6 @@ export default {
   }
 
   .content-wrapper{
-    padding: 75px 15px 15px;
     height:100%;
     border-radius:15px;
     /deep/ >div{

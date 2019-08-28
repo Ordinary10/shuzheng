@@ -1,5 +1,5 @@
 <template>
-    <div type="card" class="content-wrapper" :style="{'padding':PageMode===1?'75px 15px 15px':'75px 15px 15px 255px'}">
+    <div type="card" class="content-wrapper" :style="{'padding':PageMode===1?'75px 15px 15px':'75px 15px 15px 215px'}">
       <div class="tabs">
         <div class="tab" v-for="(item,index) in Tab.list" :key="item.index" ref="tab">
           <span @click="changeTab(item.name,$event)" :ref="item.name" :class="{'active':item.name===Tab.cru.name}" :style="{'padding-right':index?'5px':'10px'}">
@@ -97,7 +97,6 @@ export default {
     background-color: #4c7cf3;
   }
   .content-wrapper{
-    padding: 75px 15px 15px;
     height:100%;
     border-radius:15px;
     .tabs{
