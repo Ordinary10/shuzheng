@@ -1,0 +1,355 @@
+/*全局样式文件*/
+.maxHeight{
+  height: 100%;
+}
+//主题内容区域盒子
+.content-block{
+  flex: 1;
+  box-shadow:0px 3px 18px 0px rgba(0, 0, 0, 0.11);
+  border-radius:15px;
+  overflow: hidden;
+  height: 100%;
+}
+//搜索栏样式
+.search-box{
+  width: 100%;
+  display: flex;
+  padding-left: 8px;
+  flex-wrap: wrap;
+  .search-input{
+    width: 160px;
+    margin: 4px;
+  }
+  .search-submit{
+    margin: 4px;
+    .search-btn{
+      padding: 0 15px;
+      height: 36px;
+      i{
+        font-size: 20px;
+      }
+    }
+  }
+
+  .redundant-btn{
+    margin: 4px;
+  }
+  .commonly-used-btn-box{
+    margin: 4px;
+    .commonly-used-btn{
+      padding: 0 15px;
+      height: 36px;
+      i{
+        font-size: 14px;
+      }
+    }
+  }
+}
+//table内的操作按钮样式
+.table-btn-box{
+  .table-btn{
+    margin: 4px;
+  }
+}
+/* 警告色背景天数 */
+.warnText{
+  display: inline-block;
+  min-width: 30px;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 8px;
+  background-color: #ff4b5b;
+  border-radius:30px;
+  color: white;
+  text-align: center;
+}
+/* 正常天数背景 */
+.normalText{
+  text-align: center;
+  display: inline-block;
+  min-width: 30px;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 8px;
+  background-color: #2bb930;
+  border-radius:30px;
+  color: white;
+}
+//zhw
+@mixin clearfix {
+  &:after{
+    content:".";
+    display:block;
+    height:0;
+    clear:both;
+    visibility:hidden;
+  }
+}
+@mixin card{
+  border: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  margin-left: 7px;
+  margin-right: 7px;
+  position: relative;
+}
+@mixin vehicle-text{
+  margin-left: -14px !important;
+  margin-right: -14px !important;
+  border-radius: 4px 4px 0 0;
+}
+@mixin no-underline{
+  padding: 10px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@mixin ma-nomb-spacing{
+  position: relative;
+  zoom: 1;
+  margin-right: 10px;
+  margin-left: 10px;
+  @include clearfix;
+}
+@mixin fs-28{
+  font-size: 28px;
+}
+@mixin fs-21{
+  font-size: 21px;
+}
+@mixin fs-24{
+  font-size: 24px;
+}
+@mixin theme-color{
+  color: #4c7cf3;
+}
+.ma-nomb-spacing{
+  position: relative;
+  zoom: 1;
+  margin-right: 10px;
+  margin-left: 10px;
+  @include clearfix;
+}
+.card-body-tb{
+  padding-top: 10px;
+}
+.card-body-nob{
+  border: 1px solid rgba(211, 210, 210, 1);
+  border-radius: 4px;
+  position: relative;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin-left: 7px;
+  margin-right: 7px;
+  margin-bottom: 20px;
+  .card{
+    .vehicle-bg{
+      padding: 14px 0;
+    }
+    .vehicle-text{
+      @include vehicle-text;
+      .ma-nomb-spacing{
+        //@include no-underline;
+        @include ma-nomb-spacing;
+      }
+    }
+    .vehicle-text:nth-child(n+2){
+      .ma-nomb-spacing{
+        border-bottom: 1px solid #dcdee2;
+
+      }
+      .vehile-ma-l{
+        .ivu-col{
+          //padding: 14px 0;
+          line-height: 41px;
+        }
+      }
+    }
+    .vehicle-btn{
+      position: absolute;
+      top: 55px;
+      font-size: 12px;
+      right: -3px;
+      cursor: pointer;
+    }
+    .vehicle-btn:hover{
+      @include theme-color;
+    }
+
+    @include card;
+  }
+}
+.card-header{
+  border-bottom: 1px solid  rgb(225, 228, 233);
+  margin-right: -10px;
+  margin-left: -10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  .card-title{
+    margin-left: 14px;
+    margin-right: 14px;
+    font-weight: bold;
+    color: #555555 !important;
+    font-size: 14px;
+  }
+}
+.ma-top{
+  margin-top: 14px;
+}
+body{
+  font-size: 14px!important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+.ivu-modal-body{
+  overflow-y: auto;
+  max-height: 668px;
+}
+.vertical-center-modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .ivu-modal{
+    top: 0;
+  }
+}
+.ivu-modal-body{
+  font-size: 14px!important;
+
+}
+.fs-28{
+  @include fs-28
+}
+.fs-24{
+  @include fs-24
+}
+.fs-21{
+  @include fs-21
+}
+/*表头*/
+.vehicle-icon{
+  position: absolute;
+  color: #fff;
+  left: 17px;
+  top: 7px;
+}
+
+
+.vehile-ma-l{
+  margin-right: 24px;
+  margin-left: 64px
+}
+.vehicle-iconbg{
+  position: absolute;
+  float: left;
+  top: -5px;
+  left: -20px;
+}
+.vehicle-body{
+  margin-left: 43px;
+}
+
+.vehicle-bg{
+  background: linear-gradient(90deg, rgba(74, 145, 237, 1), rgba(18, 105, 219, 1));
+  color: #fff;
+}
+.main-container{
+  height: 100%;
+  background-size: 100% 100%;
+  #loginForm{
+    width: 500px;
+    margin: 0 auto;
+  }
+}
+.bt-top{
+  font-size: 15px;
+  margin-top: 10px;
+  height: 40px;
+  line-height: 40px;
+}
+.card-body{
+  border: 1px solid rgba(211, 210, 210, 1);
+  border-radius:4px 4px 10px 10px;
+
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 7px;
+  margin-right: 7px;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  .card{
+    @include card;
+    margin-bottom: 10px;
+  }
+}
+.user-top{
+  background: linear-gradient(90deg, rgba(252, 97, 128, 0.7),rgba(252, 97, 128, 1) );
+}
+
+.ma-lr{
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+
+.bt-no-top{
+  font-size: 15px;
+  height: 40px;
+  line-height: 40px;
+  font-weight: bold;
+  color: #555555 !important;
+}
+.key_text{
+  color: #000;
+}
+.ma-spacing{
+  position: relative;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  @include clearfix;
+}
+.ivu-form-item-label{
+  font-size: 14px;
+}
+.tabs-body .ivu-tabs-nav{
+  float: right;
+}
+.tabs-body{
+  padding-top: 10px;
+  .bt-top{
+    margin-top: 0px;
+    position: absolute;
+  }
+}
+.top-p{
+  padding-top: 16px;
+}
+.iconzanwu{
+  line-height: 1;
+}
+.tab-box{
+  height: 300px;
+  .paging-box{
+    //background:rgba(255,75,91,0);
+    border-left: 1px solid #E8EAEC;
+  }
+}
+html{
+  font-family: sans-serif;
+}
+//.ivu-tabs-tab{
+//  margin-right: 0px !important;
+//  padding: 8px 10px !important;
+//}
+//文字样式
+.redtext{
+  color: #f3555e;
+}
+.green-color {
+  color: #1ab744;
+}
+
+//zhwend
