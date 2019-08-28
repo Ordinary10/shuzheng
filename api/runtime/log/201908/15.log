@@ -1,0 +1,2120 @@
+---------------------------------------------------------------
+[ 2019-08-15T16:25:29+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user [运行时间：0.291017s][吞吐率：3.44req/s] [内存消耗：1,965.70kb] [文件加载：52]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '0',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '1286e69a-7e92-4aeb-8f56-83459bc5fcfe',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+---------------------------------------------------------------
+[ 2019-08-15T16:25:32+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/edit
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/edit [运行时间：0.032002s][吞吐率：31.25req/s] [内存消耗：2,084.69kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '0',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'ab58261e-e707-4e7f-9b82-9adee40e34ee',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->edit[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+---------------------------------------------------------------
+[ 2019-08-15T16:26:44+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/edit
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/edit [运行时间：0.022001s][吞吐率：45.45req/s] [内存消耗：2,087.12kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '588',
+  'content-type' => 'multipart/form-data; boundary=--------------------------377691284790916297821932',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '1bfe9cda-2798-49d1-bdc9-70ced1600946',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'uname' => '罗',
+  'uid' => '1',
+  'pwd' => '123456',
+  'account' => 'a06220226',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->edit[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+---------------------------------------------------------------
+[ 2019-08-15T16:26:49+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/edit
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/edit [运行时间：0.020001s][吞吐率：50.00req/s] [内存消耗：2,087.12kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '591',
+  'content-type' => 'multipart/form-data; boundary=--------------------------979157348850123349873589',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'a0eb085b-866f-4629-93cd-341fb5d33d3a',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'uname' => '罗某',
+  'uid' => '1',
+  'pwd' => '123456',
+  'account' => 'a06220226',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->edit[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+---------------------------------------------------------------
+[ 2019-08-15T16:27:04+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/edit
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/edit [运行时间：0.019001s][吞吐率：52.63req/s] [内存消耗：2,087.12kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '591',
+  'content-type' => 'multipart/form-data; boundary=--------------------------475947858104671237177909',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '9442d5c9-b765-4c50-8ae2-6df58c293477',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'uname' => '罗某',
+  'uid' => '1',
+  'pwd' => '123456',
+  'account' => 'a06220226',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->edit[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+---------------------------------------------------------------
+[ 2019-08-15T16:27:10+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/edit
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/edit [运行时间：0.782045s][吞吐率：1.28req/s] [内存消耗：2,201.70kb] [文件加载：60]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '598',
+  'content-type' => 'multipart/form-data; boundary=--------------------------361840586404741088774929',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '16863843-425f-41ec-aadb-2e2531ff3bc9',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'uname' => '罗某',
+  'uid' => '1',
+  'pwd' => '123456',
+  'account' => 'a06220226',
+  'status' => '1',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->edit[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: dp_id[D:\www\shuzheng\api\application\common\model\User.php:159]
+[ error ] [8]未定义数组索引: rule[D:\www\shuzheng\api\application\api\controller\User.php:56]
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'shuzheng_test.auth_group_access' doesn't exist[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:390]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.287017s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.075004s ]
+[ sql ] [ SQL ] SELECT `uid` FROM `user` WHERE  `account` = 'a06220226' LIMIT 1 [ RunTime:0.090005s ]
+[ sql ] [ SQL ] UPDATE `user`  SET `dp_id`=NULL,`account`='a06220226',`uname`='罗某',`salt`='461887',`pwd`='8f1ec563b82aa26ef5dc13000078da42'  WHERE  `uid` = 1 [ RunTime:0.118007s ]
+---------------------------------------------------------------
+[ 2019-08-15T16:28:51+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/edit
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/edit [运行时间：0.651037s][吞吐率：1.54req/s] [内存消耗：2,202.39kb] [文件加载：60]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '598',
+  'content-type' => 'multipart/form-data; boundary=--------------------------692657193711451183064132',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '3a930e3a-764d-431c-a25e-39b72756194c',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'uname' => '罗某',
+  'uid' => '1',
+  'pwd' => '123456',
+  'account' => 'a06220226',
+  'status' => '1',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->edit[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: dp_id[D:\www\shuzheng\api\application\common\model\User.php:159]
+[ error ] [8]未定义数组索引: rule[D:\www\shuzheng\api\application\api\controller\User.php:56]
+[ error ] [10501]SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'group_id' cannot be null[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:463]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.115007s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.094005s ]
+[ sql ] [ SQL ] SELECT `uid` FROM `user` WHERE  `account` = 'a06220226' LIMIT 1 [ RunTime:0.077004s ]
+[ sql ] [ SQL ] UPDATE `user`  SET `dp_id`=NULL,`account`='a06220226',`uname`='罗某',`salt`='529129',`pwd`='95241d28bda4cd0d99959354099c679e'  WHERE  `uid` = 1 [ RunTime:0.083004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `auth_group_access` [ RunTime:0.097006s ]
+[ sql ] [ SQL ] SELECT * FROM `auth_group_access` WHERE  `uid` = 1 LIMIT 1 [ RunTime:0.076004s ]
+---------------------------------------------------------------
+[ 2019-08-15T16:29:21+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/edit
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/edit [运行时间：0.922053s][吞吐率：1.08req/s] [内存消耗：2,202.39kb] [文件加载：60]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '598',
+  'content-type' => 'multipart/form-data; boundary=--------------------------173694103333806540315739',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'a35061eb-456b-47b1-862a-2a9583ffec5d',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'uname' => '罗某',
+  'uid' => '1',
+  'pwd' => '123456',
+  'account' => 'a06220226',
+  'status' => '1',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->edit[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: dp_id[D:\www\shuzheng\api\application\common\model\User.php:159]
+[ error ] [8]未定义数组索引: rule[D:\www\shuzheng\api\application\api\controller\User.php:56]
+[ error ] [10501]SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'group_id' cannot be null[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:463]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.352021s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.161009s ]
+[ sql ] [ SQL ] SELECT `uid` FROM `user` WHERE  `account` = 'a06220226' LIMIT 1 [ RunTime:0.071004s ]
+[ sql ] [ SQL ] UPDATE `user`  SET `dp_id`=NULL,`account`='a06220226',`uname`='罗某',`salt`='967838',`pwd`='839e27a72ba1598c978183e0a9e15701'  WHERE  `uid` = 1 [ RunTime:0.075005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `auth_group_access` [ RunTime:0.084004s ]
+[ sql ] [ SQL ] SELECT * FROM `auth_group_access` WHERE  `uid` = 1 LIMIT 1 [ RunTime:0.069004s ]
+---------------------------------------------------------------
+[ 2019-08-15T16:30:05+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/edit
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/edit [运行时间：0.781045s][吞吐率：1.28req/s] [内存消耗：2,187.65kb] [文件加载：57]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '702',
+  'content-type' => 'multipart/form-data; boundary=--------------------------338541642391858555243266',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '71638d21-5845-4c97-9430-4bb58c3799c7',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'uname' => '罗某',
+  'uid' => '1',
+  'pwd' => '123456',
+  'account' => 'a06220226',
+  'status' => '1',
+  'role' => '1',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->edit[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: dp_id[D:\www\shuzheng\api\application\common\model\User.php:159]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.226013s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.080005s ]
+[ sql ] [ SQL ] SELECT `uid` FROM `user` WHERE  `account` = 'a06220226' LIMIT 1 [ RunTime:0.079004s ]
+[ sql ] [ SQL ] UPDATE `user`  SET `dp_id`=NULL,`account`='a06220226',`uname`='罗某',`salt`='139716',`pwd`='c6228fb246d476c45c145993846b64a1'  WHERE  `uid` = 1 [ RunTime:0.105006s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `auth_group_access` [ RunTime:0.081004s ]
+[ sql ] [ SQL ] SELECT * FROM `auth_group_access` WHERE  `uid` = 1 LIMIT 1 [ RunTime:0.081005s ]
+[ sql ] [ SQL ] INSERT INTO `auth_group_access` (`uid` , `group_id`) VALUES (1 , 1) [ RunTime:0.101006s ]
+---------------------------------------------------------------
+[ 2019-08-15T16:42:35+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.426025s][吞吐率：2.35req/s] [内存消耗：2,001.52kb] [文件加载：54]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '801',
+  'content-type' => 'multipart/form-data; boundary=--------------------------117333279229271456232441',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'fb47446e-b6b0-4b78-8958-fc51cbf12857',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'uname' => '罗某',
+  'uid' => '1',
+  'pwd' => '123456',
+  'account' => 'a06220226',
+  'status' => '1',
+  'role' => '1',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->getUserLists[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: page[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ error ] [8]未定义数组索引: limit[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.company_id' in 'field list'[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:390]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.124007s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.074004s ]
+[ sql ] [ SQL ] SELECT COUNT(a.uid) AS tp_count FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` WHERE  `a`.`status` = '1'  AND `a`.`account` = 'a06220226'  AND `c`.`group_id` = '1' LIMIT 1 [ RunTime:0.124007s ]
+---------------------------------------------------------------
+[ 2019-08-15T16:43:49+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.444025s][吞吐率：2.25req/s] [内存消耗：2,070.45kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '801',
+  'content-type' => 'multipart/form-data; boundary=--------------------------156135330008525889786551',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '10faace0-ff4e-4ce1-a661-4551e233689e',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'uname' => '罗某',
+  'uid' => '1',
+  'pwd' => '123456',
+  'account' => 'a06220226',
+  'status' => '1',
+  'role' => '1',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->getUserLists[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: page[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ error ] [8]未定义数组索引: limit[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.169010s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.075004s ]
+[ sql ] [ SQL ] SELECT COUNT(a.uid) AS tp_count FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` WHERE  `a`.`status` = '1'  AND `a`.`account` = 'a06220226'  AND `c`.`group_id` = '1' LIMIT 1 [ RunTime:0.076004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`ctime`,`a`.`status`,`a`.`uname`,`a`.`account`,`c`.`group_id`,d.title group_name FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` WHERE  `a`.`status` = '1'  AND `a`.`account` = 'a06220226'  AND `c`.`group_id` = '1' ORDER BY `a`.`uid` DESC LIMIT 0,20 [ RunTime:0.074005s ]
+---------------------------------------------------------------
+[ 2019-08-15T16:44:22+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.568033s][吞吐率：1.76req/s] [内存消耗：2,070.48kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '801',
+  'content-type' => 'multipart/form-data; boundary=--------------------------479508211301407234071809',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '4d451993-40f6-462d-bc42-299cb38a9d9a',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'uname' => '罗某',
+  'uid' => '1',
+  'pwd' => '123456',
+  'account' => 'a06220226',
+  'status' => '1',
+  'role' => '1',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->getUserLists[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: page[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ error ] [8]未定义数组索引: limit[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.288016s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.080005s ]
+[ sql ] [ SQL ] SELECT COUNT(a.uid) AS tp_count FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` WHERE  `a`.`status` = '1'  AND `a`.`account` = 'a06220226'  AND `c`.`group_id` = '1' LIMIT 1 [ RunTime:0.094005s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`ctime`,`a`.`status`,`a`.`uname`,`a`.`account`,`c`.`group_id`,d.title group_name FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` WHERE  `a`.`status` = '1'  AND `a`.`account` = 'a06220226'  AND `c`.`group_id` = '1' ORDER BY `a`.`uid` DESC LIMIT 0,20 [ RunTime:0.079005s ]
+---------------------------------------------------------------
+[ 2019-08-15T16:51:26+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha [运行时间：0.041002s][吞吐率：24.39req/s] [内存消耗：1,189.29kb] [文件加载：43]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://www.sosoapi.com/auth/apidoc/preview.htm?docId=15928',
+  'sec-fetch-site' => 'cross-site',
+  'origin' => 'http://www.sosoapi.com',
+  'sec-fetch-mode' => 'cors',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+  'accept' => 'application/json',
+  'connection' => 'close',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [2]dir(D:\www\shuzheng\api\/public/static/assets/ttfs/,D:\www\shuzheng\api\/public/static/assets/ttfs/): ϵͳ�Ҳ���ָ����·���� (code: 3)[D:\www\shuzheng\api\application\common\service\Captcha.php:109]
+[ error ] [2]dir(D:\www\shuzheng\api\/public/static/assets/ttfs/): failed to open dir: No such file or directory[D:\www\shuzheng\api\application\common\service\Captcha.php:109]
+[ error ] [0]致命错误: Call to a member function read() on boolean[D:\www\shuzheng\api\application\common\service\Captcha.php:111]
+---------------------------------------------------------------
+[ 2019-08-15T16:52:28+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha [运行时间：0.019002s][吞吐率：52.63req/s] [内存消耗：1,188.82kb] [文件加载：43]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=qdr6kvva7f5j95iq9a377q2544',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-site' => 'none',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'sec-fetch-mode' => 'navigate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [2]dir(D:\www\shuzheng\api\/public/static/assets/ttfs/,D:\www\shuzheng\api\/public/static/assets/ttfs/): ϵͳ�Ҳ���ָ����·���� (code: 3)[D:\www\shuzheng\api\application\common\service\Captcha.php:109]
+[ error ] [2]dir(D:\www\shuzheng\api\/public/static/assets/ttfs/): failed to open dir: No such file or directory[D:\www\shuzheng\api\application\common\service\Captcha.php:109]
+[ error ] [0]致命错误: Call to a member function read() on boolean[D:\www\shuzheng\api\application\common\service\Captcha.php:111]
+---------------------------------------------------------------
+[ 2019-08-15T16:53:09+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha [运行时间：0.417024s][吞吐率：2.40req/s] [内存消耗：2,036.30kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=qdr6kvva7f5j95iq9a377q2544',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-site' => 'none',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:70]
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'shuzheng_test.captcha' doesn't exist[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:390]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.183011s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+---------------------------------------------------------------
+[ 2019-08-15T16:53:40+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha [运行时间：0.356020s][吞吐率：2.81req/s] [内存消耗：2,026.02kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=qdr6kvva7f5j95iq9a377q2544',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-site' => 'none',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:70]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.104006s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `captcha_key` FROM `captcha` WHERE  `captcha_key` = 2130706433 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] INSERT INTO `captcha` (`captcha_code` , `expire_time` , `captcha_key`) VALUES ('7287' , 1565859520 , 2130706433) [ RunTime:0.074004s ]
+---------------------------------------------------------------
+[ 2019-08-15T16:53:43+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha [运行时间：0.403023s][吞吐率：2.48req/s] [内存消耗：2,081.35kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://www.sosoapi.com/auth/apidoc/preview.htm?docId=15928',
+  'sec-fetch-site' => 'cross-site',
+  'origin' => 'http://www.sosoapi.com',
+  'sec-fetch-mode' => 'cors',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+  'accept' => 'application/json',
+  'connection' => 'close',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:70]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.119007s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.080005s ]
+[ sql ] [ SQL ] SELECT `captcha_key` FROM `captcha` WHERE  `captcha_key` = 2130706433 [ RunTime:0.079004s ]
+[ sql ] [ SQL ] UPDATE `captcha`  SET `captcha_code`='2548',`expire_time`=1565859523  WHERE  `captcha_key` = 2130706433 [ RunTime:0.084005s ]
+---------------------------------------------------------------
+[ 2019-08-15T16:53:47+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha [运行时间：3.415196s][吞吐率：0.29req/s] [内存消耗：2,081.38kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=qdr6kvva7f5j95iq9a377q2544',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://www.sosoapi.com/auth/apidoc/preview.htm?docId=15928',
+  'sec-fetch-site' => 'cross-site',
+  'accept' => 'image/webp,image/apng,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+  'sec-fetch-mode' => 'no-cors',
+  'connection' => 'close',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:70]
+[ sql ] [ DB ] CONNECT:[ UseTime:3.120179s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.085005s ]
+[ sql ] [ SQL ] SELECT `captcha_key` FROM `captcha` WHERE  `captcha_key` = 2130706433 [ RunTime:0.085005s ]
+[ sql ] [ SQL ] UPDATE `captcha`  SET `captcha_code`='2934',`expire_time`=1565859524  WHERE  `captcha_key` = 2130706433 [ RunTime:0.101005s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:15:58+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/getUserLists [运行时间：0.018001s][吞吐率：55.55req/s] [内存消耗：1,142.66kb] [文件加载：42]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '801',
+  'content-type' => 'multipart/form-data; boundary=--------------------------487402883610267948929851',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '4f77a245-a68c-46b4-a9b1-a6efccd0e0a7',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'uname' => '罗某',
+  'uid' => '1',
+  'pwd' => '123456',
+  'account' => 'a06220226',
+  'status' => '1',
+  'role' => '1',
+)
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+---------------------------------------------------------------
+[ 2019-08-15T17:16:03+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/ca
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/ca [运行时间：0.013001s][吞吐率：76.92req/s] [内存消耗：1,139.56kb] [文件加载：42]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'ca',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '2c632d35-534c-4b77-9a60-9e31bdabf49b',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+---------------------------------------------------------------
+[ 2019-08-15T17:16:12+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha [运行时间：0.448026s][吞吐率：2.23req/s] [内存消耗：2,080.38kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '7c2a9770-5349-4afa-908d-4bb2a0c33ee0',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:70]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.182011s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.075004s ]
+[ sql ] [ SQL ] SELECT `captcha_key` FROM `captcha` WHERE  `captcha_key` = 2130706433 [ RunTime:0.075004s ]
+[ sql ] [ SQL ] UPDATE `captcha`  SET `captcha_code`='7837',`expire_time`=1565860871  WHERE  `captcha_key` = 2130706433 [ RunTime:0.080004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:16:48+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：0.663038s][吞吐率：1.51req/s] [内存消耗：2,071.22kb] [文件加载：56]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '386',
+  'content-type' => 'multipart/form-data; boundary=--------------------------078726669846926083840294',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '25b25456-11d9-432f-a16b-26e68ef047fd',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '7837',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:26]
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'shuzheng_test.user_extra' doesn't exist[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:390]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.282016s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 2130706433 LIMIT 1 [ RunTime:0.069004s ]
+[ sql ] [ SQL ] DELETE FROM `captcha`    WHERE  `captcha_key` = 2130706433 [ RunTime:0.078005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.069004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:17:42+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：0.313018s][吞吐率：3.19req/s] [内存消耗：2,019.15kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '386',
+  'content-type' => 'multipart/form-data; boundary=--------------------------158804354890059569291894',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '2faab2cf-78d4-4e4f-b74a-cf513765ca8c',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '7837',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:26]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.132008s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.078004s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 2130706433 LIMIT 1 [ RunTime:0.079004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:18:55+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha [运行时间：0.458027s][吞吐率：2.18req/s] [内存消耗：2,024.70kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '06259d4c-76ae-4c74-a26a-ecf33ab0e3f7',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:71]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.150008s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.094006s ]
+[ sql ] [ SQL ] SELECT `captcha_key` FROM `captcha` WHERE  `captcha_key` = 2130706433 [ RunTime:0.096005s ]
+[ sql ] [ SQL ] INSERT INTO `captcha` (`captcha_code` , `expire_time` , `captcha_key`) VALUES ('7596' , 1565861035 , 2130706433) [ RunTime:0.087005s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:19:03+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：0.694040s][吞吐率：1.44req/s] [内存消耗：2,071.21kb] [文件加载：56]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '386',
+  'content-type' => 'multipart/form-data; boundary=--------------------------589555227966048312581683',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '2a4b06db-489d-472f-9d7f-7a29feaa539a',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '7596',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:26]
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'shuzheng_test.company' doesn't exist[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:390]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.163009s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.079005s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 2130706433 LIMIT 1 [ RunTime:0.091005s ]
+[ sql ] [ SQL ] DELETE FROM `captcha`    WHERE  `captcha_key` = 2130706433 [ RunTime:0.094006s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.092005s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:20:21+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：0.375021s][吞吐率：2.67req/s] [内存消耗：2,019.14kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '386',
+  'content-type' => 'multipart/form-data; boundary=--------------------------880639238000843790075419',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '33beb3e6-19d4-45bc-852b-55391fe90efb',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '7596',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:26]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.209012s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.075005s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 2130706433 LIMIT 1 [ RunTime:0.069004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:21:43+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha [运行时间：0.515029s][吞吐率：1.94req/s] [内存消耗：2,025.18kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'e6c373fd-7bed-4b62-a0d5-311b4bf38e03',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:71]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.222013s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.080004s ]
+[ sql ] [ SQL ] SELECT `captcha_key` FROM `captcha` WHERE  `captcha_key` = 2130706433 [ RunTime:0.081005s ]
+[ sql ] [ SQL ] INSERT INTO `captcha` (`captcha_code` , `expire_time` , `captcha_key`) VALUES ('9513' , 1565861203 , 2130706433) [ RunTime:0.098006s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:22:13+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：0.567033s][吞吐率：1.76req/s] [内存消耗：2,071.70kb] [文件加载：56]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '386',
+  'content-type' => 'multipart/form-data; boundary=--------------------------054096583567922200517808',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '0d966b45-e051-4cee-83a1-ee1ecc7123bd',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '9513',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:26]
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.company_id' in 'field list'[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:390]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.208012s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 2130706433 LIMIT 1 [ RunTime:0.069003s ]
+[ sql ] [ SQL ] DELETE FROM `captcha`    WHERE  `captcha_key` = 2130706433 [ RunTime:0.075004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.070004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:22:59+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：0.437025s][吞吐率：2.29req/s] [内存消耗：2,020.20kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '386',
+  'content-type' => 'multipart/form-data; boundary=--------------------------141149749730632399128335',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '01c81113-ae99-49cf-91f8-049b5d475a79',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '9513',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: loginRandom[D:\www\shuzheng\api\application\api\controller\Login.php:26]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.253015s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.076004s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 2130706433 LIMIT 1 [ RunTime:0.075004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:24:21+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：0.364021s][吞吐率：2.75req/s] [内存消耗：2,019.72kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '500',
+  'content-type' => 'multipart/form-data; boundary=--------------------------189616950574184312471525',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '263e439c-f44b-4f96-ae6f-fc0de580adfa',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '9513',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+  'loginRandom' => '1234',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.175010s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.083005s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 21307064331234 LIMIT 1 [ RunTime:0.081004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:24:23+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha?loginRandom=1234
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha?loginRandom=1234 [运行时间：0.360020s][吞吐率：2.78req/s] [内存消耗：2,025.94kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '12db3a24-b127-4ff2-ba03-fffe7e2b9b30',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'loginRandom' => '1234',
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.103005s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `captcha_key` FROM `captcha` WHERE  `captcha_key` = 21307064331234 [ RunTime:0.068003s ]
+[ sql ] [ SQL ] INSERT INTO `captcha` (`captcha_code` , `expire_time` , `captcha_key`) VALUES ('4579' , 1565861363 , 21307064331234) [ RunTime:0.091005s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:24:30+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：0.625036s][吞吐率：1.60req/s] [内存消耗：2,107.41kb] [文件加载：58]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '500',
+  'content-type' => 'multipart/form-data; boundary=--------------------------115786208681410314204200',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '0af4ac4a-01e4-4850-b018-72b507fbf9dd',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '4579',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+  'loginRandom' => '1234',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'shuzheng_test.auth_group_rules' doesn't exist[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:390]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.104006s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 21307064331234 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] DELETE FROM `captcha`    WHERE  `captcha_key` = 21307064331234 [ RunTime:0.078005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`dp_id`,`a`.`account`,`a`.`wx_openid`,`a`.`pwd`,`a`.`salt`,`a`.`uname`,`a`.`status`,`b`.`token`,`b`.`tk_uptime`,`b`.`tk_expire_time`,c.name company_name FROM `user` `a` LEFT JOIN `user_extra` `b` ON `a`.`uid`=`b`.`uid` LEFT JOIN `company` `c` ON `a`.`dp_id`=`c`.`id` WHERE  `a`.`account` = 'a06220226'  AND `a`.`status` = 1 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `auth_group_access` [ RunTime:0.069004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:25:12+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：0.294017s][吞吐率：3.40req/s] [内存消耗：2,019.72kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '500',
+  'content-type' => 'multipart/form-data; boundary=--------------------------117558980517264796248626',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '1e48deed-565a-4344-8284-1f747b3e35f4',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '4579',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+  'loginRandom' => '1234',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.115007s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.076004s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 21307064331234 LIMIT 1 [ RunTime:0.076004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:25:31+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha?loginRandom=1234
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha?loginRandom=1234 [运行时间：0.413024s][吞吐率：2.42req/s] [内存消耗：2,025.94kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'd79078f7-cc45-4bec-bb41-693df6adf0a0',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'loginRandom' => '1234',
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.138008s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.078005s ]
+[ sql ] [ SQL ] SELECT `captcha_key` FROM `captcha` WHERE  `captcha_key` = 21307064331234 [ RunTime:0.080004s ]
+[ sql ] [ SQL ] INSERT INTO `captcha` (`captcha_code` , `expire_time` , `captcha_key`) VALUES ('6487' , 1565861431 , 21307064331234) [ RunTime:0.093006s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:25:37+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：1.062060s][吞吐率：0.94req/s] [内存消耗：2,162.05kb] [文件加载：57]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '500',
+  'content-type' => 'multipart/form-data; boundary=--------------------------825014682814041941988407',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'f81bef7b-711f-4656-a8df-83c6fc3d5cb9',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '6487',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+  'loginRandom' => '1234',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.303017s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.074004s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 21307064331234 LIMIT 1 [ RunTime:0.073004s ]
+[ sql ] [ SQL ] DELETE FROM `captcha`    WHERE  `captcha_key` = 21307064331234 [ RunTime:0.082004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.074005s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`dp_id`,`a`.`account`,`a`.`wx_openid`,`a`.`pwd`,`a`.`salt`,`a`.`uname`,`a`.`status`,`b`.`token`,`b`.`tk_uptime`,`b`.`tk_expire_time`,c.name company_name FROM `user` `a` LEFT JOIN `user_extra` `b` ON `a`.`uid`=`b`.`uid` LEFT JOIN `company` `c` ON `a`.`dp_id`=`c`.`id` WHERE  `a`.`account` = 'a06220226'  AND `a`.`status` = 1 LIMIT 1 [ RunTime:0.073004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `auth_group_access` [ RunTime:0.074004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`b`.`id`,`b`.`title`,`b`.`rules` FROM `auth_group_access` `a` LEFT JOIN `auth_group` `b` ON `a`.`group_id`=`b`.`id` LEFT JOIN `user` `ur` ON `ur`.`uid`=`a`.`uid` WHERE  `a`.`uid` = 1  AND `b`.`status` = 1 LIMIT 1 [ RunTime:0.073004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `auth_rule` [ RunTime:0.075004s ]
+[ sql ] [ SQL ] SELECT * FROM `auth_rule` WHERE  `status` = 1 ORDER BY `sort` ASC [ RunTime:0.106006s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:27:32+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：0.286017s][吞吐率：3.50req/s] [内存消耗：2,019.72kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '500',
+  'content-type' => 'multipart/form-data; boundary=--------------------------662599361598516637860354',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '3147f720-1b92-40fa-bb53-ec61ae7550fd',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '6487',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+  'loginRandom' => '1234',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.129008s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.066004s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 21307064331234 LIMIT 1 [ RunTime:0.066003s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:27:36+08:00 ] 127.0.0.1 GET /shuzheng/api/public/index.php/api/login/captcha?loginRandom=1234
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/captcha?loginRandom=1234 [运行时间：0.571032s][吞吐率：1.75req/s] [内存消耗：2,025.94kb] [文件加载：50]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'captcha',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'b72d5fa3-5b6e-4df1-be68-25e629f5bd61',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'loginRandom' => '1234',
+)
+[ info ] [ RUN ] app\api\controller\Login->captcha[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.270015s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.102006s ]
+[ sql ] [ SQL ] SELECT `captcha_key` FROM `captcha` WHERE  `captcha_key` = 21307064331234 [ RunTime:0.083005s ]
+[ sql ] [ SQL ] INSERT INTO `captcha` (`captcha_code` , `expire_time` , `captcha_key`) VALUES ('2683' , 1565861555 , 21307064331234) [ RunTime:0.091005s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:27:44+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/login/doLogin
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin [运行时间：1.379079s][吞吐率：0.73req/s] [内存消耗：2,179.63kb] [文件加载：61]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'login',
+    2 => 'doLogin',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '500',
+  'content-type' => 'multipart/form-data; boundary=--------------------------035964281363524697817828',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '6d6b3ada-697d-459a-bc90-2e24f0a4c484',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'code' => '2683',
+  'account' => 'a06220226',
+  'pwd' => '123456',
+  'loginRandom' => '1234',
+)
+[ info ] [ RUN ] app\api\controller\Login->doLogin[ D:\www\shuzheng\api\application\api\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: nickname[D:\www\shuzheng\api\application\api\controller\Login.php:55]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.385022s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `captcha` [ RunTime:0.073004s ]
+[ sql ] [ SQL ] SELECT * FROM `captcha` WHERE  `captcha_key` = 21307064331234 LIMIT 1 [ RunTime:0.073004s ]
+[ sql ] [ SQL ] DELETE FROM `captcha`    WHERE  `captcha_key` = 21307064331234 [ RunTime:0.079004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.072004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`dp_id`,`a`.`account`,`a`.`wx_openid`,`a`.`pwd`,`a`.`salt`,`a`.`uname`,`a`.`status`,`b`.`token`,`b`.`tk_uptime`,`b`.`tk_expire_time`,c.name company_name FROM `user` `a` LEFT JOIN `user_extra` `b` ON `a`.`uid`=`b`.`uid` LEFT JOIN `company` `c` ON `a`.`dp_id`=`c`.`id` WHERE  `a`.`account` = 'a06220226'  AND `a`.`status` = 1 LIMIT 1 [ RunTime:0.073004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `auth_group_access` [ RunTime:0.072004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`b`.`id`,`b`.`title`,`b`.`rules` FROM `auth_group_access` `a` LEFT JOIN `auth_group` `b` ON `a`.`group_id`=`b`.`id` LEFT JOIN `user` `ur` ON `ur`.`uid`=`a`.`uid` WHERE  `a`.`uid` = 1  AND `b`.`status` = 1 LIMIT 1 [ RunTime:0.072004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `auth_rule` [ RunTime:0.073004s ]
+[ sql ] [ SQL ] SELECT * FROM `auth_rule` WHERE  `status` = 1 ORDER BY `sort` ASC [ RunTime:0.115007s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user_extra` [ RunTime:0.074004s ]
+[ sql ] [ SQL ] SELECT `uid`,`tk_expire_time`,`token` FROM `user_extra` WHERE  `uid` = 1 LIMIT 1 [ RunTime:0.073004s ]
+[ sql ] [ SQL ] INSERT INTO `user_extra` (`uid` , `token` , `tk_uptime` , `tk_expire_time` , `last_login_time` , `last_login_ip`) VALUES (1 , '966506' , 1565861264 , 1565868464 , '2019-08-15 17:27:44' , '127.0.0.1') [ RunTime:0.077005s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:28:14+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.360020s][吞吐率：2.78req/s] [内存消耗：2,066.88kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '0',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'a8a47baf-c52e-4bcd-9ecf-eaeb92365c7a',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->getUserLists[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: token[D:\www\shuzheng\api\application\api\controller\Base.php:35]
+[ error ] [8]未定义数组索引: page[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ error ] [8]未定义数组索引: limit[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.107006s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT COUNT(a.uid) AS tp_count FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` LIMIT 1 [ RunTime:0.092005s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`ctime`,`a`.`status`,`a`.`uname`,`a`.`account`,`c`.`group_id`,d.title group_name FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` ORDER BY `a`.`uid` DESC LIMIT 0,20 [ RunTime:0.069004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:28:31+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.326018s][吞吐率：3.07req/s] [内存消耗：2,071.59kb] [文件加载：54]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------210025366484891170061381',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '4c1c66a3-5aab-4789-b17a-feab138807fb',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->getUserLists[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: page[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ error ] [8]未定义数组索引: limit[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.102005s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT COUNT(a.uid) AS tp_count FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`ctime`,`a`.`status`,`a`.`uname`,`a`.`account`,`c`.`group_id`,d.title group_name FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` ORDER BY `a`.`uid` DESC LIMIT 0,20 [ RunTime:0.067004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:29:16+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.012001s][吞吐率：83.33req/s] [内存消耗：1,062.52kb] [文件加载：36]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------973596232382452512616686',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '46b8bcea-5e4d-4682-9f73-8400398bd944',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-15T17:29:34+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.015000s][吞吐率：66.67req/s] [内存消耗：1,065.54kb] [文件加载：37]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------937662203599839597163512',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '79b82934-e3db-43ce-9a58-7e9130ecb4e7',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-15T17:30:03+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.012000s][吞吐率：83.33req/s] [内存消耗：1,065.76kb] [文件加载：37]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------695766813821216406842303',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '24197605-60a6-463a-b0b1-e8f6bc8489bb',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-15T17:30:16+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.627035s][吞吐率：1.59req/s] [内存消耗：2,071.59kb] [文件加载：54]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------551873240296431111044662',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'ca88304e-dc9a-4479-adae-c8e6e5a0766f',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->getUserLists[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: page[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ error ] [8]未定义数组索引: limit[D:\www\shuzheng\api\application\api\controller\Base.php:56]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.397022s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.069004s ]
+[ sql ] [ SQL ] SELECT COUNT(a.uid) AS tp_count FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`ctime`,`a`.`status`,`a`.`uname`,`a`.`account`,`c`.`group_id`,d.title group_name FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` ORDER BY `a`.`uid` DESC LIMIT 0,20 [ RunTime:0.068004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:31:05+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.379022s][吞吐率：2.64req/s] [内存消耗：2,072.16kb] [文件加载：54]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------692747742793030576756582',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '9097e136-87d9-4f4b-bf01-2aad292b12a3',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->getUserLists[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: page[D:\www\shuzheng\api\application\api\controller\Base.php:59]
+[ error ] [8]未定义数组索引: limit[D:\www\shuzheng\api\application\api\controller\Base.php:59]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.116006s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.076005s ]
+[ sql ] [ SQL ] SELECT COUNT(a.uid) AS tp_count FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` LIMIT 1 [ RunTime:0.074004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`ctime`,`a`.`status`,`a`.`uname`,`a`.`account`,`c`.`group_id`,d.title group_name FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` ORDER BY `a`.`uid` DESC LIMIT 0,20 [ RunTime:0.075004s ]
+---------------------------------------------------------------
+[ 2019-08-15T17:39:03+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.027002s][吞吐率：37.03req/s] [内存消耗：1,101.09kb] [文件加载：41]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------947804907321765258884167',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '480fa373-2b02-4a23-9781-b7db2ead9fa8',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ LOG ] INIT File
+[ error ] [4096]Object of class think\response\Json could not be converted to string[D:\www\shuzheng\api\application\api\controller\Base.php:45]
+---------------------------------------------------------------
+[ 2019-08-15T17:39:14+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.014001s][吞吐率：71.42req/s] [内存消耗：1,043.55kb] [文件加载：36]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------225468285975661024664056',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '32476bf2-de92-4365-ac34-661176371f09',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-15T17:42:23+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.015001s][吞吐率：66.66req/s] [内存消耗：1,043.59kb] [文件加载：36]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------856821747076780366586542',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '86e042c8-c450-4c90-be43-39725cc2a4bb',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-15T17:42:29+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.011001s][吞吐率：90.90req/s] [内存消耗：1,043.59kb] [文件加载：36]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------499819037812336348422074',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'c91bbae3-6ef9-486c-971e-9039f6d62c9c',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-15T17:42:55+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.012000s][吞吐率：83.33req/s] [内存消耗：1,043.63kb] [文件加载：36]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------242603604618766957246529',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'f01838fe-8ea5-4ce7-b490-2b8053ad8346',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-15T17:43:38+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.011001s][吞吐率：90.90req/s] [内存消耗：1,043.71kb] [文件加载：36]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '224',
+  'content-type' => 'multipart/form-data; boundary=--------------------------979366241368639485780792',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => 'd8d818a3-4485-4955-8fa7-5c720b10e3f6',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'http://127.0.0.1/shuzheng/api/public/index.php/api/login/doLogin',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-15T17:58:53+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.277016s][吞吐率：3.61req/s] [内存消耗：1,994.46kb] [文件加载：52]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '280',
+  'content-type' => 'multipart/form-data; boundary=--------------------------382609730618394245755202',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '087c2401-d8e2-458a-bcca-cb6f67b784a9',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'K05TZk1Lc29iTmd0eVRvRmV3RTdGRHdtM0FzVUVkMUtwTWJLdHV5Syt4aURKNVBldkF0MG9QTEtPMlN0QUh6V3ZsU2tleUxRbFZkeCthUnRNdzlPalE9PQ==',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.122007s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.075005s ]
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.company_id' in 'field list'[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:390]
+---------------------------------------------------------------
+[ 2019-08-15T17:59:37+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.227013s][吞吐率：4.41req/s] [内存消耗：1,993.63kb] [文件加载：52]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '280',
+  'content-type' => 'multipart/form-data; boundary=--------------------------426468234099901700723745',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '2e901d6a-7643-4860-9d8b-13854006a8f9',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'K05TZk1Lc29iTmd0eVRvRmV3RTdGRHdtM0FzVUVkMUtwTWJLdHV5Syt4aURKNVBldkF0MG9QTEtPMlN0QUh6V3ZsU2tleUxRbFZkeCthUnRNdzlPalE9PQ==',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.101006s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.067004s ]
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.nickname' in 'field list'[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:390]
+---------------------------------------------------------------
+[ 2019-08-15T17:59:57+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/getUserLists
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/getUserLists [运行时间：0.775044s][吞吐率：1.29req/s] [内存消耗：2,109.33kb] [文件加载：58]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getUserLists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '280',
+  'content-type' => 'multipart/form-data; boundary=--------------------------641036057069121757017296',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '766b9ae3-5c26-4eba-93ff-44f80144005c',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'K05TZk1Lc29iTmd0eVRvRmV3RTdGRHdtM0FzVUVkMUtwTWJLdHV5Syt4aURKNVBldkF0MG9QTEtPMlN0QUh6V3ZsU2tleUxRbFZkeCthUnRNdzlPalE9PQ==',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->getUserLists[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.252014s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.080005s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`dp_id`,`a`.`account`,`a`.`uname`,`b`.`token`,`b`.`tk_uptime`,`b`.`tk_expire_time`,`c`.`group_id` FROM `user` `a` LEFT JOIN `user_extra` `b` ON `a`.`uid`=`b`.`uid` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` WHERE  `a`.`uid` = 1  AND `a`.`status` = 1 LIMIT 1 [ RunTime:0.080005s ]
+[ sql ] [ SQL ] SELECT COUNT(a.uid) AS tp_count FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` LIMIT 1 [ RunTime:0.079004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`ctime`,`a`.`status`,`a`.`uname`,`a`.`account`,`c`.`group_id`,d.title group_name FROM `user` `a` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` LEFT JOIN `auth_group` `d` ON `c`.`group_id`=`d`.`id` ORDER BY `a`.`uid` DESC LIMIT 0,20 [ RunTime:0.079005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user_extra` [ RunTime:0.079005s ]
+[ sql ] [ SQL ] UPDATE `user_extra`  SET `tk_expire_time`=1565870396  WHERE  `uid` = 1 [ RunTime:0.086005s ]
+[ error ] [8]未定义数组索引: page[D:\www\shuzheng\api\application\api\controller\Base.php:60]
+[ error ] [8]未定义数组索引: limit[D:\www\shuzheng\api\application\api\controller\Base.php:60]
+---------------------------------------------------------------
+[ 2019-08-15T18:03:36+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/changePwd
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/changePwd [运行时间：0.588033s][吞吐率：1.70req/s] [内存消耗：2,009.58kb] [文件加载：48]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'changePwd',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '615',
+  'content-type' => 'multipart/form-data; boundary=--------------------------076965508832292147376373',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '47ce9b67-4867-4a86-896f-973061cd730a',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'K05TZk1Lc29iTmd0eVRvRmV3RTdGRHdtM0FzVUVkMUtwTWJLdHV5Syt4aURKNVBldkF0MG9QTEtPMlN0QUh6V3ZsU2tleUxRbFZkeCthUnRNdzlPalE9PQ==',
+  'old_pwd' => '123',
+  'new_pwd1' => '123456',
+  'new_pwd2' => '123456',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->changePwd[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.352020s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`dp_id`,`a`.`account`,`a`.`uname`,`b`.`token`,`b`.`tk_uptime`,`b`.`tk_expire_time`,`c`.`group_id` FROM `user` `a` LEFT JOIN `user_extra` `b` ON `a`.`uid`=`b`.`uid` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` WHERE  `a`.`uid` = 1  AND `a`.`status` = 1 LIMIT 1 [ RunTime:0.068004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`dp_id`,`a`.`account`,`a`.`wx_openid`,`a`.`pwd`,`a`.`salt`,`a`.`uname`,`a`.`status`,`b`.`token`,`b`.`tk_uptime`,`b`.`tk_expire_time`,c.name company_name FROM `user` `a` LEFT JOIN `user_extra` `b` ON `a`.`uid`=`b`.`uid` LEFT JOIN `company` `c` ON `a`.`dp_id`=`c`.`id` WHERE  `a`.`account` = 'a06220226'  AND `a`.`status` = 1 LIMIT 1 [ RunTime:0.067004s ]
+---------------------------------------------------------------
+[ 2019-08-15T18:03:41+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/changePwd
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/changePwd [运行时间：0.494028s][吞吐率：2.02req/s] [内存消耗：2,006.23kb] [文件加载：48]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'changePwd',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '618',
+  'content-type' => 'multipart/form-data; boundary=--------------------------578735169460358734769331',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '0c19add9-ffaa-488e-b53a-411a37313431',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'K05TZk1Lc29iTmd0eVRvRmV3RTdGRHdtM0FzVUVkMUtwTWJLdHV5Syt4aURKNVBldkF0MG9QTEtPMlN0QUh6V3ZsU2tleUxRbFZkeCthUnRNdzlPalE9PQ==',
+  'old_pwd' => '123456',
+  'new_pwd1' => '123456',
+  'new_pwd2' => '123456',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->changePwd[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.307017s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.079004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`dp_id`,`a`.`account`,`a`.`uname`,`b`.`token`,`b`.`tk_uptime`,`b`.`tk_expire_time`,`c`.`group_id` FROM `user` `a` LEFT JOIN `user_extra` `b` ON `a`.`uid`=`b`.`uid` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` WHERE  `a`.`uid` = 1  AND `a`.`status` = 1 LIMIT 1 [ RunTime:0.080005s ]
+---------------------------------------------------------------
+[ 2019-08-15T18:03:46+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/changePwd
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/changePwd [运行时间：0.406023s][吞吐率：2.46req/s] [内存消耗：2,006.23kb] [文件加载：48]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'changePwd',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '618',
+  'content-type' => 'multipart/form-data; boundary=--------------------------467338539083352807961838',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '53f184c5-52fb-47ea-8b2e-a229d9f852ec',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'K05TZk1Lc29iTmd0eVRvRmV3RTdGRHdtM0FzVUVkMUtwTWJLdHV5Syt4aURKNVBldkF0MG9QTEtPMlN0QUh6V3ZsU2tleUxRbFZkeCthUnRNdzlPalE9PQ==',
+  'old_pwd' => '123456',
+  'new_pwd1' => '654321',
+  'new_pwd2' => '123456',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->changePwd[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.214012s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.084005s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`dp_id`,`a`.`account`,`a`.`uname`,`b`.`token`,`b`.`tk_uptime`,`b`.`tk_expire_time`,`c`.`group_id` FROM `user` `a` LEFT JOIN `user_extra` `b` ON `a`.`uid`=`b`.`uid` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` WHERE  `a`.`uid` = 1  AND `a`.`status` = 1 LIMIT 1 [ RunTime:0.083005s ]
+---------------------------------------------------------------
+[ 2019-08-15T18:03:52+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/user/changePwd
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/user/changePwd [运行时间：0.598034s][吞吐率：1.67req/s] [内存消耗：2,043.38kb] [文件加载：52]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'changePwd',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '717',
+  'content-type' => 'multipart/form-data; boundary=--------------------------716386480215559361299970',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '85ce41b2-8812-45ed-88c5-d4f5cb91206c',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'token' => 'K05TZk1Lc29iTmd0eVRvRmV3RTdGRHdtM0FzVUVkMUtwTWJLdHV5Syt4aURKNVBldkF0MG9QTEtPMlN0QUh6V3ZsU2tleUxRbFZkeCthUnRNdzlPalE9PQ==',
+  'old_pwd' => '123456',
+  'new_pwd1' => '654321',
+  'new_pwd2' => '654321',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\User->changePwd[ D:\www\shuzheng\api\application\api\controller\User.php ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.152008s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user` [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`dp_id`,`a`.`account`,`a`.`uname`,`b`.`token`,`b`.`tk_uptime`,`b`.`tk_expire_time`,`c`.`group_id` FROM `user` `a` LEFT JOIN `user_extra` `b` ON `a`.`uid`=`b`.`uid` LEFT JOIN `auth_group_access` `c` ON `a`.`uid`=`c`.`uid` WHERE  `a`.`uid` = 1  AND `a`.`status` = 1 LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] SELECT `a`.`uid`,`a`.`dp_id`,`a`.`account`,`a`.`wx_openid`,`a`.`pwd`,`a`.`salt`,`a`.`uname`,`a`.`status`,`b`.`token`,`b`.`tk_uptime`,`b`.`tk_expire_time`,c.name company_name FROM `user` `a` LEFT JOIN `user_extra` `b` ON `a`.`uid`=`b`.`uid` LEFT JOIN `company` `c` ON `a`.`dp_id`=`c`.`id` WHERE  `a`.`account` = 'a06220226'  AND `a`.`status` = 1 LIMIT 1 [ RunTime:0.067004s ]
+[ sql ] [ SQL ] UPDATE `user`  SET `salt`='438571',`pwd`='a3ae60411b892cf1d4f6877e7c613381'  WHERE  `uid` = 1 [ RunTime:0.074004s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `user_extra` [ RunTime:0.067004s ]
+[ sql ] [ SQL ] UPDATE `user_extra`  SET `tk_expire_time`=1565870632  WHERE  `uid` = 1 [ RunTime:0.073004s ]

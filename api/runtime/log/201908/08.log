@@ -1,0 +1,80 @@
+---------------------------------------------------------------
+[ 2019-08-08T16:47:13+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/goods/edit
+[ error ] [8]未定义数组索引: id
+[ error ] [1045]SQLSTATE[HY000] [1045] Access denied for user 'collection_test'@'localhost' (using password: YES)
+---------------------------------------------------------------
+[ 2019-08-08T16:47:36+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/goods/edit
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/goods/edit [运行时间：0.032002s][吞吐率：31.25req/s] [内存消耗：2,037.63kb] [文件加载：52]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'goods',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '595',
+  'content-type' => 'multipart/form-data; boundary=--------------------------846182114286675439335544',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '8ea484ec-795d-47f8-98e7-c6accedffa82',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'name' => '大米',
+  'unit' => '袋',
+  'type_id' => '1',
+  'safe_stock' => '10',
+  'status' => '1',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\Goods->edit[ D:\www\shuzheng\api\application\api\controller\Goods.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: id[D:\www\shuzheng\api\application\api\controller\Goods.php:56]
+[ error ] [1045]SQLSTATE[HY000] [1045] Access denied for user 'collection_test'@'localhost' (using password: YES)[D:\www\shuzheng\api\thinkphp\library\think\db\Connection.php:295]
+---------------------------------------------------------------
+[ 2019-08-08T16:48:36+08:00 ] 127.0.0.1 POST /shuzheng/api/public/index.php/api/goods/edit
+[ info ] 127.0.0.1/shuzheng/api/public/index.php/api/goods/edit [运行时间：0.858049s][吞吐率：1.17req/s] [内存消耗：2,084.84kb] [文件加载：53]
+[ info ] [ LANG ] D:\www\shuzheng\api\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'goods',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'content-length' => '595',
+  'content-type' => 'multipart/form-data; boundary=--------------------------510032280942759558520832',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=8sbg6kqmt7mglv1opngabttvk3',
+  'host' => '127.0.0.1',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/3.0.1',
+  'postman-token' => '7551ecba-40de-4739-aecf-ebf9212e5e6e',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'name' => '大米',
+  'unit' => '袋',
+  'type_id' => '1',
+  'safe_stock' => '10',
+  'status' => '1',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\api\controller\Goods->edit[ D:\www\shuzheng\api\application\api\controller\Goods.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: id[D:\www\shuzheng\api\application\api\controller\Goods.php:56]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.349020s ] mysql:host=rm-wz91kpl7zfkkt2c7nbo.mysql.rds.aliyuncs.com;dbname=shuzheng_test;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `goods` [ RunTime:0.087005s ]
+[ sql ] [ SQL ] INSERT INTO `goods` (`name` , `type_id` , `unit` , `safe_stock` , `status` , `ctime`) VALUES ('大米' , 1 , '袋' , 10 , 1 , '2019-08-08 16:48:35') [ RunTime:0.371022s ]
