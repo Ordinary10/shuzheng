@@ -1,0 +1,31 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/user/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "borderStyle": "white",
+    "color": "#9696BD",
+    "selectedColor": "#e64340",
+    "list": [{
+        "pagePath": "pages/index/index",
+        "iconPath": "image/shouye_nor.png",
+        "selectedIconPath": "image/shouye_sel.png",
+        "text": "申请"
+      },
+      {
+        "pagePath": "pages/user/index",
+        "iconPath": "image/shouye_nor.png",
+        "selectedIconPath": "image/shouye_sel.png",
+        "text": "个人中心"
+      }
+    ]
+  }
+}
