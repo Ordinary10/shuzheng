@@ -225,6 +225,10 @@ export default {
             height: 38px;
             line-height: 1.3;
             border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+            &:focus{
+              outline:none;
+            }
             &:hover{
               border-color: #D2D2D2;
             }
@@ -246,6 +250,7 @@ export default {
             padding: 0 5px;
             font-size: 14px;
             cursor: text;
+            transition: all 0.3s ease-in-out;
           }
           .login-btn{
             width: 100%;
