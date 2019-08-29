@@ -359,3 +359,9 @@ html{
 }
 
 //zhwend
+// xy start
+//下拉框超出model 继续显示
+.overstepModel .ivu-modal-body{
+  overflow-y: initial;
+}
+// xy end

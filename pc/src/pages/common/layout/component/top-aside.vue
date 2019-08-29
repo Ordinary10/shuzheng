@@ -10,30 +10,52 @@
        </Menu>
      </div>
      <div class="user_info" :class="{'user_info_right':PageMode!==1}">
-       <div class="refresh" @click.stop="refresh"><Icon type="md-refresh" /></div>
+       <div class="refresh" @click.stop="refresh"><Icon type="md-refresh"/></div>
        <Dropdown placement="bottom">
          <div class="Dropdown">
            <span class="user_img"></span>
            {{company_name}}
-           <Icon type="ios-arrow-down"></Icon>
+           <Icon type="ios-arrow-down"/>
          </div>
          <DropdownMenu slot="list">
-           <DropdownItem>
-             <Icon type="md-color-filter" />更换公司
+           <DropdownItem @click.native="shopModal1 = true">
+             <Icon type="md-color-filter"/>更换门店
            </DropdownItem>
-           <DropdownItem  @click.native="modal1 = true">
+           <DropdownItem  @click.native="settingModal1 = true">
              <Icon type="md-settings"/>系统设置
            </DropdownItem>
-           <DropdownItem>
-             <Icon type="ios-build-outline" />修改密码
+           <DropdownItem @click.native="PwdModal1 = true">
+             <Icon type="ios-build-outline"/>修改密码
            </DropdownItem>
            <DropdownItem @click.native="loginOut">
-             <Icon type="ios-power" />退出
+             <Icon type="ios-power"/>退出
            </DropdownItem>
          </DropdownMenu>
        </Dropdown>
        <Modal
-         v-model="modal1"
+         v-model="shopModal1"
+         title="更换门店"
+         :width='400'
+         class-name="vertical-center-modal"
+         @on-ok="saveShop"
+         class="overstepModel"
+       >
+         <Form :model="shopFormItem" :label-width="50">
+           <FormItem label="门店">
+             <Select v-model="shopFormItem.select">
+               <Option value="beijing">New York</Option>
+               <Option value="shanghai">London</Option>
+               <Option value="shenzhen">Sydney</Option>
+               <Option value="Sydney1">Sydney1</Option>
+               <Option value="Sydney2">Sydney2</Option>
+               <Option value="Sydney3">Sydney3</Option>
+               <Option value="Sydney4">Sydney4</Option>
+             </Select>
+           </FormItem>
+         </Form>
+       </Modal>
+       <Modal
+         v-model="settingModal1"
          title="系统设置"
          :width='400'
          class-name="vertical-center-modal"
@@ -54,6 +76,25 @@
            </FormItem>
          </Form>
        </Modal>
+       <Modal
+         v-model="PwdModal1"
+         title="修改密码"
+         :width='400'
+         class-name="vertical-center-modal"
+         @on-ok="savePwd"
+       >
+         <Form :model="PwdformItem" :label-width="60">
+           <FormItem label="旧密码">
+              <Input v-model="PwdformItem.pwd" placeholder="请输入旧密码"></Input>
+           </FormItem>
+           <FormItem label="新密码">
+             <Input v-model="PwdformItem.newPwd" placeholder="请输入新密码"></Input>
+           </FormItem>
+           <FormItem label="新密码">
+             <Input v-model="PwdformItem.newPwd2" placeholder="请再次输入新密码"></Input>
+           </FormItem>
+         </Form>
+       </Modal>
      </div>
    </div>
 </template>
@@ -64,10 +105,20 @@ import DynamicMenu from './dynamic-menu'
 export default {
   data () {
     return {
-      modal1: false,
+      settingModal1: false,
+      PwdModal1: false,
+      shopModal1: false,
       formItem: {
         TabPage: true,
         PageMode: '1'
+      },
+      shopFormItem: {
+        select: 'shanghai'
+      },
+      PwdformItem: {
+        pwd: '',
+        newPwd: '',
+        newPwd2: ''
       }
     }
   },
@@ -99,6 +150,12 @@ export default {
     saveInstall () {
       this.$store.commit('changeMode', this.formItem.PageMode)
       this.$store.commit('changeTab', this.formItem.TabPage ? 1 : 0)
+    },
+    saveShop () {
+      alert('门店')
+    },
+    savePwd () {
+      console.log(this.PwdformItem.pwd, this.PwdformItem.newPwd, this.PwdformItem.newPwd2)
     }
   },
   components: {
