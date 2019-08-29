@@ -364,4 +364,11 @@ html{
 .overstepModel .ivu-modal-body{
   overflow-y: initial;
 }
+//弹出框取消按钮
+.ivu-btn-text{
+  border: 1px solid #ccc;
+  &:hover{
+    border: 1px solid #e8eaec;
+  }
+}
 // xy end
