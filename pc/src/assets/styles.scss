@@ -311,8 +311,14 @@ body{
   margin-bottom: 10px;
   @include clearfix;
 }
-.ivu-form-item-label{
+.ivu-form .ivu-form-item-label{
   font-size: 14px;
+}
+.ivu-form .ivu-form-item-content{
+  font-size: 14px;
+  .ivu-radio-wrapper{
+    font-size: 14px;
+  }
 }
 .tabs-body .ivu-tabs-nav{
   float: right;

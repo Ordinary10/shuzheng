@@ -39,7 +39,7 @@
          class-name="vertical-center-modal"
          @on-ok="saveInstall"
        >
-         <Form :model="formItem" :label-width="80">
+         <Form :model="formItem" :label-width="100">
            <FormItem label="导航栏位置">
              <RadioGroup v-model="formItem.PageMode">
                <Radio label="1">上</Radio>
