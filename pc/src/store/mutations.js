@@ -10,11 +10,12 @@ export default {
   toggleNavCollapse (state) {
     state.isSidebarNavCollapse = !state.isSidebarNavCollapse
   },
+  // 框架设置  start
   setCrumbList (state, list) {
     state.crumbList = list
   },
-  changeMode (state) {
-    state.PageMode = state.PageMode === 1 ? 0 : 1
+  changeMode (state, data) {
+    state.PageMode = data
   },
   addTab (state, data) {
     let title = data.title
@@ -50,8 +51,9 @@ export default {
   CruTab (state, data) {
     state.Tab.cru = data
   },
-  changeTab (state) {
-    state.TabPage = state.TabPage === 1 ? 0 : 1
-    state.Tab.list = []
+  changeTab (state, data) {
+    state.TabPage = data
+    // state.Tab.list = []
   }
+  // 框架设置  end
 }

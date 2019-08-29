@@ -21,11 +21,8 @@
            <DropdownItem>
              <Icon type="md-color-filter" />更换公司
            </DropdownItem>
-           <DropdownItem  @click.native="changeMode">
-             <Icon type="md-color-filter"/>更换模式
-           </DropdownItem>
-           <DropdownItem  @click.native="changeTab">
-             <Icon type="md-color-filter"/>切换tab
+           <DropdownItem  @click.native="modal1 = true">
+             <Icon type="md-settings"/>系统设置
            </DropdownItem>
            <DropdownItem>
              <Icon type="ios-build-outline" />修改密码
@@ -35,6 +32,28 @@
            </DropdownItem>
          </DropdownMenu>
        </Dropdown>
+       <Modal
+         v-model="modal1"
+         title="系统设置"
+         :width='400'
+         class-name="vertical-center-modal"
+         @on-ok="saveInstall"
+       >
+         <Form :model="formItem" :label-width="80">
+           <FormItem label="导航栏位置">
+             <RadioGroup v-model="formItem.PageMode">
+               <Radio label="1">上</Radio>
+               <Radio label="0">左</Radio>
+             </RadioGroup>
+           </FormItem>
+           <FormItem label="多页面模式">
+             <i-switch v-model="formItem.TabPage" size="large">
+               <span slot="open">是</span>
+               <span slot="close">否</span>
+             </i-switch>
+           </FormItem>
+         </Form>
+       </Modal>
      </div>
    </div>
 </template>
@@ -44,10 +63,20 @@ import { mapState } from 'vuex'
 import DynamicMenu from './dynamic-menu'
 export default {
   data () {
-    return {}
+    return {
+      modal1: false,
+      formItem: {
+        TabPage: true,
+        PageMode: '1'
+      }
+    }
+  },
+  created () {
+    this.formItem.TabPage = this.TabPage === '1'
+    this.formItem.PageMode = String(this.PageMode)
   },
   computed: {
-    ...mapState(['isSidebarNavCollapse', 'loginData', 'crumbList', 'PageMode']),
+    ...mapState(['isSidebarNavCollapse', 'loginData', 'crumbList', 'PageMode', 'TabPage']),
     ...mapState('permission', ['sidebarMenu', 'currentMenu']),
     company_name () {
       if (this.loginData) {
@@ -66,11 +95,10 @@ export default {
       // window.location.reload()
       this.$emit('refresh')
     },
-    changeMode () {
-      this.$store.commit('changeMode')
-    },
-    changeTab () {
-      this.$store.commit('changeTab')
+    // 模式 tab设置
+    saveInstall () {
+      this.$store.commit('changeMode', this.formItem.PageMode)
+      this.$store.commit('changeTab', this.formItem.TabPage ? 1 : 0)
     }
   },
   components: {
@@ -90,7 +118,6 @@ export default {
   height: 60px;
   background:rgba(76,124,243,1);
   display: flex;
-  z-index: 1000;
   .sidebar-wrapper{
     flex: 1;
     background:inherit;
