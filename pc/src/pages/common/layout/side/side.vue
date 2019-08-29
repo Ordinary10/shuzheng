@@ -99,14 +99,21 @@ export default {
       &.ivu-menu-item-selected{
         @include active
       }
+
+    }
+    /deep/ .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title{
       .ivu-icon{
         font-size: 18px;
         transform: translateY(-2px);
       }
       .ivu-icon-ios-arrow-down{
-        font-size: 18px;
-        transform: translateY(-6px);
+        transform: translateY(-10px);
       }
+    }
+    /deep/ .ivu-menu-item>i{
+      margin: 0;
+      font-size: 22px;
+      transform: translateY(-2px);
     }
     /deep/ .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu{
       background-color: #fff;
@@ -129,7 +136,7 @@ export default {
       padding-left: 24px!important;
     }
     /deep/ .ivu-menu-opened .ivu-menu-submenu-title-icon{
-      transform: translateY(-6px) rotate(180deg) !important;
+      transform: translateY(-10px) rotate(180deg) !important;
     }
   }
 </style>
