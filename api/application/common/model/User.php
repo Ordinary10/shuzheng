@@ -77,11 +77,13 @@ class User extends Model
                 ->join('auth_group_access c', 'a.uid=c.uid', 'left')
                 ->join('auth_group d','c.group_id=d.id','left')
                 ->where($where)->count('a.uid');
-        if($count == 0) return  ['count'=>0,'lists'=>[]];
+        if($count == 0) {
+            return  ['count'=>0,'lists'=>[]];
+        }
         $lists = $this->alias('a')->where($where)
                 ->join('auth_group_access c', 'a.uid=c.uid', 'left')
                 ->join('auth_group d','c.group_id=d.id','left')
-                ->field('a.uid,a.ctime,a.status,a.uname,a.account,c.group_id,d.title group_name')
+                ->field('a.uid,a.ctime,a.status,a.uname,a.account,a.position,c.group_id,d.title group_name')
                 ->order('a.uid desc')
                 ->page($page)
                 ->select();
@@ -116,13 +118,14 @@ class User extends Model
      * @return int
      * @throws
      */
-    public function add_user($param)
+    public function addUser($param)
     {
         $this->startTrans();
         $salt = mt_rand(100000, 999999);
         $data = [
             'dp_id' => intval($param['dp_id']),
             'account' => $param['account'],
+            'position' => $param['position'],
             'uname' => empty($param['uname']) ? $param['account'] : $param['uname'],
             'salt' => $salt,
             'status'=>1,
@@ -158,6 +161,7 @@ class User extends Model
         $data = [
             'dp_id' => intval($param['dp_id']),
             'account' => $param['account'],
+            'position' => $param['position'],
             'uname' => $param['uname'],
             'status' => intval($param['status'])
         ];
@@ -169,8 +173,6 @@ class User extends Model
         $re = $this->where(['uid' => $uid])->update($data);
         return  $re ? $uid : false;
     }
-
-
 
     /**
      * 更新用户绑定的微信openid
