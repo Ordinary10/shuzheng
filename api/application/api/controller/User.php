@@ -21,11 +21,11 @@ class User extends Base {
     public function getUserLists()
     {
         $where = $this->condition();
-        $lists = self::$user_model->getLists($where,$this->makePage());
-        if(empty($lists['lists'])) {
+        $data = self::$user_model->getLists($where,$this->makePage());
+        if(empty($data['lists'])) {
             return self::success_result([],'查询成功',0);
         }
-        return self::success_result($lists['lists'],'查询成功',[],$lists['count']);
+        return self::success_result($data['lists'],'查询成功',[],$data['count']);
     }
 
     // 列表搜索条件
