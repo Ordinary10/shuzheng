@@ -90,7 +90,7 @@ class Auth {
     }
 
     //根据角色以树形结构组装权限节点
-    public function getRoleAuthTree($role_id=0,$ids = '*',$company_id)
+    public function getRoleAuthTree($role_id=0,$ids = '*')
     {
         $auth_rule_model=new AuthRule();
         $all_rules=$auth_rule_model->getRulesByIds($ids);
@@ -107,7 +107,7 @@ class Auth {
         $rule_ids=[];
         if(!empty($role_id)) {
             $auth_model = new AuthGroup();
-            $role_info = $auth_model->getInfoById($role_id,$company_id);
+            $role_info = $auth_model->getInfoById($role_id);
             if (empty($role_info))  return [];
             $rule_ids=$role_info['rules']=='*' ? '*' : explode(',',$role_info['rules']);
         }

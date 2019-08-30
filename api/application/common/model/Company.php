@@ -28,7 +28,8 @@ class Company extends Model
         $save_data = [
             'name' => $data['name'],
             'mobile' => $data['mobile'],
-            'staff_nums' => $data['staff_nums'],
+            'type' => $data['type'],
+            'location' => $data['location'],
             'remark' => $data['remark']
         ];
         if(empty($data['id'])) {

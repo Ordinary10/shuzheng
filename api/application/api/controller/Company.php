@@ -59,7 +59,7 @@ class Company extends Base {
         $status = $data['status'] == 1 ? 0:1;
         $re = self::$company_model->where(['id'=>self::$params['id']])->update(['status'=>$status]);
         if(!$re) {
-        	return  self::error_result('修改状态失败');
+            return  self::error_result('修改状态失败');
         }
         return self::success_result([],'修改状态成功');
     }
