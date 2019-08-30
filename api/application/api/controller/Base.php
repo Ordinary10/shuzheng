@@ -24,7 +24,7 @@ class Base extends Controller {
 
     use Result;
 
-    public function _initialize()
+    protected function _initialize()
     {
         header('Access-Control-Allow-Origin:*');
         $post = \request()->post();
@@ -32,7 +32,6 @@ class Base extends Controller {
         self::$params = array_merge($post,$get);      //小程序用request获取不到值
 
         $need_auth_check=!in_array(strtolower(\request()->controller()),array('login'));
-        dump($need_auth_check);
         $token = self::$params['token'];
         if(empty($token) && $need_auth_check){
             return self::error_result('参数错误！');
@@ -42,7 +41,6 @@ class Base extends Controller {
             self::$token=json_decode(Mycrypt::decrypt($token),true);
             self::$token['full_token']=$token;
             self::$userInfo=self::checkToken();
-            dd(self::$userInfo);
             if(!self::$userInfo){
                 header('Content-type: application/json');
                 echo json_encode(['code'=>-998,'msg'=>'token失效请重新登陆！','token'=>'']);
@@ -53,7 +51,6 @@ class Base extends Controller {
                 return self::throw_error_result('您无该操作权限，请联系管理员！',null,true);
             }*/
         }
-        dd(111);
     }
 
 
