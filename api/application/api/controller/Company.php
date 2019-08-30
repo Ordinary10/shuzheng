@@ -64,8 +64,14 @@ class Company extends Base {
         if(empty(self::$params)) {
             return  self::error_result('请填写要编辑的信息');
         }
+        if(empty(self::$params['id'])) {
+            $info = self::$company_model->where(['name'=>self::$params['name']])->find();
+            if(!empty($info)) {
+                return  self::error_result('公司名重复');
+            }
+        }
         $re = self::$company_model->editorCompany(self::$params);
-        if($re !=0 && $re !=1) {
+        if(!$re) {
             return  self::error_result('编辑信息失败');
         }
         return self::success_result([],'编辑信息成功');
