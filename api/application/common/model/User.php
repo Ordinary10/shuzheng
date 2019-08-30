@@ -83,7 +83,7 @@ class User extends Model
         $lists = $this->alias('a')->where($where)
                 ->join('auth_group_access c', 'a.uid=c.uid', 'left')
                 ->join('auth_group d','c.group_id=d.id','left')
-                ->field('a.uid,a.ctime,a.status,a.uname,a.account,a.position,c.group_id,d.title group_name')
+                ->field('a.uid,a.ctime,a.status,a.uname,a.account,a.position,c.group_id,d.title group_name,a.dp_id')
                 ->order('a.uid desc')
                 ->page($page)
                 ->select();

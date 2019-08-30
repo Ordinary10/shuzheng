@@ -8,6 +8,7 @@
  */
 namespace app\api\controller;
 use app\common\model\AuthGroupAccess;
+use app\common\service\CommonalityService;
 
 class User extends Base {
 
@@ -25,7 +26,17 @@ class User extends Base {
         if(empty($data['lists'])) {
             return self::success_result([],'查询成功',0);
         }
+        $this->disposeData($data['lists']);
         return self::success_result($data['lists'],'查询成功',[],$data['count']);
+    }
+
+    // 处理数据
+    public function disposeData(&$data)
+    {
+        $model = new CommonalityService();
+        foreach ($data as $k => &$val) {
+            $val['company_name'] = $model->getCompanyNameById($val['dp_id']);
+        }
     }
 
     // 列表搜索条件
@@ -41,6 +52,9 @@ class User extends Base {
         }
         if(!empty(self::$params['role'])) {
             $where['c.group_id'] = self::$params['role'];
+        }
+        if(!empty(self::$params['dp_id'])) {
+            $where['a.dp_id'] = self::$params['dp_id'];
         }
         return $where;
     }
