@@ -31,6 +31,10 @@ class Role extends Base {
     // 查询条件
     private function condition() {
         $where = [];
+        // 公司名
+        if(!empty(self::$params['title'])) {
+            $where['name'] = ['like','%'.self::$params['title'].'%']];
+        }
         return $where;
     }
 
@@ -71,8 +75,7 @@ class Role extends Base {
         if(!isset(self::$params['role_id'])) {
             return self::throw_error_result('请选着角色');
         }
-        //$rules = self::$role_model->getInfoById(self::$userInfo['group_id']);
-        $rules = self::$role_model->getInfoById(1);
+        $rules = self::$role_model->getInfoById(self::$userInfo['group_id']);
         if(empty($rules) || $rules['status']!=1) {
             return  self::error_result('该角色不存在或已被冻结');
         }

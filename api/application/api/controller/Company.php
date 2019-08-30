@@ -42,7 +42,7 @@ class Company extends Base {
         $where = [];
         // 公司名
         if(!empty(self::$params['name'])) {
-            $where['name'] = ['like','%'.self::$params['name'].'%']];
+            $where['name'] = ['like','%'.self::$params['name'].'%'];
         }
         // 经营类型
         if(!empty(self::$params['type'])) {
