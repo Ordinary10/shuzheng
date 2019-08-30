@@ -16,6 +16,14 @@ const dynamicRoutes = [
         meta: {
           name: '用户管理'
         }
+      },
+      {
+        path: 'company',
+        name: 'company',
+        component: () => import('@/pages/system-manage/company'),
+        meta: {
+          name: '公司管理'
+        }
       }
     ]
   }

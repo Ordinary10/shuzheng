@@ -75,14 +75,12 @@ export function tableRequest (options, data, Loadings) {
       }
     })
   }
-  let params = {}
-  params['limit'] = options.limit || 20
-  params['page'] = options.page || 1
-  params['params'] = data
-  params['token'] = window.sessionStorage.getItem('token') || ''
+  data.limit = options.limit || 20
+  data.page = options.page || 1
+  data.token = window.sessionStorage.getItem('token') || ''
   return service({
     'method': 'post',
-    'data': qs.stringify(params),
+    'data': qs.stringify(data),
     'url': `${common.API_PATH}/${options.fun}`
   })
 }
@@ -120,6 +118,5 @@ export function no_long_request (fun, data) {
     'method': 'post',
     'data': data,
     'url': `${common.API_PATH}/${fun}`
-
   })
 }

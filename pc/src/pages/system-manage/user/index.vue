@@ -89,6 +89,11 @@ export default {
             align: 'center'
           },
           {
+            key: 'uname',
+            title: '姓名',
+            align: 'center'
+          },
+          {
             key: 'position',
             title: '职位',
             align: 'center'
