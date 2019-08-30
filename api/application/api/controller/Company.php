@@ -32,8 +32,8 @@ class Company extends Base {
     public function disposeData(&$data)
     {
         foreach ($data as $k => &$val) {
-            $val['type'] = self::$company_model->companyType[$val['type']];
-            $val['status'] = self::$company_model->companyStatus[$val['status']];
+            $val['type_name'] = self::$company_model->companyType[$val['type']];
+            $val['status_name'] = self::$company_model->companyStatus[$val['status']];
         }
     }
 
