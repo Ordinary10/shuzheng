@@ -24,12 +24,37 @@ class Company extends Base {
     	if(empty($data['lists'])) {
             return self::success_result([],'查询成功',0);
         }
+        $this->disposeData($data['lists']);
         return self::success_result($data['lists'],'查询成功',[],$data['count']);
+    }
+
+    // 处理数据
+    public function disposeData(&$data)
+    {
+        foreach ($data as $k => &$val) {
+            $val['type'] = self::$company_model->companyType[$val['type']];
+            $val['status'] = self::$company_model->companyStatus[$val['status']];
+        }
     }
 
     // 列表搜索条件
     private function condition() {
         $where = [];
+        // 公司名
+        if(!empty(self::$params['name'])) {
+            $where['name'] = ['like','%'.self::$params['name'].'%']];
+        }
+        // 经营类型
+        if(!empty(self::$params['type'])) {
+            $where['type'] = self::$params['type'];
+        }
+        // 状态
+        if(!empty(self::$params['status'])) {
+            $where['status'] = self::$params['status'];
+            if(self::$params['status'] == 2) {
+                $where['status'] = 0;
+            }
+        }
         return $where;
     }
 

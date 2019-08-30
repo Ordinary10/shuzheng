@@ -27,6 +27,7 @@ class Base extends Controller {
 
     public function _initialize()
     {
+        /*
         header('Access-Control-Allow-Origin:*');
         $post = \request()->post();
         $get = \request()->get();
@@ -52,7 +53,7 @@ class Base extends Controller {
             /*if(!Auth::check(self::$post['fun'],self::$userInfo)){
                 return self::throw_error_result('您无该操作权限，请联系管理员！',null,true);
             }*/
-        }
+        //}
     }
 
 

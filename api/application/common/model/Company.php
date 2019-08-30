@@ -11,6 +11,17 @@ use think\Model;
 
 class Company extends Model
 {
+    // 经营类型
+    public $companyType = [
+        '1'=>'直营',
+        '2'=>'加盟'
+    ];
+
+    // 公司状态
+    public $companyStatus = [
+        '0'=>'禁用',
+        '1'=>'启用'
+    ];
 	// 获取公司列表
     public function getCompanyLists($where,$page)
     {
