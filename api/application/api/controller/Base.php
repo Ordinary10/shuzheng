@@ -16,6 +16,7 @@ use app\common\service\Mycrypt;
 use app\common\traits\Result;
 use think\Controller;
 use think\Request;
+use think\Response;
 
 class Base extends Controller {
     protected static $params = [];
@@ -24,17 +25,18 @@ class Base extends Controller {
 
     use Result;
 
-    protected function _initialize()
+    public function _initialize()
     {
         header('Access-Control-Allow-Origin:*');
         $post = \request()->post();
         $get = \request()->get();
         self::$params = array_merge($post,$get);      //小程序用request获取不到值
-
         $need_auth_check=!in_array(strtolower(\request()->controller()),array('login'));
         $token = self::$params['token'];
         if(empty($token) && $need_auth_check){
-            return self::error_result('参数错误！');
+            header('Content-type: application/json');
+            echo json_encode(['code'=>-998,'msg'=>'token失效请重新登陆！','token'=>'']);
+            exit();
         }
         //token及权限验证
         if($need_auth_check){

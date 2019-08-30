@@ -28,7 +28,6 @@ class Goods extends Base {
     //获取商品列表
     public function getGoodsLists()
     {
-        dd(self::$userInfo);
         $lists = self::$model->getLists($this->_listFilter(),self::makePage());
         return $this->success_result($lists['lists'],'查询成功',null,$lists['count']);
     }
