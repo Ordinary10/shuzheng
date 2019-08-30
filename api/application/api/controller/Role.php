@@ -33,7 +33,7 @@ class Role extends Base {
         $where = [];
         // 公司名
         if(!empty(self::$params['title'])) {
-            $where['name'] = ['like','%'.self::$params['title'].'%']];
+            $where['name'] = ['like','%'.self::$params['title'].'%'];
         }
         return $where;
     }
