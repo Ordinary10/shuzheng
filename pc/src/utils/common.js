@@ -1,6 +1,6 @@
 /* 全局方法对象 */
 const common = {
-  API_PATH: 'http://test.c.zdxrchina.com/index/index',
+  API_PATH: 'http://47.104.57.174:8070/api',
   pageInitInfo: JSON.parse(sessionStorage.getItem('pageInitInfo')) || {},
   /**
    * day 几天后 number

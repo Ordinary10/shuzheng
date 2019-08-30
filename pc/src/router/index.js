@@ -43,7 +43,7 @@ export const DynamicRoutes = [
     redirect: 'home',
     meta: {
       requiresAuth: true,
-      name: '租车管家'
+      name: '蜀蒸'
     },
     children: [
       {

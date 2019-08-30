@@ -72,35 +72,36 @@ export default {
         this.$refs.code.focus()
       } else {
         let res
-        let pagededa
+        // let pagededa
         let loginData
         res = await _this.$axios('login/doLogin', _this.loginForm)
-        if (res.status === 1) {
+        if (res.code === 1) {
           loginData = await _this.$store.dispatch('LOGIN_IN', res.data)
-          pagededa = await _this.$axios('Common/getPageInitInfo', {type: [
-            'order_state',
-            'company_info',
-            'role_info',
-            'plate_type',
-            'car_version',
-            'ware_house',
-            'car_status',
-            'house_info',
-            'charge_type',
-            'remit_type',
-            'car_service',
-            'car_type',
-            'insurance_type',
-            'order_nature',
-            'collection_type',
-            'driver_manage',
-            'financial_plan',
-            'repair_shop'
-          ]}, 'no')
-          if (pagededa.status === 1) {
-            sessionStorage.setItem('pageInitInfo', JSON.stringify(pagededa.data))
-            _this.$router.push('/home')
-          }
+          // pagededa = await _this.$axios('Common/getPageInitInfo', {type: [
+          //   'order_state',
+          //   'company_info',
+          //   'role_info',
+          //   'plate_type',
+          //   'car_version',
+          //   'ware_house',
+          //   'car_status',
+          //   'house_info',
+          //   'charge_type',
+          //   'remit_type',
+          //   'car_service',
+          //   'car_type',
+          //   'insurance_type',
+          //   'order_nature',
+          //   'collection_type',
+          //   'driver_manage',
+          //   'financial_plan',
+          //   'repair_shop'
+          // ]}, 'no')
+          // if (pagededa.status === 1) {
+          //   sessionStorage.setItem('pageInitInfo', JSON.stringify(pagededa.data))
+          //   _this.$router.push('/home')
+          // }
+          _this.$router.push('/home')
         } else if (res.msg === '验证码错误！') {
           _this.getCode()
         }
@@ -109,15 +110,14 @@ export default {
     /* 获取验证码 */
     getCode () {
       const _this = this
-      let randomNo = Math.random()
       let norand = _this.MathRand()
       _this.loginForm.loginRandom = norand
-      _this.codeImgSrc = `${_this.$common.API_PATH}?fun=login/captcha&random=${randomNo}&loginRandom=${norand}`
+      _this.codeImgSrc = `${_this.$common.API_PATH}/login/captcha?loginRandom=${norand}`
     },
     /* 获取验证码随机参数生成 */
     MathRand () {
       let Num = ''
-      for (var i = 0; i < 6; i++) {
+      for (var i = 0; i < 4; i++) {
         Num += Math.floor(Math.random() * 10)
       }
       return Num

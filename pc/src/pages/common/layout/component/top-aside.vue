@@ -14,7 +14,7 @@
        <Dropdown placement="bottom">
          <div class="Dropdown">
            <span class="user_img"></span>
-           {{company_name}}
+           {{username}}
            <Icon type="ios-arrow-down"/>
          </div>
          <DropdownMenu slot="list">
@@ -83,7 +83,7 @@
          class-name="vertical-center-modal"
          @on-ok="savePwd"
        >
-         <Form :model="PwdformItem" :label-width="60">
+         <Form :model="PwdformItem" :label-width="60" :rules="PwdRule">
            <FormItem label="旧密码">
               <Input v-model="PwdformItem.pwd" placeholder="请输入旧密码"></Input>
            </FormItem>
@@ -119,6 +119,9 @@ export default {
         pwd: '',
         newPwd: '',
         newPwd2: ''
+      },
+      PwdRule:{
+
       }
     }
   },
@@ -129,9 +132,9 @@ export default {
   computed: {
     ...mapState(['isSidebarNavCollapse', 'loginData', 'crumbList', 'PageMode', 'TabPage']),
     ...mapState('permission', ['sidebarMenu', 'currentMenu']),
-    company_name () {
+    username () {
       if (this.loginData) {
-        return this.loginData.userInfo.company_name
+        return this.loginData.userInfo.username
       } else {
         return ''
       }

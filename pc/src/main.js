@@ -8,6 +8,7 @@ import { request } from './utils/request'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import common from './utils/common'
+import validate from './utils/validate'
 import './assets/index.scss'
 import globalComponents from './components'
 import filters from './utils/global_filter'
@@ -30,6 +31,8 @@ Object.keys(globalComponents).forEach(key => {
 Vue.prototype.$axios = request
 // 原型上注册全局对象
 Vue.prototype.$common = common
+// 原型上注册验证函数
+Vue.prototype.$validate = validate
 Vue.use(iView)
 Vue.config.productionTip = false
 /* eslint-disable no-new */

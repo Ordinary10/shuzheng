@@ -10,7 +10,7 @@ const service = axios.create({
     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
     'Accept': '*/*'
   },
-  baseURL: common.API_PATH, // api的base_url
+  // baseURL: common.API_PATH, // api的base_url
   timeout: 15000 // 请求超时时间
 })
 // request拦截器
@@ -75,14 +75,14 @@ export function tableRequest (options, data, Loadings) {
     })
   }
   let params = {}
-  params['fun'] = options.fun
   params['limit'] = options.limit || 20
   params['page'] = options.page || 1
   params['params'] = data
   params['token'] = window.sessionStorage.getItem('token') || ''
   return service({
     'method': 'post',
-    'data': qs.stringify(params)
+    'data': qs.stringify(params),
+    'url': `${common.API_PATH}/${options.fun}`
   })
 }
 /* 其他数据请求的通用方法 */
@@ -104,24 +104,21 @@ export function request (fun, data, Loadings) {
       }
     })
   }
-  let params = {}
-  params['fun'] = fun
-  params['params'] = data
-  params['token'] = window.sessionStorage.getItem('token') || ''
+  data.token = window.sessionStorage.getItem('token') || ''
   return service({
     'method': 'post',
-    'data': qs.stringify(params)
+    'data': qs.stringify(data),
+    'url': `${common.API_PATH}/${fun}`
   })
 }
 
 /* 其他数据请求的通用方法 */
 export function no_long_request (fun, data) {
-  let params = {}
-  params['fun'] = fun
-  params['params'] = data
-  params['token'] = window.sessionStorage.getItem('token') || ''
+  data.token = window.sessionStorage.getItem('token') || ''
   return service({
     'method': 'post',
-    'data': qs.stringify(params)
+    'data': data,
+    'url': `${common.API_PATH}/${fun}`
+
   })
 }
