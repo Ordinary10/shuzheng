@@ -26,16 +26,17 @@ service.interceptors.response.use(
   response => {
     /* res.status不为1直接错误提示 */
     const res = response.data
-    if (res.status === 1) {
+    if (res.code === 1) {
       Spin.hide()
       return res
-    } else if (res.status === -998) {
+    } else if (res.code === -998) {
       Message.error({
         content: res.msg,
         duration: 5
       })
       store.commit('LOGIN_OUT')
       Spin.hide()
+      this.$router.push({path: '/login'})
     } else {
       Message.error({
         content: res.msg,

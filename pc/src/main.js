@@ -32,7 +32,7 @@ Vue.prototype.$axios = request
 // 原型上注册全局对象
 Vue.prototype.$common = common
 // 原型上注册验证函数
-Vue.prototype.$validate = validate
+Vue.prototype.$validateFun = validate
 Vue.use(iView)
 Vue.config.productionTip = false
 /* eslint-disable no-new */

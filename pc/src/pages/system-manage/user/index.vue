@@ -3,10 +3,15 @@
     <search>
       <div class="search-box">
         <!--搜索输入框-->
-        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入姓名" />
-        <Select v-model="searchData.store" class="search-input" size="large">
+        <Input class="search-input" v-model="searchData.username" size="large" placeholder="请输入姓名" />
+        <Input class="search-input" v-model="searchData.account" size="large" placeholder="请输入账号" />
+        <Select v-model="searchData.role" class="search-input" size="large">
 <!--          <Option value="">请输入门店</Option>-->
 <!--          <Option v-for="item in $common.pageInitInfo.car_type" :value="item.id" :key="'car_type'+item.id">{{ item.name }}</Option>-->
+        </Select>
+        <Select v-model="searchData.status" class="search-input" size="large">
+          <Option value="1">正常</Option>
+          <Option value="0">禁用</Option>
         </Select>
         <!--搜索按钮-->
         <div class="search-submit">
@@ -18,8 +23,8 @@
         </div>
         <!--常用操作按钮-->
         <div class="commonly-used-btn-box">
-          <Tooltip content="添加车辆" placement="bottom-start">
-            <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="addCar" style="font-size: 18px"></Button>
+          <Tooltip content="添加用户" placement="bottom-start">
+            <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="addUser" style="font-size: 18px"></Button>
           </Tooltip>
         </div>
       </div>
@@ -74,23 +79,41 @@ export default {
         fun: 'User/getUserLists ',
         columns: [
           {
-            key: 'name',
-            title: '门店'
+            key: 'uid',
+            title: '编号',
+            align: 'center'
           },
           {
-            key: 'plate_no',
-            title: '车牌',
-            width: 250,
+            key: 'account',
+            title: '账号',
+            align: 'center'
+          },
+          {
+            key: 'position',
+            title: '职位',
+            align: 'center'
+          },
+          {
+            key: 'group_name',
+            title: '角色',
+            align: 'center'
+          },
+          {
+            key: 'ctime',
+            title: '创建时间',
+            align: 'center'
+          },
+          {
+            title: '状态',
+            align: 'center',
             render: (h, params) => {
-              // console.log(params.row)
-              return <div>
-              </div>
+              if (params.row.status === 1) {
+                return <span class="green-color">正常</span>
+              } else {
+                return <span class="redtext">禁用</span>
+              }
             }
           },
-          {key: 'carVersion', title: '车型'},
-          {key: 'expire_time', title: '保险到期时间'},
-          {key: 'annual', title: '年审日期'},
-          {key: 'status', title: '状态'},
           {
             key: 'caozuo',
             title: '操作',
@@ -98,7 +121,6 @@ export default {
             align: 'center',
             render: (h, params) => {
               return <div class="table-btn-box">
-                <i-button class="table-btn" type="info" size="small" nativeOnClick={this.tableBtnClick.bind(this, params.row, 'see')}>查看</i-button>
                 <i-button class="table-btn" type="primary" size="small" nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>编辑</i-button>
               </div>
             }
@@ -106,16 +128,16 @@ export default {
         ]
       },
       searchData: {
-        name: '',
-        store: '',
+        username: '',
+        account: '',
+        status: '1',
+        role: ''
       },
       startSearchData: {
-        plate_no: '',
-        vin: '',
+        username: '',
+        account: '',
         status: '',
-        type: '',
-        department: '',
-        carVersion: ''
+        role: ''
       }
     }
   },
@@ -126,28 +148,9 @@ export default {
   mounted () {
   },
   methods: {
-    ok () {
-      this.$Message.info('Clicked ok')
-    },
-    cancel () {
-      this.$Message.info('Clicked cancel')
-    },
-    /* 批量上传成功后执行该回调函数 */
-    excelUploadSuccess () {
-      /* 关闭弹窗 */
-      this.excelModal = {
-        title: '',
-        isShow: false,
-        config: ''
-      }
-      /* 保留page刷新table */
-      this.pageRefresh()
-      /* 不保留page刷新table（同刷新按钮） */
-      // this.refresh()
-    },
-    /* 新增车辆 */
-    addCar () {
-      alert('添加车辆')
+    /* 新增用户 */
+    addUser () {
+      alert('添加')
     },
     /* 搜索按钮 */
     search () {

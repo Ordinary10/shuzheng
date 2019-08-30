@@ -81,19 +81,24 @@
          title="修改密码"
          :width='400'
          class-name="vertical-center-modal"
+         loading
          @on-ok="savePwd"
        >
-         <Form :model="PwdformItem" :label-width="60" :rules="PwdRule">
-           <FormItem label="旧密码">
-              <Input v-model="PwdformItem.pwd" placeholder="请输入旧密码"></Input>
+         <Form :model="PwdformItem" :label-width="80" ref="Pwdform" :rules="PwdRule">
+           <FormItem label="旧密码" prop="pwd">
+              <Input v-model="PwdformItem.pwd" type="password" placeholder="请输入旧密码"></Input>
            </FormItem>
-           <FormItem label="新密码">
-             <Input v-model="PwdformItem.newPwd" placeholder="请输入新密码"></Input>
+           <FormItem label="新密码" prop="newPwd">
+             <Input v-model="PwdformItem.newPwd" type="password" placeholder="请输入新密码"></Input>
            </FormItem>
-           <FormItem label="新密码">
-             <Input v-model="PwdformItem.newPwd2" placeholder="请再次输入新密码"></Input>
+           <FormItem label="新密码" prop="newPwd2">
+             <Input v-model="PwdformItem.newPwd2" type="password" placeholder="请再次输入新密码"></Input>
            </FormItem>
          </Form>
+         <div slot="footer">
+       <Button type="text" size="large" @click="pwdCancel">取消</Button>
+       <Button type="primary" size="large" @click="savePwd" @keyup.enter.native="savePwd">确定</Button>
+      </div>
        </Modal>
      </div>
    </div>
@@ -120,8 +125,27 @@ export default {
         newPwd: '',
         newPwd2: ''
       },
-      PwdRule:{
-
+      PwdRule: {
+        pwd: [
+          {required: true, message: '必输项不能为空', trigger: 'blur'},
+          {type: 'string', min: 6, message: '不能少于6个字符', trigger: 'blur'}
+        ],
+        newPwd: [
+          {required: true, message: '必输项不能为空', trigger: 'blur'},
+          {type: 'string', min: 6, message: '不能少于6个字符', trigger: 'blur'}
+        ],
+        newPwd2: [
+          {required: true, message: '必输项不能为空', trigger: 'blur'},
+          {type: 'string', min: 6, message: '不能少于6个字符', trigger: 'blur'},
+          {validator: (rule, value, callback) => {
+            if (this.PwdformItem.newPwd !== value) {
+              callback(new Error('两次输入的密码不一致'))
+            } else {
+              callback()
+            }
+          },
+          trigger: 'blur'}
+        ]
       }
     }
   },
@@ -157,8 +181,34 @@ export default {
     saveShop () {
       alert('门店')
     },
+    pwdCancel () {
+      this.PwdModal1 = false
+    },
     savePwd () {
-      console.log(this.PwdformItem.pwd, this.PwdformItem.newPwd, this.PwdformItem.newPwd2)
+      this.$refs.Pwdform.validate(async valid => {
+        if (valid) {
+          let obj = {
+            old_pwd: this.PwdformItem.pwd,
+            new_pwd1: this.PwdformItem.newPwd,
+            new_pwd2: this.PwdformItem.newPwd2
+          }
+          let res = await this.$axios('user/changePwd', obj)
+          if (res.code === 1) {
+            let _this = this
+            this.$Message.success({
+              content: res.msg,
+              duration: 1,
+              onClose: () => {
+                _this.PwdModal1 = false
+                _this.$store.commit('LOGIN_OUT')
+                _this.$router.push({path: '/login'})
+              }
+            })
+          }
+        } else {
+          return false
+        }
+      })
     }
   },
   components: {
