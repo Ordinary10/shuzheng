@@ -187,30 +187,20 @@ export default {
       width: 300px;
       height: 335px;
       position: absolute;
-      left: 80%;
-      top: 50%;
-      margin: -150px 0 0 -150px;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      -o-box-sizing: border-box;
+      left: 40%;
+      top: 25%;
       box-sizing: border-box;
       background: #fff;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
-      box-shadow: 0 0 50px #009688;
+      background:rgba(255,255,255,1);
+      box-shadow:0px 16px 37px 3px rgba(9,23,90,0.2);
+      border-radius:10px;
       .login-face{
-        background: url("../../../../static/images/face.jpg") no-repeat center center;
-        background-size: 100% 100%;
-        width: 110px;
-        height: 110px;
+        background: url("../../../../static/images/log.png") no-repeat center center;
+        width: 326px;
+        height: 254px;
         position: absolute;
-        border-radius: 50%;
-        box-shadow: 0 0 30px #009688;
-        border: 5px solid #fff;
-        top: -50px;
-        left: 50%;
-        transform: translateX(-50%);
+        left: 54%;
+        top: -34%;
       }
       .form{
         margin-top: 76px;
