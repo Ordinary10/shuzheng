@@ -5,11 +5,12 @@
         <!--搜索输入框-->
         <Input class="search-input" v-model="searchData.username" size="large" placeholder="请输入姓名" />
         <Input class="search-input" v-model="searchData.account" size="large" placeholder="请输入账号" />
-        <Select v-model="searchData.role" class="search-input" size="large">
-<!--          <Option value="">请输入门店</Option>-->
-<!--          <Option v-for="item in $common.pageInitInfo.car_type" :value="item.id" :key="'car_type'+item.id">{{ item.name }}</Option>-->
+        <Select v-model="searchData.role" class="search-input" size="large" placeholder="请选择角色">
+          <Option :value="String(item.id)" v-for="item of roleData" :key="item.id">
+            {{item.name}}
+          </Option>
         </Select>
-        <Select v-model="searchData.status" class="search-input" size="large">
+        <Select v-model="searchData.status" class="search-input" size="large" placeholder="请选择状态">
           <Option value="1">正常</Option>
           <Option value="0">禁用</Option>
         </Select>
@@ -35,15 +36,49 @@
     <!--查看详情-->
     <Modal
       v-model="modal1"
-      title="查看详情"
-      :footer-hide="true"
-      :width='1350'
+      :title="modal1Title"
+      :width='600'
       class-name="vertical-center-modal"
+      class="overstepModel"
     >
-      <div class="mod-body"
-           v-if="modal1"
-      >
-        查看详情
+      <Form :model="formItem" :label-width="100" :rules="rule" ref="form" >
+
+      <FormItem label="账号" prop="account">
+        <Input v-model="formItem.account" type="text" placeholder="请输入账号"></Input>
+      </FormItem>
+      <FormItem label="密码" prop="pwd" v-if="showPwd">
+        <Input v-model="formItem.pwd" type="password" placeholder="请输入密码"></Input>
+      </FormItem>
+      <FormItem label="姓名" prop="uname">
+        <Input v-model="formItem.uname" type="text" placeholder="请输入真实姓名"></Input>
+      </FormItem>
+        <FormItem label="职位" prop="position">
+          <Input v-model="formItem.position" type="text" placeholder="请输入职位"></Input>
+        </FormItem>
+      <FormItem label="角色分配" prop="role">
+        <Select v-model="formItem.role" class="search-input" size="large" placeholder="请选择角色">
+          <Option :value="String(item.id)" v-for="item of roleData" :key="item.id">
+            {{item.name}}
+          </Option>
+        </Select>
+      </FormItem>
+        <FormItem label="所属公司" prop="dp_id">
+          <Select v-model="formItem.dp_id" class="search-input" size="large" placeholder="请选择角色">
+            <Option :value="String(item.id)" v-for="item of companyData" :key="item.id">
+              {{item.name}}
+            </Option>
+          </Select>
+        </FormItem>
+        <FormItem label="状态" prop="status">
+          <Select v-model="formItem.status" class="search-input" size="large" placeholder="请选择角色">
+            <Option value="1">正常</Option>
+            <Option value="0">禁用</Option>
+          </Select>
+        </FormItem>
+      </Form>
+      <div slot="footer">
+        <Button type="text" size="large" @click="cancel">取消</Button>
+        <Button type="primary" size="large" @click="save">确定</Button>
       </div>
     </Modal>
   </div>
@@ -73,6 +108,8 @@ export default {
     return {
       isShow: false,
       modal1: false,
+      modal1Title: '',
+      showPwd: true,
       add: '',
       popupData: {},
       config: {
@@ -126,7 +163,9 @@ export default {
             align: 'center',
             render: (h, params) => {
               return <div class="table-btn-box">
-                <i-button class="table-btn" type="primary" size="small" nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>编辑</i-button>
+                <i-button class="table-btn" type="primary" size="small"
+                  nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>编辑
+                </i-button>
               </div>
             }
           }
@@ -135,7 +174,7 @@ export default {
       searchData: {
         username: '',
         account: '',
-        status: '1',
+        status: '',
         role: ''
       },
       startSearchData: {
@@ -143,7 +182,39 @@ export default {
         account: '',
         status: '',
         role: ''
-      }
+      },
+      formItem: {
+        account: '',
+        pwd: '',
+        role: '',
+        dp_id: '',
+        position: '',
+        uname: '',
+        status: '1'
+      },
+      rule: {
+        account: [{required: true, message: '必输项不能为空', trigger: 'blur'},
+          {type: 'string', min: 5, message: '最少5个字符', trigger: 'blur'},
+          {type: 'string', max: 10, message: '最多10个字符', trigger: 'blur'}
+        ],
+        pwd: [{required: true, message: '必输项不能为空', trigger: 'blur'},
+          {type: 'string', min: 6, message: '不能少于6个字符', trigger: 'blur'}
+        ],
+        uname: [{required: true, message: '必输项不能为空', trigger: 'blur'}
+        ],
+        position: [{required: true, message: '必输项不能为空', trigger: 'blur'}
+        ],
+        dp_id: [{required: true, message: '必输项不能为空', trigger: 'change'}
+        ],
+        role: [{required: true, message: '必输项不能为空', trigger: 'change'}
+        ],
+        status: [{required: true, message: '必输项不能为空', trigger: 'change'}
+        ]
+      },
+      // 角色选项数据
+      roleData: [],
+      // 门店选项数据
+      companyData: []
     }
   },
   components: {
@@ -151,11 +222,49 @@ export default {
   created () {
   },
   mounted () {
+    // 初始化
+    // this.init()
+    let _this = this
+    this.$common.PageInitInfo(['role', 'company']).then((res) => {
+      _this.roleData = res.data.role
+      _this.companyData = res.data.company
+    })
   },
   methods: {
+    async init () {
+      let data = await this.$common.test(['role', 'company'])
+      this.roleData = data.role
+      this.companyData = data.company
+    },
     /* 新增用户 */
     addUser () {
-      alert('添加')
+      this.showPwd = true
+      this.modal1Title = '新增用户'
+      for (let key in this.formItem) {
+        this.formItem[key] = ''
+      }
+      this.formItem.uid = 0
+      this.formItem.status = '1'
+      this.modal1 = true
+    },
+    cancel () {
+      this.modal1 = false
+    },
+    save () {
+      let _this = this
+      _this.$refs.form.validate(valid => {
+        if (valid) {
+          console.log(_this.formItem)
+          _this.$axios('user/edit', this.formItem).then((res) => {
+            if (res.code === 1) {
+              this.modal1 = false
+              _this.pageRefresh()
+            }
+          })
+        } else {
+          return false
+        }
+      })
     },
     /* 搜索按钮 */
     search () {
@@ -183,13 +292,30 @@ export default {
     /* table操作栏 */
     tableBtnClick (item, type) {
       switch (type) {
-        case 'see':
-          this.modal1 = !this.modal1
-          this.add = item.plate_no
-          this.popupData = {car_id: item.id}
+        case 'change':
+          // let title = item.status === 0 ? '启用' : '禁用'
+          // let content = item.status === 0 ? `<p>确认启用${item.account}？</p>` : `<p>确认禁用${item.account}？</p>`
+          // this.$Modal.confirm({
+          //   title,
+          //   content,
+          //   onOk: () => {
+          //     // this.$axios('Company/renewalCompany', {id: item.id}, true).then((res) => {
+          //     //   this.pageRefresh()
+          //     // })
+          //   }
+          // })
           break
         case 'editor':
-          alert(`编辑：${item.id}`)
+          this.showPwd = false
+          this.modal1Title = '编辑用户'
+          this.formItem.uid = item.uid
+          this.formItem.position = item.position
+          this.formItem.account = item.account
+          this.formItem.uname = String(item.uname)
+          this.formItem.status = String(item.status)
+          this.formItem.dp_id = String(item.dp_id || '')
+          this.formItem.role = String(item.group_id || '')
+          this.modal1 = true
           break
       }
     }

@@ -1,4 +1,5 @@
 /* 全局方法对象 */
+import { request } from './request'
 const common = {
   API_PATH: 'http://47.104.57.174:8070/api',
   pageInitInfo: JSON.parse(sessionStorage.getItem('pageInitInfo')) || {},
@@ -91,6 +92,15 @@ const common = {
     try { m += s1.split('.')[1].length } catch (e) {}
     try { m += s2.split('.')[1].length } catch (e) {}
     return Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m)
+  },
+  // 获得基础数据
+  /**  type  数组  包含以下
+   *  role 角色
+   *  company 门店
+   *
+   * */
+  PageInitInfo: function (type) {
+    return request('Common/getPageInitInfo', {type}, true)
   }
 }
 export default common

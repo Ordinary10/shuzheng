@@ -22,7 +22,7 @@ const dynamicRoutes = [
         name: 'company',
         component: () => import('@/pages/system-manage/company'),
         meta: {
-          name: '公司管理'
+          name: '门店管理'
         }
       },
       {

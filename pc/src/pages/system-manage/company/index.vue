@@ -3,7 +3,7 @@
     <search>
       <div class="search-box">
         <!--搜索输入框-->
-        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入公司名称" />
+        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入门店名称" />
         <Select v-model="searchData.type" class="search-input" size="large" placeholder="请选择经营方式">
           <Option value="1">直营</Option>
           <Option value="2">加盟</Option>
@@ -39,11 +39,11 @@
       class-name="vertical-center-modal"
     >
         <Form :model="formItem" :label-width="100" :rules="rule" ref="form" >
-          <FormItem label="公司名称" prop="name">
-            <Input v-model="formItem.name" type="text" placeholder="请输入公司名"></Input>
+          <FormItem label="门店名称" prop="name">
+            <Input v-model="formItem.name" type="text" placeholder="请输入门店名"></Input>
           </FormItem>
-          <FormItem label="公司地址" prop="location">
-            <Input v-model="formItem.location" type="text" placeholder="请输入公司地址"></Input>
+          <FormItem label="门店地址" prop="location">
+            <Input v-model="formItem.location" type="text" placeholder="请输入门店地址"></Input>
           </FormItem>
           <FormItem label="电话号码" prop="mobile">
             <Input v-model="formItem.mobile" type="text" placeholder="请输入电话号码"></Input>
@@ -97,7 +97,7 @@ export default {
         columns: [
           {
             key: 'name',
-            title: '公司名称',
+            title: '门店名称',
             align: 'center'
           },
           {
@@ -147,7 +147,7 @@ export default {
                   <i-button class="table-btn" type="primary" size="small"
                     nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>编辑
                   </i-button>
-                  <i-button className="table-btn" type="error" size="small"
+                  <i-button class="table-btn" type="error" size="small"
                     nativeOnClick={this.tableBtnClick.bind(this, params.row, 'change')}>禁用
                   </i-button>
                 </div>
