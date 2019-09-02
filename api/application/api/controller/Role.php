@@ -44,6 +44,11 @@ class Role extends Base {
         if(empty(self::$params)) {
             return  self::error_result('请输入要编辑的信息');
         }
+        // 验证角色名字是否重复
+        $id = self::$role_model->where(['title'=>self::$params['title']])->value('id');
+        if(self::$params['id'] != $id) {
+            return self::error_result('角色名重复');
+        }
         $re = self::$role_model->editorRole(self::$params);
         if(!$re) {
             return self::error_result('编辑角色失败');
