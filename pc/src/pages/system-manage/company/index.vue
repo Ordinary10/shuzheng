@@ -22,7 +22,7 @@
         </div>
         <!--常用操作按钮-->
         <div class="commonly-used-btn-box">
-          <Tooltip content="添加用户" placement="bottom-start">
+          <Tooltip content="添加门店" placement="bottom-start">
             <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="addCompany" style="font-size: 18px"></Button>
           </Tooltip>
         </div>
@@ -201,6 +201,7 @@ export default {
   },
   methods: {
     addCompany () {
+      this.$refs.form.resetFields()
       this.formItem = {type: '1'}
       this.modal1Title = '添加用户'
       this.modal1 = true
@@ -213,8 +214,14 @@ export default {
       _this.$refs.form.validate(valid => {
         if (valid) {
           _this.$axios('Company/editorCompany', this.formItem, true).then((res) => {
-            this.modal1 = false
-            _this.pageRefresh()
+            if (res.code === 1) {
+              _this.$Message.success({
+                content: res.msg,
+                duration: 2
+              })
+              this.modal1 = false
+              _this.pageRefresh()
+            }
           })
         } else {
           return false
@@ -249,7 +256,7 @@ export default {
       switch (type) {
         case 'change':
           let title = item.status === 0 ? '启用' : '禁用'
-          let content = item.status === 0 ? `<p>确认启用${item.name}？</p>` : `<p>确认禁用${item.name}？</p>`
+          let content = `<p>确认${item.status === 0 ? '启动' : '禁用'}<span class="prominentText">${item.name}</span>？</p>`
           this.$Modal.confirm({
             title,
             content,
@@ -261,6 +268,7 @@ export default {
           })
           break
         case 'editor':
+          this.$refs.form.resetFields()
           this.modal1Title = '编辑用户'
           this.formItem.id = item.id
           this.formItem.name = item.name

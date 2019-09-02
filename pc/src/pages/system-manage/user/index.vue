@@ -11,6 +11,7 @@
           </Option>
         </Select>
         <Select v-model="searchData.status" class="search-input" size="large" placeholder="请选择状态">
+          <Option value="all">全部</Option>
           <Option value="1">正常</Option>
           <Option value="0">禁用</Option>
         </Select>
@@ -174,13 +175,13 @@ export default {
       searchData: {
         username: '',
         account: '',
-        status: '',
+        status: 'all',
         role: ''
       },
       startSearchData: {
         username: '',
         account: '',
-        status: '',
+        status: 'all',
         role: ''
       },
       formItem: {
@@ -243,6 +244,7 @@ export default {
       for (let key in this.formItem) {
         this.formItem[key] = ''
       }
+      this.$refs.form.resetFields();
       this.formItem.uid = 0
       this.formItem.status = '1'
       this.modal1 = true
@@ -254,9 +256,12 @@ export default {
       let _this = this
       _this.$refs.form.validate(valid => {
         if (valid) {
-          console.log(_this.formItem)
           _this.$axios('user/edit', this.formItem).then((res) => {
             if (res.code === 1) {
+              _this.$Message.success({
+                content: res.msg,
+                duration: 2
+              })
               this.modal1 = false
               _this.pageRefresh()
             }
@@ -306,6 +311,7 @@ export default {
           // })
           break
         case 'editor':
+          this.$refs.form.resetFields();
           this.showPwd = false
           this.modal1Title = '编辑用户'
           this.formItem.uid = item.uid
