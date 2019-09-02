@@ -61,8 +61,9 @@ class Company extends Base {
     // 编辑门店
     public function editorCompany()
     {
-        if(empty(self::$params)) {
-            return  self::error_result('请填写要编辑的信息');
+        $validate = $this->validate(self::$params,'Company.edit');
+        if($validate !== true) {
+            return self::error_result($validate);
         }
         if(empty(self::$params['id'])) {
             $info = self::$company_model->where(['name'=>self::$params['name']])->find();

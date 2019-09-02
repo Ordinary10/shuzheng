@@ -41,7 +41,7 @@ class Role extends Base {
     // 编辑角色管理
     public function editorRole()
     {
-        if(!empty(self::$params)) {
+        if(empty(self::$params)) {
             return  self::error_result('请输入要编辑的信息');
         }
         $re = self::$role_model->editorRole(self::$params);
