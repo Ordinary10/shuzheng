@@ -50,6 +50,9 @@
       <FormItem label="密码" prop="pwd" v-if="showPwd">
         <Input v-model="formItem.pwd" type="password" placeholder="请输入密码"></Input>
       </FormItem>
+      <FormItem label="密码" prop="editorPwd" v-else :class="{'editorPwd':!showPwd}">
+        <Input v-model="formItem.pwd" type="password" placeholder="请输入密码,不修改则不填写"></Input>
+      </FormItem>
       <FormItem label="姓名" prop="uname">
         <Input v-model="formItem.uname" type="text" placeholder="请输入真实姓名"></Input>
       </FormItem>
@@ -210,7 +213,9 @@ export default {
         role: [{required: true, message: '必输项不能为空', trigger: 'change'}
         ],
         status: [{required: true, message: '必输项不能为空', trigger: 'change'}
-        ]
+        ],
+        // 修改用户时使用 防止报错的
+        editorPwd: []
       },
       // 角色选项数据
       roleData: [],
@@ -232,11 +237,6 @@ export default {
     })
   },
   methods: {
-    async init () {
-      let data = await this.$common.test(['role', 'company'])
-      this.roleData = data.role
-      this.companyData = data.company
-    },
     /* 新增用户 */
     addUser () {
       this.showPwd = true
@@ -244,7 +244,7 @@ export default {
       for (let key in this.formItem) {
         this.formItem[key] = ''
       }
-      this.$refs.form.resetFields();
+      this.$refs.form.resetFields()
       this.formItem.uid = 0
       this.formItem.status = '1'
       this.modal1 = true
@@ -311,7 +311,7 @@ export default {
           // })
           break
         case 'editor':
-          this.$refs.form.resetFields();
+          this.$refs.form.resetFields()
           this.showPwd = false
           this.modal1Title = '编辑用户'
           this.formItem.uid = item.uid
@@ -329,5 +329,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
+/*去除编辑时密码必填样式*/
+/deep/ .ivu-form-item-required.editorPwd .ivu-form-item-label:before {
+  content: '';
+}
 </style>
