@@ -168,12 +168,9 @@ export default {
       searchData: {
         name: '',
         type: '',
-        status: '1'
+        status: ''
       },
       startSearchData: {
-        name: '',
-        type: '',
-        status: ''
       },
       formItem: {
         id: '',
@@ -216,9 +213,9 @@ export default {
       _this.$refs.form.validate(valid => {
         if (valid) {
           _this.$axios('Company/editorCompany', this.formItem, true).then((res) => {
+            this.modal1 = false
             _this.pageRefresh()
           })
-          this.modal1 = false
         } else {
           return false
         }

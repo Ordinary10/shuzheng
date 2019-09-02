@@ -24,6 +24,14 @@ const dynamicRoutes = [
         meta: {
           name: '公司管理'
         }
+      },
+      {
+        path: 'role',
+        name: 'role',
+        component: () => import('@/pages/system-manage/role'),
+        meta: {
+          name: '角色管理'
+        }
       }
     ]
   }
