@@ -46,7 +46,7 @@ class Role extends Base {
         }
         // 验证角色名字是否重复
         $id = self::$role_model->where(['title'=>self::$params['title']])->value('id');
-        if(self::$params['id'] != $id) {
+        if(self::$params['id'] != $id && !empty($id)) {
             return self::error_result('角色名重复');
         }
         $re = self::$role_model->editorRole(self::$params);
@@ -66,7 +66,7 @@ class Role extends Base {
         if(empty($status)) {
         	return self::error_result('没有对应的角色信息');
         }
-        $status = $data['status'] == 1 ? -1:1;
+        $status = $status == 1 ? -1:1;
         $re = self::$role_model->where(['id'=>self::$params['id']])->update(['status'=>$status]);
         if(!$re) {
         	return  self::error_result('修改状态失败');
