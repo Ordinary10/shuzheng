@@ -185,7 +185,7 @@ export default {
     .login-form{
       padding: 0 20px;
       width: 300px;
-      height: 335px;
+      height: 420px;
       position: absolute;
       left: 40%;
       top: 25%;
@@ -195,15 +195,12 @@ export default {
       box-shadow:0px 16px 37px 3px rgba(9,23,90,0.2);
       border-radius:10px;
       .login-face{
-        background: url("../../../../static/images/log.png") no-repeat center center;
-        width: 326px;
-        height: 254px;
-        position: absolute;
-        left: 54%;
-        top: -34%;
+        margin: 26px auto 26px auto;
+        background: url("../../../../static/images/logo.png") no-repeat center center;
+        width: 108px;
+        height: 132px;
       }
       .form{
-        margin-top: 76px;
         .form-item{
           height: 38px;
           margin-bottom: 16px;
@@ -214,7 +211,7 @@ export default {
             border: 1px solid #e6e6e6;
             height: 38px;
             line-height: 1.3;
-            border-radius: 2px;
+            border-radius: 6px;
             transition: all 0.3s ease-in-out;
             &:focus{
               outline:none;
@@ -248,13 +245,13 @@ export default {
             height: 38px;
             line-height: 38px;
             padding: 0 18px;
-            background-color: #009688;
+            background-color: #ec181f;
             color: #fff;
             white-space: nowrap;
             text-align: center;
             font-size: 14px;
             border: none;
-            border-radius: 2px;
+            border-radius: 6px;
             cursor: pointer;
             &:hover{
               opacity: .8;
