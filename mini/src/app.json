@@ -1,15 +1,9 @@
 {
   "pages": [
-    "pages/common/login/main",
-    "pages/procurement/main",
-    "pages/outbound/main"
+    "pages/login/main",
+    "pages/outbound/main",
+    "pages/procurement/main"
   ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
-  },
   "tabBar": {
     "list": [
       {
@@ -21,6 +15,12 @@
         "text": "出库"
       }
     ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "蜀蒸",
+    "navigationBarTextStyle": "black"
   },
   "usingComponents": {
     "i-input": "../../../static/dist/input/index",

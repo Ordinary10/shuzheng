@@ -1,6 +1,6 @@
 # shuzheng
 
-> A Mpvue project
+> shzuheng
 
 ## Build Setup
 

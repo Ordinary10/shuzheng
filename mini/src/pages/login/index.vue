@@ -36,7 +36,6 @@
     created() {
     },
     mounted(){
-      // this.autoLogin()
     },
     methods:{
       /*自动登录*/
@@ -63,36 +62,40 @@
       },
       /*账号密码登录*/
       login(){
-        const _this = this
-        if (_this.form.account === "") {
-          return _this.$common.normal_tip("请输入登录账号");
-        }
-        if (_this.form.pwd === "") {
-          return _this.$common.normal_tip("请输入登录密码");
-        }
-        wx.login({
-          success: (res) => {
-            let code = res.code
-            if(!code){
-              return _this.$common.normal_tip('小程序登录失败，请重试')
-            }
-            _this.form.code = code
-            _this.$ajax('login/mimiProgramLogin',_this.form,function (res) {
-              if(res.status === 1){
-                _this.$store.commit('setToken', res.data.token)
-                // _this.$store.commit('setRole', res.data.show_page.role)
                 wx.switchTab({
-                  url:'/pages/admin/search/main'
+                  url:'/pages/procurement/main'
                 })
-              }
-            },function (res) {
-              _this.$common.normal_tip(res.msg)
-            })
-          },
-          fail: (res)=>{
-            _this.$common.normal_tip('小程序登录失败，请重试')
-          }
-        })
+
+        // const _this = this
+        // if (_this.form.account === "") {
+        //   return _this.$common.normal_tip("请输入登录账号");
+        // }
+        // if (_this.form.pwd === "") {
+        //   return _this.$common.normal_tip("请输入登录密码");
+        // }
+        // wx.login({
+        //   success: (res) => {
+        //     let code = res.code
+        //     if(!code){
+        //       return _this.$common.normal_tip('小程序登录失败，请重试')
+        //     }
+        //     _this.form.code = code
+        //     _this.$ajax('login/mimiProgramLogin',_this.form,function (res) {
+        //       if(res.status === 1){
+        //         _this.$store.commit('setToken', res.data.token)
+        //         // _this.$store.commit('setRole', res.data.show_page.role)
+        //         wx.switchTab({
+        //           url:'/pages/admin/search/main'
+        //         })
+        //       }
+        //     },function (res) {
+        //       _this.$common.normal_tip(res.msg)
+        //     })
+        //   },
+        //   fail: (res)=>{
+        //     _this.$common.normal_tip('小程序登录失败，请重试')
+        //   }
+        // })
       },
       /*密码框聚焦*/
       next_input(){

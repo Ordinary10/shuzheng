@@ -23,28 +23,43 @@
             {
               name: '采购',
               path: '/pages/procurement/main',
-              img: '../../../static/images/cgd1.png',
-              active_img: '../../../static/images/cgd2.png'
+              img: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15673875747481.png',
+              active_img: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15673875775113.png'
             },
             {
               name: '出库',
               path: '/pages/outbound/main',
-              img: '../../../static/images/ckcgd1.png',
-              active_img: '../../../static/images/ckcgd2.png'
+              img: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15673875808670.png',
+              active_img: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15673875855758.png'
             }
           ],
-          salesman:[]
+          procurement:[
+            {
+              name: '采购',
+              path: '/pages/procurement/main',
+              img: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15673875747481.png',
+              active_img: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15673875775113.png'
+            }
+          ],
+          outbound: [
+            {
+              name: '出库',
+              path: '/pages/outbound/main',
+              img: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15673875808670.png',
+              active_img: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15673875855758.png'
+            }
+          ]
         },
         tabs:[]
       }
     },
     created() {
-      this.tabs = this.navData[this.get_role]||[]
+      this.tabs = this.navData[this.get_role]||['admin']
     },
     mounted(){
     },
     onShow(){
-      this.tabs = this.navData[this.get_role]||[]
+      this.tabs = this.navData[this.get_role]||['admin']
     },
     methods: {
       /**

@@ -1,14 +1,15 @@
 <template>
-  <div class="">
+  <div class="page-login">
     <i-toast id="toast" />
-    出库页
-    <LtabBar nowPath="/pages/outbound/main"></LtabBar>
+    出库单
+    <LtabBar nowPath="/pages/outbound/main" key="outbound"></LtabBar>
   </div>
 </template>
 
 <script>
+  import LtabBar from '@/components/LtabBar/index'
   export default {
-    components: {},
+    components: {LtabBar},
 
     data() {
     },
@@ -16,6 +17,7 @@
     created() {
     },
     mounted(){
+      wx.hideTabBar()
     },
     methods:{
     }

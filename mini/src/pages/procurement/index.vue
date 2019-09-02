@@ -1,14 +1,15 @@
 <template>
-  <div class="">
+  <div class="page-login">
     <i-toast id="toast" />
-    采购页
-    <LtabBar nowPath="/pages/procurement/main"></LtabBar>
+    采购单
+    <LtabBar nowPath="/pages/procurement/main" key="procurement"></LtabBar>
   </div>
 </template>
 
 <script>
+  import LtabBar from '@/components/LtabBar/index'
   export default {
-    components: {},
+    components: {LtabBar},
 
     data() {
     },
@@ -16,6 +17,7 @@
     created() {
     },
     mounted(){
+      wx.hideTabBar()
     },
     methods:{
     }
