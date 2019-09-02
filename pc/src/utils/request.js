@@ -66,7 +66,7 @@ export function tableRequest (options, data, Loadings) {
             'class': 'demo-spin-icon-load',
             props: {
               type: 'ios-loading',
-              size: 18,
+              size: 30,
               name: 'iconLoading'
             }
           }),
@@ -94,7 +94,7 @@ export function request (fun, data, Loadings) {
             'class': 'demo-spin-icon-load',
             props: {
               type: 'ios-loading',
-              size: 18,
+              size: 30,
               name: 'iconLoading'
             }
           }),
