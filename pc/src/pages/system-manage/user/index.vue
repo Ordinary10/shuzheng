@@ -125,6 +125,11 @@ export default {
             align: 'center'
           },
           {
+            key: 'company_name',
+            title: '门店',
+            align: 'center'
+          },
+          {
             key: 'account',
             title: '账号',
             align: 'center'

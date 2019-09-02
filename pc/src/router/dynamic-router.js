@@ -34,6 +34,25 @@ const dynamicRoutes = [
         }
       }
     ]
+  },
+  {
+    path: '/goods',
+    component: () => import('@/pages/goods-manage'),
+    name: 'goods-manage',
+    meta: {
+      name: '商品管理',
+      icon: 'iconxitongguanli'
+    },
+    children: [
+      {
+        path: 'list',
+        name: 'goods-list',
+        component: () => import('@/pages/goods-manage/list'),
+        meta: {
+          name: '商品列表'
+        }
+      }
+    ]
   }
 ]
 export default dynamicRoutes
