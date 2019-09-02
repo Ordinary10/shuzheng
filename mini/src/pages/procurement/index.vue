@@ -15,9 +15,11 @@
     },
 
     created() {
+
     },
     mounted(){
       wx.hideTabBar()
+      console.log(this.$store)
     },
     methods:{
     }

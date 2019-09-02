@@ -1,6 +1,6 @@
 // 公共方法
 import CONFIG from './config'
-
+import tabBarRoleList from './tabBarRoleList'
 const {$Toast} = require('../../static/dist/base/index')
 import state from '@/store/state'
 
@@ -136,10 +136,11 @@ const common = {
     return year + seperator1 + month + seperator1 + strDate;
   },
   getRole() {
-    return state.role || 'admin';
+    let roleName = state.role || 'admin'
+    return tabBarRoleList[roleName]
   },
   getToken() {
-    return state.token || 'eG1vOGpxWkdGTUFhd2tmQlVGbGw4bTM1UWhSN3RyeTRwTDFBT1hjMC81SXA5RE5UM2xmZzFjelN4SnMzS1hId2Y5L1Y3b2lYMlhQNjZsRlEvcmwvamc9PQ=='
+    return state.token || ''
   }
 
 }

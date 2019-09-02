@@ -15,6 +15,7 @@
     },
 
     created() {
+
     },
     mounted(){
       wx.hideTabBar()

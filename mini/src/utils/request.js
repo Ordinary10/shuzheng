@@ -10,6 +10,9 @@ fly.interceptors.request.use((request) => {
 // 添加响应拦截器
 fly.interceptors.response.use(
   (response) => {
+    if(response.data.code !== 1) {
+      common.error_tip(response.data.msg)
+    }
     return response // 请求成功之后将返回值返回
   },
   (err) => {
@@ -23,13 +26,13 @@ fly.interceptors.response.use(
 fly.config.baseURL = CONFIG.API_PATH
 /**
  * 接口请求方法
- * @param fun 请求的方法  如 order/lists
  * @param param 请求的参数 json格式
  * @param sucCallBack 请求成功的回调
  * @param failCallBack  请求失败的回调
  * @param LoadingStr 是否显示loading层，默认不展示 值为展示内容  false不展示，其余情况展示
  */
 const proxy = (fun, param, sucCallBack, failCallBack, LoadingStr) => {
+
   if (!param) return false;
   let body = {}
   let showLoading = LoadingStr !== false; //是否展示加载层
@@ -37,12 +40,13 @@ const proxy = (fun, param, sucCallBack, failCallBack, LoadingStr) => {
     common.loading_tip(LoadingStr || '加载中...');
   }
   body['token'] = common.getToken();
-  body['fun'] = fun;
-  body.params = param;
-  fly.post('index/index', body).then(res => {
+  Object.keys(param).forEach(key => {
+    body[key] = param[key]
+  })
+  fly.post(fun, body).then(res => {
     showLoading && common.close_toast()
     let data = res.data
-    let status = parseInt(data.status)
+    let status = parseInt(data.code)
     if (status === 1) { // 接口请求成功
       return typeof sucCallBack === 'function' ? sucCallBack(data) : common.success_tip(data.msg);
     } else if (status === 0) { // 接口请求失败
