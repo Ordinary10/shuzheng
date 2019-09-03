@@ -57,9 +57,20 @@ class Goods extends Base {
     public function editGoods()
     {
         $validate = $this->validate(self::$params,'goods.edit_goods');
-        if($validate !== true)  return self::error_result($validate);
+        if($validate !== true) {
+            return self::error_result($validate);
+        }
+        // 判断名字是否唯一
+        if(empty(self::$params['id'])) {
+            $info =  self::$model->where(['pid'=>self::$params['pid'],'type_name'=>self::$params['type_name']])->value('type_id');
+            if(!empty($info)) {
+                return  self::error_result('类目已添加');
+            }
+        }
         $re = self::$model->edit(self::$params,intval(self::$params['id']));
-        if($re === false)   return  self::error_result('操作失败');
+        if($re === false) {
+            return  self::error_result('操作失败');
+        }
         return self::success_result();
     }
 
@@ -67,11 +78,10 @@ class Goods extends Base {
     public function getGoodsType()
     {
         $data = self::$goods_type_model->getLists();
-        foreach ($data as &$val){
-            $val['id'] = $val['type_id'];
+        if(empty($data)) {
+            return self::success_result($re,'查询成功');
         }
-        $re = array2tree($data);
-        return self::success_result($re);
+        return self::success_result(array2tree($data),'查询成功');
     }
 
     //编辑或新增商品类型

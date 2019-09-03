@@ -17,7 +17,7 @@ class GoodsType extends Model {
 
     public function getLists()
     {
-        $data = $this->select();
+        $data = $this->field('type_id as id,pid,type_name')->select();
         return empty($data) ? [] : collection($data)->toArray();
     }
     
@@ -29,9 +29,8 @@ class GoodsType extends Model {
         ];
         if(empty($id)){
             return  $this->insert($save_data);
-        }else{
-            return  $this->where(['type_id'=>$id])->update($save_data);
         }
+        return  $this->where(['type_id'=>$id])->update($save_data);
     }
 
     public function del($ids)
