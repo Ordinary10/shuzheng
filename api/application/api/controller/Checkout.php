@@ -10,9 +10,6 @@
 
 namespace app\api\controller;
 
-
-
-
 use app\common\model\CheckoutOrder;
 use app\common\service\CheckoutOrderService;
 use app\common\service\CommonService;
@@ -62,6 +59,7 @@ class Checkout extends Base {
         $info['status_name'] = self::$order_model->status[$info['status']];
         $info['store_name'] = $common_service->getStoreNameByUid($info['uid'],[$info['uid']]);
         $info['detail_info'] = self::$order_model->getDetail($order_id);
+        $info['progress'] = self::$service->getProgress($order_id);
         return self::success_result($info);
     }
 

@@ -22,6 +22,14 @@ class CheckoutOrder extends Model {
         'apply'=>'待审核'
     ];
 
+    public $progress_status = [
+        'done'=>'签收货物',
+        'distribute'=>'完成配货',
+        'deny'=>'拒绝审核',
+        'pass'=>'通过审核',
+        'apply'=>'发起申请'
+    ];
+
     /**
      * 获取列表
      * @param $where array

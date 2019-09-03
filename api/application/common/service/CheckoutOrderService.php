@@ -51,7 +51,7 @@ class CheckoutOrderService extends BaseService {
         $detail_data = [];
         foreach ($param['data'] as $val){
             if(empty($val['goods_id']) || empty($val['amount'])){
-                return self::setError('采购数量和单价必填');
+                return self::setError('采购数量必填');
             }
             $detail_data[] = [
                 'goods_id'=>$val['goods_id'],
@@ -176,6 +176,16 @@ class CheckoutOrderService extends BaseService {
     private function dealProgress($order_id,$uid,$progress,$remark = ''){
         $progress_model = new CheckoutOrderProgress();
         return  $progress_model->addProgress($order_id,$uid,$progress,$remark);
+    }
+
+    public function getProgress($order_id)
+    {
+        $progress_model = new CheckoutOrderProgress();
+        $progress = $progress_model->getProgressByOrderId($order_id);
+        foreach ($progress as &$val){
+            $val['status_name'] = self::$order_model->progress_status[$val['status']];
+        }
+        return $progress;
     }
     
 }
