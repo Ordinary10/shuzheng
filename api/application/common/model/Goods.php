@@ -44,12 +44,11 @@ class Goods extends Model {
             'safe_stock' => intval($param['safe_stock']),
         ];
         if(empty($id)) {
-            'status' => 1,
+            $save_data['status'] = 1;
             $save_data['ctime'] = date('Y-m-d H:i:s');
             return $this->insertGetId($save_data);
-        }else{
-            $re = $this->where(['id'=>$id])->update($save_data);
-            return $re === false ? false : $id;
         }
+        $re = $this->where(['id'=>$id])->update($save_data);
+        return $re === false ? false : $id;
     }
 }
