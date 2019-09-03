@@ -42,9 +42,9 @@ class Goods extends Model {
             'type_id' => $param['type_id'],
             'unit' => $param['unit'],
             'safe_stock' => intval($param['safe_stock']),
-            'status' => $param['status'],
         ];
         if(empty($id)) {
+            'status' => 1,
             $save_data['ctime'] = date('Y-m-d H:i:s');
             return $this->insertGetId($save_data);
         }else{
