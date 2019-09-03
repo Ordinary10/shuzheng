@@ -168,6 +168,8 @@ export default {
     loginOut () {
       this.$store.commit('LOGIN_OUT')
       this.$router.push('/login')
+      // 重置vuex 防止数据紊乱
+      window.location.reload()
     },
     refresh () {
       // window.location.reload()
