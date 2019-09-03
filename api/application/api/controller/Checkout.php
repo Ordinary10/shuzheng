@@ -53,6 +53,18 @@ class Checkout extends Base {
         return  $where;
     }
 
+    public function getDetailInfo()
+    {
+        if(empty(self::$params['order_id']))    return  self::error_result('信息错误');
+        $order_id = self::$params['order_id'];
+        $info = self::$order_model->getInfoById($order_id);
+        $common_service = new CommonService();
+        $info['status_name'] = self::$order_model->status[$info['status']];
+        $info['store_name'] = $common_service->getStoreNameByUid($info['uid'],[$info['uid']]);
+        $info['detail_info'] = self::$order_model->getDetail($order_id);
+        return self::success_result($info);
+    }
+
     //出库申请
     public function apply()
     {

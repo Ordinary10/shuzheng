@@ -46,6 +46,23 @@ class CheckoutOrder extends Model {
         $data['lists'] = empty($lists) ? [] : collection($lists)->toArray();
         return  $data;
     }
+
+    /**
+     * 获取出库单详情
+     * @param $id int
+     * @throws
+     * @return array
+     */
+    public function getDetail($id)
+    {
+        $info = $this->alias('a')
+            ->join('checkout_order_detail b','a.id=b.order_id','left')
+            ->join('goods g','b.goods_id=g.id','left')
+            ->where(['a.id'=>$id])
+            ->field('b.*,g.name')
+            ->select();
+        return  empty($info) ? [] : collection($info)->toArray();
+    }
     
     //新增或编辑出库单
     public function edit($order_info,$id = 0)
