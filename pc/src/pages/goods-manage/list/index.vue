@@ -38,20 +38,14 @@
           <FormItem label="商品名称" prop="name">
             <Input v-model="formItem.name" type="text" placeholder="请输入商品名"></Input>
           </FormItem>
-          <FormItem label="商品地址" prop="location">
-            <Input v-model="formItem.location" type="text" placeholder="请输入商品地址"></Input>
+          <FormItem label="单位" prop="unit">
+            <Input v-model="formItem.unit" type="text" placeholder="请输入商品单位"></Input>
           </FormItem>
-          <FormItem label="电话号码" prop="mobile">
-            <Input v-model="formItem.mobile" type="text" placeholder="请输入电话号码"></Input>
+          <FormItem label="类目">
+            <Input v-model="formItem.type_id" type="text" placeholder="请输入类目"></Input>
           </FormItem>
-          <FormItem label="经营方式" prop="gender">
-            <RadioGroup v-model="formItem.type">
-              <Radio label="1">直营</Radio>
-              <Radio label="2">加盟</Radio>
-            </RadioGroup>
-          </FormItem>
-          <FormItem label="备注" >
-            <Input v-model="formItem.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入备注"></Input>
+          <FormItem label="安全库存" prop="safe_stock">
+            <Input v-model="formItem.safe_stock" type="text" placeholder="请输入安全库存值"></Input>
           </FormItem>
         </Form>
         <div slot="footer">
@@ -169,7 +163,6 @@ export default {
         status: ''
       },
       formItem: {
-        id: '',
         name: '',
         unit: '',
         type_id: '',
@@ -178,13 +171,12 @@ export default {
       rule: {
         name: [{required: true, message: '必输项不能为空', trigger: 'blur'}
         ],
-        location: [{required: true, message: '必输项不能为空', trigger: 'blur'}
+        unit: [{required: true, message: '必输项不能为空', trigger: 'blur'}
         ],
-        mobile: [
+        safe_stock: [
           {required: true, message: '必输项不能为空', trigger: 'blur'},
-          {validator: this.$validateFun.phone,
-            trigger: 'blur'}
-        ]
+          {validator: this.$validateFun.Znumber, trigger: 'blur'}
+          ]
       }
     }
   },
@@ -256,6 +248,7 @@ export default {
             title,
             content,
             onOk: () => {
+              alert('没有')
               // this.$axios('Company/renewalCompany', {id: item.id}, true).then((res) => {
               //   this.pageRefresh()
               // })
@@ -267,10 +260,8 @@ export default {
           this.modal1Title = '编辑商品'
           this.formItem.id = item.id
           this.formItem.name = item.name
-          this.formItem.location = item.location
-          this.formItem.type = String(item.type)
-          this.formItem.mobile = item.mobile
-          this.formItem.remark = item.remark
+          this.formItem.unit = item.unit
+          this.formItem.safe_stock = item.safe_stock
           this.modal1 = true
           break
       }

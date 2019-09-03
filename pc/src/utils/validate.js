@@ -21,7 +21,21 @@ const validate = {
     } else {
       callback()
     }
+  },
+  // 验证是否为正整数
+  Znumber: (rule, value, callback) => {
+    if (!value) {
+      return callback(new Error('必输项不能为空'))
+    }
+    if (!Number(value)) {
+      callback(new Error('请输入正整数'))
+    } else if (!(/(^[1-9]\d*$)/.test(value))) {
+      callback(new Error('请输入正整数'))
+    } else {
+      callback()
+    }
   }
+
 }
 
 export default validate
