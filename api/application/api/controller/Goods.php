@@ -60,13 +60,6 @@ class Goods extends Base {
         if($validate !== true) {
             return self::error_result($validate);
         }
-        // 判断名字是否唯一
-        if(empty(self::$params['id'])) {
-            $info =  self::$model->where(['pid'=>self::$params['pid'],'type_name'=>self::$params['type_name']])->value('type_id');
-            if(!empty($info)) {
-                return  self::error_result('类目已添加');
-            }
-        }
         $re = self::$model->edit(self::$params,intval(self::$params['id']));
         if($re === false) {
             return  self::error_result('操作失败');
@@ -88,9 +81,20 @@ class Goods extends Base {
     public function editGoodsType()
     {
         $validate = $this->validate(self::$params,'goods.edit_goods_type');
-        if($validate !== true)  return self::error_result($validate);
+        if($validate !== true) {
+            return self::error_result($validate);
+        }
+        // 判断名字是否唯一
+        if(empty(self::$params['id'])) {
+            $info =  self::$goods_type_model->where(['pid'=>self::$params['pid'],'type_name'=>self::$params['type_name']])->value('type_id');
+            if(!empty($info)) {
+                return  self::error_result('类目已添加');
+            }
+        }
         $re = self::$goods_type_model->edit(self::$params,intval(self::$params['id']));
-        if($re === false)   return  self::error_result('操作失败');
+        if($re === false) {
+            return  self::error_result('操作失败');
+        }
         return self::success_result();
     }
 
