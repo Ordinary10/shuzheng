@@ -10,8 +10,8 @@ return  [
     'tk_uptime'=>7200,              //token更新周期
     'tk_expire_time'=>7200,         //token过期时间
 
-    'wx_appId'=>'wx1949ba76de811d60',
-    'wx_appSecret'=>'6a44925cd541a5e928e3f6b5ed76510e',
+    'wx_appId'=>'wx2a9bb7fe55423cc1',
+    'wx_appSecret'=>'4f21a11a5a0452cc7d21803d176597ce',
 
     //腾讯云身份证识别接口配置
     'tencentyun_img'=>[
