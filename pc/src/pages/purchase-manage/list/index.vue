@@ -3,11 +3,9 @@
     <search>
       <div class="search-box">
         <!--搜索输入框-->
-        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入门店名称" />
-        <Select v-model="searchData.status" class="search-input" size="large" placeholder="请选择状态">
-          <Option value="1">启用</Option>
-          <Option value="0">禁用</Option>
-        </Select>
+        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入申请人姓名" />
+        <DatePicker class="search-input" type="date" placeholder="申请时间"  value='yyyy-MM-dd' @on-change="searchData.apply_time=$event" v-model="searchData.apply_time"></DatePicker>
+
         <!--搜索按钮-->
         <div class="search-submit">
           <Tooltip content="更多搜索条件" placement="bottom-start">
@@ -33,32 +31,206 @@
       :title="modal1Title"
       :width='600'
       class-name="vertical-center-modal"
+      :footer-hide="true"
     >
-        <Form :model="formItem" :label-width="100" :rules="rule" ref="form" >
-          <FormItem label="门店名称" prop="name">
-            <Input v-model="formItem.name" type="text" placeholder="请输入门店名"></Input>
-          </FormItem>
-          <FormItem label="门店地址" prop="location">
-            <Input v-model="formItem.location" type="text" placeholder="请输入门店地址"></Input>
-          </FormItem>
-          <FormItem label="电话号码" prop="mobile">
-            <Input v-model="formItem.mobile" type="text" placeholder="请输入电话号码"></Input>
-          </FormItem>
-          <FormItem label="经营方式" prop="gender">
-            <RadioGroup v-model="formItem.type">
-              <Radio label="1">直营</Radio>
-              <Radio label="2">加盟</Radio>
-            </RadioGroup>
-          </FormItem>
-          <FormItem label="备注" >
-            <Input v-model="formItem.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入备注"></Input>
-          </FormItem>
-        </Form>
-        <div slot="footer">
-        <Button type="text" size="large" @click="cancel">取消</Button>
-        <Button type="primary" size="large" @click="save">确定</Button>
-        </div>
+      <Row v-if="seeData">
+        <Col span="12">
+          <div class="ma-spacing">
+            申请人：<span class="key_text">{{ApplyData.uname}}</span>
+          </div>
+        </Col>
+        <Col span="12">
+          <div class="ma-spacing">
+            门店：<span class="key_text">{{ApplyData.status}}</span>
+          </div>
+        </Col>
+        <Col span="12">
+          <div class="ma-spacing">
+            申请时间：<span class="key_text">{{ApplyData.ctime}}</span>
+          </div>
+        </Col>
+        <Col span="12">
+          <div class="ma-spacing">
+            状态：<span class="key_text">{{ApplyData.status_name}}</span>
+          </div>
+        </Col>
+        <Col span="12">
+          <div class="ma-spacing">
+            总金额：<span class="key_text">{{ApplyData.total_amount}}</span>
+          </div>
+        </Col>
+        <Divider />
+        <Col span="24" v-for="(list,index) in seeData" :key="list.id">
+          <Col span="12">
+            <div class="ma-spacing">
+              商品名称：<span class="key_text">{{list.name}}</span>
+            </div>
+          </Col>
+          <Col span="12">
+            <div class="ma-spacing">
+              买入金额：<span class="key_text">{{list.buy_amount}}</span>
+            </div>
+          </Col>
+          <Col span="12">
+            <div class="ma-spacing">
+              申请金额：<span class="key_text">{{list.apply_amount}}</span>
+            </div>
+          </Col>
+          <Col span="12">
+            <div class="ma-spacing">
+              购买金额：<span class="key_text">{{list.buy_money}}</span>
+            </div>
+          </Col>
+          <Col span="12">
+            <div class="ma-spacing">
+              预计金额：<span class="key_text">{{list.estimated_money}}</span>
+            </div>
+          </Col>
+          <Col span="12">
+            <div class="ma-spacing">
+              单位：<span class="key_text">{{list.unit}}</span>
+            </div>
+          </Col>
+          <Col span="12">
+            <div class="ma-spacing">
+              单价：<span class="key_text">{{list.unit_price}}</span>
+            </div>
+          </Col>
+          <Col span="12">
+            <div class="ma-spacing">
+              商品条码：<span class="key_text">{{list.bar_code}}</span>
+            </div>
+          </Col>
+          <Col span="12">
+            <div class="ma-spacing">
+              仓库：<span class="key_text">{{list.place}}</span>
+            </div>
+          </Col>
+
+        </Col>
+      </Row>
     </Modal>
+    <!--审核-->
+    <Modal
+      v-model="modal2"
+      :title="modal1Title"
+      :width='980'
+      class-name="vertical-center-modal"
+      :footer-hide="true"
+    >
+      <Row v-if="seeData">
+        <Row>
+          <Col span="6">
+            <div class="ma-spacing">
+              申请人：<span class="key_text">{{ApplyData.uname}}</span>
+            </div>
+          </Col>
+          <Col span="6">
+            <div class="ma-spacing">
+              门店：<span class="key_text">{{ApplyData.status}}</span>
+            </div>
+          </Col>
+          <Col span="6">
+            <div class="ma-spacing">
+              申请时间：<span class="key_text">{{ApplyData.ctime}}</span>
+            </div>
+          </Col>
+          <Col span="6">
+            <div class="ma-spacing">
+              状态：<span class="key_text">{{ApplyData.status_name}}</span>
+            </div>
+          </Col>
+        </Row>
+        <Divider />
+        <Row class="examine-body roll">
+          <Col span="24" v-for="(list,index) in seeData" :key="list.id">
+            <Row>
+              <Col span="6">
+                <div class="ma-spacing">
+                  商品名称：<span class="key_text">{{list.name}}</span>
+                </div>
+              </Col>
+              <Col span="6">
+                <div class="ma-spacing">
+                  买入金额：<span class="key_text">{{list.buy_amount}}</span>
+                </div>
+              </Col>
+              <Col span="6">
+                <div class="ma-spacing">
+                  申请金额：<span class="key_text">{{list.apply_amount}}</span>
+                </div>
+              </Col>
+              <Col span="6">
+                <div class="ma-spacing">
+                  购买金额：<span class="key_text">{{list.buy_money}}</span>
+                </div>
+              </Col>
+              <Col span="6">
+                <div class="ma-spacing">
+                  预计金额：<span class="key_text">{{list.estimated_money}}</span>
+                </div>
+              </Col>
+              <Col span="6">
+                <div class="ma-spacing">
+                  单位：<span class="key_text">{{list.buy_amount}}</span>
+                </div>
+              </Col>
+              <Col span="6">
+                <div class="ma-spacing">
+                  单价：<span class="key_text">{{list.buy_money}}</span>
+                </div>
+              </Col>
+              <Col span="6">
+                <div class="ma-spacing">
+                  商品条码：<span class="key_text">{{list.bar_code}}</span>
+                </div>
+              </Col>
+              <Col span="6">
+                <div class="ma-spacing">
+                  仓库：<span class="key_text">{{list.place}}</span>
+                </div>
+              </Col>
+            </Row>
+            <Divider />
+
+          </Col>
+
+        </Row>
+
+        <Row>
+          <Col span="6" v-for="(list,index) in seeData" :key="list.id">
+            <div class="ma-spacing">
+              <span class="key_text">{{list.name}}:数量:{{list.buy_amount}}小计：{{list.buy_money}}</span>
+            </div>
+          </Col>
+          <Col span="24">
+            <div class="ma-spacing">
+              总金额：<span class="key_text">{{ApplyData.total_amount}}</span>
+            </div>
+          </Col>
+
+        </Row>
+        <Form ref="formValidate">
+          <Col span="24">
+            <div class="ma-nomb-spacing">
+
+              <FormItem label="审核意见">
+                <Input v-model="examineremark" type="textarea" placeholder="审核意见" />
+              </FormItem>
+            </div>
+          </Col>
+
+          <Col span="24">
+            <div class="ma-spacing">
+              <Button type="success" @click="examine('pass',examineremark)">同意</Button>
+              <Button type="error" @click="examine('deny',examineremark)">拒绝</Button>
+            </div>
+          </Col>
+        </Form>
+
+      </Row>
+    </Modal>
+
   </div>
 </template>
 <script type="text/jsx">
@@ -85,91 +257,77 @@ export default {
     return {
       isShow: false,
       modal1: false,
+      modal2:false,
+      modal3:false,
+      seeData:'',
+      ApplyData:'',
+      examineremark:'',
       modal1Title: '',
       popupData: {},
       config: {
-        fun: 'goods/getGoodsLists',
+        fun: 'purchaseOrder/getLists',
         columns: [
           {
-            key: 'name',
-            title: '商品名称',
+            key: 'uname',
+            title: '申请人',
             align: 'center'
           },
           {
-            key: 'unit',
-            title: '单位',
-            align: 'center'
-          },
-          {
-            key: 'safe_stock',
-            title: '安全库存',
-            align: 'center'
-          },
-          {
-            key: 'stock',
-            title: '当前库存',
+            key: 'status',
+            title: '门店',
             align: 'center'
           },
           {
             key: 'ctime',
-            title: '创建时间',
+            title: '申请时间',
             align: 'center'
           },
           {
+            key: 'status_name',
             title: '状态',
-            align: 'center',
-            render: (h, params) => {
-              if (params.row.status === 1) {
-                return <span class="green-color">正常</span>
-              } else {
-                return <span class="redtext">禁用</span>
-              }
-            }
+            align: 'center'
+          },
+          {
+            key: 'total_amount',
+            title: '金额',
+            align: 'center'
           },
           {
             key: 'caozuo',
             title: '操作',
-            width: 160,
             align: 'center',
             render: (h, params) => {
-              if (params.row.status === 1) {
                 return <div class="table-btn-box">
                   <i-button class="table-btn" type="primary" size="small"
-                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>编辑
+                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>查看
                   </i-button>
                   <i-button class="table-btn" type="error" size="small"
-                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'change')}>禁用
+                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'change')}>审核
+                  </i-button>
+                  <i-button className="table-btn" type="error" size="small"
+                            nativeOnClick={this.tableBtnClick.bind(this, params.row, 'storage')}>入库
                   </i-button>
                 </div>
-              } else {
-                return <div class="table-btn-box">
-                  <i-button class="table-btn" type="primary" size="small"
-                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>编辑
-                  </i-button>
-                  <i-button class="table-btn" type="success" size="small"
-                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'change')}>启动
-                  </i-button>
-                </div>
-              }
             }
           }
         ]
       },
       searchData: {
         name: '',
-        status: ''
+        apply_time: ''
       },
       startSearchData: {
         name: '',
-        status: ''
+        apply_time: ''
       },
       formItem: {
-        id: '',
-        name: '',
-        location: '',
-        mobile: '',
-        remark: '',
-        type: ''
+        id: '',   //id
+        name: '', //申请人
+        time:'',  //时间
+        store:'', //门店
+        type:'',  //加盟
+        state:'', //状态
+        remark:'' //备注
       },
       rule: {
         name: [{required: true, message: '必输项不能为空', trigger: 'blur'}
@@ -191,6 +349,9 @@ export default {
   mounted () {
   },
   methods: {
+    handleSubmit(name) {
+
+    },
     add () {
       this.$refs.form.resetFields()
       this.formItem = {type: '1'}
@@ -244,32 +405,32 @@ export default {
     },
     /* table操作栏 */
     tableBtnClick (item, type) {
-      switch (type) {
-        case 'change':
-          let title = item.status === 0 ? '启用' : '禁用'
-          let content = `<p>确认${item.status === 0 ? '启动' : '禁用'}<span class="prominentText">${item.name}</span>？</p>`
-          this.$Modal.confirm({
-            title,
-            content,
-            onOk: () => {
-              // this.$axios('Company/renewalCompany', {id: item.id}, true).then((res) => {
-              //   this.pageRefresh()
-              // })
-            }
-          })
-          break
-        case 'editor':
-          this.$refs.form.resetFields()
-          this.modal1Title = '编辑商品'
-          this.formItem.id = item.id
-          this.formItem.name = item.name
-          this.formItem.location = item.location
-          this.formItem.type = String(item.type)
-          this.formItem.mobile = item.mobile
-          this.formItem.remark = item.remark
-          this.modal1 = true
-          break
+      console.log(item,type)
+      if (type =='change'){
+        this.modal1Title = '审核'
+        this.ApplyData = item
+        this.purchaseSee(item.id)
+        this.modal2 = true
+      } else if (type =='editor'){
+        this.modal1Title = '查看编辑'
+        this.ApplyData = item
+        this.purchaseSee(item.id)
+        this.modal1 = true
+      }else {
+        console.log(type)
       }
+    },
+    //审核同意
+    async examine(type,remark){
+      const _this = this
+      let res = await _this.$axios('purchaseOrder/verify', {verify_status:type,remark:remark,order_id:this.ApplyData.id})
+      console.log(res)
+    },
+    //请求采购单详情
+    async purchaseSee(order_id){
+      const _this = this
+      let res = await _this.$axios('purchaseOrder/getDetailInfo', {order_id: order_id})
+      this.seeData = res.data.detail
     }
   }
 }
