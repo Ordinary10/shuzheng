@@ -94,7 +94,15 @@ class CheckoutOrderService extends BaseService {
     /**
      * 出库单配货，对应货物出库
      * @param array $param
-     *
+     *array(2) {
+        ["order_id"] => 111
+        ["data"] => array(1) {
+        [0] => array(3) {
+            ["bar_code"] => string(1) "123456"
+            ["num"] => string(2) "12"
+        }
+        }
+    }
      * @param int $uid
      * @return bool
      */
@@ -120,10 +128,8 @@ class CheckoutOrderService extends BaseService {
             if($detail_info[$stock['goods_id']]['delivery_amount'] > $detail_info[$stock['goods_id']]){
                 return  self::setError($stock['name'] . '出库数量超过了申请数量');
             }
-
-
         }
-        $re = self::$detail_model->distribute($val['detail_id'],$val['delivery_amount']);
+        $re = self::$detail_model->distribute($detail_info);
         if(!$re){
             Db::rollback();
             return self::setError('数据录入失败，请重试');
@@ -142,6 +148,29 @@ class CheckoutOrderService extends BaseService {
         Db::commit();
         return true;
     }
+
+    //确认收货,出库单完成
+    public function done($param,$uid)
+    {
+        $order_id = $param['order_id'];
+        $order_info = self::$order_model->getInfoById($order_id);
+        if(empty($order_info))  return   self::setError('订单信息查询失败');
+        Db::startTrans();
+        $status = 'done';
+        $re = $this->dealProgress($order_id,$uid,$status,$param['remark']);
+        if(!$re){
+            Db::rollback();
+            return self::setError('流程处理失败');
+        }
+        $re = self::$order_model->setStatus($order_id,$status);
+        if(!$re){
+            Db::rollback();
+            return self::setError('状态修改失败');
+        }
+        Db::commit();
+        return true;
+    }
+
 
     //流程处理
     private function dealProgress($order_id,$uid,$progress,$remark = ''){

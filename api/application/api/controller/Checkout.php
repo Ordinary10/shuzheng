@@ -13,14 +13,44 @@ namespace app\api\controller;
 
 
 
+use app\common\model\CheckoutOrder;
 use app\common\service\CheckoutOrderService;
+use app\common\service\CommonService;
 
 class Checkout extends Base {
     private static $service;
+    private static $order_model;
 
     public function __construct() {
         parent::__construct();
         self::$service = new CheckoutOrderService();
+        self::$order_model = new CheckoutOrder();
+    }
+
+    public function getLists()
+    {
+        $where = $this->listFilter();
+        if($where === false)    return self::success_result([]);
+        try{
+            $lists = self::$order_model->getLists($where,self::makePage());
+        }catch (\mysqli_sql_exception $e){
+            return self::error_result('数据查询失败');
+        }
+        $common_service = new CommonService();
+        $all_uid = array_column($lists['lists'],'uid');
+        foreach ($lists['lists'] as &$val){
+            $val['status_name'] = self::$order_model->status[$val['status']];
+            $val['store_name'] = $common_service->getStoreNameByUid($val['uid'],$all_uid);
+        }
+        return  self::success_result($lists['lists'],'查询成功',[],$lists['count']);
+    }
+
+    private function listFilter()
+    {
+        $where = [];
+        if(!empty(self::$params['dp_id']))  $where['u.dp_id'] = self::$params['dp_id'];
+        if(!empty(self::$params['status']))  $where['a.status'] = self::$params['status'];
+        return  $where;
     }
 
     //出库申请
@@ -46,7 +76,18 @@ class Checkout extends Base {
     public function distribute()
     {
         if(empty(self::$params['order_id']) || empty(self::$params['data']))    return self::error_result('数据错误');
-
+        $re = self::$service->distribute(self::$params,self::$userInfo['uid']);
+        if(!$re)    return self::error_result(self::$service->getError());
+        return  self::success_result('','操作成功');
+    }
+    
+    //确认收货
+    public function confirmReceipt()
+    {
+        if(empty(self::$params['order_id']))    return self::error_result('数据错误');
+        $re = self::$service->done(self::$params,self::$userInfo['uid']);
+        if(!$re)    return self::error_result(self::$service->getError());
+        return  self::success_result('','操作成功');
     }
     
 }

@@ -38,10 +38,14 @@ class CheckoutOrderDetail extends Model {
     }
 
     //配货
-    public function distribute($id,$delivery_amount)
+    public function distribute($detail_info)
     {
-        if(empty($id) || empty($delivery_amount)) return false;
-        return  $this->where(['id'=>$id])->setField('delivery_amount',$delivery_amount);
+        if(empty($detail_info)) return  false;
+        foreach ($detail_info as $val){
+            $re = $this->where(['id'=>$val['id']])->setField('delivery_amount',$val['delivery_amount']);
+            if($re === false)    return false;
+        }
+        return  true;
     }
 
 

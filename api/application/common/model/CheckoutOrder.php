@@ -14,6 +14,39 @@ namespace app\common\model;
 use think\Model;
 
 class CheckoutOrder extends Model {
+    public $status = [
+        'done'=>'已完成',
+        'distribute'=>'待签收',
+        'deny'=>'已拒绝',
+        'pass'=>'待配货',
+        'apply'=>'待审核'
+    ];
+
+    /**
+     * 获取列表
+     * @param $where array
+     * @param $page int
+     * @return array
+     * @throws
+     */
+    public function getLists($where,$page)
+    {
+        $data = ['lists'=>[],'count'=>0];
+        $data['count'] = $this->alias('a')
+            ->join('user u','a.uid=u.uid','left')
+            ->where($where)
+            ->count();
+        if(empty($data['count']))   return  $data;
+        $lists = $this->alias('a')
+            ->join('user u','a.uid=u.uid','left')
+            ->where($where)
+            ->page($page)
+            ->field('a.*,u.uname')
+            ->select();
+        $data['lists'] = empty($lists) ? [] : collection($lists)->toArray();
+        return  $data;
+    }
+    
     //新增或编辑出库单
     public function edit($order_info,$id = 0)
     {

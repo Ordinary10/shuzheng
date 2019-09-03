@@ -227,4 +227,20 @@ class User extends Model
         return $this->where($where)->field('uid,uname')->select();
     }
 
+    /**
+     * 获取角色分组
+     * @param $uids array
+     * @return array
+     * @throws
+     */
+    public function getStoreName($uids)
+    {
+        $lists = $this->alias('a')
+            ->join('company b','a.dp_id=b.id','left')
+            ->where(['a.uid'=>['in',$uids]])
+            ->field('a.uid,b.name')
+            ->select();
+        return  $lists ? collection($lists)->toArray() : [];
+    }
+
 }

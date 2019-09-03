@@ -35,10 +35,11 @@ class PurchaseOrder extends Base {
         if($where === false)    return self::success_result([]);
         $lists = self::$order_model->getLists($where,self::makePage());
         $common_service = new CommonService();
-        $all_uid = array_column($lists,'uid');
+        $all_uid = array_column($lists['lists'],'uid');
         foreach ($lists['lists'] as &$val){
             $val['uname'] = $common_service->getUserNameByUid($val['uid'],$all_uid);
             $val['status_name'] = self::$order_model->status[$val['status']];
+            $val['store_name'] = $common_service->getStoreNameByUid($val['uid'],$all_uid);
         }
         return  self::success_result($lists['lists'],'查询成功',[],$lists['count']);
     }

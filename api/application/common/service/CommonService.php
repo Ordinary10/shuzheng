@@ -28,9 +28,27 @@ class CommonService extends BaseService {
         if(!empty($users)){
             return isset($users[$uid]) ? $users[$uid] : '';
         }
-        $where = empty($all_uid) ? [] : ['uid',['in',$all_uid]];
+        $where = empty($all_uid) ? [] : ['uid'=>['in',$all_uid]];
         $users = $model->getUserName($where);
         $users = array_column($users,'uname','uid');
+        return isset($users[$uid]) ? $users[$uid] : '';
+    }
+
+    /**
+     * 根据ID获取用户门店
+     * @param int $uid 当前需要查询的用户ID
+     * @param array $all_uid 需要查询的所有用户ID
+     * @return string
+     */
+    public function getStoreNameByUid($uid,$all_uid = [])
+    {
+        $model = new User();
+        static $users;
+        if(!empty($users)){
+            return isset($users[$uid]) ? $users[$uid] : '';
+        }
+        $users = $model->getStoreName($all_uid);
+        $users = array_column($users,'name','uid');
         return isset($users[$uid]) ? $users[$uid] : '';
     }
 
