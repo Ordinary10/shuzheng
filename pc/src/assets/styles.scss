@@ -203,8 +203,14 @@ body{
 
 }
 .ivu-modal-body{
-  overflow-y: auto;
-  max-height: 668px;
+  //overflow-y: auto;
+  //max-height: 668px;
+  @include clearfix;
+
+}
+.ivu-form{
+  @include clearfix;
+
 }
 .vertical-center-modal{
   display: flex;
@@ -217,6 +223,24 @@ body{
 .ivu-modal-body{
   font-size: 14px!important;
 
+}
+.roll {
+  overflow-y: auto;
+}
+.zhwbg{
+  display: block;
+  height: 1px;
+  width: 100%;
+  min-width: 100%;
+  margin: 17px 0;
+  clear: both;
+  color: #e8eaec;
+}
+.ivu-divider-horizontal{
+  margin: 10px 0 !important;
+}
+.examine-body{
+  max-height: 228px;
 }
 .fs-28{
   @include fs-28
