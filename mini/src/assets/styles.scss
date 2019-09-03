@@ -1,1 +1,45 @@
 /*全局样式表*/
+.TabBar_page{
+  padding-bottom: 100rpx;
+  min-height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+@mixin nowrap(){
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden;
+}
+.flex_parent{
+  display: flex;
+  flex-direction: column;
+}
+.flex_child{
+  flex: 1;
+}
+.mini-list{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .mini-list-item{
+    width: 100%;
+    height: 32px;
+    padding: 0 8px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    border-width: 1px 0;
+    border-color: rgba(245,245,245,0.8);
+    border-style: solid;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #999;
+    .center{
+      flex: 1;
+      padding: 0 8px;
+    }
+  }
+}

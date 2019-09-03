@@ -140,7 +140,7 @@ const common = {
     return tabBarRoleList[roleName]
   },
   getToken() {
-    return state.token || ''
+    return state.token || 'UnJVRHdKdlltTTQ4ZXJxMlJndEtIWEs2dUc2ZG0wY2JmaDJvL3hBbmJoQ3BIVVV5Z0NINWRGQWdTWituZ29SS2pvbHdlY3VML2ppV1phZ2tYS3kveUt1cHcrMmNKUkk2dUp6QlRmZGE3Rk09'
   }
 
 }

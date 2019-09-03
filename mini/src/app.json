@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/login/main",
-    "pages/outbound/main",
-    "pages/procurement/main"
+    "pages/procurement/main",
+    "pages/outbound/main"
   ],
   "tabBar": {
     "list": [

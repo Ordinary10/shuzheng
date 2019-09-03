@@ -28,21 +28,21 @@ fly.config.baseURL = CONFIG.API_PATH
  * 接口请求方法
  * @param param 请求的参数 json格式
  * @param sucCallBack 请求成功的回调
- * @param failCallBack  请求失败的回调
+ * @param failCallBack  请求失败的回调purchaseOrder/getLists
  * @param LoadingStr 是否显示loading层，默认不展示 值为展示内容  false不展示，其余情况展示
  */
 const proxy = (fun, param, sucCallBack, failCallBack, LoadingStr) => {
-
-  if (!param) return false;
   let body = {}
   let showLoading = LoadingStr !== false; //是否展示加载层
   if (showLoading) {
     common.loading_tip(LoadingStr || '加载中...');
   }
-  body['token'] = common.getToken();
-  Object.keys(param).forEach(key => {
-    body[key] = param[key]
-  })
+  if(param){
+    Object.keys(param).forEach(key => {
+      body[key] = param[key]
+    })
+  }
+  body['token'] = common.getToken()
   fly.post(fun, body).then(res => {
     showLoading && common.close_toast()
     let data = res.data
