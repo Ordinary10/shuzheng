@@ -94,15 +94,19 @@ class Login extends Base {
         $userModel=new User();
         //微信账号登录
         if(!empty(self::$params['code'])) {
-            $openid=$this->weixinLogin(self::$params['code']);
+            $openid = $this->weixinLogin(self::$params['code']);
         }
 
         if(empty(self::$params['account'])){
-            if(empty($openid))  return  self::error_result('微信登录失败，请使用账号登录！');
-            $info=$userModel->getInfoByWxOpenid($openid);
+            if(empty($openid)) {
+                return  self::error_result('微信登录失败，请使用账号登录！');
+            }
+            $info = $userModel->getInfoByWxOpenid($openid);
         }else{
-            $info=$userModel->getInfoByAccount(self::$params['account']);
-            if(empty($info['wx_openid']) && !empty($openid))    $userModel->updateWxOpenid($info['uid'],$openid);
+            $info = $userModel->getInfoByAccount(self::$params['account']);
+            if(empty($info['wx_openid']) && !empty($openid)) {
+                $userModel->updateWxOpenid($info['uid'],$openid);
+            }
             if(!empty($info) && make_pwd(self::$params['pwd'],$info['salt'])!=$info['pwd']){
                 return  self::error_result('账号或密码错误！');
             }

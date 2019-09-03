@@ -171,7 +171,10 @@ class User extends Model
             $data['pwd'] = make_pwd($pwd, $salt);
         }
         $re = $this->where(['uid' => $uid])->update($data);
-        return  $re ? $uid : false;
+        if(!$re == 0 && !$re == 1) {
+            return false;
+        }
+        return  $uid;
     }
 
     /**
