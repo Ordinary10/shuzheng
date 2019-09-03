@@ -194,13 +194,12 @@
             <Divider />
 
           </Col>
-
         </Row>
-
         <Row>
-          <Col span="6" v-for="(list,index) in seeData" :key="list.id">
-            <div class="ma-spacing">
-              <span class="key_text">{{list.name}}:数量:{{list.buy_amount}}小计：{{list.buy_money}}</span>
+          <Col span="6">
+            <div class="ma-spacing" >
+                <Button @click="commodity(list)" v-for="(list,index) in seeData" :key="list.id" class="key_text box-ib" color="default" >{{list.name}}</Button>
+
             </div>
           </Col>
           <Col span="24">
@@ -213,7 +212,6 @@
         <Form ref="formValidate">
           <Col span="24">
             <div class="ma-nomb-spacing">
-
               <FormItem label="审核意见">
                 <Input v-model="examineremark" type="textarea" placeholder="审核意见" />
               </FormItem>
@@ -262,6 +260,7 @@ export default {
       seeData:'',
       ApplyData:'',
       examineremark:'',
+      commoData:[],
       modal1Title: '',
       popupData: {},
       config: {
@@ -349,8 +348,9 @@ export default {
   mounted () {
   },
   methods: {
-    handleSubmit(name) {
-
+    commodity(name){
+      this.seeData = []
+      this.seeData.push(name)
     },
     add () {
       this.$refs.form.resetFields()
@@ -431,6 +431,7 @@ export default {
       const _this = this
       let res = await _this.$axios('purchaseOrder/getDetailInfo', {order_id: order_id})
       this.seeData = res.data.detail
+      this.commoData = JSON.parse(JSON.stringify(this.seeData))
     }
   }
 }
