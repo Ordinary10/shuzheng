@@ -53,6 +53,26 @@ const dynamicRoutes = [
         }
       }
     ]
+  },
+  {
+    path: '/purchase',
+    component: () => import('@/pages/purchase-manage'),
+    name: 'purchase-manage',
+    meta: {
+      name: '采购管理',
+      icon: 'iconxitongguanli'
+    },
+    children: [
+      {
+        path: 'list',
+        name: 'goods-list',
+        component: () => import('@/pages/purchase-manage/list'),
+        meta: {
+          name: '采购管理'
+        }
+      }
+    ]
   }
+
 ]
 export default dynamicRoutes
