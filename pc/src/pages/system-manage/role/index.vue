@@ -35,7 +35,7 @@
     >
         <Form :model="formItem" :label-width="80" :rules="rule" ref="form" >
           <FormItem label="角色权限" >
-            <Tree class="max_role" :data="role_data" show-checkbox multiple></Tree>
+            <Tree class="max_role" :data="role_data" :check-strictly="true" @on-check-change="checkChange" ref="tree" show-checkbox multiple></Tree>
           </FormItem>
           <FormItem label="角色名称" prop="title">
             <Input v-model="formItem.title" type="text" placeholder="请输入角色名称"></Input>
@@ -58,16 +58,6 @@ export default {
       *     --> columns: table的具体配置
       * searchData： 搜索栏的数据存储对象
       * startSearchData： 存储searchData的初始值，用于重置table
-      * redundantList: 更多操作按钮的配置对象
-      *            --> isShow 为true时按钮才显示，其余状态皆不可用.用于用户权限相关操作的隐藏显示
-      *            --> type 作为触发点击操作的识别参数
-      *            --> name 点击按钮功能描述
-      *            --> isExcelModal 是否是批量导入按钮
-      *            --> config 如果isExcelModal为true则必须设置
-      *                   --> fun 批量上传的接口
-      *                   --> demo 批量上传的模板下载接口
-      *                   --> exts 批量上传文件格式
-      *                   --> str 批量上传的注意说明
       * */
     return {
       isShow: false,
@@ -136,8 +126,7 @@ export default {
       },
       formItem: {
         roleIds: [],
-        title: '',
-        rules: ''
+        title: ''
       },
       rule: {
         title: [{required: true, message: '必输项不能为空', trigger: 'blur'}
@@ -155,6 +144,22 @@ export default {
     this.get_role_data(0)
   },
   methods: {
+    checkChange (list, item) {
+      let _this = this
+      function recursion (data) {
+        // 全选 去删除操作
+        if (data.children.length) {
+          data.children.forEach(e => {
+            e.checked = data.checked
+            if (e.children.length) {
+              recursion(e.children)
+            }
+          })
+        }
+      }
+      recursion(item)
+      _this.clean_roleId()
+    },
     addRole () {
       this.get_role_data(0)
       this.formItem.title = ''
@@ -167,23 +172,14 @@ export default {
     },
     async save () {
       let _this = this
-      _this.formItem.roleIds = []
-      _this.clean_roleId(_this.role_data)
-      _this.formItem.rules = _this.formItem.roleIds.join(',')
-      // console.log(this.formItem)
+      // _this.clean_roleId(_this.role_data)
+      _this.formItem.rules = _this.form_rules
+      console.log(this.formItem)
       let res = await _this.$axios('Role/editorRole', this.formItem)
       if (res.code === 1) {
         this.modal1 = false
         _this.pageRefresh()
       }
-      // _this.$refs.form.validate(valid => {
-      //   if (valid) {
-      //
-      //     this.modal1 = false
-      //   } else {
-      //     return false
-      //   }
-      // })
     },
     /* 搜索按钮 */
     search () {
@@ -233,6 +229,7 @@ export default {
           break
       }
     },
+    // 为接口数据加上children 和data数据一样
     clean_role (data) {
       data.forEach(e => {
         e.children = e.data
@@ -242,18 +239,24 @@ export default {
       })
     },
     // 提取选中的id值
-    clean_roleId (data) {
-      data.forEach(e => {
-        if (e.checked) {
-          if (!this.formItem.roleIds.includes(e.id)) this.formItem.roleIds.push(e.id)
-        }
-        if (e.children.length) {
-          e.children.forEach(ele => {
-            this.clean_roleId(e.children)
-          })
-        }
+    async clean_roleId () {
+      let _this = this
+      _this.formItem.roleIds = []
+      let res = await this.$refs.tree.getCheckedAndIndeterminateNodes()
+      console.log(res)
+      function recursion (data) {
+        data.forEach(e => {
+          if (e.checked) {
+            if (!_this.formItem.roleIds.includes(e.id)) _this.formItem.roleIds.push(e.id)
+          }
+          if (e.children.length) {
+            e.children.forEach(ele => {
+              recursion(e.children)
+            })
+          }
+        })
       }
-      )
+      recursion(res)
     },
     async get_role_data (roleId) {
       let _this = this
@@ -261,12 +264,15 @@ export default {
       if (res.code === 1) {
         _this.role_data = res.data
         _this.clean_role(_this.role_data)
+        _this.clean_roleId(_this.role_data)
       }
     }
 
   },
   computed: {
-
+    form_rules () {
+      return this.formItem.roleIds.join(',')
+    }
   }
 }
 </script>

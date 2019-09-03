@@ -3,7 +3,7 @@
     <search>
       <div class="search-box">
         <!--搜索输入框-->
-        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入门店名称" />
+        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入商品名称" />
         <Select v-model="searchData.status" class="search-input" size="large" placeholder="请选择状态">
           <Option value="1">启用</Option>
           <Option value="0">禁用</Option>
@@ -18,7 +18,7 @@
         </div>
         <!--常用操作按钮-->
         <div class="commonly-used-btn-box">
-          <Tooltip content="添加门店" placement="bottom-start">
+          <Tooltip content="添加商品" placement="bottom-start">
             <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="add" style="font-size: 18px"></Button>
           </Tooltip>
         </div>
@@ -35,11 +35,11 @@
       class-name="vertical-center-modal"
     >
         <Form :model="formItem" :label-width="100" :rules="rule" ref="form" >
-          <FormItem label="门店名称" prop="name">
-            <Input v-model="formItem.name" type="text" placeholder="请输入门店名"></Input>
+          <FormItem label="商品名称" prop="name">
+            <Input v-model="formItem.name" type="text" placeholder="请输入商品名"></Input>
           </FormItem>
-          <FormItem label="门店地址" prop="location">
-            <Input v-model="formItem.location" type="text" placeholder="请输入门店地址"></Input>
+          <FormItem label="商品地址" prop="location">
+            <Input v-model="formItem.location" type="text" placeholder="请输入商品地址"></Input>
           </FormItem>
           <FormItem label="电话号码" prop="mobile">
             <Input v-model="formItem.mobile" type="text" placeholder="请输入电话号码"></Input>
@@ -93,6 +93,11 @@ export default {
           {
             key: 'name',
             title: '商品名称',
+            align: 'center'
+          },
+          {
+            key: 'type_id',
+            title: '类目',
             align: 'center'
           },
           {
@@ -166,10 +171,9 @@ export default {
       formItem: {
         id: '',
         name: '',
-        location: '',
-        mobile: '',
-        remark: '',
-        type: ''
+        unit: '',
+        type_id: '',
+        safe_stock: ''
       },
       rule: {
         name: [{required: true, message: '必输项不能为空', trigger: 'blur'}

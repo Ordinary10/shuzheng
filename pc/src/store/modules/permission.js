@@ -37,7 +37,7 @@ export default {
         item['children'] = e.name in loginData.menus ? loginData.menus[e.name] : []
         permissionList.push(item)
       })
-      // console.log(permissionList)
+      console.log(permissionList)
       /*  根据权限筛选出我们设置好的路由并加入到path=''的children */
       let routes = recursionRouter(permissionList, dynamicRouter)
       let MainContainer = DynamicRoutes.find(v => v.path === '')

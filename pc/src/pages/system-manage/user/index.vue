@@ -261,6 +261,7 @@ export default {
       let _this = this
       _this.$refs.form.validate(valid => {
         if (valid) {
+          console.log(this.formItem)
           _this.$axios('user/edit', this.formItem).then((res) => {
             if (res.code === 1) {
               _this.$Message.success({
