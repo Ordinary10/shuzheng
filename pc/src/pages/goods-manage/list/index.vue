@@ -61,7 +61,6 @@
   </div>
 </template>
 <script type="text/jsx">
-1
 export default {
   data () {
     /*
