@@ -51,6 +51,14 @@ const dynamicRoutes = [
         meta: {
           name: '商品列表'
         }
+      },
+      {
+        path: 'type',
+        name: 'goods-type',
+        component: () => import('@/pages/goods-manage/type'),
+        meta: {
+          name: '类目列表'
+        }
       }
     ]
   },

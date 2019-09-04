@@ -33,6 +33,7 @@
       :title="modal1Title"
       :width='600'
       class-name="vertical-center-modal"
+      class="overstepModel"
     >
         <Form :model="formItem" :label-width="100" :rules="rule" ref="form" >
           <FormItem label="商品名称" prop="name">
@@ -41,11 +42,15 @@
           <FormItem label="单位" prop="unit">
             <Input v-model="formItem.unit" type="text" placeholder="请输入商品单位"></Input>
           </FormItem>
-          <FormItem label="类目">
-            <Input v-model="formItem.type_id" type="text" placeholder="请输入类目"></Input>
+          <FormItem label="类目" prop="typeList">
+            <Cascader :data="type_data" @on-change="cleanTypeID" trigger="hover" v-model="formItem.typeList" change-on-select></Cascader>
           </FormItem>
+<!--          <div class="ivu-form-item ivu-form-item-required" style="display: flex">-->
+<!--            <label class="ivu-form-item-label" style="width: 100px;">类目</label>-->
+<!--            <Cascader style="flex: 1" :data="type_data" @on-change="cleanTypeID" trigger="hover" v-model="formItem.typeList" change-on-select></Cascader>-->
+<!--          </div>-->
           <FormItem label="安全库存" prop="safe_stock">
-            <Input v-model="formItem.safe_stock" type="text" placeholder="请输入安全库存值"></Input>
+            <Input v-model="formItem.safe_stock" type="text" placeholder="请输入安全库存值(非零正整数)"></Input>
           </FormItem>
         </Form>
         <div slot="footer">
@@ -56,6 +61,7 @@
   </div>
 </template>
 <script type="text/jsx">
+1
 export default {
   data () {
     /*
@@ -165,18 +171,31 @@ export default {
       formItem: {
         name: '',
         unit: '',
+        typeList: [],
         type_id: '',
         safe_stock: ''
       },
+      // 类目数据
+      type_data: [],
       rule: {
         name: [{required: true, message: '必输项不能为空', trigger: 'blur'}
         ],
         unit: [{required: true, message: '必输项不能为空', trigger: 'blur'}
         ],
+        typeList: [ {trigger: 'change',
+          validator: (rule, value, callback) => {
+            // console.log(value)
+            if (!value.length) {
+              return callback(new Error('必输项不能为空'))
+            }else {
+              callback()
+            }
+          },
+          type: 'array'}
+        ],
         safe_stock: [
-          {required: true, message: '必输项不能为空', trigger: 'blur'},
           {validator: this.$validateFun.Znumber, trigger: 'blur'}
-          ]
+        ]
       }
     }
   },
@@ -185,31 +204,87 @@ export default {
   created () {
   },
   mounted () {
+    this.init()
   },
   methods: {
+    init () {
+      let _this = this
+      this.$axios('goods/getGoodsType', {}).then((res) => {
+        if (res.code === 1) {
+          _this.type_data = res.data
+          // 清洗数据
+          function recursion (list) {
+            list.forEach(e => {
+              e.value = e.id
+              e.label = e.type_name
+              if (e.children && e.children.length) recursion(e.children)
+            })
+          }
+          recursion(_this.type_data)
+        }
+      })
+    },
     add () {
       this.$refs.form.resetFields()
-      this.formItem = {type: '1'}
       this.modal1Title = '添加商品'
+      for (let key in this.formItem) {
+        this.formItem[key] = ''
+      }
+      this.formItem.typeList = []
       this.modal1 = true
     },
     cancel () {
       this.modal1 = false
     },
+    // 提去目录的id
+    cleanTypeID (value) {
+      // console.log(value)
+      let _this = this
+      let active = value[value.length - 1]
+      _this.formItem.type_id = active || ''
+    },
+    // 回显目录信息
+    echo_TypeID (id) {
+      let _this = this
+      _this.formItem.typeList = []
+      function recursion (list, typeId) {
+        for (let i = 0; i < list.length; i++) {
+          _this.formItem.typeList.push(list[i].id)
+          // console.log(list[i].id, typeId)
+          if (list[i].id === typeId) {
+            break
+          } else if (list[i].children && list[i].children.length) {
+            recursion(list[i].children, typeId)
+          } else {
+            _this.formItem.typeList.pop()
+            // 当退至最外层直接重置数组
+            if (_this.formItem.typeList.length === 1) _this.formItem.typeList = []
+          }
+        }
+      }
+      recursion(_this.type_data, id)
+      let idIndex = _this.formItem.typeList.indexOf(id)
+      if (idIndex !== -1) {
+        // 去除多余数据
+        // console.log(_this.formItem.typeList, idIndex)
+        _this.formItem.typeList = _this.formItem.typeList.slice(0, idIndex + 1)
+      }
+      _this.cleanTypeID(_this.formItem.typeList)
+    },
     save () {
       let _this = this
       _this.$refs.form.validate(valid => {
         if (valid) {
-          // _this.$axios('Company/editorCompany', this.formItem, true).then((res) => {
-          //   if (res.code === 1) {
-          //     _this.$Message.success({
-          //       content: res.msg,
-          //       duration: 2
-          //     })
-          //     this.modal1 = false
-          //     _this.pageRefresh()
-          //   }
-          // })
+          _this.$axios('goods/editGoods', this.formItem).then((res) => {
+            if (res.code === 1) {
+              _this.$Message.success({
+                content: res.msg,
+                duration: 2
+              })
+              this.modal1 = false
+              _this.pageRefresh()
+            }
+          })
         } else {
           return false
         }
@@ -262,6 +337,7 @@ export default {
           this.formItem.name = item.name
           this.formItem.unit = item.unit
           this.formItem.safe_stock = item.safe_stock
+          this.echo_TypeID(item.type_id)
           this.modal1 = true
           break
       }
