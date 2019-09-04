@@ -51,7 +51,9 @@ export default {
       if (!value.length) _this.typeList = []
       let active = value[value.length - 1]
       _this.type_id = active || ''
-      _this.$emit('typeid')
+      setTimeout(()=>{
+        _this.$emit('typeid')
+      },100)
     },
     // 根据id 逐步查询出层级的数组, 例如 id=6  [1,3,6]
     echo_TypeID (id) {

@@ -213,13 +213,11 @@ export default {
     // 选择类目后 回显验证
     letType () {
       this.formItem.type_id = this.$refs.typeCascader.type_id
-      setTimeout((e) => {
-        let obj = []
-        this.$refs.typeCascader.typeList.forEach(key => {
-          obj.push(key)
-        })
-        this.formItem.typeList = obj
-      }, 100)
+      let obj = []
+      this.$refs.typeCascader.typeList.forEach(key => {
+        obj.push(key)
+      })
+      this.formItem.typeList = obj
     },
     save () {
       let _this = this
