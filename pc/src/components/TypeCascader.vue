@@ -44,10 +44,12 @@ export default {
     cleanTypeID (value) {
       // console.log(value)
       let _this = this
+      if (!value.length) _this.typeList = []
       let active = value[value.length - 1]
       _this.type_id = active || ''
       _this.$emit('typeid')
     },
+    // 根据id 逐步查询出层级的数组, 例如 id=6  [1,3,6]
     echo_TypeID (id) {
       let _this = this
       let ok = false
@@ -91,7 +93,7 @@ export default {
   watch: {
     // 刷新组件
     echoId () {
-      if (this.echoId == 0) {
+      if (this.echoId === 0 || this.echoId === '') {
         this.typeList = []
         this.type_id = ''
       } else {

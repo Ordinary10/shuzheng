@@ -172,7 +172,7 @@ export default {
         ],
         typeList: [ {trigger: 'change',
           validator: (rule, value, callback) => {
-            console.log(value)
+            // console.log(value)
             if (!value.length) {
               return callback(new Error('必输项不能为空'))
             } else {
@@ -213,14 +213,11 @@ export default {
     // 选择类目后 回显验证
     letType () {
       this.formItem.type_id = this.$refs.typeCascader.type_id
-      setTimeout(() => {
-        let obj = []
-        this.$refs.typeCascader.typeList.forEach(key => {
-          obj.push(key)
-        })
-        console.log(this.$refs.typeCascader.typeList, obj)
-        this.formItem.typeList = obj
-      }, 100)
+      let obj = []
+      this.$refs.typeCascader.typeList.forEach(key => {
+        obj.push(key)
+      })
+      this.formItem.typeList = obj
     },
     save () {
       let _this = this
