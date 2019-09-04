@@ -197,9 +197,14 @@
         </Row>
         <Row>
           <Col span="6">
-            <div class="ma-spacing" >
-                <Button @click="commodity(list)" v-for="(list,index) in seeData" :key="list.id" class="key_text box-ib" color="default" >{{list.name}}</Button>
+            <div class="ma-spacing box-ib" v-for="(list,index) in commoData"
+                 :key="list.id">
+                <Button
+                  @click="commodity(list.name)"
 
+                  class="box-ib"
+                  :class="{primary:arr.includes(list.name)}"
+                >{{list.name}}</Button>
             </div>
           </Col>
           <Col span="24">
@@ -207,7 +212,6 @@
               总金额：<span class="key_text">{{ApplyData.total_amount}}</span>
             </div>
           </Col>
-
         </Row>
         <Form ref="formValidate">
           <Col span="24">
@@ -261,6 +265,7 @@ export default {
       ApplyData:'',
       examineremark:'',
       commoData:[],
+      arr:[],
       modal1Title: '',
       popupData: {},
       config: {
@@ -349,8 +354,25 @@ export default {
   },
   methods: {
     commodity(name){
+      console.log(name)
+      console.log(this.arr.includes(name))
+      if (this.arr.includes(name)){
+        this.arr=this.arr.filter(function (ele){return ele != name;});
+      } else {
+        this.arr.push(name)
+      }
       this.seeData = []
-      this.seeData.push(name)
+      for (let key in this.arr){
+        for (let i in this.commoData) {
+          if (this.commoData[i].name==this.arr[key]){
+            this.seeData.push(this.commoData[i])
+          }
+        }
+      }
+      //如果没有过滤则显示全部
+      if (!this.seeData[0]){
+        this.seeData = this.commoData
+      }
     },
     add () {
       this.$refs.form.resetFields()
