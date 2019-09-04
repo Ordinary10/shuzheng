@@ -1,5 +1,9 @@
 <template>
-  <Cascader :data="type_data" @on-change="cleanTypeID" trigger="hover" v-model="typeList" change-on-select></Cascader>
+  <Cascader :data="type_data"
+            @on-change="cleanTypeID"
+            v-model="typeList"
+            change-on-select
+            placeholder="请选择商品类目"></Cascader>
 </template>
 <script type="text/jsx">
 export default {

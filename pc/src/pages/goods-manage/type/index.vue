@@ -185,6 +185,7 @@ export default {
               this.modal1 = false
               // _this.pageRefresh()
               this.getTableData()
+              this.$refs.typeCascader.init()
             }
           })
         } else {
