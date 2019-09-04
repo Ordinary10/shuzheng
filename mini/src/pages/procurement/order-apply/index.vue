@@ -1,11 +1,14 @@
 <template>
   <div class="pages orderPages">
     <i-toast id="toast" />
-    <div class="no-goods">
+    <div class="no-goods" v-show="orderList.length===0">
       <image class="img" src="http://test.c.zdxrchina.com/images/wechat/search_bgc.png"></image>
-      <div class="no-goods-text">没有商品 <span>点击添加</span></div>
+      <div class="no-goods-text">
+        <span>还没有商品</span><br>
+        <span>请点击新增商品添加</span>
+      </div>
     </div>
-    <div class="mini-list" v-if="false">
+    <div class="mini-list" v-show="orderList.length>0">
       <div class="mini-list-item">
 
       </div>
@@ -36,8 +39,8 @@
 
     data() {
       return {
-        goodsList: null,
-        orderList: null,
+        goodsList: [],
+        orderList: [],
         multiArray: [],
         goodsIndex: [0,0,0],
       }
@@ -60,11 +63,20 @@
           _this.multiArray[0] = _copy_data
           _this.multiArray[1] = _copy_data[0].children
           _this.multiArray[2] = _copy_data[0].children[0].children
-          console.log(_this.goodsList)
         })
       },
       bindPickerChange (e) {
-        console.log(e.mp.detail.value)
+        const _this = this,
+              val = e.mp.detail.value
+        for(let i in _this.goodsIndex) {
+          if(val[i] !== _this.goodsIndex[i]){
+            return
+          }
+        }
+        let _copy_data = JSON.parse(JSON.stringify(_this.goodsList))
+        console.log(_copy_data)
+        _this.orderList.push(_copy_data[_this.goodsIndex[0]][_this.goodsIndex[1]][_this.goodsIndex[2]])
+        console.log(_this.orderList)
       },
       bindColumnChange (e) {
         const _this = this
@@ -83,7 +95,6 @@
           _copy_multiArray[2]=_copy_data[_this.goodsIndex[0]].children[_this.goodsIndex[1]].children
         }
         _this.multiArray = _copy_multiArray
-        console.log(_this.goodsIndex)
       },
       submitOrder(){
         console.log(this.orderList)
@@ -108,11 +119,9 @@
         margin-bottom: 10px;
       }
       .no-goods-text{
+        font-size: 14px;
         text-align: center;
-        span{
-          color: #04A9F5;
-          text-decoration: underline;
-        }
+        color: #999;
       }
     }
   }
