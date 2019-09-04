@@ -2,25 +2,22 @@
   <div class="pages TabBar_page">
     <i-toast id="toast" />
     <div class="mini-list">
-      <div class="mini-list-item">
-        <div class="left">
-          <span>订单状态</span>
-        </div>
-        <div class="center">
-          <span>{{selectedStatusName}}</span>
-        </div>
-        <div class="right">
-          <i-icon type="enter" color="#999" size="20" @click="statusChoose = !statusChoose" v-if="statusChoose"/>
-          <i-icon type="unfold" color="#999" size="20" @click="statusChoose = !statusChoose" data-icon="is" v-if="!statusChoose"/>
-        </div>
-        <div class="status-choose-box" v-if="statusChoose">
-          <span @click="statusChooseClick(index)" :class="{'status-selected':selectedStatus===item.status}" v-for="(item,index) in orderStatusList" :key="item.status">{{item.name}}</span>
-        </div>
+      <div class="mini-list-item" @click="orderApply">
+        <span>申请采购</span>
+        <span class="center"></span>
+        <span><i-icon type="enter" size="20"/></span>
       </div>
+      <picker @change="bindPickerChange" :value="statusIndex" :range="statusList" range-key="name">
+        <div class="picker mini-list-item">
+          <span>订单状态：</span>
+          <span class="center">{{statusList[statusIndex].name}}</span>
+          <span><i-icon type="enter" size="20"/></span>
+        </div>
+      </picker>
     </div>
     <div class="results-box">
       <div class="results-header">
-        共{{purchaseOrderList.length}}单采购
+        共{{purchaseOrderList.length}}笔订单
       </div>
       <div class="results-list">
         <div class="not-results" v-show="purchaseOrderList.length===0">
@@ -55,7 +52,8 @@
       return {
         purchaseOrderList: [],
         statusChoose: false,
-        orderStatusList: [
+        statusIndex: 0,
+        statusList: [
           {
             name: '全部',
             status: ''
@@ -80,9 +78,7 @@
             name: '拒绝',
             status: 'deny'
           }
-        ],
-        selectedStatusName: '全部',
-        selectedStatus: ''
+        ]
       }
     },
 
@@ -99,7 +95,6 @@
         const _this = this
         _this.$ajax('purchaseOrder/getLists','',function (res) {
           _this.purchaseOrderList = _this.dataFilter(res.data)
-          console.log(_this.purchaseOrderList,)
         })
       },
       dataFilter (data) {
@@ -113,14 +108,14 @@
         }
         return arr
       },
-      statusChooseClick(index) {
-        let val = this.orderStatusList[index]
-        this.selectedStatusName = val.name
-        this.selectedStatus = val.status
-        this.statusChoose = !this.statusChoose
-      },
       get_details(item) {
-        console.log(item)
+        wx.navigateTo({url:`/pages/procurement/order-details/main?id=${item.id}`})
+      },
+      orderApply() {
+        wx.navigateTo({url:'/pages/procurement/order-apply/main'})
+      },
+      bindPickerChange (e) {
+        this.statusIndex = e.mp.detail.value
       }
     }
   }
@@ -132,39 +127,9 @@
   }
 </style>
 <style scoped lang="scss">
-  .status-selected{
-    color: red !important;
-  }
   .pages{
-    .status-choose-box{
-      position: absolute;
-      background-color: white;
-      z-index: 1000;
-      top: 37px;
-      right: 4px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid rgba(230,230,230,0.8);
-      border-radius: 4px;
-      padding-bottom: 4px;
-      span{
-        width: 50px;
-        text-align: center;
-        line-height: 22px;
-        font-size: 14px;
-        margin: 8px 6px 0;
-        background-color: #F3F3F3;
-        color: #3FAAE2;
-      }
-    }
     .center{
-      display: flex;
-      justify-content: flex-end;
-      span{
-        color: #EC181F;
-      }
+      color: #04A9F5;
     }
     .results-box{
       background-color: white;

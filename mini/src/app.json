@@ -2,6 +2,8 @@
   "pages": [
     "pages/login/main",
     "pages/procurement/main",
+    "pages/procurement/order-apply/main",
+    "pages/procurement/order-details/main",
     "pages/outbound/main"
   ],
   "tabBar": {
