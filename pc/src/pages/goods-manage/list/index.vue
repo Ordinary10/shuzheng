@@ -82,7 +82,7 @@ export default {
             align: 'center'
           },
           {
-            key: 'type_id',
+            key: 'type_name',
             title: '类目',
             align: 'center'
           },
