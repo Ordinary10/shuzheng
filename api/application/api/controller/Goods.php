@@ -12,6 +12,7 @@ namespace app\api\controller;
 
 
 use app\common\model\GoodsType;
+use app\common\service\CommonalityService;
 use think\Db;
 
 class Goods extends Base {
@@ -29,7 +30,19 @@ class Goods extends Base {
     public function getGoodsLists()
     {
         $lists = self::$model->getLists($this->_listFilter(),self::makePage());
+        if(empty($lists['lists'])) {
+            return $this->success_result([],'查询成功',null,0);
+        }
+        $this->disposeData($lists['lists']);
         return $this->success_result($lists['lists'],'查询成功',null,$lists['count']);
+    }
+
+    // 处理数据
+    private function disposeData(&$data) {
+        $model = new CommonalityService();
+        foreach ($data as $k => &$val) {
+            $val['type_name'] = $model->getGoodsNameById($val['type_id']);
+        }
     }
 
     private function _listFilter(){

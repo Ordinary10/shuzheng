@@ -8,6 +8,8 @@
  */
 namespace app\common\service;
 use app\common\model\Company;
+use app\common\model\GoodsType;
+
 
 class CommonalityService extends BaseService {
 
@@ -28,4 +30,20 @@ class CommonalityService extends BaseService {
         return isset($data[$dp_id]) ? $data[$dp_id] : '';
     }
 
+    /**
+     * 根据类目id获取类目名
+     * @param int $type_id 类目id
+     * @return string 类目名
+     */
+    public function getGoodsNameById($type_id)
+    {
+        $model = new GoodsType();
+        static $data;
+        if(!empty($data)){
+            return isset($data[$type_id]) ? $data[$type_id] : '';
+        }
+        $data = $model->field('type_id,type_name')->select();
+        $data = array_column($data,'type_name','type_id');
+        return isset($data[$type_id]) ? $data[$type_id] : '';
+    }
 }
