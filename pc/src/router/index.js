@@ -29,7 +29,7 @@ export default new Router({
     {
       path: '/com',
       name: 'com',
-      component: () => import('@/components/ImgUpload')
+      component: () => import('@/components/TypeCascader')
       // component: Layout
     }
   ]

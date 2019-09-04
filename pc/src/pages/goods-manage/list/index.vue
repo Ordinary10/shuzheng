@@ -43,12 +43,8 @@
             <Input v-model="formItem.unit" type="text" placeholder="请输入商品单位"></Input>
           </FormItem>
           <FormItem label="类目" prop="typeList">
-            <Cascader :data="type_data" @on-change="cleanTypeID" trigger="hover" v-model="formItem.typeList" change-on-select></Cascader>
+            <typeCascader ref="typeCascader" @typeid = 'letType' :echoId="formItem.echoId"></typeCascader>
           </FormItem>
-<!--          <div class="ivu-form-item ivu-form-item-required" style="display: flex">-->
-<!--            <label class="ivu-form-item-label" style="width: 100px;">类目</label>-->
-<!--            <Cascader style="flex: 1" :data="type_data" @on-change="cleanTypeID" trigger="hover" v-model="formItem.typeList" change-on-select></Cascader>-->
-<!--          </div>-->
           <FormItem label="安全库存" prop="safe_stock">
             <Input v-model="formItem.safe_stock" type="text" placeholder="请输入安全库存值(非零正整数)"></Input>
           </FormItem>
@@ -70,16 +66,7 @@ export default {
       *     --> columns: table的具体配置
       * searchData： 搜索栏的数据存储对象
       * startSearchData： 存储searchData的初始值，用于重置table
-      * redundantList: 更多操作按钮的配置对象
-      *            --> isShow 为true时按钮才显示，其余状态皆不可用.用于商品权限相关操作的隐藏显示
-      *            --> type 作为触发点击操作的识别参数
-      *            --> name 点击按钮功能描述
-      *            --> isExcelModal 是否是批量导入按钮
-      *            --> config 如果isExcelModal为true则必须设置
-      *                   --> fun 批量上传的接口
-      *                   --> demo 批量上传的模板下载接口
-      *                   --> exts 批量上传文件格式
-      *                   --> str 批量上传的注意说明
+
       * */
     return {
       isShow: false,
@@ -170,12 +157,14 @@ export default {
       formItem: {
         name: '',
         unit: '',
-        typeList: [],
+        safe_stock: '',
+        // 用于提交
         type_id: '',
-        safe_stock: ''
+        // 用于做验证
+        typeList: [],
+        // 回显的id
+        echoId: ''
       },
-      // 类目数据
-      type_data: [],
       rule: {
         name: [{required: true, message: '必输项不能为空', trigger: 'blur'}
         ],
@@ -183,17 +172,18 @@ export default {
         ],
         typeList: [ {trigger: 'change',
           validator: (rule, value, callback) => {
-            // console.log(value)
+            console.log(value)
             if (!value.length) {
               return callback(new Error('必输项不能为空'))
-            }else {
+            } else {
               callback()
             }
           },
+          required: true,
           type: 'array'}
         ],
         safe_stock: [
-          {validator: this.$validateFun.Znumber, trigger: 'blur'}
+          {validator: this.$validateFun.Znumber, required: true, trigger: 'blur'}
         ]
       }
     }
@@ -207,21 +197,6 @@ export default {
   },
   methods: {
     init () {
-      let _this = this
-      this.$axios('goods/getGoodsType', {}).then((res) => {
-        if (res.code === 1) {
-          _this.type_data = res.data
-          // 清洗数据
-          function recursion (list) {
-            list.forEach(e => {
-              e.value = e.id
-              e.label = e.type_name
-              if (e.children && e.children.length) recursion(e.children)
-            })
-          }
-          recursion(_this.type_data)
-        }
-      })
     },
     add () {
       this.$refs.form.resetFields()
@@ -235,40 +210,17 @@ export default {
     cancel () {
       this.modal1 = false
     },
-    // 提去目录的id
-    cleanTypeID (value) {
-      // console.log(value)
-      let _this = this
-      let active = value[value.length - 1]
-      _this.formItem.type_id = active || ''
-    },
-    // 回显目录信息
-    echo_TypeID (id) {
-      let _this = this
-      _this.formItem.typeList = []
-      function recursion (list, typeId) {
-        for (let i = 0; i < list.length; i++) {
-          _this.formItem.typeList.push(list[i].id)
-          // console.log(list[i].id, typeId)
-          if (list[i].id === typeId) {
-            break
-          } else if (list[i].children && list[i].children.length) {
-            recursion(list[i].children, typeId)
-          } else {
-            _this.formItem.typeList.pop()
-            // 当退至最外层直接重置数组
-            if (_this.formItem.typeList.length === 1) _this.formItem.typeList = []
-          }
-        }
-      }
-      recursion(_this.type_data, id)
-      let idIndex = _this.formItem.typeList.indexOf(id)
-      if (idIndex !== -1) {
-        // 去除多余数据
-        // console.log(_this.formItem.typeList, idIndex)
-        _this.formItem.typeList = _this.formItem.typeList.slice(0, idIndex + 1)
-      }
-      _this.cleanTypeID(_this.formItem.typeList)
+    // 选择类目后 回显验证,辅助
+    letType () {
+      this.formItem.type_id = this.$refs.typeCascader.type_id
+      setTimeout(() => {
+        let obj = []
+        this.$refs.typeCascader.typeList.forEach(key => {
+          obj.push(key)
+        })
+        console.log(this.$refs.typeCascader.typeList, obj)
+        this.formItem.typeList = obj
+      }, 100)
     },
     save () {
       let _this = this
@@ -336,7 +288,7 @@ export default {
           this.formItem.name = item.name
           this.formItem.unit = item.unit
           this.formItem.safe_stock = item.safe_stock
-          this.echo_TypeID(item.type_id)
+          this.formItem.echoId = item.type_id
           this.modal1 = true
           break
       }
