@@ -152,6 +152,9 @@ export default {
     add () {
       this.$refs.form.resetFields()
       this.modal1Title = '添加类目'
+      for (let key in this.formItem) {
+        this.formItem[key] = ''
+      }
       this.modal1 = true
     },
     cancel () {
@@ -164,6 +167,13 @@ export default {
       let _this = this
       // console.log(this.formItem)
       if (!this.formItem.pid) this.formItem.pid = 0
+      if (this.formItem.pid === this.formItem.id) {
+        this.$Modal.error({
+          title: '类目错误',
+          content: '父级类目和自身重复,请点击添加按钮进行操作!'
+        })
+        return false
+      }
       _this.$refs.form.validate(valid => {
         if (valid) {
           _this.$axios('goods/editGoodsType', this.formItem, true).then((res) => {
@@ -174,6 +184,7 @@ export default {
               })
               this.modal1 = false
               // _this.pageRefresh()
+              this.getTableData()
             }
           })
         } else {
@@ -186,14 +197,14 @@ export default {
       this.$refs.pagingTable.search(this.searchData)
     },
     /* 保留page刷新table */
-    pageRefresh () {
-      let obj = {}
-      Object.keys(this.startSearchData).forEach(key => {
-        obj[key] = this.startSearchData[key]
-      })
-      this.searchData = obj
-      this.$refs.pagingTable.pageRefresh(this.searchData)
-    },
+    // pageRefresh () {
+    //   let obj = {}
+    //   Object.keys(this.startSearchData).forEach(key => {
+    //     obj[key] = this.startSearchData[key]
+    //   })
+    //   this.searchData = obj
+    //   this.$refs.pagingTable.pageRefresh(this.searchData)
+    // },
     /* table操作栏 */
     tableBtnClick (item, type) {
       switch (type) {

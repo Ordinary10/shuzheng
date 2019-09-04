@@ -48,34 +48,6 @@ export default {
       _this.type_id = active || ''
       _this.$emit('typeid')
     },
-    // 回显目录信息
-    // echo_TypeID (id) {
-    //   let _this = this
-    //   _this.typeList = []
-    //   function recursion (list, typeId) {
-    //     for (let i = 0; i < list.length; i++) {
-    //       _this.typeList.push(list[i].id)
-    //       // console.log(list[i].id, typeId)
-    //       if (list[i].id === typeId) {
-    //         break
-    //       } else if (list[i].children && list[i].children.length) {
-    //         recursion(list[i].children, typeId)
-    //       } else {
-    //         _this.typeList.pop()
-    //         // 当退至最外层直接重置数组
-    //         if (_this.typeList.length === 1) _this.typeList = []
-    //       }
-    //     }
-    //   }
-    //   recursion(_this.type_data, id)
-    //   let idIndex = _this.typeList.indexOf(id)
-    //   if (idIndex !== -1) {
-    //     // 去除多余数据
-    //     // console.log(_this.typeList, idIndex)
-    //     _this.typeList = _this.typeList.slice(0, idIndex + 1)
-    //   }
-    //   _this.cleanTypeID(_this.typeList)
-    // }
     echo_TypeID (id) {
       let _this = this
       let ok = false
