@@ -18,9 +18,6 @@
            <Icon type="ios-arrow-down"/>
          </div>
          <DropdownMenu slot="list">
-           <DropdownItem @click.native="shopModal1 = true">
-             <Icon type="md-color-filter"/>更换门店
-           </DropdownItem>
            <DropdownItem  @click.native="settingModal1 = true">
              <Icon type="md-settings"/>系统设置
            </DropdownItem>
