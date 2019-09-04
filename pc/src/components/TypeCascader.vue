@@ -49,25 +49,63 @@ export default {
       _this.$emit('typeid')
     },
     // 回显目录信息
+    // echo_TypeID (id) {
+    //   let _this = this
+    //   _this.typeList = []
+    //   function recursion (list, typeId) {
+    //     for (let i = 0; i < list.length; i++) {
+    //       _this.typeList.push(list[i].id)
+    //       // console.log(list[i].id, typeId)
+    //       if (list[i].id === typeId) {
+    //         break
+    //       } else if (list[i].children && list[i].children.length) {
+    //         recursion(list[i].children, typeId)
+    //       } else {
+    //         _this.typeList.pop()
+    //         // 当退至最外层直接重置数组
+    //         if (_this.typeList.length === 1) _this.typeList = []
+    //       }
+    //     }
+    //   }
+    //   recursion(_this.type_data, id)
+    //   let idIndex = _this.typeList.indexOf(id)
+    //   if (idIndex !== -1) {
+    //     // 去除多余数据
+    //     // console.log(_this.typeList, idIndex)
+    //     _this.typeList = _this.typeList.slice(0, idIndex + 1)
+    //   }
+    //   _this.cleanTypeID(_this.typeList)
+    // }
     echo_TypeID (id) {
       let _this = this
+      let ok = false
       _this.typeList = []
+      for (let i = 0; i < _this.type_data.length; i++) {
+        _this.typeList = []
+        _this.typeList.push(_this.type_data[i].id)
+        if (_this.type_data[i].id === id) {
+          break
+        } else if (_this.type_data[i].children && _this.type_data[i].children.length) {
+          recursion(_this.type_data[i].children, id)
+          if (_this.typeList.length) {
+            break
+          }
+        }
+      }
       function recursion (list, typeId) {
         for (let i = 0; i < list.length; i++) {
           _this.typeList.push(list[i].id)
-          // console.log(list[i].id, typeId)
           if (list[i].id === typeId) {
+            ok = true
             break
           } else if (list[i].children && list[i].children.length) {
             recursion(list[i].children, typeId)
           } else {
             _this.typeList.pop()
-            // 当退至最外层直接重置数组
-            if (_this.typeList.length === 1) _this.typeList = []
           }
         }
+        if (!ok) _this.typeList.pop()
       }
-      recursion(_this.type_data, id)
       let idIndex = _this.typeList.indexOf(id)
       if (idIndex !== -1) {
         // 去除多余数据
@@ -76,11 +114,17 @@ export default {
       }
       _this.cleanTypeID(_this.typeList)
     }
+
   },
   watch: {
     // 刷新组件
     echoId () {
-      this.echo_TypeID(this.echoId)
+      if (this.echoId == 0) {
+        this.typeList = []
+        this.type_id = ''
+      } else {
+        this.echo_TypeID(this.echoId)
+      }
     }
   }
 }

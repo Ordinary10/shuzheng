@@ -210,7 +210,7 @@ export default {
     cancel () {
       this.modal1 = false
     },
-    // 选择类目后 回显验证,辅助
+    // 选择类目后 回显验证
     letType () {
       this.formItem.type_id = this.$refs.typeCascader.type_id
       setTimeout(() => {

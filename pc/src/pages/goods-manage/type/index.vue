@@ -2,16 +2,16 @@
   <div>
     <search>
       <div class="search-box">
-        <!--搜索输入框-->
-        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入类目名称" />
-        <!--搜索按钮-->
-        <div class="search-submit">
-          <Tooltip content="更多搜索条件" placement="bottom-start">
-            <Button class="search-btn " size="large" icon="ios-options-outline" type="primary" @click.native="isShow=!isShow"></Button>
-          </Tooltip>
-          <Button class="search-btn " size="large" icon="md-search" type="primary" @click.native="search"></Button>
-          <Button class="refresh-btn search-btn" size="large" icon="md-refresh" type="info" @click.native="refresh"></Button>
-        </div>
+<!--        &lt;!&ndash;搜索输入框&ndash;&gt;-->
+<!--        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入类目名称" />-->
+<!--        &lt;!&ndash;搜索按钮&ndash;&gt;-->
+<!--        <div class="search-submit">-->
+<!--          <Tooltip content="更多搜索条件" placement="bottom-start">-->
+<!--            <Button class="search-btn " size="large" icon="ios-options-outline" type="primary" @click.native="isShow=!isShow"></Button>-->
+<!--          </Tooltip>-->
+<!--          <Button class="search-btn " size="large" icon="md-search" type="primary" @click.native="search"></Button>-->
+<!--          <Button class="refresh-btn search-btn" size="large" icon="md-refresh" type="info" @click.native="refresh"></Button>-->
+<!--        </div>-->
         <!--常用操作按钮-->
         <div class="commonly-used-btn-box">
           <Tooltip content="添加类目" placement="bottom-start">
@@ -34,10 +34,14 @@
       :title="modal1Title"
       :width='600'
       class-name="vertical-center-modal"
+      class="overstepModel"
     >
         <Form :model="formItem" :label-width="100" :rules="rule" ref="form" >
-          <FormItem label="类目名称" prop="name">
-            <Input v-model="formItem.name" type="text" placeholder="请输入类目名"></Input>
+          <FormItem label="父级类目">
+            <typeCascader ref="typeCascader" @typeid = 'letType' :echoId="formItem.pid"></typeCascader>
+          </FormItem>
+          <FormItem label="类目名称" prop="type_name">
+            <Input v-model="formItem.type_name" type="text" placeholder="请输入类目名"></Input>
           </FormItem>
         </Form>
         <div slot="footer">
@@ -115,13 +119,12 @@ export default {
         status: ''
       },
       formItem: {
-        name: '',
-        unit: '',
-        type_id: '',
-        safe_stock: ''
+        type_name: '',
+        id: '',
+        pid: ''
       },
       rule: {
-        name: [{required: true, message: '必输项不能为空', trigger: 'blur'}
+        type_name: [{required: true, message: '必输项不能为空', trigger: 'blur'}
         ]
       }
     }
@@ -140,7 +143,7 @@ export default {
       let options = {
         fun: 'goods/getGoodsType'
       }
-      tableRequest(options,{}).then(res => {
+      tableRequest(options, {}).then(res => {
         this.table.data = res.data
       }).catch(err => {
         console.log(err)
@@ -154,20 +157,25 @@ export default {
     cancel () {
       this.modal1 = false
     },
+    letType () {
+      this.formItem.pid = this.$refs.typeCascader.type_id
+    },
     save () {
       let _this = this
+      // console.log(this.formItem)
+      if (!this.formItem.pid) this.formItem.pid = 0
       _this.$refs.form.validate(valid => {
         if (valid) {
-          // _this.$axios('Company/editorCompany', this.formItem, true).then((res) => {
-          //   if (res.code === 1) {
-          //     _this.$Message.success({
-          //       content: res.msg,
-          //       duration: 2
-          //     })
-          //     this.modal1 = false
-          //     _this.pageRefresh()
-          //   }
-          // })
+          _this.$axios('goods/editGoodsType', this.formItem, true).then((res) => {
+            if (res.code === 1) {
+              _this.$Message.success({
+                content: res.msg,
+                duration: 2
+              })
+              this.modal1 = false
+              // _this.pageRefresh()
+            }
+          })
         } else {
           return false
         }
@@ -176,16 +184,6 @@ export default {
     /* 搜索按钮 */
     search () {
       this.$refs.pagingTable.search(this.searchData)
-    },
-    /* 刷新按钮 */
-    refresh () {
-      /* 注意：不能将searchData引用为startSearchData，否则后续刷新将失效——引用（指针）与内存空间的问题 */
-      let obj = {}
-      Object.keys(this.startSearchData).forEach(key => {
-        obj[key] = this.startSearchData[key]
-      })
-      this.searchData = obj
-      this.$refs.pagingTable.refresh(this.searchData)
     },
     /* 保留page刷新table */
     pageRefresh () {
@@ -214,13 +212,12 @@ export default {
           })
           break
         case 'editor':
-          console.log(item)
+          // console.log(item)
           this.$refs.form.resetFields()
           this.modal1Title = '编辑类目'
           this.formItem.id = item.id
-          this.formItem.name = item.name
-          this.formItem.unit = item.unit
-          this.formItem.safe_stock = item.safe_stock
+          this.formItem.pid = item.pid
+          this.formItem.type_name = item.type_name
           this.modal1 = true
           break
       }
