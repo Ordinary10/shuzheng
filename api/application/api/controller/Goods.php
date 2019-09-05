@@ -49,7 +49,7 @@ class Goods extends Base {
         $where = [];
         $where['status'] = 1;
         !empty(self::$params['status']) && $where['status'] = self::$params['status'];
-        !empty(self::$params['name']) && $where['name'] = ['like','%'.self::$params['status'].'%'];
+        !empty(self::$params['name']) && $where['name'] = ['like','%'.self::$params['name'].'%'];
         !empty(self::$params['type_id']) && $where['type_id'] = self::$params['type_id'];
         !empty(self::$params['over_safe_stock']) && $where['stock'] = Db::Raw('< safe_stock');
         return $where;
