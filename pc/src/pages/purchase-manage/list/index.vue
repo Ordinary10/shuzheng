@@ -438,7 +438,7 @@ export default {
           },
           {
             key: 'total_amount',
-            title: '金额',
+            title: '总金额',
             align: 'center'
           },
           {
