@@ -41,7 +41,7 @@
         </Col>
         <Col span="12">
           <div class="ma-spacing">
-            门店：<span class="key_text">{{ApplyData.status}}</span>
+            门店：<span class="key_text">{{ApplyData.store_name}}</span>
           </div>
         </Col>
         <Col span="12">
@@ -118,155 +118,147 @@
       class-name="vertical-center-modal"
       :footer-hide="true"
     >
-      <Row v-if="seeData">
-        <Row>
-          <Col span="6">
-            <div class="ma-spacing">
-              申请人：<span class="key_text">{{ApplyData.uname}}</span>
-            </div>
-          </Col>
-          <Col span="6">
-            <div class="ma-spacing">
-              门店：<span class="key_text">{{ApplyData.status}}</span>
-            </div>
-          </Col>
-          <Col span="6">
-            <div class="ma-spacing">
-              申请时间：<span class="key_text">{{ApplyData.ctime}}</span>
-            </div>
-          </Col>
-          <Col span="6">
-            <div class="ma-spacing">
-              状态：<span class="key_text">{{ApplyData.status_name}}</span>
-            </div>
-          </Col>
-        </Row>
-        <Divider />
-        <Row class="examine-body roll">
-          <Col span="24" v-for="(list,index) in seeData" :key="list.id">
-            <Row>
-              <Col span="6">
-                <div class="ma-spacing">
-                  商品名称：<span class="key_text">{{list.name}}</span>
-                </div>
-              </Col>
-              <Col span="6">
-                <div class="ma-spacing">
-                  买入金额：<span class="key_text">{{list.buy_amount}}</span>
-                </div>
-              </Col>
-              <Col span="6">
-                <div class="ma-spacing">
-                  申请金额：<span class="key_text">{{list.apply_amount}}</span>
-                </div>
-              </Col>
-              <Col span="6">
-                <div class="ma-spacing">
-                  购买金额：<span class="key_text">{{list.buy_money}}</span>
-                </div>
-              </Col>
-              <Col span="6">
-                <div class="ma-spacing">
-                  预计金额：<span class="key_text">{{list.estimated_money}}</span>
-                </div>
-              </Col>
-              <Col span="6">
-                <div class="ma-spacing">
-                  单位：<span class="key_text">{{list.buy_amount}}</span>
-                </div>
-              </Col>
-              <Col span="6">
-                <div class="ma-spacing">
-                  单价：<span class="key_text">{{list.buy_money}}</span>
-                </div>
-              </Col>
-              <Col span="6">
-                <div class="ma-spacing">
-                  商品条码：<span class="key_text">{{list.bar_code}}</span>
-                </div>
-              </Col>
-              <Col span="6">
-                <div class="ma-spacing">
-                  仓库：<span class="key_text">{{list.place}}</span>
-                </div>
-              </Col>
-            </Row>
-            <Divider />
+      <Row v-if="this.getDeta">
+        <Row v-if="getDeta.status==buy">
+          <Row>
+            <Col span="6">
+              <div class="ma-spacing">
+                申请人：<span class="key_text">{{ApplyData.uname}}</span>
+              </div>
+            </Col>
+            <Col span="6">
+              <div class="ma-spacing">
+                门店：<span class="key_text">{{ApplyData.store_name}}</span>
+              </div>
+            </Col>
+            <Col span="6">
+              <div class="ma-spacing">
+                申请时间：<span class="key_text">{{ApplyData.ctime}}</span>
+              </div>
+            </Col>
+            <Col span="6">
+              <div class="ma-spacing">
+                状态：<span class="key_text">{{ApplyData.status_name}}</span>
+              </div>
+            </Col>
+          </Row>
+          <Divider />
+          <Row class="examine-body roll">
+            <Col span="24" v-for="(list,index) in seeData" :key="list.id">
+              <Row>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    商品名称：<span class="key_text">{{list.name}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    买入金额：<span class="key_text">{{list.buy_amount}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    申请金额：<span class="key_text">{{list.apply_amount}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    购买金额：<span class="key_text">{{list.buy_money}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    预计金额：<span class="key_text">{{list.estimated_money}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    单位：<span class="key_text">{{list.buy_amount}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    单价：<span class="key_text">{{list.buy_money}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    商品条码：<span class="key_text">{{list.bar_code}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    仓库：<span class="key_text">{{list.place}}</span>
+                  </div>
+                </Col>
+              </Row>
+              <Divider />
 
-          </Col>
-        </Row>
-        <Row>
-          <Col span="6">
-            <div class="ma-spacing box-ib" v-for="(list,index) in commoData"
-                 :key="list.id">
+            </Col>
+          </Row>
+          <Row>
+            <Col span="6">
+              <div class="ma-spacing box-ib" v-for="(list,index) in commoData"
+                   :key="list.id">
                 <Button
                   @click="commodity(list.name)"
 
                   class="box-ib"
                   :class="{primary:arr.includes(list.name)}"
                 >{{list.name}}</Button>
-            </div>
-          </Col>
-          <Col span="24">
-            <div class="ma-spacing">
-              总金额：<span class="key_text">{{ApplyData.total_amount}}</span>
-            </div>
-          </Col>
-        </Row>
-        <Form ref="formValidate">
-          <Col span="24">
-            <div class="ma-nomb-spacing">
-              <FormItem label="审核意见">
-                <Input v-model="examineremark" type="textarea" placeholder="审核意见" />
-              </FormItem>
-            </div>
-          </Col>
+              </div>
+            </Col>
+            <Col span="24">
+              <div class="ma-spacing">
+                总金额：<span class="key_text">{{ApplyData.total_amount}}</span>
+              </div>
+            </Col>
+          </Row>
+          <Form ref="formValidate">
+            <Col span="24">
+              <div class="ma-nomb-spacing">
+                <FormItem label="审核意见">
+                  <Input v-model="examineremark" type="textarea" placeholder="审核意见" />
+                </FormItem>
+              </div>
+            </Col>
 
-          <Col span="24">
-            <div class="ma-spacing">
-              <Button type="success" @click="examine('pass',examineremark)">同意</Button>
-              <Button type="error" @click="examine('deny',examineremark)">拒绝</Button>
-            </div>
-          </Col>
-        </Form>
+            <Col span="24">
+              <div class="ma-spacing">
+                <Button type="success" @click="examine('pass',examineremark)">同意</Button>
+                <Button type="error" @click="examine('deny',examineremark)">拒绝</Button>
+              </div>
+            </Col>
+          </Form>
 
-      </Row>
-    </Modal>
-<!--    入库-->
-    <Modal
-      v-model="modal3"
-      :title="modal1Title"
-      :width='980'
-      class-name="vertical-center-modal"
-      :footer-hide="true"
-    >
-      <Row v-if="seeData">
-        <Row>
-          <Col span="6">
-            <div class="ma-spacing">
-              申请人：<span class="key_text">{{ApplyData.uname}}</span>
-            </div>
-          </Col>
-          <Col span="6">
-            <div class="ma-spacing">
-              门店：<span class="key_text">{{ApplyData.status}}</span>
-            </div>
-          </Col>
-          <Col span="6">
-            <div class="ma-spacing">
-              申请时间：<span class="key_text">{{ApplyData.ctime}}</span>
-            </div>
-          </Col>
-          <Col span="6">
-            <div class="ma-spacing">
-              状态：<span class="key_text">{{ApplyData.status_name}}</span>
-            </div>
-          </Col>
         </Row>
-        <Divider />
-        <Row class="storage-body roll">
-          <Col span="24" v-for="(list,index) in seeData" :key="list.id">
-            <Form :ref="'seeData' + index" :model="list" :rules="ruleInline" :label-width="80">
+        <Row v-else>
+          <Row>
+            <Col span="6">
+              <div class="ma-spacing">
+                申请人：<span class="key_text">{{ApplyData.uname}}</span>
+              </div>
+            </Col>
+            <Col span="6">
+              <div class="ma-spacing">
+                门店：<span class="key_text">{{ApplyData.store_name}}</span>
+              </div>
+            </Col>
+            <Col span="6">
+              <div class="ma-spacing">
+                申请时间：<span class="key_text">{{ApplyData.ctime}}</span>
+              </div>
+            </Col>
+            <Col span="6">
+              <div class="ma-spacing">
+                状态：<span class="key_text">{{ApplyData.status_name}}</span>
+              </div>
+            </Col>
+          </Row>
+          <Divider />
+          <Row class="storage-body roll">
+            <Col span="24" v-for="(list,index) in seeData" :key="list.id">
+              <Form :ref="'seeData' + index" :model="list" :rules="ruleInline" :label-width="80">
                 <Col span="6">
                   <div class="ma-nomb-spacing">
                     <FormItem label="商品名称" prop="name">
@@ -330,22 +322,25 @@
                     </FormItem>
                   </div>
                 </Col>
-            </Form>
-            <Divider />
-          </Col>
-        </Row>
+              </Form>
+              <Divider />
+            </Col>
+          </Row>
           <Col span="24">
             <div class="ma-spacing">
-                <Input v-model="storageremark" type="textarea" placeholder="入库备注" />
+              <Input v-model="storageremark" type="textarea" placeholder="入库备注" />
             </div>
           </Col>
 
           <Col span="24">
             <div class="ma-spacing">
-                <Button type="success" @click="handleSubmit(sss)">入库</Button>
+              <Button type="success" @click="handleSubmit(sss)">入库</Button>
             </div>
           </Col>
+        </Row>
       </Row>
+
+
     </Modal>
 
   </div>
@@ -378,10 +373,12 @@ export default {
       modal3:false,
       seeData:'',
       ApplyData:'',
+      getDeta:'',
       examineremark:'',
       storageremark:'',
       commoData:[],
       arr:[],
+      neworder_id:'',
       sss:{
         name:''
       },
@@ -425,7 +422,7 @@ export default {
             align: 'center'
           },
           {
-            key: 'status',
+            key: 'store_name',
             title: '门店',
             align: 'center'
           },
@@ -454,10 +451,7 @@ export default {
                     nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>查看
                   </i-button>
                   <i-button class="table-btn" type="error" size="small"
-                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'change')}>审核
-                  </i-button>
-                  <i-button className="table-btn" type="error" size="small"
-                            nativeOnClick={this.tableBtnClick.bind(this, params.row, 'storage')}>入库
+                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'change')}>详情
                   </i-button>
                 </div>
             }
@@ -501,6 +495,7 @@ export default {
   mounted () {
   },
   methods: {
+    //点击入库进行表单验证
     handleSubmit() {
       console.log(this.$refs);
       let arr = [];
@@ -520,9 +515,9 @@ export default {
         return item === true;
       });
       if (flag) {
-        this.$Message.success('success');
+        this.storage()
       } else {
-        this.$Message.error('filed');
+        this.$Message.error('请填写相关内容');
       }
     },
     commodity(name){
@@ -608,12 +603,6 @@ export default {
         this.ApplyData = item
         this.purchaseSee(item.id)
         this.modal1 = true
-      }else {
-        console.log(type)
-        this.modal1Title = '商品入库'
-        this.ApplyData = item
-        this.purchaseSee(item.id)
-        this.modal3 =true
       }
     },
     //审核同意
@@ -627,7 +616,14 @@ export default {
       const _this = this
       let res = await _this.$axios('purchaseOrder/getDetailInfo', {order_id: order_id})
       this.seeData = res.data.detail
+      this.getDeta = res
       this.commoData = JSON.parse(JSON.stringify(this.seeData))
+    },
+    //请求采购单详情
+    async storage(){
+      const _this = this
+      let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id,data:this.seeData})
+      console.log(res)
     }
   }
 }
