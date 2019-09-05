@@ -106,7 +106,7 @@ export default {
 
   },
   watch: {
-    // 刷新组件
+    // 监听传入的id进行渲染
     echoId () {
       if (this.echoId === 0 || this.echoId === '') {
         this.typeList = []
