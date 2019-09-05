@@ -5,7 +5,8 @@
         <!--搜索输入框-->
         <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入商品名称" />
         <Select v-model="searchData.status" class="search-input" size="large" placeholder="请选择状态">
-          <Option value="1">启用</Option>
+          <Option value="all">全部</Option>
+          <Option value="1">正常</Option>
           <Option value="0">禁用</Option>
         </Select>
         <!--搜索按钮-->
@@ -148,7 +149,7 @@ export default {
       },
       searchData: {
         name: '',
-        status: ''
+        status: 'all'
       },
       startSearchData: {
         name: '',
@@ -252,13 +253,8 @@ export default {
       this.searchData = obj
       this.$refs.pagingTable.refresh(this.searchData)
     },
-    /* 保留page刷新table */
+    /* 保留page和搜索状态刷新table */
     pageRefresh () {
-      let obj = {}
-      Object.keys(this.startSearchData).forEach(key => {
-        obj[key] = this.startSearchData[key]
-      })
-      this.searchData = obj
       this.$refs.pagingTable.pageRefresh(this.searchData)
     },
     /* table操作栏 */
