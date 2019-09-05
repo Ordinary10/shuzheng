@@ -9,6 +9,7 @@
 namespace app\common\service;
 use app\common\model\AuthGroup;
 use app\common\model\Company;
+use app\common\model\Supplier;
 
 class InitializeService extends BaseService {
 
@@ -17,6 +18,7 @@ class InitializeService extends BaseService {
     private $types = [
        'role',     // 角色信息
        'company',  // 部门信息
+       'supplier', // 供应商信息
     ];
 
     public function getData($types,$userInfo)
@@ -51,5 +53,11 @@ class InitializeService extends BaseService {
     private function getRole() {
         $auth_group = new AuthGroup();
         return $auth_group->field('id,title as name')->select();
+    }
+
+    // 获取供应商信息
+    private function getSupplier() {
+        $supplier_model = new Supplier();
+        return $supplier_model->field('id,name')->select();
     }
 }
