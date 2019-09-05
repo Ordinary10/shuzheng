@@ -170,7 +170,7 @@ export default {
       if (this.formItem.pid === this.formItem.id) {
         this.$Modal.error({
           title: '类目错误',
-          content: '父级类目和自身重复,请点击添加按钮进行操作!'
+          content: '父级类目和自身重复！'
         })
         return false
       }

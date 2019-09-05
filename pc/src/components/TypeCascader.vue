@@ -3,6 +3,7 @@
             @on-change="cleanTypeID"
             v-model="typeList"
             change-on-select
+            filterable
             placeholder="请选择商品类目"></Cascader>
 </template>
 <script type="text/jsx">
@@ -35,6 +36,7 @@ export default {
           // 清洗数据
           function recursion (list) {
             list.forEach(e => {
+              // e.id = String(e.id)
               e.value = e.id
               e.label = e.type_name
               if (e.children && e.children.length) recursion(e.children)
@@ -48,12 +50,19 @@ export default {
     cleanTypeID (value) {
       // console.log(value)
       let _this = this
-      if (!value.length) _this.typeList = []
+      if (!value.length) {
+        _this.typeList = []
+      } else {
+        // 搜索得到的数据为字符串,全部转化为数组
+        for (let key in value) {
+          value[key] = +value[key]
+        }
+      }
       let active = value[value.length - 1]
       _this.type_id = active || ''
-      setTimeout(()=>{
+      setTimeout(() => {
         _this.$emit('typeid')
-      },100)
+      }, 100)
     },
     // 根据id 逐步查询出层级的数组, 例如 id=6  [1,3,6]
     echo_TypeID (id) {
