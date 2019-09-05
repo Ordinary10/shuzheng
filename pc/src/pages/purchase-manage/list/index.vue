@@ -232,6 +232,121 @@
 
       </Row>
     </Modal>
+<!--    入库-->
+    <Modal
+      v-model="modal3"
+      :title="modal1Title"
+      :width='980'
+      class-name="vertical-center-modal"
+      :footer-hide="true"
+    >
+      <Row v-if="seeData">
+        <Row>
+          <Col span="6">
+            <div class="ma-spacing">
+              申请人：<span class="key_text">{{ApplyData.uname}}</span>
+            </div>
+          </Col>
+          <Col span="6">
+            <div class="ma-spacing">
+              门店：<span class="key_text">{{ApplyData.status}}</span>
+            </div>
+          </Col>
+          <Col span="6">
+            <div class="ma-spacing">
+              申请时间：<span class="key_text">{{ApplyData.ctime}}</span>
+            </div>
+          </Col>
+          <Col span="6">
+            <div class="ma-spacing">
+              状态：<span class="key_text">{{ApplyData.status_name}}</span>
+            </div>
+          </Col>
+        </Row>
+        <Divider />
+        <Row class="storage-body roll">
+          <Col span="24" v-for="(list,index) in seeData" :key="list.id">
+            <Form :ref="'seeData' + index" :model="list" :rules="ruleInline" :label-width="80">
+                <Col span="6">
+                  <div class="ma-nomb-spacing">
+                    <FormItem label="商品名称" prop="name">
+                      <Input v-model="list.name"></Input>
+                    </FormItem>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-nomb-spacing">
+                    <FormItem label="买入数量" prop="name">
+                      <Input v-model="list.buy_amount"></Input>
+                    </FormItem>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-nomb-spacing">
+                    <FormItem label="申请金额"prop="name">
+                      <Input v-model="list.apply_amount"></Input>
+                    </FormItem>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-nomb-spacing">
+                    <FormItem label="购买金额"prop="buy_money">
+                      <Input v-model="list.buy_money"></Input>
+                    </FormItem>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-nomb-spacing">
+                    <FormItem label="预计金额"prop="estimated_money">
+                      <Input v-model="list.estimated_money"></Input>
+                    </FormItem>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-nomb-spacing">
+                    <FormItem label="单位"prop="unit">
+                      <Input v-model="list.unit"></Input>
+                    </FormItem>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-nomb-spacing">
+                    <FormItem label="单价"prop="unit_price">
+                      <Input v-model="list.unit_price"></Input>
+                    </FormItem>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-nomb-spacing">
+                    <FormItem label="商品条码"prop="bar_code">
+                      <Input v-model="list.bar_code"></Input>
+                    </FormItem>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-nomb-spacing">
+                    <FormItem label="仓库"prop="place">
+                      <Input v-model="list.place"></Input>
+                    </FormItem>
+                  </div>
+                </Col>
+            </Form>
+            <Divider />
+          </Col>
+        </Row>
+          <Col span="24">
+            <div class="ma-spacing">
+                <Input v-model="storageremark" type="textarea" placeholder="入库备注" />
+            </div>
+          </Col>
+
+          <Col span="24">
+            <div class="ma-spacing">
+                <Button type="success" @click="handleSubmit(sss)">入库</Button>
+            </div>
+          </Col>
+      </Row>
+    </Modal>
 
   </div>
 </template>
@@ -264,10 +379,43 @@ export default {
       seeData:'',
       ApplyData:'',
       examineremark:'',
+      storageremark:'',
       commoData:[],
       arr:[],
+      sss:{
+        name:''
+      },
       modal1Title: '',
       popupData: {},
+      ruleInline: {
+        name: [
+          { required: true, message: '请输入内容', trigger: 'blur' }
+        ],
+        buy_amount: [
+          { required: true, message: '请输入购买数量', trigger: 'blur' }
+        ],
+        apply_amount: [
+          { required: true, message: '请输入申请金额', trigger: 'blur' }
+        ],
+        buy_money: [
+          { required: true, message: '请输入购买金额', trigger: 'blur' }
+        ],
+        estimated_money: [
+          { required: true, message: '请输入预计金额', trigger: 'blur' }
+        ],
+        unit: [
+          { required: true, message: '请输入单位', trigger: 'blur' }
+        ],
+        unit_price: [
+          { required: true, message: '请输入单价', trigger: 'blur' }
+        ],
+        bar_code: [
+          { required: true, message: '请输入商品条码', trigger: 'blur' }
+        ],
+        place: [
+          { required: true, message: '请输入仓库', trigger: 'blur' }
+        ],
+      },
       config: {
         fun: 'purchaseOrder/getLists',
         columns: [
@@ -353,9 +501,31 @@ export default {
   mounted () {
   },
   methods: {
+    handleSubmit() {
+      console.log(this.$refs);
+      let arr = [];
+      this.seeData.forEach((data, key) => {
+        let form = 'seeData' + key;
+        console.log([form][0],key)
+
+        this.$refs[form][0].validate((valid) => {
+          if (valid) {
+            arr.push(true);
+          } else {
+            arr.push(false);
+          }
+        });
+      });
+      let flag = arr.every((item) => {
+        return item === true;
+      });
+      if (flag) {
+        this.$Message.success('success');
+      } else {
+        this.$Message.error('filed');
+      }
+    },
     commodity(name){
-      console.log(name)
-      console.log(this.arr.includes(name))
       if (this.arr.includes(name)){
         this.arr=this.arr.filter(function (ele){return ele != name;});
       } else {
@@ -440,6 +610,10 @@ export default {
         this.modal1 = true
       }else {
         console.log(type)
+        this.modal1Title = '商品入库'
+        this.ApplyData = item
+        this.purchaseSee(item.id)
+        this.modal3 =true
       }
     },
     //审核同意
