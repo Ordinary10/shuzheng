@@ -40,7 +40,7 @@ export default {
   name: 'treeType',
   data () {
     return {
-      modal1Title: 'ss',
+      modal1Title: '',
       modal1: false,
       type_data: [],
       formItem: {
@@ -170,6 +170,7 @@ export default {
     // 从类目表中添加
     append (item) {
       // console.log(item)
+      this.modal1Title = '添加类目'
       this.cleanFormItem()
       this.formItem.pid = item.id
     },
