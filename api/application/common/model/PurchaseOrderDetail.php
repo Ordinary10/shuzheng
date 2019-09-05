@@ -33,16 +33,18 @@ class PurchaseOrderDetail extends Model {
         $info = $this->alias('a')
             ->where(['a.order_id'=>$order_id])
             ->join('goods b','a.goods_id=b.id','left')
-            ->field('a.*,b.name,b.unit')
+            ->join('supplier c','a.supplier_id=c.id','left')
+            ->field('a.*,b.name,b.unit,c.name supplier')
             ->select();
         return  empty($info) ? [] : collection($info)->toArray();
     }
 
     //购买后回填购买数量及金额
-    public function buy($detail_id,$buy_amount,$buy_money)
+    public function buy($detail_id,$buy_amount,$buy_money,$supplier)
     {
         if(empty($detail_id) || empty($buy_amount)) return  false;
-        return  $this->where(['id'=>$detail_id])->update(['buy_amount'=>$buy_amount,'buy_money'=>$buy_money]);
+        return  $this->where(['id'=>$detail_id])
+            ->update(['buy_amount'=>$buy_amount,'buy_money'=>$buy_money,'supplier_id'=>$supplier]);
     }
     
     //入库回填条形码

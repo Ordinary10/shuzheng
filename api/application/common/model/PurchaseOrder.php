@@ -22,6 +22,14 @@ class PurchaseOrder extends Model {
         'deny' => '已拒绝',
     ];
 
+    public $progress_status = [
+        'apply' => '发起申请',
+        'pass' => '通过审核',
+        'buy' => '采购完成',
+        'done' => '入库完成',
+        'deny' => '拒绝审核',
+    ];
+
     public function getLists($where,$page)
     {
         $data = ['count'=>0,'lists'=>[]];
@@ -56,6 +64,12 @@ class PurchaseOrder extends Model {
             'up_time'=>date('Y-m-d H:i:s'),
         ];
         return $this->where(['id'=>$order_id])->update($save_data);
+    }
+
+    //根据条形码设置已使用数量
+    public function setUsedAmount($bar_code,$used_amount)
+    {
+        return  $this->where(['bar_code'=>$bar_code])->setInc('used_amount',$used_amount);
     }
 
 }

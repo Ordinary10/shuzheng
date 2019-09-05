@@ -111,7 +111,7 @@ class PurchaseOrderService extends BaseService {
         if(empty($order_info) || $order_info['status'] != 'pass')  return   self::setError('订单信息查询失败');
         Db::startTrans();
         foreach ($param['data'] as $val){
-            $re = self::$detail_model->buy($val['detail_id'],$val['buy_amount'],$val['buy_money']);
+            $re = self::$detail_model->buy($val['detail_id'],$val['buy_amount'],$val['buy_money'],$val['supplier']);
             if(!$re){
                 Db::rollback();
                 return self::setError('数据录入失败，请重试');
@@ -158,6 +158,33 @@ class PurchaseOrderService extends BaseService {
         }
         Db::commit();
         return true;
+    }
+
+    /**
+     *
+     * @param array $data
+     * $data = [
+        ['bar_code'=>111,'num'=>10],
+        ['bar_code'=>222,'num'=>10],
+    ];
+     * @return bool
+     */
+    public function checkOut($data)
+    {
+        foreach ($data as $val){
+            $re = self::$order_model->setUsedAmount($val['bar_code'],$val['num']);
+            if(!$re)    return  false;
+        }
+        return true;
+    }
+
+    public function getProgressById($order_id)
+    {
+        $progress_model = new PurchaseOrderProgress();
+        $progress = $progress_model->getProgressByOrderId($order_id);
+        foreach ($progress as &$val){
+            $val['status_name'] = self::$order_model->progress_status[$val['status']];
+        }
     }
 
     //流程处理

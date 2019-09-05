@@ -118,14 +118,15 @@ class CheckoutOrderService extends BaseService {
         foreach ($param['data'] as $val){
             if(empty($val['bar_code']) || empty($val['num'])) return self::setError('数据有误');
             $stock = $purchase_detail_model->getInfoByBarCode($val['bar_code']);
+            $goods_id = $stock['goods_id'];
             if(empty($stock) || ($stock['buy_amount'] - $stock['used_amount']) < $val['num']){
                 return  self::setError('条形码为' . $val['bar_code'] . '的商品库存不足');
             }
-            if(!isset($detail_info[$stock['goods_id']])){
+            if(!isset($detail_info[$goods_id])){
                 return  self::setError('该笔出库单没有条形码为' . $val['bar_code'] . '的商品');
             }
-            $detail_info[$stock['goods_id']]['delivery_amount'] += $val['num'];
-            if($detail_info[$stock['goods_id']]['delivery_amount'] > $detail_info[$stock['goods_id']]){
+            $detail_info[$goods_id]['delivery_amount'] += $val['num'];
+            if($detail_info[$goods_id]['delivery_amount'] > $detail_info[$goods_id]){
                 return  self::setError($stock['name'] . '出库数量超过了申请数量');
             }
         }
@@ -133,6 +134,13 @@ class CheckoutOrderService extends BaseService {
         if(!$re){
             Db::rollback();
             return self::setError('数据录入失败，请重试');
+        }
+        //采购单处理
+        $purchase_service = new PurchaseOrderService();
+        $re = $purchase_service->checkOut($param['data']);
+        if(!$re){
+            Db::rollback();
+            return self::setError('出库数据处理失败，请重试');
         }
         $status = 'distribute';
         $re = $this->dealProgress($order_id,$uid,$status,$param['remark']);

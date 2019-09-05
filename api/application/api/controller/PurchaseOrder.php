@@ -12,6 +12,7 @@ namespace app\api\controller;
 
 
 use app\common\model\PurchaseOrderDetail;
+use app\common\model\PurchaseOrderProgress;
 use app\common\service\CommonService;
 use app\common\service\PurchaseOrderService;
 
@@ -72,7 +73,17 @@ class PurchaseOrder extends Base {
         if(empty($order_id)) return self::error_result('参数错误');
         $order_info = self::$order_model->getInfoById($order_id);
         if(empty($order_info))  return  self::error_result('采购单信息查询失败');
+        $common_service = new CommonService();
+        $order_info['uname'] = $common_service->getUserNameByUid($order_info['uid'],[$order_info['uid']]);
+        $order_info['store_name'] = $common_service->getStoreNameByUid($order_info['uid'],[$order_info['uid']]);
+        $order_info['status_name'] = self::$order_model->status[$order_info['status']];
         $order_info['detail'] = self::$detail_model->getInfoByOrderId($order_id);
+        //流程
+        $progress = new PurchaseOrderProgress();
+        $order_info['progress'] = $progress->getProgressByOrderId($order_id);
+        foreach ($order_info['progress'] as &$val){
+            $val['status_name'] = self::$order_model->status[$val['status']];
+        }
         return  self::success_result($order_info);
     }
 

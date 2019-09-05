@@ -27,6 +27,23 @@ class PurchaseOrderProgress extends Model {
         return  $this->insert($data);
     }
 
+    /**
+     * 根据订单ID获取流程
+     * @param int $id
+     * @throws
+     * @return array
+     */
+    public function getProgressByOrderId($id)
+    {
+        $info = $this->alias('a')
+            ->join('user u','a.uid=u.uid','left')
+            ->where(['a.order_id'=>$id])
+            ->order('id asc')
+            ->field('a.*,u.uname')
+            ->select();
+        return empty($info) ? [] : collection($info)->toArray();
+    }
+
     
     
 }
