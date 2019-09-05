@@ -73,14 +73,34 @@ const dynamicRoutes = [
     children: [
       {
         path: 'list',
-        name: 'goods-list',
+        name: 'purchase-list',
         component: () => import('@/pages/purchase-manage/list'),
         meta: {
           name: '采购管理'
         }
       }
     ]
+  },
+  {
+    path: '/warehouse',
+    component: () => import('@/pages/warehouse-manage'),
+    name: 'warehouse-manage',
+    meta: {
+      name: '出库管理',
+      icon: 'iconxitongguanli'
+    },
+    children: [
+      {
+        path: 'list',
+        name: 'warehouse-list',
+        component: () => import('@/pages/warehouse-manage/list'),
+        meta: {
+          name: '出库管理'
+        }
+      }
+    ]
   }
+
 
 ]
 export default dynamicRoutes
