@@ -124,6 +124,21 @@ class Goods extends Base {
         return  self::success_result('删除成功');
     }
 
+    //根据类目获取商品
+    public function getAllGoodsByType()
+    {
+        if(empty(self::$params['type_id'])) return self::success_result([]);
+        $type = self::$goods_type_model->getInfoById(self::$params['type_id']);
+        if(empty($type)) return self::success_result([]);
+        if($type['pid'] == 0){
+            $son_type = self::$goods_type_model->getAllIdByPid($type['type_id']);
+            $where = ['type_id'=>['in',$son_type]];
+        }else{
+            $where = ['type_id'=>self::$params['type_id']];
+        }
+        $data = self::$model->getLists($where,[]);
+        return self::success_result($data['lists']);
+    }
     // 修改商品状态
     public function renewalGoodsStatus()
     {
@@ -131,6 +146,8 @@ class Goods extends Base {
             return self::error_result('请选择要操作的商品');
         }
 
+
+    
         $status = self::$model->where(['id'=>self::$params['id']])->value('status');
         if(empty($status)) {
             return self::error_result('没有对应的商品信息');

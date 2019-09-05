@@ -24,7 +24,8 @@ class Goods extends Model {
         $data['count'] = $this->where($where)->count();
         if(empty($data['count']))   return  $data;
         $lists = $this->where($where);
-        if(!empty($page)) $lists=$lists->page($page)->select();
+        if(!empty($page)) $lists=$lists->page($page);
+        $lists=$lists->select();
         $data['lists'] = empty($lists) ? [] : collection($lists)->toArray();
         return  $data;
     }

@@ -20,6 +20,18 @@ class GoodsType extends Model {
         $data = $this->field('type_id as id,pid,type_name')->select();
         return empty($data) ? [] : collection($data)->toArray();
     }
+
+    public function getInfoById($type_id)
+    {
+        $info = $this->where(['type_id'=>$type_id])->find();
+        return empty($info) ? [] : $info->toArray();
+    }
+
+    //根据父类目获取下面的所有子类目ID
+    public function getAllIdByPid($pid)
+    {
+        return $this->where(['type_id|pid'=>$pid])->column('type_id');
+    }
     
     public function edit($param,$id)
     {

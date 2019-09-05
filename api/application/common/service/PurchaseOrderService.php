@@ -62,7 +62,7 @@ class PurchaseOrderService extends BaseService {
                 'estimated_money'=>$amount,
             ];
             $order_data['total_count'] += 1;
-            $order_data['total_amount'] += $amount;
+            $order_data['estimated_amount'] += $amount;
         }
         if(empty($order_data['total_count']))   return self::setError('采购商品信息不正确');
         Db::startTrans();
@@ -110,7 +110,9 @@ class PurchaseOrderService extends BaseService {
         $order_info = self::$order_model->getInfoById($order_id);
         if(empty($order_info) || $order_info['status'] != 'pass')  return   self::setError('订单信息查询失败');
         Db::startTrans();
+        $total_amount = 0;    //实际采购金额
         foreach ($param['data'] as $val){
+            $total_amount += $val['buy_money'];
             $re = self::$detail_model->buy($val['detail_id'],$val['buy_amount'],$val['buy_money'],$val['supplier']);
             if(!$re){
                 Db::rollback();
@@ -123,7 +125,7 @@ class PurchaseOrderService extends BaseService {
             Db::rollback();
             return self::setError('流程处理失败');
         }
-        $re = self::$order_model->setStatus($order_id,$status);
+        $re = self::$order_model->setStatus($order_id,$status,['total_amount'=>$total_amount]);
         if(!$re){
             Db::rollback();
             return self::setError('状态修改失败');

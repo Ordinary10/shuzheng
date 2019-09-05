@@ -57,12 +57,13 @@ class PurchaseOrder extends Model {
         return empty($info) ? [] : $info->toArray();
     }
 
-    public function setStatus($order_id,$status)
+    public function setStatus($order_id,$status,$extra = [])
     {
         $save_data = [
             'status'=>$status,
             'up_time'=>date('Y-m-d H:i:s'),
         ];
+        if(!empty($extra)) $save_data = array_merge($save_data,$extra);
         return $this->where(['id'=>$order_id])->update($save_data);
     }
 
