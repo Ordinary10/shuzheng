@@ -55,7 +55,8 @@ const dynamicRoutes = [
       {
         path: 'type',
         name: 'goods-type',
-        component: () => import('@/pages/goods-manage/type'),
+        // component: () => import('@/pages/goods-manage/type'),
+        component: () => import('@/pages/goods-manage/type/treeType'),
         meta: {
           name: '类目列表'
         }
