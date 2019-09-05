@@ -3,7 +3,7 @@
     <search>
       <div class="search-box">
         <div class="commonly-used-btn-box">
-          <Tooltip content="添加类目" placement="bottom-start">
+          <Tooltip content="添加新类目" placement="bottom-start">
             <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="add" style="font-size: 18px"></Button>
           </Tooltip>
         </div>
@@ -82,13 +82,18 @@ export default {
         }
       })
     },
-    add () {
+    // 重置输入框
+    cleanFormItem(){
       this.$refs.form.resetFields()
-      this.modal1Title = '添加类目'
       for (let key in this.formItem) {
         this.formItem[key] = ''
       }
       this.modal1 = true
+    },
+    // 左上角从头添加
+    add () {
+      this.modal1Title = '添加类目'
+      this.cleanFormItem()
     },
     letType () {
       this.formItem.pid = this.$refs.typeCascader.type_id
@@ -122,38 +127,56 @@ export default {
             }
 
           })
+        ]),
+        h('span', {
+          style: {
+            display: 'inline-block',
+            float: 'right'
+          }
+        }, [
+          h('Button', {
+            class: ['TreeButton', 'children'],
+            props: {
+              icon: 'ios-add'
+            },
+            style: {
+              marginRight: '8px'
+            },
+            on: {
+              click: (e) => {
+                e.stopPropagation()
+                this.append(data)
+              }
+            }
+          }),
+          h('Button', {
+            class: 'TreeButton',
+            props: {
+              icon: 'ios-remove'
+            },
+            on: {
+              click: (e) => {
+                e.stopPropagation()
+                this.remove(data)
+              }
+            }
+          })
         ])
-        // h('span', {
-        //   style: {
-        //     display: 'inline-block',
-        //     float: 'right',
-        //     marginRight: '32px'
-        //   }
-        // }, [
-        //   h('Button', {
-        //     props: Object.assign({}, this.buttonProps, {
-        //       icon: 'ios-add'
-        //     }),
-        //     style: {
-        //       marginRight: '8px'
-        //     },
-        //     on: {
-        //       click: () => { this.append(data) }
-        //     }
-        //   }),
-        //   h('Button', {
-        //     props: Object.assign({}, this.buttonProps, {
-        //       icon: 'ios-remove'
-        //     }),
-        //     on: {
-        //       click: () => { this.remove(root, node, data) }
-        //     }
-        //   })
-        // ])
       ])
     },
     cancel () {
       this.modal1 = false
+    },
+    // 从类目表中添加
+    append (item) {
+      // console.log(item)
+      this.cleanFormItem()
+      this.formItem.pid = item.id
+    },
+    // 从类目表中删除
+    remove (item) {
+      // console.log(item)
+      alert('没有')
     },
     save () {
       let _this = this
@@ -186,7 +209,8 @@ export default {
       })
     },
     editor (item) {
-      this.modal1 = true
+      this.cleanFormItem()
+      this.modal1Title = `修改类目：${item.type_name}`
       this.formItem.pid = item.pid
       this.formItem.id = item.id
       this.formItem.type_name = item.type_name
@@ -220,5 +244,12 @@ export default {
       .item:hover{
         background-color: #f4f4f4;
       }
+    .TreeButton{
+      padding: 0 10px;
+      .ivu-icon{
+        font-size: 18px;
+      }
+    }
+
   }
 </style>
