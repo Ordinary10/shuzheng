@@ -127,14 +127,17 @@ class Goods extends Base {
     //根据类目获取商品
     public function getAllGoodsByType()
     {
-        if(empty(self::$params['type_id'])) return self::success_result([]);
-        $type = self::$goods_type_model->getInfoById(self::$params['type_id']);
-        if(empty($type)) return self::success_result([]);
-        if($type['pid'] == 0){
-            $son_type = self::$goods_type_model->getAllIdByPid($type['type_id']);
-            $where = ['type_id'=>['in',$son_type]];
+        if(empty(self::$params['type_id'])){
+            $where = [];
         }else{
-            $where = ['type_id'=>self::$params['type_id']];
+            $type = self::$goods_type_model->getInfoById(self::$params['type_id']);
+            if(empty($type)) return self::success_result([]);
+            if($type['pid'] == 0){
+                $son_type = self::$goods_type_model->getAllIdByPid($type['type_id']);
+                $where = ['type_id'=>['in',$son_type]];
+            }else{
+                $where = ['type_id'=>self::$params['type_id']];
+            }
         }
         $data = self::$model->getLists($where,[]);
         return self::success_result($data['lists']);
