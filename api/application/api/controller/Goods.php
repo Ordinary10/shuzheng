@@ -114,12 +114,33 @@ class Goods extends Base {
     public function delGoodsType()
     {
         $ids = explode(',',trim(self::$params['type_id'],','));
-        if(empty($ids)) return self::error_result('请选择要删除的种类');
+        if(empty($ids)) {
+            return self::error_result('请选择要删除的种类');
+        }
         $re = self::$goods_type_model->del($ids);
-        if(!$re)    return self::error_result('删除失败');
+        if(!$re) {
+            return self::error_result('删除失败');
+        }
         return  self::success_result('删除成功');
     }
 
+    // 修改商品状态
+    public function renewalGoodsStatus()
+    {
+        if(empty(self::$params['id'])) {
+            return self::error_result('请选择要操作的商品');
+        }
 
-    
+        $status = self::$model->where(['id'=>self::$params['id']])->value('status');
+        if(empty($status)) {
+            return self::error_result('没有对应的商品信息');
+        }
+
+        $status = $status == 1 ? -1:1;
+        $re = self::$model->where(['id'=>self::$params['id']])->update(['status'=>$status]);
+        if(!$re) {
+            return  self::error_result('修改状态失败');
+        }
+        return self::success_result([],'修改状态成功');
+    }
 }
