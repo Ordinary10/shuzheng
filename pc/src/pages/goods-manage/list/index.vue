@@ -5,9 +5,8 @@
         <!--搜索输入框-->
         <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入商品名称" />
         <Select v-model="searchData.status" class="search-input" size="large" placeholder="请选择状态">
-          <Option value="all">全部</Option>
           <Option value="1">正常</Option>
-          <Option value="0">禁用</Option>
+          <Option value="-1">禁用</Option>
         </Select>
         <!--搜索按钮-->
         <div class="search-submit">
@@ -149,11 +148,11 @@ export default {
       },
       searchData: {
         name: '',
-        status: 'all'
+        status: '1'
       },
       startSearchData: {
         name: '',
-        status: ''
+        status: '1'
       },
       formItem: {
         name: '',
@@ -261,16 +260,23 @@ export default {
     tableBtnClick (item, type) {
       switch (type) {
         case 'change':
-          let title = item.status === 0 ? '启用' : '禁用'
-          let content = `<p>确认${item.status === 0 ? '启动' : '禁用'}<span class="prominentText">${item.name}</span>？</p>`
+          let _this =this
+          let title = item.status === -1 ? '启用' : '禁用'
+          let content = `<p>确认${item.status === -1 ? '启动' : '禁用'}<span class="prominentText">${item.name}</span>？</p>`
           this.$Modal.confirm({
             title,
             content,
             onOk: () => {
-              alert('没有')
-              // this.$axios('Company/renewalCompany', {id: item.id}, true).then((res) => {
-              //   this.pageRefresh()
-              // })
+              _this.$axios('Goods/renewalGoodsStatus', {id: item.id}, true).then((res) => {
+                if (res.code === 1) {
+                  _this.$Message.success({
+                    content: res.msg,
+                    duration: 2
+                  })
+                  this.modal1 = false
+                  _this.pageRefresh()
+                }
+              })
             }
           })
           break
