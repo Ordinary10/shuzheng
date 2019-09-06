@@ -96,7 +96,7 @@
         //提交请求
         async save(){
           const _this =this
-          // let res = await _this.$axios('purchaseOrder/apply',{order_id:0,data:this.fromdata})
+          let res = await _this.$axios('purchaseOrder/apply',{order_id:0,data:this.fromdata})
           console.log(res)
         }
       }
