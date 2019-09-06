@@ -34,9 +34,10 @@ service.interceptors.response.use(
         content: res.msg,
         duration: 5
       })
-      store.commit('LOGIN_OUT')
       Spin.hide()
-      this.$router.push({path: '/login'})
+      setTimeout(e=>{
+        store.commit('LOGIN_OUT')
+      },1000)
     } else {
       Message.error({
         content: res.msg,

@@ -6,6 +6,7 @@ export default {
   LOGIN_OUT (state) {
     state.loginData = ''
     state.UserToken = ''
+    window.location.reload()
   },
   toggleNavCollapse (state) {
     state.isSidebarNavCollapse = !state.isSidebarNavCollapse

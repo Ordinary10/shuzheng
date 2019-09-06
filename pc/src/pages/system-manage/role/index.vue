@@ -203,8 +203,8 @@ export default {
     tableBtnClick (item, type) {
       switch (type) {
         case 'change':
-          let title = item.status === 0 ? '启用' : '禁用'
-          let content = `<p>确认${item.status === 0 ? '启动' : '禁用'}<span class="prominentText">${item.title}</span>？</p>`
+          let title = item.status === -1 ? '启用' : '禁用'
+          let content = `<p>确认${item.status === -1 ? '启动' : '禁用'}<span class="prominentText">${item.title}</span>？</p>`
           this.$Modal.confirm({
             title,
             content,
