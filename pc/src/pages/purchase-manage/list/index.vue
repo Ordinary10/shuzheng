@@ -25,6 +25,16 @@
     <div class="content-block">
       <paging-table ref="pagingTable" :config="config" :searchData="searchData"></paging-table>
     </div>
+    <!--新增-->
+    <Modal
+      v-model="addisShow"
+      :title="modal1Title"
+      :width='980'
+      class-name="vertical-center-modal"
+      :footer-hide="true"
+    >
+      <add></add>
+    </Modal>
     <!--查看详情-->
     <Modal
       v-model="modal1"
@@ -119,7 +129,7 @@
       :footer-hide="true"
     >
       <Row v-if="this.getDeta">
-        <Row v-if="getDeta.status==buy">
+        <Row v-if="getDeta.status!=='buy'">
           <Row>
             <Col span="6">
               <div class="ma-spacing">
@@ -339,14 +349,14 @@
           </Col>
         </Row>
       </Row>
-
-
     </Modal>
 
   </div>
 </template>
 <script type="text/jsx">
-export default {
+  import add from './add'
+
+  export default {
   data () {
     /*
       * isShow: 用于折叠搜索框的显示隐藏
@@ -367,6 +377,7 @@ export default {
       *                   --> str 批量上传的注意说明
       * */
     return {
+      addisShow:false,
       isShow: false,
       modal1: false,
       modal2:false,
@@ -489,6 +500,7 @@ export default {
     }
   },
   components: {
+    add
   },
   created () {
   },
@@ -540,10 +552,8 @@ export default {
       }
     },
     add () {
-      this.$refs.form.resetFields()
-      this.formItem = {type: '1'}
-      this.modal1Title = '添加商品'
-      this.modal1 = true
+      this.modal1Title = '采购申请'
+      this.addisShow =true
     },
     cancel () {
       this.modal1 = false
