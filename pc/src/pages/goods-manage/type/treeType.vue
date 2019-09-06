@@ -103,17 +103,20 @@ export default {
         style: {
           display: 'inline-block',
           width: '80%',
+          paddingLeft: '5%',
           height: '32px',
           lineHeight: '32px',
-          cursor: 'pointer',
           marginLeft: '20px'
         },
-        class: 'item',
-        on: {
-          click: () => { this.editor(data) }
-        }
+        class: 'item'
+
       }, [
-        h('span', [
+        h('span', {
+          class: 'TypeTitle',
+          on: {
+            click: () => { this.editor(data) }
+          }
+        }, [
           h('Icon', {
             style: {
             }
@@ -125,9 +128,9 @@ export default {
             style: {
               fontSize: '15px'
             }
-
           })
-        ]),
+        ]
+        ),
         h('span', {
           style: {
             display: 'inline-block',
@@ -139,7 +142,7 @@ export default {
             props: {
               icon: 'ios-add',
               type: 'primary',
-              ghost:true
+              ghost: true
             },
             style: {
               marginRight: '8px'
@@ -156,7 +159,7 @@ export default {
             props: {
               icon: 'ios-remove',
               type: 'error',
-              ghost:true
+              ghost: true
             },
             on: {
               click: (e) => {
@@ -248,21 +251,29 @@ export default {
       }
       .item:hover{
         background-color: #f4f4f4;
+        border-radius: 5px;
       }
-    .addTreeButton{
-      padding: 0 10px;
-      .ivu-icon{
-        font-size: 18px;
-        font-weight: 700;
+
+      .TypeTitle{
+        cursor: pointer;
+        &:hover{
+          color: #57a3f3;
+        }
       }
-    }
-    .removeTreeButton{
-      padding: 0 10px;
-      .ivu-icon{
-        font-size: 18px;
-        font-weight: 700;
+        .addTreeButton{
+          padding: 0 10px;
+          .ivu-icon{
+            font-size: 18px;
+            font-weight: 700;
+          }
+        }
+      .removeTreeButton{
+        padding: 0 10px;
+        .ivu-icon{
+          font-size: 18px;
+          font-weight: 700;
+        }
       }
-    }
 
   }
 </style>
