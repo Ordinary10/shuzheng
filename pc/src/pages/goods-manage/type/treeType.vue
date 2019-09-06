@@ -135,7 +135,7 @@ export default {
           }
         }, [
           h('Button', {
-            class: ['TreeButton', 'children'],
+            class: ['addTreeButton'],
             props: {
               icon: 'ios-add'
             },
@@ -150,7 +150,7 @@ export default {
             }
           }),
           h('Button', {
-            class: 'TreeButton',
+            class: 'removeTreeButton',
             props: {
               icon: 'ios-remove'
             },
@@ -245,10 +245,23 @@ export default {
       .item:hover{
         background-color: #f4f4f4;
       }
-    .TreeButton{
+    .addTreeButton{
       padding: 0 10px;
+      color: #57a3f3;
       .ivu-icon{
         font-size: 18px;
+        font-weight: 700;
+      }
+    }
+    .removeTreeButton{
+      padding: 0 10px;
+      color: #f16643;
+      &:hover{
+        border-color: #f16643;
+      }
+      .ivu-icon{
+        font-size: 18px;
+        font-weight: 700;
       }
     }
 
