@@ -83,7 +83,7 @@ export default {
       })
     },
     // 重置输入框
-    cleanFormItem(){
+    cleanFormItem () {
       this.$refs.form.resetFields()
       for (let key in this.formItem) {
         this.formItem[key] = ''
@@ -137,7 +137,9 @@ export default {
           h('Button', {
             class: ['addTreeButton'],
             props: {
-              icon: 'ios-add'
+              icon: 'ios-add',
+              type: 'primary',
+              ghost:true
             },
             style: {
               marginRight: '8px'
@@ -152,7 +154,9 @@ export default {
           h('Button', {
             class: 'removeTreeButton',
             props: {
-              icon: 'ios-remove'
+              icon: 'ios-remove',
+              type: 'error',
+              ghost:true
             },
             on: {
               click: (e) => {
@@ -247,7 +251,6 @@ export default {
       }
     .addTreeButton{
       padding: 0 10px;
-      color: #57a3f3;
       .ivu-icon{
         font-size: 18px;
         font-weight: 700;
@@ -255,10 +258,6 @@ export default {
     }
     .removeTreeButton{
       padding: 0 10px;
-      color: #f16643;
-      &:hover{
-        border-color: #f16643;
-      }
       .ivu-icon{
         font-size: 18px;
         font-weight: 700;

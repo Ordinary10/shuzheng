@@ -421,6 +421,8 @@ html{
 
 //zhwend
 // xy start
+$defaultBlue: #57a3f3;
+$defaultRed: #ed4014;
 //下拉框超出model 继续显示
 .overstepModel .ivu-modal-body{
   overflow-y: initial;
@@ -434,7 +436,7 @@ html{
 }
 //文字突出效果
 .prominentText{
-  color: #57a3f3;
+  color: $defaultBlue;
   font-weight: 600;
 }
 // xy end
