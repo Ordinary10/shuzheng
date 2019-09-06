@@ -129,7 +129,7 @@
       :footer-hide="true"
     >
       <Row v-if="this.getDeta">
-        <Row v-if="getDeta.status!=='buy'">
+        <Row v-if="getDeta.data.status=='buy'">
           <Row>
             <Col span="6">
               <div class="ma-spacing">
@@ -153,6 +153,96 @@
             </Col>
           </Row>
           <Divider />
+          <Row class="storage-body roll">
+            <Col span="24" v-for="(list,index) in seeData" :key="list.id">
+              <Row>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    商品名称：<span class="key_text">{{list.name}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    买入数量：<span class="key_text">{{list.buy_amount}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    申请金额：<span class="key_text">{{list.apply_amount}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    购买金额：<span class="key_text">{{list.buy_money}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    单位：<span class="key_text">{{list.unit}}</span>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-spacing">
+                    单价：<span class="key_text">{{list.unit_price}}</span>
+                  </div>
+                </Col>
+              </Row>
+              <Form :ref="'seeData' + index" :model="list" :rules="ruleInline" :label-width="50">
+                <Col span="6">
+                  <div class="ma-nomb-spacing">
+                    <FormItem label="条码"prop="bar_code">
+                      <Input v-model="list.bar_code"></Input>
+                    </FormItem>
+                  </div>
+                </Col>
+                <Col span="6">
+                  <div class="ma-nomb-spacing">
+                    <FormItem label="仓库"prop="place">
+                      <Input v-model="list.place"></Input>
+                    </FormItem>
+                  </div>
+                </Col>
+              </Form>
+              <Divider />
+            </Col>
+          </Row>
+          <Row>
+<!--            <Col span="24">-->
+<!--              <div class="ma-spacing">-->
+<!--                <Input v-model="storageremark" type="textarea" placeholder="入库备注" />-->
+<!--              </div>-->
+<!--            </Col>-->
+            <Col span="24">
+              <div class="ma-spacing">
+                <Button type="success" @click="handleSubmit()">入库</Button>
+              </div>
+            </Col>
+          </Row>
+        </Row>
+        <Row v-else>
+          <Row>
+            <Col span="6">
+              <div class="ma-spacing">
+                申请人：<span class="key_text">{{ApplyData.uname}}</span>
+              </div>
+            </Col>
+            <Col span="6">
+              <div class="ma-spacing">
+                门店：<span class="key_text">{{ApplyData.store_name}}</span>
+              </div>
+            </Col>
+            <Col span="6">
+              <div class="ma-spacing">
+                申请时间：<span class="key_text">{{ApplyData.ctime}}</span>
+              </div>
+            </Col>
+            <Col span="6">
+              <div class="ma-spacing">
+                状态：<span class="key_text">{{ApplyData.status_name}}</span>
+              </div>
+            </Col>
+          </Row>
+          <Divider/>
           <Row class="examine-body roll">
             <Col span="24" v-for="(list,index) in seeData" :key="list.id">
               <Row>
@@ -224,7 +314,7 @@
               </div>
             </Col>
           </Row>
-          <Form ref="formValidate">
+          <Form ref="formValidate" v-if="getDeta.data.status=='apply'">
             <Col span="24">
               <div class="ma-nomb-spacing">
                 <FormItem label="审核意见">
@@ -232,7 +322,6 @@
                 </FormItem>
               </div>
             </Col>
-
             <Col span="24">
               <div class="ma-spacing">
                 <Button type="success" @click="examine('pass',examineremark)">同意</Button>
@@ -240,113 +329,6 @@
               </div>
             </Col>
           </Form>
-
-        </Row>
-        <Row v-else>
-          <Row>
-            <Col span="6">
-              <div class="ma-spacing">
-                申请人：<span class="key_text">{{ApplyData.uname}}</span>
-              </div>
-            </Col>
-            <Col span="6">
-              <div class="ma-spacing">
-                门店：<span class="key_text">{{ApplyData.store_name}}</span>
-              </div>
-            </Col>
-            <Col span="6">
-              <div class="ma-spacing">
-                申请时间：<span class="key_text">{{ApplyData.ctime}}</span>
-              </div>
-            </Col>
-            <Col span="6">
-              <div class="ma-spacing">
-                状态：<span class="key_text">{{ApplyData.status_name}}</span>
-              </div>
-            </Col>
-          </Row>
-          <Divider />
-          <Row class="storage-body roll">
-            <Col span="24" v-for="(list,index) in seeData" :key="list.id">
-              <Form :ref="'seeData' + index" :model="list" :rules="ruleInline" :label-width="80">
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="商品名称" prop="name">
-                      <Input v-model="list.name"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="买入数量" prop="name">
-                      <Input v-model="list.buy_amount"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="申请金额"prop="name">
-                      <Input v-model="list.apply_amount"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="购买金额"prop="buy_money">
-                      <Input v-model="list.buy_money"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="预计金额"prop="estimated_money">
-                      <Input v-model="list.estimated_money"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="单位"prop="unit">
-                      <Input v-model="list.unit"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="单价"prop="unit_price">
-                      <Input v-model="list.unit_price"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="商品条码"prop="bar_code">
-                      <Input v-model="list.bar_code"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="仓库"prop="place">
-                      <Input v-model="list.place"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-              </Form>
-              <Divider />
-            </Col>
-          </Row>
-          <Col span="24">
-            <div class="ma-spacing">
-              <Input v-model="storageremark" type="textarea" placeholder="入库备注" />
-            </div>
-          </Col>
-
-          <Col span="24">
-            <div class="ma-spacing">
-              <Button type="success" @click="handleSubmit(sss)">入库</Button>
-            </div>
-          </Col>
         </Row>
       </Row>
     </Modal>
@@ -390,9 +372,6 @@
       commoData:[],
       arr:[],
       neworder_id:'',
-      sss:{
-        name:''
-      },
       modal1Title: '',
       popupData: {},
       ruleInline: {
@@ -509,11 +488,9 @@
   methods: {
     //点击入库进行表单验证
     handleSubmit() {
-      console.log(this.$refs);
       let arr = [];
       this.seeData.forEach((data, key) => {
         let form = 'seeData' + key;
-        console.log([form][0],key)
 
         this.$refs[form][0].validate((valid) => {
           if (valid) {
@@ -602,7 +579,6 @@
     },
     /* table操作栏 */
     tableBtnClick (item, type) {
-      console.log(item,type)
       if (type =='change'){
         this.modal1Title = '审核'
         this.ApplyData = item
@@ -619,7 +595,6 @@
     async examine(type,remark){
       const _this = this
       let res = await _this.$axios('purchaseOrder/verify', {verify_status:type,remark:remark,order_id:this.ApplyData.id})
-      console.log(res)
     },
     //请求采购单详情
     async purchaseSee(order_id){
@@ -629,11 +604,24 @@
       this.getDeta = res
       this.commoData = JSON.parse(JSON.stringify(this.seeData))
     },
-    //请求采购单详情
+    //入库
     async storage(){
       const _this = this
-      let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id,data:this.seeData})
-      console.log(res)
+      let data = [];
+      let admins={
+        place:'',
+        bar_code:'',
+        detail_id:'',
+      };
+      this.seeData.map((value,index,arry)=>{
+        data.push({
+          place:value.place,
+          bar_code:value.bar_code,
+          detail_id:value.id,})
+      })
+      console.log(data,{order_id:this.ApplyData.id})
+      // let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id,data:this.seeData})
+      // console.log(res)
     }
   }
 }
