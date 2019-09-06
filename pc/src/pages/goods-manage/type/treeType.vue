@@ -102,11 +102,11 @@ export default {
       return h('span', {
         style: {
           display: 'inline-block',
-          width: '80%',
+          width: 'calc(95% - 12px)',
           paddingLeft: '5%',
           height: '32px',
           lineHeight: '32px',
-          marginLeft: '20px'
+          marginLeft: '5%'
         },
         class: 'item'
 
@@ -245,7 +245,7 @@ export default {
       &>.ivu-tree-children{
         width: calc(25% - 40px);
         margin: 20px;
-        padding: 10px;
+        padding: 0.5% 1% 0.5% 0.5%;
         border: 1px solid #57a3f3;
         border-radius: 10px;
       }

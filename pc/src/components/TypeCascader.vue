@@ -8,12 +8,18 @@
 </template>
 <script type="text/jsx">
 export default {
-  props: ['echoId'],
+  props: {
+    echoId: {},
+    maxNum: {
+    }
+  },
   data () {
     /*
       * echoId: 回显类目的id
+      * maxNum: 开启最大限定级别的 级别数
       * */
     return {
+      // 默认最大级别的限定
       typeList: [],
       type_id: '',
       // 类目数据
@@ -48,15 +54,21 @@ export default {
     },
     // 提去目录的id
     cleanTypeID (value) {
+      // value 就是 _this.typeList
       // console.log(value)
       let _this = this
+      // 搜索得到的数据为字符串,全部转化为数组
+      for (let key in value) {
+        value[key] = +value[key]
+      }
       if (!value.length) {
-        _this.typeList = []
-      } else {
-        // 搜索得到的数据为字符串,全部转化为数组
-        for (let key in value) {
-          value[key] = +value[key]
-        }
+        value = []
+      } else if (_this.maxNum && value.length >= +_this.maxNum) {
+        // 超过设置的最多级别直接清空
+        value = []
+        _this.$Message.warning({
+          content: `级别超出！最多${_this.maxNum}级`
+        })
       }
       let active = value[value.length - 1]
       _this.type_id = active || ''
