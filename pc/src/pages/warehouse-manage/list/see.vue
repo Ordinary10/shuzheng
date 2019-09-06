@@ -26,7 +26,7 @@
       </div>
     </Col>
     <Divider />
-    <Col span="24" v-for="(list,index) in seeData" :key="list.id">
+    <Col span="24" v-for="(list,index) in ApplyData.detail_info" :key="list.id">
       <Col span="12">
         <div class="ma-spacing">
           商品名称：<span class="key_text">{{list.name}}</span>

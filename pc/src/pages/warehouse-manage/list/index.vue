@@ -307,10 +307,10 @@
         }
       },
 
-      //请求采购单详情
+      //请求出库单详情
       async purchaseSee(order_id){
         const _this = this
-        let res = await _this.$axios('purchaseOrder/getDetailInfo', {order_id: order_id})
+        let res = await _this.$axios('checkout/getDetailInfo', {order_id: order_id})
         this.seeData = res.data.detail
         this.newseeData = res.data
         this.commoData = JSON.parse(JSON.stringify(this.seeData))
