@@ -20,11 +20,6 @@
         状态：<span class="key_text">{{ApplyData.status_name}}</span>
       </div>
     </Col>
-    <Col span="12">
-      <div class="ma-spacing">
-        总金额：<span class="key_text">{{ApplyData.total_amount}}</span>
-      </div>
-    </Col>
     <Divider />
     <Col span="24" v-for="(list,index) in ApplyData.detail_info" :key="list.id">
       <Col span="12">
@@ -34,22 +29,12 @@
       </Col>
       <Col span="12">
         <div class="ma-spacing">
-          买入金额：<span class="key_text">{{list.buy_amount}}</span>
+          应付金额：<span class="key_text">{{list.apply_amount}}</span>
         </div>
       </Col>
       <Col span="12">
         <div class="ma-spacing">
-          申请金额：<span class="key_text">{{list.apply_amount}}</span>
-        </div>
-      </Col>
-      <Col span="12">
-        <div class="ma-spacing">
-          购买金额：<span class="key_text">{{list.buy_money}}</span>
-        </div>
-      </Col>
-      <Col span="12">
-        <div class="ma-spacing">
-          预计金额：<span class="key_text">{{list.estimated_money}}</span>
+          实收金额：<span class="key_text">{{list.delivery_amount}}</span>
         </div>
       </Col>
       <Col span="12">
@@ -59,7 +44,7 @@
       </Col>
       <Col span="12">
         <div class="ma-spacing">
-          单价：<span class="key_text">{{list.unit_price}}</span>
+          数量：<span class="key_text">{{list.unit_price}}</span>
         </div>
       </Col>
       <Col span="12">
@@ -92,8 +77,6 @@
         }
       },
       created () {
-        console.log(this.ApplyData.total_amount)
-        console.log(this.ApplyData)
         this.seeData = this.ApplyData.detail
       },
 
