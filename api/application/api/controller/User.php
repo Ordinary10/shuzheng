@@ -47,7 +47,7 @@ class User extends Base {
         if(!empty(self::$params['account'])) {
             $where['a.account'] = self::$params['account'];
         }
-        if(!empty(self::$params['username'])) {
+        if(!empty(self::$params['uname'])) {
             $where['a.uname'] = self::$params['uname'];
         }
         if(!empty(self::$params['role'])) {
