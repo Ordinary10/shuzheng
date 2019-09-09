@@ -145,6 +145,7 @@ export default {
   },
   methods: {
     checkChange (list, item) {
+      console.log(list,item)
       let _this = this
       function recursion (data) {
         // 全选 去删除操作
@@ -161,6 +162,7 @@ export default {
       _this.clean_roleId()
     },
     addRole () {
+      this.$refs.form.resetFields()
       this.get_role_data(0)
       this.formItem.title = ''
       if (this.formItem.hasOwnProperty('id')) delete this.formItem.id
@@ -216,6 +218,7 @@ export default {
           })
           break
         case 'editor':
+          this.$refs.form.resetFields()
           this.modal1Title = '编辑角色'
           this.formItem.id = item.id
           this.formItem.title = item.title
@@ -238,7 +241,7 @@ export default {
       let _this = this
       _this.formItem.roleIds = []
       let res = await this.$refs.tree.getCheckedAndIndeterminateNodes()
-      console.log(res)
+      // console.log(res)
       function recursion (data) {
         data.forEach(e => {
           if (e.checked) {
