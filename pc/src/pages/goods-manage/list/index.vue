@@ -3,7 +3,7 @@
     <search>
       <div class="search-box">
         <!--搜索输入框-->
-        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入商品名称" />
+        <Input class="search-input" v-model="searchData.name" size="large"  @keyup.native="search" placeholder="请输入商品名称" />
         <Select v-model="searchData.status" class="search-input" size="large" placeholder="请选择状态">
           <Option value="1">正常</Option>
           <Option value="-1">禁用</Option>
