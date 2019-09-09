@@ -3,7 +3,7 @@
     <search>
       <div class="search-box">
         <!--搜索输入框-->
-        <Input class="search-input" v-model="searchData.name" size="large"  @keyup.native="search" placeholder="请输入门店名称" />
+        <Input class="search-input" v-model="searchData.name" size="large"  @keydown.13.native="search" placeholder="请输入门店名称" />
         <Select v-model="searchData.type" class="search-input" size="large" placeholder="请选择经营方式">
           <Option value="1">直营</Option>
           <Option value="2">加盟</Option>

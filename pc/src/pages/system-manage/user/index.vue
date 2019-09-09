@@ -3,8 +3,8 @@
     <search>
       <div class="search-box">
         <!--搜索输入框-->
-        <Input class="search-input" v-model="searchData.uname" size="large" @keyup.native="search" placeholder="请输入姓名" />
-        <Input class="search-input" v-model="searchData.account" size="large" @keyup.native="search" placeholder="请输入账号" />
+        <Input class="search-input" v-model="searchData.uname" size="large" @keydown.13.native="search" placeholder="请输入姓名" />
+        <Input class="search-input" v-model="searchData.account" size="large" @keydown.13.native="search" placeholder="请输入账号" />
         <Select v-model="searchData.role" class="search-input" size="large" placeholder="请选择角色">
           <Option :value="String(item.id)" v-for="item of roleData" :key="item.id">
             {{item.name}}
