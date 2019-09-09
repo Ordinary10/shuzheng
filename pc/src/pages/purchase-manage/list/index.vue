@@ -619,7 +619,7 @@
           bar_code:value.bar_code,
           detail_id:value.id,})
       })
-      let res = await _this.$axios('123/123', {order_id: this.ApplyData.id,data:data})
+      let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id,data:data})
     }
   }
 }
