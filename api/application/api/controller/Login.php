@@ -75,7 +75,6 @@ class Login extends Base {
 
     /**
      * 小程序登陆 account用户账号  code 微信登录code
-     * 119 小程序管理员  120 业务员
      * @throws
      * @return string
      */
@@ -84,14 +83,14 @@ class Login extends Base {
         if(empty(self::$params['code']) && empty(self::$params['account']) ) {
             return  self::error_result('登录失败！');
         }
-
-        //用户展示的界面
+        // 用户展示的界面
+        // 角色 other未知  admin管理员  salesman业务员  chef厨师
         $show_pages=[
-            'role'=>'other',            //角色 other 其他  customer客户  admin管理员  salesman业务员
+            'role'=>'',
             'pages'=>[],
         ];
 
-        $userModel=new User();
+        $userModel = new User();
         //微信账号登录
         if(!empty(self::$params['code'])) {
             $openid = $this->weixinLogin(self::$params['code']);
@@ -112,31 +111,40 @@ class Login extends Base {
             }
         }
 
-        if(empty($info))   return    self::error_result('账号或密码错误');
-
-
+        if(empty($info)) {
+            return  self::error_result('账号或密码错误');
+        }
         //获取权限
-        $role_model=new AuthGroupAccess();
-        $role=$role_model->where(['uid'=>$info['uid']])->value('group_id');
-        if($role == 1)  $show_pages['role'] = 'admin';
-        $auth=new Auth();
-        $rules=$auth->getRoleAuthTree($role,'118,119,120',$info['company_id']);
-        if(!empty($rules)){
+        $role_model = new AuthGroupAccess();
+        $role = $role_model->where(['uid'=>$info['uid']])->value('group_id');
+        if($role == 1) {
+            $show_pages['role'] = 'admin';
+        }else {
+            $auth = new Auth();
+            $rules = $auth->getRoleAuthTree($role,'10,11,12,13',$info['company_id']);
+            if(empty($rules)) {
+                return  self::error_result('该账号权限被禁用，请联系管理员');
+            }
+            // 判断权限
             $rules = array_column($rules[0]['data'],null,'id');
-            if(isset($rules[119]) && $rules[119]['checked']){
+            if(isset($rules[11]) && $rules[11]['checked']){
                 $show_pages['role'] = 'admin';
-            }elseif (isset($rules[120]) && $rules[120]['checked']){
+            }elseif (isset($rules[12]) && $rules[12]['checked']){
                 $show_pages['role'] = 'salesman';
+            }elseif (isset($rules[13]) && $rules[13]['checked']){
+                $show_pages['role'] = 'chef';
+            }else {
+                $show_pages['role'] = 'other';
             }
         }
-        //更新token
-        $userExtra=new UserExtra();
-        $key=$userExtra->updateToken($info['uid'],config('tk_expire_time'));
-        $re['userInfo']=['username'=>$info['uname'],'nickname'=>$info['nickname']];
 
+        //更新token
+        $userExtra = new UserExtra();
+        $key=$userExtra->updateToken($info['uid'],config('tk_expire_time'));
+        $re['userInfo'] = ['username'=>$info['uname'],'nickname'=>$info['nickname']];
 
         $re['token']=make_token($info['uid'],$key,!empty($re['is_customer']) ? 1 : 0);
-        $re['show_page']=$show_pages;
+        $re['show_page'] = $show_pages;
         return  self::success_result($re,'登录成功');
     }
 
