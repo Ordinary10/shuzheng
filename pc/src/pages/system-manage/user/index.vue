@@ -3,7 +3,7 @@
     <search>
       <div class="search-box">
         <!--搜索输入框-->
-        <Input class="search-input" v-model="searchData.username" size="large" placeholder="请输入姓名" />
+        <Input class="search-input" v-model="searchData.uname" size="large" placeholder="请输入姓名" />
         <Input class="search-input" v-model="searchData.account" size="large" placeholder="请输入账号" />
         <Select v-model="searchData.role" class="search-input" size="large" placeholder="请选择角色">
           <Option :value="String(item.id)" v-for="item of roleData" :key="item.id">
@@ -181,13 +181,13 @@ export default {
         ]
       },
       searchData: {
-        username: '',
+        uname: '',
         account: '',
         status: 'all',
         role: ''
       },
       startSearchData: {
-        username: '',
+        uname: '',
         account: '',
         status: 'all',
         role: ''

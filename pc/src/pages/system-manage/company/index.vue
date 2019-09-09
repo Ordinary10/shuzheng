@@ -10,7 +10,7 @@
         </Select>
         <Select v-model="searchData.status" class="search-input" size="large" placeholder="请选择状态">
           <Option value="1">启用</Option>
-          <Option value="0">禁用</Option>
+          <Option value="2">禁用</Option>
         </Select>
         <!--搜索按钮-->
         <div class="search-submit">
