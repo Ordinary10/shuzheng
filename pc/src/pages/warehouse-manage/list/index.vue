@@ -60,7 +60,6 @@
 </template>
 
 <script type="text/jsx">
-  import popup from './popup'
   import see from './see'
   import approval from './approval'
   import distribution from './distribution'
@@ -175,7 +174,6 @@
       }
     },
     components: {
-      popup,
       see,
       approval,
       distribution
