@@ -10,7 +10,7 @@
             {{item.name}}
           </Option>
         </Select>
-        <Select v-model="searchData.status" class="search-input" size="large" placeholder="请选择状态">
+        <Select v-model="searchData.status" v-show="isShow" class="search-input" size="large" placeholder="请选择状态">
           <Option value="all">全部</Option>
           <Option value="1">正常</Option>
           <Option value="0">禁用</Option>

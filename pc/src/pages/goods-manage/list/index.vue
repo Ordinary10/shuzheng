@@ -10,9 +10,9 @@
         </Select>
         <!--搜索按钮-->
         <div class="search-submit">
-          <Tooltip content="更多搜索条件" placement="bottom-start">
-            <Button class="search-btn " size="large" icon="ios-options-outline" type="primary" @click.native="isShow=!isShow"></Button>
-          </Tooltip>
+<!--          <Tooltip content="更多搜索条件" placement="bottom-start">-->
+<!--            <Button class="search-btn " size="large" icon="ios-options-outline" type="primary" @click.native="isShow=!isShow"></Button>-->
+<!--          </Tooltip>-->
           <Button class="search-btn " size="large" icon="md-search" type="primary" @click.native="search"></Button>
           <Button class="refresh-btn search-btn" size="large" icon="md-refresh" type="info" @click.native="refresh"></Button>
         </div>
