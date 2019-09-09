@@ -1,9 +1,11 @@
 {
   "pages": [
-    "pages/login/main",
     "pages/procurement/main",
+    "pages/login/main",
     "pages/procurement/order-apply/main",
     "pages/procurement/order-details/main",
+    "pages/procurement/order-audit/main",
+    "pages/procurement/order-entry/main",
     "pages/outbound/main"
   ],
   "tabBar": {
@@ -35,6 +37,12 @@
     "i-load-more": "./static/dist/load-more/index",
     "i-action-sheet": "./static/dist/action-sheet/index",
     "i-message": "./static/dist/message/index",
-    "i-button": "./static/dist/button/index"
+    "i-button": "./static/dist/button/index",
+    "i-radio-group": "./static/dist/radio-group/index",
+    "i-radio": "./static/dist/radio/index",
+    "i-panel": "./static/dist/panel/index",
+    "i-switch": "./static/dist/switch/index",
+    "i-cell": "./static/dist/cell/index",
+    "i-cell-group": "./static/dist/cell-group/index"
   }
 }

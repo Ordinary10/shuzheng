@@ -1,4 +1,5 @@
 /*全局样式表*/
+@import "./animate.scss";
 .TabBar_page{
   padding-bottom: 100rpx;
   min-height: 100%;
@@ -79,4 +80,23 @@
       background-color: #5ebbf5;
     }
   }
+}
+/*按钮样式*/
+.btns{
+  border-radius: 2px;
+  padding: 2px 4px;
+  margin: 0 8px;
+  color: white;
+}
+.shenhe-btn{
+  @extend .btns;
+  background-color: #1E9FFF;
+}
+.ruku-btn{
+  @extend .btns;
+  background-color: #FFB800;
+}
+.luru-btn{
+  @extend .btns;
+  background-color: #009688;
 }

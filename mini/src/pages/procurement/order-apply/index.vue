@@ -16,11 +16,11 @@
           <span class="flex_1">{{item1.type_name}}</span>
           <span v-if="item1.children.length>0" data-icon="1"><i-icon data-icon="1" type="enter" size="20"/></span>
         </div>
-        <div class="category-1-list" @click.stop="" v-if="item1.children.length>0&&category1Show==item1.id">
+        <div class="category-1-list animated slideInDown" @click.stop="" v-if="item1.children.length>0" v-show="category1Show==item1.id">
           <div
             class="category-1-list-item"
             v-for="(item2,index2) in item1.children"
-            :key="item2.type_name"
+            :key="index2"
             @click="category1Click(index1,index2)"
             :class="{'category1-active':category1Active == index2}"
           >
@@ -40,7 +40,7 @@
           </div>
           <div slot="footer" class="card-footer">
             <span></span>
-            <span @click="addOrder(item)" class="add-order-btn">加入订单</span>
+            <span @click="addOrder(item)" class="add-order-btn" :class="{'add-order-allow':item.unit_price}">加入订单</span>
           </div>
         </i-card>
       </div>
@@ -49,7 +49,11 @@
       <div class="no-goods">该类目暂无商品</div>
     </div>
     <div class="order-footer">
-      <div class="order-list" v-if="orderList.length>0&&isSeeOrderList">
+      <div class="order-list animated" :class="{fadeInUp:isSeeOrderList,fadeOutDown:!isSeeOrderList}" v-if="orderList.length>0" v-show="isSeeOrderList">
+        <div class="order-list-title">
+          <span @click="isSeeOrderList = false">取消</span>
+          <span @click="emptyOrderList">清空</span>
+        </div>
         <div class="order-list-item" v-if="item.isShow" v-for="(item,index) in orderList" :key="item.goods_id">
           <div>{{item.name}}</div>
           <div>￥{{item.unit_price}}</div>
@@ -66,7 +70,7 @@
           <icon class="iconfont iconcaigoudan caigoudan"></icon>
           <span class="total_amount"><i-icon style="margin-left: 12px;" type="financial_fill" size="24" color="red"/>    {{total_amount}}</span>
         </div>
-        <div class="submit" @click="submitOrder">
+        <div class="submit" @click="submitOrder" :class="{'submit-order-allow':orderCount>0}">
           提交
         </div>
       </div>
@@ -94,10 +98,6 @@
     },
 
     created() {
-    },
-    onShow() {
-      // this.init()
-      // this.getGoodsList(true)
     },
     mounted(){
       this.type_id = ''
@@ -208,6 +208,12 @@
           }
         }
       },
+      emptyOrderList() {
+        this.orderList = []
+        this.isSeeOrderList = false
+        this.total_amount = 0
+        this.orderCount = 0
+      },
       submitOrder(){
         const _this = this
         let submitOrder = {
@@ -242,6 +248,13 @@
   }
 </style>
 <style scoped lang="scss">
+  /*:class样式*/
+  .add-order-allow{
+   background-color: #f1338e !important;
+  }
+  .submit-order-allow{
+    background-color: #f1338e !important;
+  }
   .pages{
     height: 100%;
     width: 100%;
@@ -271,8 +284,6 @@
           }
         }
         .category-1-list{
-          display: flex;
-          flex-direction: column;
           width: 100%;
           background-color: #ddd;
         }
@@ -325,7 +336,7 @@
           padding: 2px 8px;
           border-radius: 14px;
           color: white;
-          background-color: #f1338e;
+          background-color: #999;
           &:hover{
             background-color: #f12126;
           }
@@ -342,36 +353,46 @@
       .order-list{
         width: 100%;
         position: absolute;
-        top: 0;
+        bottom: 42px;
         left: 0;
-        transform: translateY(-100%);
-        display: flex;
-        flex-direction: column;
         color: #999;
         font-size: 14px;
         background-color: white;
+        border-radius:14px 14px 0 0;
+        border-top: 1px solid #eee;
+        overflow: hidden;
+        .order-list-title{
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 14px;
+          span{
+            line-height: 40px;
+            color: #999;
+          }
+        }
         .order-list-item{
           width: 100%;
-          border-top: 1px solid #999;
+          border-top: 1px solid #eee;
           display: flex;
-          padding: 0 24px;
+          padding: 0 14px;
           box-sizing: border-box;
           justify-content: space-between;
-          height: 32px;
+          height: 40px;
           div{
             min-width: 80px;
-            text-align: center;
-            line-height: 32px;
+            line-height: 40px;
           }
           .amount-change{
             display: flex;
             justify-content: center;
             align-items: center;
             span{
-              width: 28px;
-              height: 20px;
+              width: 32px;
+              height: 28px;
               border: 1px solid #eee;
-              line-height: 20px;
+              line-height: 28px;
               text-align: center;
             }
           }

@@ -83,9 +83,9 @@
               if(res.code === 1){
                 _this.$store.commit('setToken', res.data.token)
                 _this.$store.commit('setRole', res.data.show_page.role)
-                wx.switchTab({
-                  url:'/pages/procurement/main'
-                })
+                // wx.switchTab({
+                //   url:'/pages/procurement/main'
+                // })
               }
             },function (res) {
               _this.$common.normal_tip(res.msg)

@@ -5,31 +5,33 @@
       <div class="dataList">
         <div class="dataItem">
           <span class="dataItemLeft">订单编号：</span>
-          <span class="dataItemright">{{orderDetail.batch_no||'-'}}</span>
+          <span class="dataItemRight">{{orderDetail.batch_no||'-'}}</span>
         </div>
         <div class="dataItem">
           <span class="dataItemLeft">申请人：</span>
-          <span class="dataItemright">{{orderDetail.uname||'-'}}</span>
+          <span class="dataItemRight">{{orderDetail.uname||'-'}}</span>
         </div>
         <div class="dataItem">
           <span class="dataItemLeft">预估金额：</span>
-          <span class="dataItemright">{{orderDetail.estimated_amount||'0'}}元</span>
+          <span class="dataItemRight">{{orderDetail.estimated_amount||'0'}}元</span>
         </div>
         <div class="dataItem" v-if="orderDetail.total_amount">
           <span class="dataItemLeft">实购金额：</span>
-          <span class="dataItemright">{{orderDetail.total_amount}}元</span>
+          <span class="dataItemRight">{{orderDetail.total_amount}}元</span>
         </div>
         <div class="dataItem">
           <span class="dataItemLeft">申请时间：</span>
-          <span class="dataItemright">{{orderDetail.ctime||'-'}}</span>
+          <span class="dataItemRight">{{orderDetail.ctime||'-'}}</span>
         </div>
         <div class="dataItem">
           <span class="dataItemLeft">申请门店：</span>
-          <span class="dataItemright">{{orderDetail.store_name||'-'}}</span>
+          <span class="dataItemRight">{{orderDetail.store_name||'-'}}</span>
         </div>
         <div class="dataItem">
           <span class="dataItemLeft">状态：</span>
-          <span class="dataItemright">{{orderDetail.status_name}}</span>
+          <span class="dataItemRight">{{orderDetail.status_name}}</span>
+          <span class="dataItemRight .shenhe-btn" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'">审核</span>
+          <span class="dataItemRight .luru-btn" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'">录入</span>
         </div>
       </div>
       <div class="goods-list" v-if="orderDetail.detail.length>0">
@@ -40,18 +42,9 @@
           <i-card :title="item.name" extra=" " thumb=" ">
             <div slot="content" class="content">
               <span>预购数量：{{item.apply_amount}}{{item.unit}}</span>
-              <span>预估花费：{{item.estimated_money}}元</span>
-              <span>实购数量：{{item.buy_amount}}{{item.unit}}</span>
-              <span>实购花费：{{item.buy_money}}元</span>
-            </div>
-            <div slot="footer">
-              <div class="status-caozuo">
-                <div v-if="orderDetail.status==='deny'"><span>已拒绝</span></div>
-                <div v-else-if="orderDetail.status==='done'"><span>已入库</span></div>
-                <div v-else-if="orderDetail.status==='buy'"><span class="put-in-storage">入库</span></div>
-                <div v-else-if="orderDetail.status==='pass'"><span class="entry">采购中</span></div>
-                <div v-else-if="orderDetail.status==='apply'"><span>审核中</span></div>
-              </div>
+              <span>预估费用：{{item.estimated_money}}元</span>
+              <span v-if="orderDetail.status != 'apply'&&orderDetail.status != 'pass'">实购数量：{{item.buy_amount}}{{item.unit}}</span>
+              <span v-if="orderDetail.status != 'apply'&&orderDetail.status != 'pass'">实购花费：{{item.buy_money}}元</span>
             </div>
           </i-card>
         </div>
@@ -78,15 +71,13 @@
       this.getDetail()
     },
     mounted(){
-      this.id = this.$root.$mp.query.id
-      this.getDetail()
     },
     methods:{
       getDetail() {
         const _this = this
         _this.$ajax('purchaseOrder/getDetailInfo',{order_id:_this.id},function (res) {
           _this.orderDetail = _this.dataFilter(res.data)
-          console.log(_this.orderDetail)
+          // console.log(_this.orderDetail)
         })
       },
       dataFilter (data) {
@@ -98,6 +89,21 @@
           })
         }
         return data
+      },
+      orderEditor(status){
+        let path = ''
+        switch (status) {
+          case 'apply':
+            path = '/pages/procurement/order-audit/main'
+            break
+          case 'pass':
+            path = '/pages/procurement/order-entry/main'
+            break
+        }
+        const _this = this
+        wx.navigateTo({
+          url:`${path}?order_id=${_this.id}`
+        })
       }
     }
   }
@@ -135,16 +141,19 @@
         justify-content: space-between;
         .dataItem{
           width: 100%;
-          min-height: 86rpx;
+          min-height: 43px;
           box-sizing: border-box;
-          border-bottom: 2rpx solid #D9D9D9;
+          border-bottom: 1px solid #D9D9D9;
           color: #000;
-          font-size: 34rpx;
-          line-height: 80rpx;
+          font-size: 16px;
+          display: flex;
+          align-items: center;
           position: relative;
           .dataItemLeft{
             color: #8A98AC;
-            padding-right: 10rpx;
+          }
+          .dataItemRight{
+            margin-left: 8px;
           }
         }
       }
@@ -155,9 +164,10 @@
           .content{
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
             span{
-              margin: 8px;
+              width: 50%;
+              padding: 8px;
+              box-sizing: border-box;
             }
           }
           .status-caozuo{

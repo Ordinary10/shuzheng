@@ -85,15 +85,15 @@
     created() {
     },
     onShow() {
+      this.getList()
     },
     mounted(){
       wx.hideTabBar()
-      this.getList()
     },
     methods:{
       getList() {
         const _this = this
-        _this.$ajax('purchaseOrder/getLists','',function (res) {
+        _this.$ajax('purchaseOrder/getLists',{status:_this.statusList[_this.statusIndex].status},function (res) {
           _this.purchaseOrderList = _this.dataFilter(res.data)
         })
       },
@@ -116,6 +116,7 @@
       },
       bindPickerChange (e) {
         this.statusIndex = e.mp.detail.value
+        this.getList()
       }
     }
   }

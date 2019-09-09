@@ -3,6 +3,7 @@ import CONFIG from './config'
 import tabBarRoleList from './tabBarRoleList'
 const {$Toast} = require('../../static/dist/base/index')
 import state from '@/store/state'
+import request from './request'
 
 const common = {
   /**
@@ -140,9 +141,21 @@ const common = {
     return tabBarRoleList[roleName]
   },
   getToken() {
-    return state.token || 'UnJVRHdKdlltTTQ4ZXJxMlJndEtIWEs2dUc2ZG0wY2JmaDJvL3hBbmJoQ3BIVVV5Z0NINWRGQWdTWituZ29SS2pvbHdlY3VML2ppV1phZ2tYS3kveUt1cHcrMmNKUkk2dUp6QlRmZGE3Rk09'
+    return state.token || "UnJVRHdKdlltTTQ4ZXJxMlJndEtIZFQ1bUo4S3crQTBlMGpzTUkwRlRkYUNveWpNelFhYk83VDlCR1VoaEFCM1l2RXBpaXpMU014TU5LNCtxL09Vd1dxWGM1TjFmanZ0VnlOUDNtVEhtSmc9"
+  },
+  /**
+   * data: 数组类型，传入基础数据的type
+   * role： 角色表
+   * company： 门店
+   * supplier： 供应商
+   */
+  getPageInfo(data) {
+    return new Promise((resolve, reject)=>{
+      request('Common/getPageInitInfo',{type:data},function (res) {
+        resolve(res)
+      })
+    })
   }
-
 }
 
 export default common
