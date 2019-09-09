@@ -8,7 +8,9 @@
  */
 namespace app\common\service;
 use app\common\model\AuthGroup;
+use app\common\model\CheckoutOrder;
 use app\common\model\Company;
+use app\common\model\PurchaseOrder;
 use app\common\model\Supplier;
 
 class InitializeService extends BaseService {
@@ -19,6 +21,8 @@ class InitializeService extends BaseService {
        'role',     // 角色信息
        'company',  // 部门信息
        'supplier', // 供应商信息
+       'purchase_order_status',              //采购单状态
+       'checkout_status',                   //出库单状态
     ];
 
     public function getData($types,$userInfo)
@@ -60,4 +64,25 @@ class InitializeService extends BaseService {
         $supplier_model = new Supplier();
         return $supplier_model->field('id,name')->select();
     }
+
+    private function getPurchaseOrderStatus(){
+        $model= new PurchaseOrder();
+        $status = $model->status;
+        $data = [];
+        foreach ($status as $key=>$val){
+            $data[] = ['id'=>$key,'name'=>$val];
+        }
+        return $data;
+    }
+
+    private function getCheckoutStatus(){
+        $model = new CheckoutOrder();
+        $status = $model->status;
+        $data = [];
+        foreach ($status as $key=>$val){
+            $data[] = ['id'=>$key,'name'=>$val];
+        }
+        return $data;
+    }
+
 }

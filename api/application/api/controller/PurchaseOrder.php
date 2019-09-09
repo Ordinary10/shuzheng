@@ -54,6 +54,7 @@ class PurchaseOrder extends Base {
             $where['uid'] = ['in',$uid];
         }
         !empty(self::$params['apply_time']) && $where['ctime'] = ['between',[self::$params['apply_time'],self::$params['apply_time'] . '23:59:59']];
+        !empty(self::$params['status']) && $where['status'] = self::$params['status'];
         return $where;
     }
 
