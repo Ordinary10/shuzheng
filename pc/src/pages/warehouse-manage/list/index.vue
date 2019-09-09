@@ -43,7 +43,17 @@
       class-name="vertical-center-modal"
       :footer-hide="true"
     >
-      <popup v-if="newseeData" :ApplyData="newseeData"></popup>
+      <approval v-if="newseeData" :ApplyData="newseeData"></approval>
+    </Modal>
+    <!--配货-->
+    <Modal
+      v-model="modal3"
+      :title="modal1Title"
+      :width='980'
+      class-name="vertical-center-modal"
+      :footer-hide="true"
+    >
+      <distribution v-if="newseeData" :ApplyData="newseeData"></distribution>
     </Modal>
 
   </div>
@@ -52,6 +62,8 @@
 <script type="text/jsx">
   import popup from './popup'
   import see from './see'
+  import approval from './approval'
+  import distribution from './distribution'
   export default {
     data () {
       /*
@@ -83,35 +95,7 @@
         modal1Title:'',
         newseeData:'',
         neworder_id:'',
-        ruleInline: {
-          name: [
-            { required: true, message: '请输入内容', trigger: 'blur' }
-          ],
-          buy_amount: [
-            { required: true, message: '请输入购买数量', trigger: 'blur' }
-          ],
-          apply_amount: [
-            { required: true, message: '请输入申请金额', trigger: 'blur' }
-          ],
-          buy_money: [
-            { required: true, message: '请输入购买金额', trigger: 'blur' }
-          ],
-          estimated_money: [
-            { required: true, message: '请输入预计金额', trigger: 'blur' }
-          ],
-          unit: [
-            { required: true, message: '请输入单位', trigger: 'blur' }
-          ],
-          unit_price: [
-            { required: true, message: '请输入单价', trigger: 'blur' }
-          ],
-          bar_code: [
-            { required: true, message: '请输入商品条码', trigger: 'blur' }
-          ],
-          place: [
-            { required: true, message: '请输入仓库', trigger: 'blur' }
-          ],
-        },
+        goodsData:'',
         config: {
           fun: 'checkout/getLists',
           columns: [
@@ -150,7 +134,10 @@
                             nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>查看
                   </i-button>
                   <i-button class="table-btn" type="error" size="small"
-                            nativeOnClick={this.tableBtnClick.bind(this, params.row, 'change')}>详情
+                            nativeOnClick={this.tableBtnClick.bind(this, params.row, 'approval')}>审核
+                  </i-button>
+                  <i-button className="table-btn" type="error" size="small"
+                            nativeOnClick={this.tableBtnClick.bind(this, params.row, 'distribution')}>配货
                   </i-button>
                 </div>
               }
@@ -189,57 +176,16 @@
     },
     components: {
       popup,
-      see
+      see,
+      approval,
+      distribution
     },
     created () {
     },
     mounted () {
     },
     methods: {
-      //点击入库进行表单验证
-      handleSubmit() {
-        console.log(this.$refs);
-        let arr = [];
-        this.seeData.forEach((data, key) => {
-          let form = 'seeData' + key;
-          console.log([form][0],key)
 
-          this.$refs[form][0].validate((valid) => {
-            if (valid) {
-              arr.push(true);
-            } else {
-              arr.push(false);
-            }
-          });
-        });
-        let flag = arr.every((item) => {
-          return item === true;
-        });
-        if (flag) {
-          this.storage()
-        } else {
-          this.$Message.error('请填写相关内容');
-        }
-      },
-      commodity(name){
-        if (this.arr.includes(name)){
-          this.arr=this.arr.filter(function (ele){return ele != name;});
-        } else {
-          this.arr.push(name)
-        }
-        this.seeData = []
-        for (let key in this.arr){
-          for (let i in this.commoData) {
-            if (this.commoData[i].name==this.arr[key]){
-              this.seeData.push(this.commoData[i])
-            }
-          }
-        }
-        //如果没有过滤则显示全部
-        if (!this.seeData[0]){
-          this.seeData = this.commoData
-        }
-      },
       add () {
         this.$refs.form.resetFields()
         this.formItem = {type: '1'}
@@ -294,7 +240,7 @@
       /* table操作栏 */
       tableBtnClick (item, type) {
         console.log(item,type)
-        if (type =='change'){
+        if (type =='approval'){
           this.modal1Title = '审核'
           this.ApplyData = item
           this.purchaseSee(item.id)
@@ -304,6 +250,11 @@
           this.ApplyData = item
           this.purchaseSee(item.id)
           this.modal1 = true
+        }else if (type =='distribution'){
+          this.modal1Title = '配货'
+          this.ApplyData = item
+          this.purchaseSee(item.id)
+          this.modal3 = true
         }
       },
 
@@ -313,7 +264,7 @@
         let res = await _this.$axios('checkout/getDetailInfo', {order_id: order_id})
         this.seeData = res.data.detail
         this.newseeData = res.data
-        this.commoData = JSON.parse(JSON.stringify(this.seeData))
+        // this.commoData = JSON.parse(JSON.stringify(this.seeData))
       },
 
     }
