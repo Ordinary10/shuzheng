@@ -299,17 +299,6 @@ export default {
     tableBtnClick (item, type) {
       switch (type) {
         case 'change':
-          // let title = item.status === 0 ? '启用' : '禁用'
-          // let content = item.status === 0 ? `<p>确认启用${item.account}？</p>` : `<p>确认禁用${item.account}？</p>`
-          // this.$Modal.confirm({
-          //   title,
-          //   content,
-          //   onOk: () => {
-          //     // this.$axios('Company/renewalCompany', {id: item.id}, true).then((res) => {
-          //     //   this.pageRefresh()
-          //     // })
-          //   }
-          // })
           break
         case 'editor':
           this.$refs.form.resetFields()

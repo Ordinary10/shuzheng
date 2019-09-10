@@ -266,14 +266,15 @@ export default {
           this.$Modal.confirm({
             title,
             content,
+            loading: true,
             onOk: () => {
               _this.$axios('Goods/renewalGoodsStatus', {id: item.id}, true).then((res) => {
+                _this.$Modal.remove()
                 if (res.code === 1) {
                   _this.$Message.success({
                     content: res.msg,
                     duration: 2
                   })
-                  this.modal1 = false
                   _this.pageRefresh()
                 }
               })

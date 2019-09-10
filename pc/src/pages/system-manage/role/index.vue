@@ -205,14 +205,23 @@ export default {
     tableBtnClick (item, type) {
       switch (type) {
         case 'change':
+          let _this = this
           let title = item.status === -1 ? '启用' : '禁用'
           let content = `<p>确认${item.status === -1 ? '启动' : '禁用'}<span class="prominentText">${item.title}</span>？</p>`
           this.$Modal.confirm({
             title,
             content,
+            loading: true,
             onOk: () => {
-              this.$axios('Role/renewalRoleStatus', {id: item.id}, true).then((res) => {
-                this.pageRefresh()
+              _this.$axios('Role/renewalRoleStatus', {id: item.id}, true).then((res) => {
+                _this.$Modal.remove()
+                if (res.code === 1) {
+                  _this.$Message.success({
+                    content: res.msg,
+                    duration: 2
+                  })
+                  _this.pageRefresh()
+                }
               })
             }
           })
