@@ -322,7 +322,7 @@ export default {
         display: inline-block;
         width: 30px;
         height: 30px;
-        background: url("../../../../../static/images/face.jpg") no-repeat center center;
+        background: url("../../../../../static/images/logo.png") no-repeat center center;
         border-radius: 50%;
         background-size: 30px 30px;
         margin: 5px 10px;
