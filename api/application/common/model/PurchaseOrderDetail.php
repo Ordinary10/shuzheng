@@ -75,6 +75,12 @@ class PurchaseOrderDetail extends Model {
 
     }
 
+    //根据条形码设置已使用数量
+    public function setUsedAmount($bar_code,$used_amount)
+    {
+        return  $this->where(['bar_code'=>$bar_code])->setInc('used_amount',$used_amount);
+    }
+
 
     
     

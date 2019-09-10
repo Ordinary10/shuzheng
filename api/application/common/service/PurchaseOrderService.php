@@ -174,7 +174,7 @@ class PurchaseOrderService extends BaseService {
     public function checkOut($data)
     {
         foreach ($data as $val){
-            $re = self::$order_model->setUsedAmount($val['bar_code'],$val['num']);
+            $re = self::$detail_model->setUsedAmount($val['bar_code'],$val['num']);
             if(!$re)    return  false;
         }
         return true;
