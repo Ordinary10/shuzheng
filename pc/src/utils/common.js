@@ -97,7 +97,7 @@ const common = {
   /**  type  数组  包含以下
    *  role 角色
    *  company 门店
-   *
+   *  supplier 供应商
    * */
   PageInitInfo: function (type) {
     return request('Common/getPageInitInfo', {type}, true)

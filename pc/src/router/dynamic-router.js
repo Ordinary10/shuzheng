@@ -32,6 +32,14 @@ const dynamicRoutes = [
         meta: {
           name: '角色管理'
         }
+      },
+      {
+        path: 'supplier',
+        name: 'supplier',
+        component: () => import('@/pages/system-manage/supplier'),
+        meta: {
+          name: '供应商管理'
+        }
       }
     ]
   },
@@ -101,7 +109,6 @@ const dynamicRoutes = [
       }
     ]
   }
-
 
 ]
 export default dynamicRoutes
