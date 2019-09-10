@@ -141,7 +141,7 @@ const common = {
     return tabBarRoleList[roleName]
   },
   getToken() {
-    return state.token || "UnJVRHdKdlltTTQ4ZXJxMlJndEtIZFQ1bUo4S3crQTBlMGpzTUkwRlRkYUNveWpNelFhYk83VDlCR1VoaEFCM1l2RXBpaXpMU014TU5LNCtxL09Vd1dxWGM1TjFmanZ0VnlOUDNtVEhtSmc9"
+    return state.token || "UnJVRHdKdlltTTQ4ZXJxMlJndEtIZFpEYS92MXJhVGhpOC8yUGNCL3JkN1MyVlY0MGppNGNIL3NBVVJXMktoWjJsSWZYMG95MXpUZzdScytoVUVoM1E9PQ=="
   },
   /**
    * data: 数组类型，传入基础数据的type

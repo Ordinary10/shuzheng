@@ -59,11 +59,11 @@
             status: ''
           },
           {
-            name: '申请中',
+            name: '待审核',
             status: 'apply'
           },
           {
-            name: '采购中',
+            name: '待采购',
             status: 'pass'
           },
           {
@@ -71,7 +71,7 @@
             status: 'buy'
           },
           {
-            name: '已入库',
+            name: '已完成',
             status: 'done'
           },
           {
