@@ -260,7 +260,7 @@ export default {
     tableBtnClick (item, type) {
       switch (type) {
         case 'change':
-          let _this =this
+          let _this = this
           let title = item.status === -1 ? '启用' : '禁用'
           let content = `<p>确认${item.status === -1 ? '启动' : '禁用'}<span class="prominentText">${item.name}</span>？</p>`
           this.$Modal.confirm({
@@ -287,7 +287,11 @@ export default {
           this.formItem.name = item.name
           this.formItem.unit = item.unit
           this.formItem.safe_stock = item.safe_stock
-          this.formItem.echoId = item.type_id
+          if (this.formItem.echoId === item.type_id) {
+            this.letType()
+          } else {
+            this.formItem.echoId = item.type_id
+          }
           this.modal1 = true
           break
       }

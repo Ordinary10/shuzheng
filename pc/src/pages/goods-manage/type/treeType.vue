@@ -199,7 +199,7 @@ export default {
       }
       _this.$refs.form.validate(valid => {
         if (valid) {
-          _this.$axios('goods/editGoodsType', this.formItem, true).then((res) => {
+          _this.$axios('goods/editGoodsType', this.formItem).then((res) => {
             if (res.code === 1) {
               _this.$Message.success({
                 content: res.msg,

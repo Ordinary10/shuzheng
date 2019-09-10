@@ -166,7 +166,7 @@ export default {
       let _this = this
       _this.$refs.form.validate(valid => {
         if (valid) {
-          _this.$axios('Supplier/edit', this.formItem, true).then((res) => {
+          _this.$axios('Supplier/edit', this.formItem).then((res) => {
             if (res.code === 1) {
               _this.$Message.success({
                 content: res.msg,
