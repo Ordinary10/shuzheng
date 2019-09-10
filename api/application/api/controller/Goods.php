@@ -85,7 +85,7 @@ class Goods extends Base {
     {
         $data = self::$goods_type_model->getLists();
         if(empty($data)) {
-            return self::success_result($re,'查询成功');
+            return self::success_result([],'查询成功');
         }
         return self::success_result(array2tree($data),'查询成功');
     }

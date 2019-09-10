@@ -66,8 +66,9 @@ class CheckoutOrder extends Model {
         $info = $this->alias('a')
             ->join('checkout_order_detail b','a.id=b.order_id','left')
             ->join('goods g','b.goods_id=g.id','left')
+            ->join('(select goods_id,sum(buy_amount-used_amount) as stock from purchase_order_detail group by `goods_id`) as tmp','b.goods_id=tmp.goods_id','left')
             ->where(['a.id'=>$id])
-            ->field('b.*,g.name')
+            ->field('b.*,g.name,tmp.stock')
             ->select();
         return  empty($info) ? [] : collection($info)->toArray();
     }
