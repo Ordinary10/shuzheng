@@ -2,7 +2,7 @@
   <Cascader :data="type_data"
             @on-change="cleanTypeID"
             v-model="typeList"
-            change-on-select
+            :change-on-select="changeOnSelect"
             filterable
             placeholder="请选择商品类目"></Cascader>
 </template>
@@ -11,6 +11,10 @@ export default {
   props: {
     echoId: {},
     maxNum: {
+    },
+    changeOnSelect: {
+      type: Boolean,
+      default: true
     }
   },
   data () {

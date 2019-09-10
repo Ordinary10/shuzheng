@@ -43,7 +43,7 @@
             <Input v-model="formItem.unit" type="text" placeholder="请输入商品单位"></Input>
           </FormItem>
           <FormItem label="类目" prop="typeList">
-            <typeCascader ref="typeCascader" @typeid = 'letType' :echoId="formItem.echoId"></typeCascader>
+            <typeCascader ref="typeCascader" @typeid = 'letType' :echoId="formItem.echoId" :changeOnSelect="false"></typeCascader>
           </FormItem>
           <FormItem label="安全库存" prop="safe_stock">
             <Input v-model="formItem.safe_stock" type="text" placeholder="请输入安全库存值(非零正整数)"></Input>
