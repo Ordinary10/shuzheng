@@ -36,16 +36,16 @@
     >
         <Form :model="formItem" :label-width="100" :rules="rule" ref="form" >
           <FormItem label="供应商名称" prop="name">
-            <Input v-model="formItem.name" type="text" placeholder="请输入供应商名"></Input>
-          </FormItem>
-          <FormItem label="备注" >
-            <Input v-model="formItem.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入备注"></Input>
+            <Input v-model="formItem.name" type="text" placeholder="请输入供应商名称"></Input>
           </FormItem>
           <FormItem label="状态" prop="status">
-            <Select v-model="formItem.status" class="search-input" size="large" placeholder="请选择角色">
+            <Select v-model="formItem.status" class="search-input" size="large" placeholder="请选择状态">
               <Option value="1">正常</Option>
               <Option value="-1">禁用</Option>
             </Select>
+          </FormItem>
+          <FormItem label="备注" prop="remark">
+            <Input v-model="formItem.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入备注"></Input>
           </FormItem>
         </Form>
         <div slot="footer">
@@ -139,6 +139,8 @@ export default {
           {type: 'string', max: 20, message: '不超过二十个字符', trigger: 'blur'}
         ],
         status: [{required: true, message: '必输项不能为空', trigger: 'blur'}
+        ],
+        remark: [
         ]
       }
     }
@@ -156,6 +158,7 @@ export default {
         this.formItem[key] = ''
       }
       delete this.formItem.id
+      this.formItem.status = '1'
       this.modal1Title = '添加供应商'
       this.modal1 = true
     },
