@@ -4,10 +4,10 @@
       <div class="search-box">
         <!--搜索输入框-->
         <Input class="search-input" v-model="searchData.name" size="large"  @keydown.13.native="search" placeholder="请输入供应商名称" />
-        <Select v-model="searchData.status" class="search-input" size="large" placeholder="请选择状态">
-          <Option value="1">启用</Option>
-          <Option value="-1">禁用</Option>
-        </Select>
+<!--        <Select v-model="searchData.status" class="search-input" size="large" placeholder="请选择状态">-->
+<!--          <Option value="1">启用</Option>-->
+<!--          <Option value="-1">禁用</Option>-->
+<!--        </Select>-->
         <!--搜索按钮-->
         <div class="search-submit">
 <!--          <Tooltip content="更多搜索条件" placement="bottom-start">-->
