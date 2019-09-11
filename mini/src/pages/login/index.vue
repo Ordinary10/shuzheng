@@ -35,7 +35,7 @@
     created() {
     },
     onShow(){
-      this.autoLogin()
+      // this.autoLogin()
     },
     mounted(){
     },
