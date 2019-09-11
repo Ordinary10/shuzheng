@@ -8,6 +8,9 @@
           <Option value="1">正常</Option>
           <Option value="-1">禁用</Option>
         </Select>
+        <Select v-model="searchData.type_id" filterable class="search-input" size="large" placeholder="请选择类目">
+          <Option :value="item.id" v-for="item of typeSelectData" :key="item.id">{{item.name}}</Option>
+        </Select>
         <!--搜索按钮-->
         <div class="search-submit">
 <!--          <Tooltip content="更多搜索条件" placement="bottom-start">-->
@@ -148,10 +151,12 @@ export default {
       },
       searchData: {
         name: '',
-        status: '1'
+        status: '1',
+        type_id: ''
       },
       startSearchData: {
         name: '',
+        type_id: '',
         status: '1'
       },
       formItem: {
@@ -185,7 +190,9 @@ export default {
         safe_stock: [
           {validator: this.$validateFun.Znumber, required: true, trigger: 'blur'}
         ]
-      }
+      },
+      // 搜索类目选择框数据
+      typeSelectData: []
     }
   },
   components: {
@@ -197,6 +204,27 @@ export default {
   },
   methods: {
     init () {
+      let _this = this
+      // 获取类目信息
+      this.$axios('goods/getGoodsType', {}).then((res) => {
+        if (res.code === 1) {
+          let List = res.data
+          let typeData = []
+          // 清洗数据
+          function recursion (list) {
+            list.forEach(e => {
+              // e.id = String(e.id)
+              e.value = e.id
+              e.label = e.type_name
+              typeData.push({name: e.type_name, id: e.id})
+              if (e.children && e.children.length) recursion(e.children)
+            })
+          }
+          recursion(List)
+          console.log(typeData)
+          this.typeSelectData = typeData
+        }
+      })
     },
     add () {
       this.$refs.form.resetFields()
