@@ -51,9 +51,9 @@
               _this.$store.commit('setToken', res.data.token)
               _this.$store.commit('setRole', res.data.show_page.role)
               _this.$common.normal_tip('自动登录成功')
-              // wx.switchTab({
-              //   url:'/pages/procurement/main'
-              // })
+              wx.switchTab({
+                url:'/pages/procurement/main'
+              })
             },function (err) {
               _this.$common.normal_tip('自动登录失败，请使用账号密码登录','',1000)
             },'自动登陆中')
@@ -83,9 +83,9 @@
               if(res.code === 1){
                 _this.$store.commit('setToken', res.data.token)
                 _this.$store.commit('setRole', res.data.show_page.role)
-                // wx.switchTab({
-                //   url:'/pages/procurement/main'
-                // })
+                wx.switchTab({
+                  url:'/pages/procurement/main'
+                })
               }
             },function (res) {
               _this.$common.normal_tip(res.msg)

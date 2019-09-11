@@ -177,17 +177,19 @@
               white-space: nowrap;
               word-wrap: break-word;
               word-break: break-all;
+              text-overflow:ellipsis;
+              overflow: hidden;
             }
             .item1{
-              width: 25%;
+              width: 20%;
               text-indent: 20px;
             }
             .item2{
-              width: 25%;
+              width: 35%;
               text-indent: 10px;
             }
             .item3{
-              width: 30%;
+              width: 25%;
             }
             .item4{
               width: 20%;

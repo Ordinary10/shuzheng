@@ -24,6 +24,7 @@
           <span class="dataItemRight">{{orderDetail.status_name}}</span>
           <span class="dataItemRight .shenhe-btn" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'">审核</span>
           <span class="dataItemRight .luru-btn" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'">配货</span>
+          <span class="dataItemRight .luru-btn" @click="orderEditor('distribute')" v-if="orderDetail.status==='distribute'">签收</span>
         </div>
       </div>
       <div class="goods-list" v-if="orderDetail.detail_info.length>0">
@@ -88,6 +89,9 @@
             break
           case 'pass':
             path = '/pages/outbound/order-entry/main'
+            break
+          case 'distribute':
+            path = '/pages/outbound/order-sign-off/main'
             break
         }
         const _this = this

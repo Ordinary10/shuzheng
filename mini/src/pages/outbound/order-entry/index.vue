@@ -1,15 +1,15 @@
 <template>
   <div class="pages">
     <i-toast id="toast" />
-<!--    <div class="search-box">-->
-<!--      <input type="text" v-model="searchText" placeholder="请扫描条形码或输入商品条形码">-->
-<!--      <icon class="iconfont iconsearch2"></icon>-->
-<!--      <icon class="iconfont iconQR-code1"></icon>-->
-<!--    </div>-->
     <div class="detail-box" v-if="orderDetail">
       <div class="goods-list" v-if="orderDetail.detail_info.length>0">
-        <div class="divider-title">
-          <divider content="申请商品详情" :css="{'font-size': '17px'}"></divider>
+        <div class="goods-item">
+          <div class="content">
+            <div class="content-item" style="width:100%">
+              <span>备注：</span>
+              <input type="number" v-model="remark" placeholder="请输入备注" max="100">
+            </div>
+          </div>
         </div>
         <div class="goods-item" v-for="(item,index) in orderDetail.detail_info" :key="item.id">
           <i-card :title="item.name" extra=" " thumb=" ">
@@ -35,23 +35,26 @@
   </div>
 </template>
 <script>
-  import divider from '@/components/divider'
   export default {
-    components: {divider},
+    components: {},
 
     data() {
       return {
         order_id: '',
         orderDetail: null,
-        searchText: ''
+        searchText: '',
+        remark: ''
       }
     },
     created() {
     },
     onShow() {
-      this.orderDetail = null
-      this.order_id = this.$root.$mp.query.order_id
-      this.getDetail()
+      console.log(this.$root.$mp.query.order_id)
+      if(this.$root.$mp.query.order_id&&this.order_id != this.$root.$mp.query.order_id){
+        this.orderDetail = null
+        this.order_id = this.$root.$mp.query.order_id
+        this.getDetail()
+      }
     },
     mounted(){
     },
@@ -69,12 +72,10 @@
             if(key == 'ctime' || key =='up_time') {
               data[key] = data[key].split(' ')[0]
             }
-            if(key=='detail') {
+            if(key=='detail_info') {
               for(let item of data.detail_info){
-                item.buy_amount = item.apply_amount
-                item.buy_money = item.estimated_money
                 item.bar_code = ''
-                item.num = ''
+                item.num = item.apply_amount
               }
             }
           })
@@ -82,14 +83,22 @@
         return data
       },
       barCode(item) {
+        const _this = this
         wx.scanCode({
           success (res) {
-            console.log(res)
+            item.bar_code = res.result
+          },
+          fail(){
+            _this.$common.error_tip('扫码失败，请重试')
           }
         })
       },
       submitEntry(){
         const _this = this
+        if(_this.remark === ''){
+          _this.$common.error_tip('请填写配货备注')
+          return
+        }
         let detail = []
         for(let v of _this.orderDetail.detail_info){
           if(v.bar_code!==''&&v.num!==''){
@@ -104,6 +113,7 @@
           }
         }
         let data = {
+          remark: _this.remark,
           order_id: _this.order_id,
           data: detail
         }
@@ -131,6 +141,8 @@
     box-sizing: border-box;
     padding: 15px 0 40px 0;
     display: flex;
+    font-size: 16px;
+    color:#495060;
     flex-direction: column;
     .qrcode{
       .iconQR-code1{
@@ -138,38 +150,10 @@
         font-size: 16px;
         padding: 0 12px;
         color: #2486ff;
-      }
-    }
-    .search-box{
-      width: 100%;
-      display: flex;
-      position: relative;
-      justify-content: center;
-      margin-bottom: 16px;
-      .iconfont{
         position: absolute;
-        z-index: 998;
         top: 0;
-        line-height: 40px;
-        font-size: 20px;
-      }
-      .iconsearch2{
-        right: 30px;
-        color: #f51247;
-      }
-      .iconQR-code1{
-        left: 30px;
-        color: #1da3ff;
-      }
-      input{
-        font-size: 14px;
-        width: 90%;
-        box-sizing: border-box;
-        padding: 0 40px;
-        height: 40px;
-        line-height: 40px;
-        border-radius: 20px;
-        background-color: white;
+        right: 0;
+        z-index: 998;
       }
     }
     .detail-box{
@@ -181,32 +165,6 @@
       border-radius:40rpx 40rpx 0 0;
       padding: 0 40rpx;
       overflow: scroll;
-      .divider-title{
-        padding: 40rpx 0 16rpx 0;
-      }
-      .dataList{
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        .dataItem{
-          width: 100%;
-          min-height: 43px;
-          box-sizing: border-box;
-          border-bottom: 1px solid #D9D9D9;
-          color: #000;
-          font-size: 16px;
-          display: flex;
-          align-items: center;
-          position: relative;
-          .dataItemLeft{
-            color: #8A98AC;
-          }
-          .dataItemRight{
-            margin-left: 8px;
-          }
-        }
-      }
       .goods-list{
         padding-bottom: 12px;
         .goods-item{
@@ -220,6 +178,7 @@
               box-sizing: border-box;
               display: flex;
               align-items: center;
+              position: relative;
               .center{
                 flex: 1;
                 color: #04A9F5;
