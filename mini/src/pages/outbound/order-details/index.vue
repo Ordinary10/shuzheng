@@ -22,9 +22,9 @@
         <div class="dataItem">
           <span class="dataItemLeft">状态：</span>
           <span class="dataItemRight">{{orderDetail.status_name}}</span>
-          <span class="dataItemRight .shenhe-btn" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'">审核</span>
-          <span class="dataItemRight .luru-btn" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'">配货</span>
-          <span class="dataItemRight .luru-btn" @click="orderEditor('distribute')" v-if="orderDetail.status==='distribute'">签收</span>
+          <span class="dataItemRight .shenhe-btn" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&role==='admin'">审核</span>
+          <span class="dataItemRight .luru-btn" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'&&role==='admin'">配货</span>
+          <span class="dataItemRight .luru-btn" @click="orderEditor('distribute')" v-if="orderDetail.status==='distribute'&&role==='chef'">签收</span>
         </div>
       </div>
       <div class="goods-list" v-if="orderDetail.detail_info.length>0">
@@ -51,7 +51,8 @@
     data() {
       return {
         id: '',
-        orderDetail: null
+        orderDetail: null,
+        role: ''
       }
     },
     created() {
@@ -59,6 +60,7 @@
     onShow() {
       this.orderDetail = null
       this.id = this.$root.$mp.query.id
+      this.role = this.$store.state.role
       this.getDetail()
     },
     mounted(){

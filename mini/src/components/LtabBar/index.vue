@@ -1,6 +1,6 @@
 <template>
-  <cover-view  class="content">
-    <cover-view class="ul" v-if="tabs.length>1">
+  <cover-view  class="content" v-if="tabs.length>1">
+    <cover-view class="ul">
       <cover-view  v-for="item of get_role" :key="item.id" @click="selectNavItem(item.path)" :class="[{'active':item.path === nowPath},'.li']">
         <cover-image v-show="item.path !== nowPath" class="img" :src="item.img"></cover-image>
         <cover-image v-show="item.path === nowPath" class="img" :src="item.active_img"></cover-image>
@@ -22,9 +22,9 @@
       }
     },
     created() {
-      this.tabs = this.get_role
     },
     mounted(){
+      this.tabs = this.get_role
     },
     onShow(){
       this.tabs = this.get_role
@@ -44,7 +44,8 @@
     computed: {
       //role不能写到mounted里面，否则切换账号时该组件不会更新
       get_role () {
-        return this.$common.getRole()
+        let tabs = this.$common.getRole()
+        return tabs
       }
     }
   }

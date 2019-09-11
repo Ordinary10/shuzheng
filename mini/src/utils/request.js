@@ -10,7 +10,12 @@ fly.interceptors.request.use((request) => {
 // 添加响应拦截器
 fly.interceptors.response.use(
   (response) => {
-    if(response.data.code !== 1) {
+    if(response.data.code == -998){
+      common.error_tip(response.data.msg)
+      wx.reLaunch({
+        url: '/pages/login/main'
+      })
+    } else if(response.data.code !== 1) {
       common.error_tip(response.data.msg)
     }
     return response // 请求成功之后将返回值返回

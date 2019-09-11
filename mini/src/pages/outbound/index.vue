@@ -1,8 +1,8 @@
 <template>
-  <div class="pages TabBar_page">
+  <div class="pages TabBar_page" :class="tab_show">
     <i-toast id="toast" />
     <div class="mini-list">
-      <div class="mini-list-item" @click="orderApply">
+      <div class="mini-list-item" @click="orderApply" v-if="role==='chef'">
         <span>申请出库</span>
         <span class="center"></span>
         <span><i-icon type="enter" size="20"/></span>
@@ -53,6 +53,7 @@
         purchaseOrderList: [],
         statusChoose: false,
         statusIndex: 0,
+        role: '',
         statusList: [
           {
             name: '全部',
@@ -86,6 +87,14 @@
     },
     onShow() {
       this.getList()
+      this.role=this.$store.state.role
+    },
+    computed:{
+      tab_show(){
+        return this.$store.state.role==='admin'||this.$store.state.role==='other'
+          ?'tab_show'
+          :''
+      }
     },
     mounted(){
       wx.hideTabBar()

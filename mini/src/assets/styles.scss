@@ -1,7 +1,12 @@
 /*全局样式表*/
 @import "./animate.scss";
+.tab_show{
+  padding-bottom: 50px !important;
+}
+.tab_hidden{
+  height: 0 !important;
+}
 .TabBar_page{
-  padding-bottom: 100rpx;
   min-height: 100%;
   box-sizing: border-box;
   display: flex;

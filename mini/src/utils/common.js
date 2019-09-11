@@ -138,7 +138,8 @@ const common = {
   },
   getRole() {
     let roleName = state.role || 'admin'
-    return tabBarRoleList[roleName]
+    let tabs = tabBarRoleList[roleName] || []
+    return tabs
   },
   getToken() {
     return state.token || "UnJVRHdKdlltTTQ4ZXJxMlJndEtIZFpEYS92MXJhVGhpOC8yUGNCL3JkN1MyVlY0MGppNGNIL3NBVVJXMktoWjJsSWZYMG95MXpUZzdScytoVUVoM1E9PQ=="
