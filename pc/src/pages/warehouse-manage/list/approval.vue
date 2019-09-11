@@ -41,11 +41,6 @@
               实收金额：<span class="key_text">{{list.delivery_amount}}</span>
             </div>
           </Col>
-          <Col span="6">
-            <div class="ma-spacing">
-              单价/单位：<span class="key_text">{{list.buy_money}}/{{list.buy_amount}}</span>
-            </div>
-          </Col>
         </Row>
         <Divider />
       </Col>
