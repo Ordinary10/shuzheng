@@ -20,7 +20,7 @@
     >
       <Form :model="formItem" :label-width="100" :rules="rule" ref="form" >
         <FormItem label="父级类目" v-show="typeCascaderShow">
-          <typeCascader ref="typeCascader"  @typeid = 'letType' :echoId="formItem.pid"></typeCascader>
+          <typeCascader ref="typeCascader"  @typeid = 'letType' :echoId="formItem.pid" max-num="2"></typeCascader>
         </FormItem>
         <FormItem label="类目名称" prop="type_name">
           <Input v-model="formItem.type_name" type="text" placeholder="请输入类目名"></Input>
@@ -74,6 +74,12 @@ export default {
               if (e.children && e.children.length) {
                 e.expand = true
                 recursion(e.children)
+              } else {
+                e.last = true
+                // 第一级显示添加按钮
+                if (e.pid === 0) {
+                  e.last = false
+                }
               }
             })
           }
@@ -145,7 +151,7 @@ export default {
           }
         }, [
           h('Button', {
-            class: ['addTreeButton'],
+            class: ['addTreeButton', data.last ? 'v-hide' : ''],
             props: {
               icon: 'ios-add',
               type: 'primary',
@@ -191,7 +197,7 @@ export default {
     },
     // 从类目表中删除
     remove (item) {
-      console.log(item)
+      // console.log(item)
       let _this = this
       let res = []
       function test (res, list) {
@@ -262,6 +268,9 @@ export default {
       this.cleanFormItem()
       this.modal1Title = `修改类目：${item.type_name}`
       this.formItem.pid = item.pid
+      if (this.formItem.pid === 0) {
+        this.typeCascaderShow = false
+      }
       this.formItem.id = item.id
       this.formItem.type_name = item.type_name
       // console.log(item)
@@ -272,7 +281,9 @@ export default {
 
 <style scoped lang="scss">
 /deep/ .ivu-tree-children{
-  /*margin-left: 20px;*/
+  .v-hide{
+    display: none;
+  }
   .ivu-icon{
     font-size: 25px;
   }
