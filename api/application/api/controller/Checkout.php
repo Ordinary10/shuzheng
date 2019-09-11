@@ -56,7 +56,7 @@ class Checkout extends Base {
         $order_id = self::$params['order_id'];
         $info = self::$order_model->getInfoById($order_id);
         $common_service = new CommonService();
-        $order_info['uname'] = $common_service->getUserNameByUid($info['uid'],[$info['uid']]);
+        $info['uname'] = $common_service->getUserNameByUid($info['uid'],[$info['uid']]);
         $info['status_name'] = self::$order_model->status[$info['status']];
         $info['store_name'] = $common_service->getStoreNameByUid($info['uid'],[$info['uid']]);
         $info['detail_info'] = self::$order_model->getDetail($order_id);
