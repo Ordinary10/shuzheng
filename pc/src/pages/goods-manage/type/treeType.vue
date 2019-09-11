@@ -43,7 +43,7 @@ export default {
       modal1Title: '',
       modal1: false,
       type_data: [],
-      typeCascaderShow:true,
+      typeCascaderShow: true,
       formItem: {
         id: '',
         pid: '',
@@ -191,8 +191,41 @@ export default {
     },
     // 从类目表中删除
     remove (item) {
-      // console.log(item)
-      alert('没有')
+      console.log(item)
+      let _this = this
+      let res = []
+      function test (res, list) {
+        res.push(list.id)
+        if (list.children && list.children.length) {
+          list.children.forEach(e => {
+            test(res, e)
+          })
+        }
+      }
+      test(res, item)
+      let content = `<p>确认删除<span class="prominentText">${item.type_name}</span>？</p>
+                    <p>${res.length > 1 ? '级下其它子类目也会将删除哦！' : ''}</p>
+                    `
+      let params = {
+        type_id: res.join(',')
+      }
+      this.$Modal.confirm({
+        title: '删除',
+        content,
+        loading: true,
+        onOk: () => {
+          _this.$axios('goods/delGoodsType', params, true).then((res) => {
+            _this.$Modal.remove()
+            if (res.code === 1) {
+              _this.$Message.success({
+                content: res.msg,
+                duration: 2
+              })
+              _this.init()
+            }
+          })
+        }
+      })
     },
     save () {
       let _this = this
