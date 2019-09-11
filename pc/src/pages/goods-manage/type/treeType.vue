@@ -19,8 +19,8 @@
       class="overstepModel"
     >
       <Form :model="formItem" :label-width="100" :rules="rule" ref="form" >
-        <FormItem label="父级类目">
-          <typeCascader ref="typeCascader" @typeid = 'letType' :echoId="formItem.pid"></typeCascader>
+        <FormItem label="父级类目" v-show="typeCascaderShow">
+          <typeCascader ref="typeCascader"  @typeid = 'letType' :echoId="formItem.pid"></typeCascader>
         </FormItem>
         <FormItem label="类目名称" prop="type_name">
           <Input v-model="formItem.type_name" type="text" placeholder="请输入类目名"></Input>
@@ -43,6 +43,7 @@ export default {
       modal1Title: '',
       modal1: false,
       type_data: [],
+      typeCascaderShow:true,
       formItem: {
         id: '',
         pid: '',
@@ -93,7 +94,13 @@ export default {
     // 左上角从头添加
     add () {
       this.modal1Title = '添加类目'
-      this.cleanFormItem()
+      this.$refs.form.resetFields()
+      for (let key in this.formItem) {
+        this.formItem[key] = ''
+      }
+      this.typeCascaderShow = false
+      this.formItem.pid = 0
+      this.modal1 = true
     },
     letType () {
       this.formItem.pid = this.$refs.typeCascader.type_id
@@ -177,6 +184,7 @@ export default {
     // 从类目表中添加
     append (item) {
       // console.log(item)
+      this.typeCascaderShow = true
       this.modal1Title = '添加类目'
       this.cleanFormItem()
       this.formItem.pid = item.id
@@ -217,6 +225,7 @@ export default {
       })
     },
     editor (item) {
+      this.typeCascaderShow = true
       this.cleanFormItem()
       this.modal1Title = `修改类目：${item.type_name}`
       this.formItem.pid = item.pid
