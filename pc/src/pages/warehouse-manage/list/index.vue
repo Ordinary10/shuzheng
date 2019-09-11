@@ -55,12 +55,23 @@
     >
       <distribution v-if="newseeData" :ApplyData="newseeData"></distribution>
     </Modal>
+    <!--新增-->
+    <Modal
+      v-model="addisShow"
+      :title="modal1Title"
+      :width='980'
+      class-name="vertical-center-modal"
+      :footer-hide="true"
+    >
+      <add></add>
+    </Modal>
 
   </div>
 </template>
 
 <script type="text/jsx">
   import see from './see'
+  import add from './add'
   import approval from './approval'
   import distribution from './distribution'
   export default {
@@ -93,6 +104,7 @@
         getDeta:'',
         modal1Title:'',
         newseeData:'',
+        addisShow:'',
         neworder_id:'',
         goodsData:'',
         config: {
@@ -174,7 +186,7 @@
       }
     },
     components: {
-      see,
+      add,
       approval,
       distribution
     },
@@ -185,10 +197,8 @@
     methods: {
 
       add () {
-        this.$refs.form.resetFields()
-        this.formItem = {type: '1'}
-        this.modal1Title = '添加商品'
-        this.modal1 = true
+        this.modal1Title = '出库申请'
+        this.addisShow =true
       },
       cancel () {
         this.modal1 = false
