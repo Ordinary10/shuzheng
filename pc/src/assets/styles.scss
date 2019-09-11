@@ -255,6 +255,29 @@ body{
   clear: both;
   color: #e8eaec;
 }
+.storage-body{
+  max-height: 306px;
+}
+.icon_delete{
+  width: 28px;
+  height: 28px;
+  border: 1px solid #F25961;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 27px;
+  font-size: 22px;
+  color: #F25961;
+  margin-left: 10px;
+  margin-top: 2px;
+}
+.icon_delete:hover{
+  cursor:pointer;
+  color: #FFF;
+  background-color:#F25961 ;
+}
+.ma-spacing .ivu-form-item{
+  //margin-bottom: 0px;
+}
 .box-ib{
   display: inline-block;
 }
