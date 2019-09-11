@@ -181,7 +181,9 @@ export default {
         type: ''
       },
       rule: {
-        name: [{required: true, message: '必输项不能为空', trigger: 'blur'}
+        name: [
+          {required: true, message: '必输项不能为空', trigger: 'blur'},
+          {type: 'string', message: '名称不超过2个字符,不大于10个字符', min: 2, max: 10, trigger: 'blur'}
         ],
         location: [{required: true, message: '必输项不能为空', trigger: 'blur'}
         ],
