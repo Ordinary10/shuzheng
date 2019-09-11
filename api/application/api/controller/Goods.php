@@ -34,15 +34,19 @@ class Goods extends Base {
             return $this->success_result([],'查询成功',null,0);
         }
         $this->disposeData($lists['lists']);
-        $goods_type = self::$goods_type_model->getLists();
-        return $this->success_result($lists['lists'],'查询成功',array2tree($goods_type),$lists['count']);
+        return $this->success_result($lists['lists'],'查询成功',null,$lists['count']);
     }
 
     // 处理数据
     private function disposeData(&$data) {
         $model = new CommonalityService();
         foreach ($data as $k => &$val) {
-            $val['type_name'] = $model->getGoodsNameById($val['type_id']);
+            $parent_id = $model->getGoodsTypeParentId($val['type_id']);
+            if(empty($parent_id)) {
+                $val['type_name'] = '未录入';
+                continue;
+            }
+            $val['type_name'] = $model->getGoodsNameById($parent_id).'/'.$model->getGoodsNameById($val['type_id']);
         }
     }
 
@@ -51,21 +55,22 @@ class Goods extends Base {
         $where['status'] = 1;
         !empty(self::$params['status']) && $where['status'] = self::$params['status'];
         !empty(self::$params['name']) && $where['name'] = ['like','%'.self::$params['name'].'%'];
-        !empty(self::$params['type_id']) && $where['type_id'] = self::$params['type_id'];
+        if(!empty(self::$params['type_id'])) {
+            $type = self::$goods_type_model->getInfoById(self::$params['type_id']);
+            if(!empty($type)) {
+                $where = ['type_id'=>self::$params['type_id']];
+                if($type['pid'] == 0) {
+                    $son_type = self::$goods_type_model->getAllIdByPid($type['type_id']);
+                    $where = ['type_id'=>['in',$son_type]];
+                }
+            }
+        }
         !empty(self::$params['over_safe_stock']) && $where['stock'] = Db::Raw('< safe_stock');
         return $where;
     }
 
     /**
      * 编辑或新增商品
-     * array(5) {
-        ["id"] => string(6) "0"
-        ["name"] => string(6) "大米"
-        ["unit"] => string(3) "袋"
-        ["type_id"] => string(1) "1"
-        ["safe_stock"] => string(2) "10"
-        ["status"] => string(1) "1"
-     }
      * @return string
      */
     public function editGoods()
@@ -79,6 +84,16 @@ class Goods extends Base {
             return  self::error_result('操作失败');
         }
         return self::success_result();
+    }
+
+    //获取商品类型列表
+    public function getGoodsType()
+    {
+        $data = self::$goods_type_model->getLists();
+        if(empty($data)) {
+            return self::success_result($re,'查询成功');
+        }
+        return self::success_result(array2tree($data),'查询成功');
     }
 
     //编辑或新增商品类型
@@ -115,24 +130,6 @@ class Goods extends Base {
         return  self::success_result('删除成功');
     }
 
-    //根据类目获取商品
-    public function getAllGoodsByType()
-    {
-        if(empty(self::$params['type_id'])){
-            $where = [];
-        }else{
-            $type = self::$goods_type_model->getInfoById(self::$params['type_id']);
-            if(empty($type)) return self::success_result([]);
-            if($type['pid'] == 0){
-                $son_type = self::$goods_type_model->getAllIdByPid($type['type_id']);
-                $where = ['type_id'=>['in',$son_type]];
-            }else{
-                $where = ['type_id'=>self::$params['type_id']];
-            }
-        }
-        $data = self::$model->getLists($where,[]);
-        return self::success_result($data['lists']);
-    }
     // 修改商品状态
     public function renewalGoodsStatus()
     {
@@ -140,8 +137,6 @@ class Goods extends Base {
             return self::error_result('请选择要操作的商品');
         }
 
-
-    
         $status = self::$model->where(['id'=>self::$params['id']])->value('status');
         if(empty($status)) {
             return self::error_result('没有对应的商品信息');

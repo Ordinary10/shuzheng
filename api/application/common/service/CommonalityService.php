@@ -46,4 +46,19 @@ class CommonalityService extends BaseService {
         $data = array_column($data,'type_name','type_id');
         return isset($data[$type_id]) ? $data[$type_id] : '';
     }
+
+    // 获取类目为全路径
+    public function getGoodsTypeParentId($type_id)
+    {
+        $model = new GoodsType();
+        static $data;
+        if(!empty($data)){
+            return isset($data[$type_id]) ? $data[$type_id] : '';
+        }
+        $data = $model->field('type_id,pid')->select();
+        $data = array_column($data,'pid','type_id');
+        return isset($data[$type_id]) ? $data[$type_id] : '';
+    }
+
+
 }
