@@ -100,7 +100,7 @@ export default {
                   <i-button class="table-btn" type="primary" size="small"
                     nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>编辑
                   </i-button>
-                  <i-button className="table-btn" type="error" size="small"
+                  <i-button class="table-btn" type="error" size="small"
                     nativeOnClick={this.tableBtnClick.bind(this, params.row, 'change')}>禁用
                   </i-button>
                 </div>
