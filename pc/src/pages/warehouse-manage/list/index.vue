@@ -16,7 +16,7 @@
         </div>
         <!--常用操作按钮-->
         <div class="commonly-used-btn-box">
-          <Tooltip content="添加门店" placement="bottom-start">
+          <Tooltip content="添加出库申请" placement="bottom-start">
             <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="add" style="font-size: 18px"></Button>
           </Tooltip>
         </div>
