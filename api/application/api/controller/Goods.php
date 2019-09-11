@@ -34,7 +34,8 @@ class Goods extends Base {
             return $this->success_result([],'查询成功',null,0);
         }
         $this->disposeData($lists['lists']);
-        return $this->success_result($lists['lists'],'查询成功',null,$lists['count']);
+        $goods_type = self::$goods_type_model->getLists();
+        return $this->success_result($lists['lists'],'查询成功',array2tree($goods_type),$lists['count']);
     }
 
     // 处理数据
@@ -78,16 +79,6 @@ class Goods extends Base {
             return  self::error_result('操作失败');
         }
         return self::success_result();
-    }
-
-    //获取商品类型列表
-    public function getGoodsType()
-    {
-        $data = self::$goods_type_model->getLists();
-        if(empty($data)) {
-            return self::success_result([],'查询成功');
-        }
-        return self::success_result(array2tree($data),'查询成功');
     }
 
     //编辑或新增商品类型
