@@ -57,11 +57,6 @@
                 unit_price:'' //采购单价
               },
             ],
-            list:{
-              goods_id:'',  //商品id
-              amount:'',  //采购数量
-              unit_price:'' //采购单价
-            },
             goodsLists:''
           }
       },
@@ -76,8 +71,13 @@
         },
         //新增商品
         goodsarray(judge){
+          let list={
+              goods_id:'',  //商品id
+              amount:'',  //采购数量
+              unit_price:'' //采购单价
+            };
           if (judge =='add'){
-            this.fromdata.push(this.list)
+            this.fromdata.push(list)
           } else {
             if (this.fromdata.length>1){
               this.fromdata.pop()
