@@ -14,7 +14,7 @@
           </Col>
           <Col span="12">
             <div class="ma-nomb-spacing">
-              <FormItem label="采购数量">
+              <FormItem label="数量">
                 <Input v-model="fromdata[i].amount"></Input>
               </FormItem>
             </div>
@@ -35,6 +35,15 @@
         <Button type="success" @click="goodsarray('add')">新增</Button>
       </div>
     </Col>
+    <Modal
+      v-model="addisShow"
+      :title="modal1Title"
+      :width='980'
+      class-name="vertical-center-modal"
+      :footer-hide="true"
+    >
+      <add></add>
+    </Modal>
   </Row>
 </template>
 
@@ -53,6 +62,7 @@
             unit_price:'' //采购单价
           },
         ],
+        addisShow:false,
         goodsLists:''
       }
     },
@@ -79,6 +89,8 @@
           if (this.fromdata.length>1){
             this.fromdata.splice(index,1)
           }else {
+            this.modal1Title = '配货'
+            this.addisShow = true
             console.log('不能再减少了哦亲')
           }
         }
