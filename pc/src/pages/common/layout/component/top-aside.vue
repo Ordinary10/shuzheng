@@ -1,8 +1,7 @@
 <template>
    <div class="top-wrapper">
      <div class="title" v-if="PageMode===1">
-       <Icon type="ios-car-outline" />
-       <span>蜀蒸</span>
+       <div class="logo_body"></div>
      </div>
      <div class="sidebar-wrapper" v-if="PageMode===1">
        <Menu mode="horizontal" theme="dark">
@@ -225,7 +224,7 @@ export default {
   left: 0;
   right: 0;
   height: 60px;
-  background:rgba(76,124,243,1);
+  background:#1572e8;
   display: flex;
   .sidebar-wrapper{
     flex: 1;
@@ -252,14 +251,14 @@ export default {
       transform: translateY(0) rotate(180deg) !important;
     }
     /deep/ .ivu-select-dropdown{
-      background-color: rgba(76,124,243,1);
+      background-color: #1572e8;
       min-width: 80% !important;
       text-align: center;
       .ivu-menu-item:hover{
-        background-color:#054ff5;
+        background-color:#115bba;
       }
       .ivu-menu-item.ivu-menu-item-active{
-        background-color: #054ff5;
+        background-color: #1572e8;
       }
     }
   }
@@ -272,9 +271,18 @@ export default {
     font-size: 20px;
     color: #fff;
     letter-spacing: 10px;
-    .ivu-icon-ios-car-outline{
-      font-size: 30px;
+    .logo_body{
+      margin-top: 8px;
+      height: 67px;
+      width: 67px;
+      border-radius:50%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #fff;
+      box-shadow:0px 0px 6px 1px rgba(9,60,124,0.21);
+      background-image: url("http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15682765267335.png");
     }
+
   }
   .user_info{
     display: flex;
@@ -294,7 +302,7 @@ export default {
       }
     }
     .refresh:hover{
-      background-color:#054ff5;
+      background-color:#115bba;
     }
     /*下拉框*/
     .ivu-dropdown{
