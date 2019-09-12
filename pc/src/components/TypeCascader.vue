@@ -118,18 +118,21 @@ export default {
         _this.typeList = _this.typeList.slice(0, idIndex + 1)
       }
       _this.cleanTypeID(_this.typeList)
-    }
-
-  },
-  watch: {
-    // 监听传入的id进行渲染
-    echoId () {
+    },
+    // 监听传入的id进行渲染的动作
+    watchEchoId () {
       if (this.echoId === 0 || this.echoId === '') {
         this.typeList = []
         this.type_id = ''
       } else {
         this.echo_TypeID(this.echoId)
       }
+    }
+  },
+  watch: {
+    // 监听传入的id进行渲染
+    echoId () {
+      this.watchEchoId()
     }
   }
 }

@@ -317,6 +317,7 @@ export default {
           this.formItem.unit = item.unit
           this.formItem.safe_stock = item.safe_stock
           if (this.formItem.echoId === item.type_id) {
+            this.$refs.typeCascader.watchEchoId()
             this.letType()
           } else {
             this.formItem.echoId = item.type_id

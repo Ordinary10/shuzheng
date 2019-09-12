@@ -19,7 +19,7 @@
       class="overstepModel"
     >
       <Form :model="formItem" :label-width="100" :rules="rule" ref="form" >
-        <FormItem label="父级类目" v-show="typeCascaderShow">
+        <FormItem label="上级类目" v-show="typeCascaderShow">
           <typeCascader ref="typeCascader"  @typeid = 'letType' :echoId="formItem.pid" max-num="2"></typeCascader>
         </FormItem>
         <FormItem label="类目名称" prop="type_name">
@@ -240,7 +240,7 @@ export default {
       if (this.formItem.pid === this.formItem.id) {
         this.$Modal.error({
           title: '类目错误',
-          content: '父级类目和自身重复！'
+          content: '上级类目和自身重复！'
         })
         return false
       }
