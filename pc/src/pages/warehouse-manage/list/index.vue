@@ -104,7 +104,7 @@
         getDeta:'',
         modal1Title:'',
         newseeData:'',
-        addisShow:'',
+        addisShow:false,
         neworder_id:'',
         goodsData:'',
         config: {
