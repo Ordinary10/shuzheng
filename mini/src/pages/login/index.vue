@@ -35,7 +35,7 @@
     created() {
     },
     onShow(){
-      // this.autoLogin()
+      this.autoLogin()
     },
     mounted(){
     },
@@ -119,51 +119,52 @@
 </script>
 
 <style scoped lang="scss">
+  @import "../../assets/variables";
 .page-login{
   button{
     border: none;
   }
   .image{
     width: 100%;
-    height: 705rpx;
+    height: 352px;
   }
   .login-form{
-    padding: 60rpx 94rpx 0;
+    padding: 30px 47px 0;
     .login_btn{
-      width:556rpx;
-      font-size: 36rpx;
+      width:278px;
+      font-size: 18px;
       color: white;
-      line-height: 80rpx;
-      background:#EC181F;
+      line-height: 40px;
+      background:$mainColor;
       box-shadow:0px 7px 15px 3px rgba(236, 31, 24, 0.35);
-      border-radius:40rpx;
-      margin-top: 100rpx;
+      border-radius:20px;
+      margin-top: 50px;
       &:hover{
         background: #EC5B5A;
       }
     }
     .input-box{
       position: relative;
-      height: 100rpx;
+      height: 50px;
       width: 100%;
       display: flex;
       justify-content: flex-start;
       align-items: center;
       border-bottom: 1px solid #DCDEE2;
       box-sizing: border-box;
-      padding: 0 22rpx;
-      margin: 30rpx 0;
+      padding: 0 11px;
+      margin: 15px 0;
       icon{
-        font-size: 26rpx;
-        color: #EC181F;
-        line-height: 100rpx;
+        font-size: 13px;
+        color: $mainColor;
+        line-height: 50px;
       }
       input{
         color: #595959;
-        font-size: 24rpx;
-        margin-left: 20rpx;
-        line-height: 100rpx;
-        height: 100rpx;
+        font-size: 12px;
+        margin-left: 10px;
+        line-height: 50px;
+        height: 50px;
         flex: 1;
       }
     }

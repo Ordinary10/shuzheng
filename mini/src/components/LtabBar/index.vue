@@ -58,7 +58,7 @@
     width: 100%;
     left: 0;
     right: 0;
-    height: 100rpx;
+    height: 50px;
     z-index: 999;
     background-color: #fff;
   }
@@ -68,22 +68,22 @@
     border-top: 1px solid #ccc;
     .li{
       flex: 1;
-      margin: 15rpx 20% 0;
+      margin: 8px 20% 0;
       height: 100%;
       text-align: center;
       color:#999999;
-      font-size: 20rpx;
+      font-size: 10px;
       .img{
-        width: 40rpx;
-        height: 40rpx;
+        width: 20px;
+        height: 20px;
         margin: auto;
       }
       .name{
-        margin: 10rpx 0 0;
+        margin: 5px 0 0;
       }
       &.active{
         color: #04A9F5;
-        border-bottom: 20rpx solid #04A9F5;
+        border-bottom: 10px solid #04A9F5;
         box-sizing: border-box;
       }
     }

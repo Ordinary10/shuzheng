@@ -119,7 +119,7 @@
         const _this =this
         if(isFirst || (_this.last_type_id!=_this.type_id)) {
           _this.last_type_id = _this.type_id
-          _this.$ajax('goods/getAllGoodsByType',{type_id:_this.type_id},function (res) {
+          _this.$ajax('goods/getGoodsLists',{type_id:_this.type_id},function (res) {
             _this.goodsList = res.data
             // console.log(_this.goodsList)
           })

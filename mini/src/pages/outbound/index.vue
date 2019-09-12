@@ -1,41 +1,62 @@
 <template>
-  <div class="pages TabBar_page" :class="tab_show">
+  <div class="pages" :class="tab_show_pages">
     <i-toast id="toast" />
-    <div class="mini-list">
-      <div class="mini-list-item" @click="orderApply" v-if="role==='chef'">
-        <span>申请出库</span>
-        <span class="center"></span>
-        <span><i-icon type="enter" size="20"/></span>
-      </div>
-      <picker @change="bindPickerChange" :value="statusIndex" :range="statusList" range-key="name">
-        <div class="picker mini-list-item">
-          <span>订单状态：</span>
-          <span class="center">{{statusList[statusIndex].name}}</span>
-          <span><i-icon type="enter" size="20"/></span>
+    <div class="pages_header">
+      <div class="pages_top_modified"></div>
+      <div class="search_box">
+        <div class="multiple_search_input">
+          <div class="left nowrap">{{statusList[statusIndex].name=='全部'?'状态':statusList[statusIndex].name}}</div>
+          <picker @change="bindStatusPickerChange" :value="statusIndex" :range="statusList" range-key="name">
+            <div>
+              <icon class="iconfont iconjiantou right"></icon>
+            </div>
+          </picker>
         </div>
-      </picker>
-    </div>
-    <div class="results-box">
-      <div class="results-header">
-        共{{purchaseOrderList.length}}笔订单
-      </div>
-      <div class="results-list">
-        <div class="not-results" v-show="purchaseOrderList.length===0">
-          <img class="search-bgc" src="http://test.c.zdxrchina.com/images/wechat/search_bgc.png" alt="">
-          <div class="not-results-text">没有相关信息哦</div>
+        <div class="multiple_search_input" v-if="companyList.length>0">
+          <div class="left nowrap">{{companyList[companyIndex].name=='全部'?'门店':companyList[companyIndex].name}}</div>
+          <picker @change="bindCompanyPickerChange" :value="companyIndex" :range="companyList" range-key="name">
+            <div>
+              <icon class="iconfont iconjiantou right"></icon>
+            </div>
+          </picker>
         </div>
-        <div class="show-results-list" v-show="purchaseOrderList.length>0">
-          <div class="table-header list-item">
-            <div class="item item1">申请人</div>
-            <div class="item item2">门店</div>
-            <div class="item item3">时间</div>
-            <div class="item item4">状态</div>
+        <div class="multiple_search_input" v-if="role==='chef'" @click="orderApply">
+          <div class="left nowrap" style="text-align: center">
+            新增
           </div>
-          <div class="list-item" v-for="(item,index) in purchaseOrderList" :key="index" @click="get_details(item)">
-            <div class="item item1">{{item.uname}}</div>
-            <div class="item item2">{{item.store_name}}</div>
-            <div class="item item3">{{item.ctime}}</div>
-            <div class="item item4">{{item.status_name}}</div>
+          <div>
+            <icon class="iconfont iconadd right" style="text-align: left; min-width: 30px;"></icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pages_container">
+      <div class="results-box">
+        <div class="results-header">
+          共{{purchaseOrderList.length}}笔订单
+        </div>
+        <div class="results-list">
+          <div class="not-results" v-if="purchaseOrderList.length===0">
+            <img class="search-bgc" src="http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15682812084909.png" alt="">
+            <div class="not-results-text">没有相关信息哦</div>
+          </div>
+          <div class="show-results-list" v-if="purchaseOrderList.length>0">
+            <div class="table-header list-item">
+              <div class="item item1">申请人</div>
+              <div class="item item2">门店</div>
+              <div class="item item3">时间</div>
+              <div class="item item4">状态</div>
+            </div>
+            <div class="flex_1" style="height: 100px;">
+              <scroll-view scroll-y style="height: 100%;">
+                <div class="list-item" v-for="(item,index) in purchaseOrderList" :key="index" @click="get_details(item)">
+                  <div class="item item1">{{item.uname}}</div>
+                  <div class="item item2">{{item.store_name}}</div>
+                  <div class="item item3">{{item.ctime}}</div>
+                  <div class="item item4">{{item.status_name}}</div>
+                </div>
+              </scroll-view>
+            </div>
           </div>
         </div>
       </div>
@@ -51,9 +72,8 @@
     data() {
       return {
         purchaseOrderList: [],
-        statusChoose: false,
-        statusIndex: 0,
         role: '',
+        statusIndex: 0,
         statusList: [
           {
             name: '全部',
@@ -79,20 +99,24 @@
             name: '已拒绝',
             status: 'deny'
           },
-        ]
+        ],
+        companyIndex:0,
+        companyList:[]
       }
     },
 
     created() {
     },
     onShow() {
-      this.getList()
-      this.role=this.$store.state.role
+      if(this.role!==this.$store.state.role){
+        this.init()
+        this.role=this.$store.state.role
+      }
     },
     computed:{
-      tab_show(){
+      tab_show_pages(){
         return this.$store.state.role==='admin'||this.$store.state.role==='other'
-          ?'tab_show'
+          ?'tab_show_pages'
           :''
       }
     },
@@ -100,9 +124,23 @@
       wx.hideTabBar()
     },
     methods:{
+      init(){
+        const _this = this
+        _this.$common.getPageInfo(['company']).then(res => {
+          _this.companyList = res.data.company
+          _this.companyList.unshift({
+            id:'',
+            name: '全部'
+          })
+          _this.getList()
+        })
+      },
       getList() {
         const _this = this
-        _this.$ajax('checkout/getLists',{status:_this.statusList[_this.statusIndex].status},function (res) {
+        _this.$ajax('checkout/getLists',{
+          status: _this.statusList[_this.statusIndex].status,
+          dp_id: _this.companyList[_this.companyIndex].id
+        },function (res) {
           _this.purchaseOrderList = _this.dataFilter(res.data)
         })
       },
@@ -123,8 +161,12 @@
       orderApply() {
         wx.navigateTo({url:'/pages/outbound/order-apply/main'})
       },
-      bindPickerChange (e) {
+      bindStatusPickerChange (e) {
         this.statusIndex = e.mp.detail.value
+        this.getList()
+      },
+      bindCompanyPickerChange(e) {
+        this.companyIndex = e.mp.detail.value
         this.getList()
       }
     }
@@ -137,79 +179,13 @@
   }
 </style>
 <style scoped lang="scss">
-  .pages{
-    .center{
-      color: #04A9F5;
-    }
-    .results-box{
-      background-color: white;
-      border-radius: 20px 20px 0 0;
-      color: #000;
-      font-size: 15px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      .results-header{
-        font-size: 14px;
-        text-align: center;
-        border-bottom: 1px solid #D9D9D9;
-        line-height: 35px;
-      }
-      .results-list{
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        .not-results{
-          margin: auto;
-          .search-bgc{
-            width: 198px;
-            height: 100px;
-            margin-bottom: 30px;
-          }
-          .not-results-text{
-            text-align: center;
-          }
-        }
-        .show-results-list{
-          font-size: 15px;
-          .table-header{
-            background-color: #F0F1F4;
-            color: #8A98AC;
-          }
-          .list-item{
-            display: flex;
-            width: 100%;
-            height: 39px;
-            border-bottom: 1px solid #D9D9D9;
-            .item{
-              line-height: 39px;
-              white-space: nowrap;
-              word-wrap: break-word;
-              word-break: break-all;
-              text-overflow:ellipsis;
-              overflow: hidden;
-            }
-            .item1{
-              width: 20%;
-              text-indent: 20px;
-            }
-            .item2{
-              width: 35%;
-              text-indent: 10px;
-            }
-            .item3{
-              width: 25%;
-            }
-            .item4{
-              width: 20%;
-            }
-            &:hover{
-              background-color: #F0F1F4;
-              color: #8A98AC;
-            }
-          }
-        }
-      }
-    }
+  .search_box{
+    width: 100%;
+    position: absolute;
+    top: 14px;
+    left: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: space-around;
   }
 </style>

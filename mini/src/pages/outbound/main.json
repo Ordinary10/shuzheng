@@ -1,6 +1,3 @@
 {
-  "backgroundTextStyle": "light",
-  "navigationBarBackgroundColor": "#fff",
-  "navigationBarTitleText": "出库",
-  "navigationBarTextStyle": "black"
+  "navigationBarTitleText": "出库"
 }

@@ -1,33 +1,284 @@
 /*全局样式表*/
-@import "./animate.scss";
-.tab_show{
-  padding-bottom: 50px !important;
-}
-.tab_hidden{
-  height: 0 !important;
-}
-.TabBar_page{
-  min-height: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
-.orderPages{
-  padding-bottom: 44px;
-  box-sizing: border-box;
-  min-height: 100%;
-}
-@mixin nowrap(){
-  white-space: nowrap;
-  text-overflow:ellipsis;
-  overflow:hidden;
-}
+@import "./animate";
+@import "./variables";
+/*布局样式,高度自适应*/
 .flex_parent{
   display: flex;
   flex-direction: column;
 }
-.flex_child{
+.flex_1{
   flex: 1;
+}
+/*单行文本多余内容。。。表示*/
+.nowrap{
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden;
+}
+.text_center{
+  text-align: center;
+}
+/*按钮样式*/
+.max_width_btn{
+  width: 100%;
+  height: 50px;
+  border:1px solid rgba(220,222,226,1);
+  box-shadow:0px 3px 33px 7px rgba(0, 0, 0, 0.15);
+  border-radius:10px 10px 0px 0px;
+  color: white;
+  text-align: center;
+  line-height: 50px;
+  background-color: $btnColor;
+}
+.small_btn{
+  width:106px;
+  height:37px;
+  border-radius:37px;
+  color: white;
+  background-color: $btnColor;
+  text-align: center;
+  line-height: 37px;
+}
+.large-btn-success{
+  background-color: #2BCD72 !important;
+  @extend .max_width_btn;
+}
+.large_btn_error{
+  background-color: $mainColor !important;
+  @extend .max_width_btn;
+}
+.large_btn_primary{
+  background-color: $btnColor !important;
+  @extend .max_width_btn;
+}
+.small_btn_success{
+  background-color: #2BCD72 !important;
+  @extend .small_btn;
+}
+.small_btn_error{
+  background-color: $mainColor !important;
+  @extend .small_btn;
+}
+.small_btn_primary{
+  background-color: $btnColor !important;
+  @extend .small_btn;
+}
+.add_btn{
+  font-weight: 800;
+  width:22px;
+  height:22px;
+  background-color:$mainColor;
+  border-radius:50%;
+  font-size: 20px;
+  color: white;
+  line-height: 17px;
+  text-align: center;
+}
+.sub_btn{
+  font-weight: 600;
+  width:22px;
+  height:22px;
+  background-color:white;
+  box-sizing: border-box;
+  border: 1px solid $mainColor;
+  border-radius:50%;
+  font-size: 20px;
+  color: $mainColor;
+  line-height: 18px;
+  text-align: center;
+}
+/*pages样式*/
+.pages{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: $bgcColor;
+  box-sizing: border-box;
+  @extend .flex_parent;
+}
+.pages_header{
+  padding-bottom: 36px;
+  position: relative;
+}
+.tab_show_pages{
+  padding-bottom: 50px !important;
+}
+/*单个搜索输入框样式*/
+.a_single_search_input{
+  width:300px;
+  height:32px;
+  background-color:white;
+  box-shadow:0px 0px 15px 3px rgba(0, 0, 0, 0.09);
+  border-radius:16px;
+  box-sizing: border-box;
+  padding: 0 16px;
+  font-size: 16px;
+  position: relative;
+}
+/*多个搜索框样式*/
+.multiple_search_input{
+  width:110px;
+  height:30px;
+  background-color:white;
+  box-shadow:0px 0px 15px 3px rgba(0, 0, 0, 0.21);
+  border-radius:15px;
+  box-sizing: border-box;
+  padding: 0 8px 0 15px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  line-height: 30px;
+  .left{
+    flex: 1;
+  }
+  .right{
+    min-width: 20px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+/*page顶部修饰圆弧*/
+.pages_top_modified{
+  width:375px;
+  height:27px;
+  background:$mainColor;
+  border-radius:0px 0px 20px 20px;
+}
+/*pages 内容区*/
+.pages_container{
+  @extend .flex_1;
+  @extend .flex_parent;
+  background-color: white;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+}
+/*自制表格*/
+.results-box{
+  background-color: white;
+  color: #000;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .results-header{
+    font-size: 14px;
+    text-align: center;
+    border-bottom: 1px solid #D9D9D9;
+    line-height: 35px;
+  }
+  .results-list{
+    @extend .flex_parent;
+    @extend .flex_1;
+    .not-results{
+      margin: auto;
+      .search-bgc{
+        width: 198px;
+        height: 100px;
+        margin-bottom: 30px;
+      }
+      .not-results-text{
+        text-align: center;
+      }
+    }
+    .show-results-list{
+      @extend .flex_parent;
+      height: 100%;
+      .table-header{
+        background-color: #F0F1F4;
+        color: #8A98AC;
+      }
+      .list-item{
+        display: flex;
+        width: 100%;
+        height: 39px;
+        border-bottom: 1px solid #D9D9D9;
+        .item{
+          line-height: 39px;
+          white-space: nowrap;
+          word-wrap: break-word;
+          word-break: break-all;
+          text-overflow:ellipsis;
+          overflow: hidden;
+        }
+        .item1{
+          width: 20%;
+          text-indent: 20px;
+        }
+        .item2{
+          width: 35%;
+          text-indent: 10px;
+        }
+        .item3{
+          width: 25%;
+        }
+        .item4{
+          width: 20%;
+        }
+        &:hover{
+          background-color: #F0F1F4;
+          color: #8A98AC;
+        }
+      }
+    }
+  }
+}
+/*商品选购页类目列表样式*/
+.category-list{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 14px;
+  .category-list-item{
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+  }
+}
+/*商品选购页商品列表样式*/
+.goods-list{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  padding: 5px 18px 0 0;
+  box-sizing: border-box;
+  .goods-list-item{
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #DCDEE2;
+    .goods-name{
+      @extend .flex_1;
+      @extend .nowrap;
+      line-height: 40px;
+    }
+    .goods-num{
+      width: 40px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+/*商品选购页底部按钮区域*/
+.order-footer{
+  height: 48px;
+  width: 100%;
+  position: fixed;
+  bottom:0;
+  left: 0;
+  z-index: 1001;
+  background-color: white;
+  box-sizing: border-box;
+  border-top:1px solid rgba(0,0,0,0.2);
+  padding: 0 17px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 /*自定义list*/
 .mini-list{
