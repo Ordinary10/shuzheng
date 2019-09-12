@@ -20,7 +20,7 @@
     >
       <Form :model="formItem" :label-width="100" :rules="rule" ref="form" >
         <FormItem label="上级类目" v-show="typeCascaderShow">
-          <typeCascader ref="typeCascader"  @typeid = 'letType' :echoId="formItem.pid" max-num="2"></typeCascader>
+          <typeCascader ref="typeCascader" @init="init"  @typeid = 'letType' :echoId="formItem.pid" max-num="2"></typeCascader>
         </FormItem>
         <FormItem label="类目名称" prop="type_name">
           <Input v-model="formItem.type_name" type="text" placeholder="请输入类目名"></Input>
@@ -58,36 +58,53 @@ export default {
   created () {
   },
   mounted () {
-    this.init()
   },
   methods: {
     init () {
+      let typeData = this.$refs.typeCascader.type_data
       let _this = this
-      this.$axios('goods/getGoodsType', {}).then((res) => {
-        if (res.code === 1) {
-          let obj = res.data
-          // 清洗数据
-          function recursion (list) {
-            list.forEach(e => {
-              e.value = e.id
-              e.title = e.type_name
-              if (e.children && e.children.length) {
-                e.expand = true
-                recursion(e.children)
-              } else {
-                e.last = true
-                // 第一级显示添加按钮
-                if (e.pid === 0) {
-                  e.last = false
-                }
-              }
-            })
+      function recursion (list) {
+        list.forEach(e => {
+          if (e.children && e.children.length) {
+            e.expand = true
+            recursion(e.children)
+          } else {
+            e.last = true
+            // 第一级显示添加按钮
+            if (e.pid === 0) {
+              e.last = false
+            }
           }
-          recursion(obj)
-          // 使用obj中转保存数组 一次性添加  不然expand会出bug
-          _this.type_data = obj
-        }
-      })
+        })
+      }
+      recursion(typeData)
+      // 一次性添加  不然expand会出bug
+      _this.type_data = typeData
+      // this.$axios('goods/getGoodsType', {}).then((res) => {
+      //   if (res.code === 1) {
+      //     let obj = res.data
+      //     // 清洗数据
+      //     function recursion (list) {
+      //       list.forEach(e => {
+      //         e.value = e.id
+      //         e.title = e.type_name
+      //         if (e.children && e.children.length) {
+      //           e.expand = true
+      //           recursion(e.children)
+      //         } else {
+      //           e.last = true
+      //           // 第一级显示添加按钮
+      //           if (e.pid === 0) {
+      //             e.last = false
+      //           }
+      //         }
+      //       })
+      //     }
+      //     recursion(obj)
+      //     // 使用obj中转保存数组 一次性添加  不然expand会出bug
+      //     _this.type_data = obj
+      //   }
+      // })
     },
     // 重置输入框
     cleanFormItem () {
@@ -136,7 +153,7 @@ export default {
           }),
           h('span', {
             domProps: {
-              innerHTML: data.title
+              innerHTML: data.type_name
             },
             style: {
               fontSize: '15px'
@@ -227,7 +244,7 @@ export default {
                 content: res.msg,
                 duration: 2
               })
-              _this.init()
+              this.$refs.typeCascader.init()
             }
           })
         }

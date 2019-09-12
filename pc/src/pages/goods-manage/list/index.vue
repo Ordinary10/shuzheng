@@ -46,7 +46,7 @@
             <Input v-model="formItem.unit" type="text" placeholder="请输入商品单位"></Input>
           </FormItem>
           <FormItem label="类目" prop="typeList">
-            <typeCascader ref="typeCascader" @typeid = 'letType' :echoId="formItem.echoId" :changeOnSelect="false"></typeCascader>
+            <typeCascader ref="typeCascader" @init="init" @typeid = 'letType' :echoId="formItem.echoId" :changeOnSelect="false"></typeCascader>
           </FormItem>
           <FormItem label="安全库存" prop="safe_stock">
             <Input v-model="formItem.safe_stock" type="text" placeholder="请输入安全库存值(非零正整数)"></Input>
@@ -200,31 +200,39 @@ export default {
   created () {
   },
   mounted () {
-    this.init()
   },
   methods: {
     init () {
+      let typeData = this.$refs.typeCascader.type_data
       let _this = this
+      function recursion (list) {
+        list.forEach(e => {
+          _this.typeSelectData.push({name: e.type_name, id: e.id})
+          if (e.children && e.children.length) recursion(e.children)
+        })
+      }
+      recursion(typeData)
+      // this.typeSelectData = this.$refs.typeCascader.type_data
       // 获取类目信息
-      this.$axios('goods/getGoodsType', {}).then((res) => {
-        if (res.code === 1) {
-          let List = res.data
-          let typeData = []
-          // 清洗数据
-          function recursion (list) {
-            list.forEach(e => {
-              // e.id = String(e.id)
-              e.value = e.id
-              e.label = e.type_name
-              typeData.push({name: e.type_name, id: e.id})
-              if (e.children && e.children.length) recursion(e.children)
-            })
-          }
-          recursion(List)
-          console.log(typeData)
-          this.typeSelectData = typeData
-        }
-      })
+      // this.$axios('goods/getGoodsType', {}).then((res) => {
+      //   if (res.code === 1) {
+      //     let List = res.data
+      //     let typeData = []
+      //     // 清洗数据
+      //     function recursion (list) {
+      //       list.forEach(e => {
+      //         // e.id = String(e.id)
+      //         e.value = e.id
+      //         e.label = e.type_name
+      //         typeData.push({name: e.type_name, id: e.id})
+      //         if (e.children && e.children.length) recursion(e.children)
+      //       })
+      //     }
+      //     recursion(List)
+      //     console.log(typeData)
+      //     this.typeSelectData = typeData
+      //   }
+      // })
     },
     add () {
       this.$refs.form.resetFields()

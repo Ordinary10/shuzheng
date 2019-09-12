@@ -53,6 +53,8 @@ export default {
             })
           }
           recursion(_this.type_data)
+          // 触发事件init事情 以便其它页面使用该数据
+          _this.$emit('init')
         }
       })
     },
