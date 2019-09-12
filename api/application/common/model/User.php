@@ -64,6 +64,11 @@ class User extends Model
         return $this->where($where)->column('uid');
     }
 
+    public function getUserIdByMap($map)
+    {
+        return $this->where($map)->column('uid');
+    }
+
     /**
      * 获取用户列表
      * @param array $where,

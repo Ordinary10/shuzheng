@@ -55,6 +55,19 @@ class PurchaseOrder extends Base {
         }
         !empty(self::$params['apply_time']) && $where['ctime'] = ['between',[self::$params['apply_time'],self::$params['apply_time'] . '23:59:59']];
         !empty(self::$params['status']) && $where['status'] = self::$params['status'];
+        if(!empty(self::$params['company']) || !empty(self::$params['name'])){
+            if(!empty(self::$params['company']) && !empty(self::$params['name'])){
+                $map = ['dp_id'=>self::$params['company'],'uname'=>['like', '%' . self::$params['name'] . '%']];
+            }elseif (!empty(self::$params['company']) && empty(self::$params['name'])){
+                $map =  ['dp_id'=>self::$params['company']];
+            }elseif (empty(self::$params['company']) && !empty(self::$params['name'])){
+                $map = ['dp_id'=>self::$params['company'],'uname'=>['like', '%' . self::$params['name'] . '%']];
+            }
+            $user_model = new \app\common\model\User();
+            $uid = $user_model->getUserIdByMap($map);
+            if (empty($uid))    return false;
+            $where['uid'] = ['in',$uid];
+        }
         return $where;
     }
 
