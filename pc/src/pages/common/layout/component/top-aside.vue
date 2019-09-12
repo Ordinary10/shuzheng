@@ -9,10 +9,13 @@
        </Menu>
      </div>
      <div class="user_info" :class="{'user_info_right':PageMode!==1}">
-       <div class="refresh" @click.stop="refresh"><Icon type="md-refresh"/></div>
+       <div class="refresh" @click.stop="refresh">
+         <i class="iconfont iconshuaxin"></i>
+
+       </div>
        <Dropdown placement="bottom">
          <div class="Dropdown">
-           <span class="user_img"></span>
+<!--           <span class="user_img"></span>-->
            {{username}}
            <Icon type="ios-arrow-down"/>
          </div>
@@ -292,17 +295,21 @@ export default {
       right: 0;
     }
     .refresh{
-      height: 100%;
-      padding: 13px;
+      margin-top: 15px;
+      margin-right: 30px;
+      width: 32px;
+      height: 32px;
       text-align: center;
-      .ivu-icon-md-refresh{
+      cursor: pointer;
+      .iconshuaxin{
         color: #fff;
-        font-size: 34px;
-        cursor: pointer;
+        font-size: 23px;
       }
     }
     .refresh:hover{
-      background-color:#115bba;
+      border-radius: 4px;
+      background-color: #115bba;
+
     }
     /*下拉框*/
     .ivu-dropdown{
@@ -330,6 +337,7 @@ export default {
         display: inline-block;
         width: 30px;
         height: 30px;
+        background-color: #fff;
         background: url("../../../../../static/images/logo.png") no-repeat center center;
         border-radius: 50%;
         background-size: 30px 30px;
