@@ -1,5 +1,5 @@
 <template>
-  <Row v-if="ApplyData.status!=='apply'">
+  <Row>
     <Row>
       <Col span="6">
         <div class="ma-spacing">
@@ -94,10 +94,9 @@
       }
     },
     created () {
-      this.seeData = this.ApplyData.detail_info
-      console.log(this.seeData)
-      this.commoData = JSON.parse(JSON.stringify(this.seeData))
       console.log(this.ApplyData)
+      this.seeData = this.ApplyData.detail_info
+      this.commoData = JSON.parse(JSON.stringify(this.seeData))
     },
     methods:{
       commodity(name){
@@ -124,7 +123,7 @@
       async examine(type,remark){
         const _this = this
         let res = await _this.$axios('Checkout/verify', {verify_status:type,remark:remark,order_id:this.ApplyData.id})
-        console.log(res)
+        this.$parent.$parent.modasear(res,'modal2');
       },
 
     }
