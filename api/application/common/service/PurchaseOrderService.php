@@ -47,6 +47,7 @@ class PurchaseOrderService extends BaseService {
             'status' => 'apply',
             'total_count' => 0,
             'total_amount' => 0,
+            'uid'=>$uid,
             'batch_no' => date('YmdHis') . mt_rand(1000,9999),
         ];
         $detail_data = [];

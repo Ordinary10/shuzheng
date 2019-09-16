@@ -47,13 +47,6 @@ class Checkout extends Base {
         $where = [];
         if(!empty(self::$params['dp_id']))  $where['u.dp_id'] = self::$params['dp_id'];
         if(!empty(self::$params['status']))  $where['a.status'] = self::$params['status'];
-        if(!empty(self::$params['company'])){
-            $map =  ['dp_id'=>self::$params['company']];
-            $user_model = new \app\common\model\User();
-            $uid = $user_model->getUserIdByMap($map);
-            if (empty($uid))    return false;
-            $where['uid'] = ['in',$uid];
-        }
         return  $where;
     }
 
