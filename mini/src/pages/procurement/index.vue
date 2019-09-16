@@ -20,7 +20,7 @@
             </div>
           </picker>
         </div>
-        <div class="multiple_search_input" v-if="role==='salesman'" @click="orderApply">
+        <div class="multiple_search_input" v-if="role==='salesman'||role==='admin'" @click="orderApply">
           <div class="left nowrap" style="text-align: center">
             新增
           </div>

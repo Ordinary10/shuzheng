@@ -134,6 +134,11 @@
         this.getGoodsList()
       },
       addGoods(item){
+        for(let v of this.orderList){
+          if(v.goods_id == item.id){
+            return
+          }
+        }
         let data = {
           goods_id: item.id,
           amount: 1,

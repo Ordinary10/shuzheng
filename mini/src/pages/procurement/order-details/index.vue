@@ -30,23 +30,33 @@
         <div class="dataItem">
           <span class="dataItemLeft">状态：</span>
           <span class="dataItemRight">{{orderDetail.status_name}}</span>
-          <span class="dataItemRight .shenhe-btn" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&role === 'admin'">审核</span>
-          <span class="dataItemRight .luru-btn" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'&&role === 'salesman'">录入</span>
         </div>
       </div>
-      <div class="goods-list" v-if="orderDetail.detail.length>0">
+      <div class="order-goods-list" v-if="orderDetail.detail.length>0">
         <div class="divider-title">
           <divider content="商品详情" :css="{'font-size': '17px'}"></divider>
         </div>
         <div class="goods-item" v-for="(item,index) in orderDetail.detail" :key="item.id">
-          <i-card :title="item.name" extra=" " thumb=" ">
-            <div slot="content" class="content">
-              <span>预购数量：{{item.apply_amount}}{{item.unit}}</span>
-              <span>预估费用：{{item.estimated_money}}元</span>
-              <span v-if="orderDetail.status != 'apply'&&orderDetail.status != 'pass'">实购数量：{{item.buy_amount}}{{item.unit}}</span>
-              <span v-if="orderDetail.status != 'apply'&&orderDetail.status != 'pass'">实购花费：{{item.buy_money}}元</span>
-            </div>
-          </i-card>
+          <goodsDetailsCard :goodsData="item" :orderStatus="orderDetail.status"></goodsDetailsCard>
+        </div>
+      </div>
+    </div>
+    <div class="details-operation-btns" v-if="orderDetail">
+      <span class="large_btn_primary" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&role === 'admin'">审核</span>
+      <span class="large_btn_primary" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'&&(role === 'salesman'||role==='admin')">录入</span>
+    </div>
+    <div class="audit-mask" v-if="maskIsShow" catchtouchmove="ture">
+      <div class="mask-container">
+        <div class="mask-title">
+          审核
+          <icon class="iconfont iconshanchuqq" @click="maskIsShow = false"></icon>
+        </div>
+        <div class="mask-content">
+          <textarea name="remark" id="textarea" placeholder="请输入审核备注" v-model="remark"></textarea>
+        </div>
+        <div class="mask-footer-btn">
+            <div class="audit-refused" @click="audit('deny')">拒绝</div>
+          <div class="audit-through" @click="audit('pass')">通过</div>
         </div>
       </div>
     </div>
@@ -54,27 +64,37 @@
 </template>
 <script>
   import divider from '@/components/divider'
+  import goodsDetailsCard from '@/components/goods-details-card'
   export default {
-    components: {divider},
+    components: {divider,goodsDetailsCard},
 
     data() {
       return {
         id: '',
         orderDetail: null,
-        role: ''
+        role: '',
+        maskIsShow: false,
+        remark: ''
       }
     },
     created() {
     },
     onShow() {
-      this.orderDetail = null
-      this.id = this.$root.$mp.query.id
-      this.role = this.$store.state.role
-      this.getDetail()
+      if(!this.$root.$mp.query.id||this.id !== this.$root.$mp.query.id){
+        this.init()
+      }
     },
     mounted(){
     },
     methods:{
+      init(){
+        this.orderDetail = null
+        this.id = this.$root.$mp.query.id
+        this.role = this.$store.state.role
+        this.maskIsShow = false
+        this.remark = ''
+        this.getDetail()
+      },
       getDetail() {
         const _this = this
         _this.$ajax('purchaseOrder/getDetailInfo',{order_id:_this.id},function (res) {
@@ -93,35 +113,49 @@
         return data
       },
       orderEditor(status){
-        let path = ''
+        const _this = this
         switch (status) {
           case 'apply':
-            path = '/pages/procurement/order-audit/main'
+            _this.maskIsShow = true
             break
           case 'pass':
-            path = '/pages/procurement/order-entry/main'
+            wx.navigateTo({
+              url:`/pages/procurement/order-entry/main?order_id=${_this.id}`
+            })
             break
         }
+      },
+      audit(type){
         const _this = this
-        wx.navigateTo({
-          url:`${path}?order_id=${_this.id}`
+        if(this.remark===''){
+          this.$common.error_tip('请填写备注')
+          return
+        }
+        let data = {
+          order_id: +_this.id,
+          verify_status: type,
+          remark: _this.remark
+        }
+        _this.$ajax('Checkout/verify',data,function (res) {
+          if(res.code === 1 ){
+            _this.$common.success_tip('审核成功',function () {
+              _this.init()
+              wx.reLaunch({
+                url: '/pages/procurement/main'
+              })
+            })
+          }
         })
       }
     }
   }
 </script>
-
-<style lang="wxss">
-  page{
-    background-color: #F3F3F3;
-    height: 100%;
-  }
-</style>
 <style scoped lang="scss">
   .pages{
+    background-color: #FF4B5B;
     height: 100%;
     box-sizing: border-box;
-    padding-top: 30rpx;
+    padding: 15px 0 50px 0;
     display: flex;
     flex-direction: column;
     .detail-box{
@@ -159,22 +193,87 @@
           }
         }
       }
-      .goods-list{
-        padding-bottom: 12px;
-        .goods-item{
-          margin: 12px 0;
-          .content{
-            display: flex;
-            flex-wrap: wrap;
-            span{
-              width: 50%;
-              padding: 8px;
-              box-sizing: border-box;
-            }
+      .goods-item{
+        margin: 12px 0;
+      }
+    }
+    .details-operation-btns{
+      position: fixed;
+      width: 100%;
+      height: 50px;
+      bottom: 0;
+      left: 0;
+      z-index: 1002;
+      background-color: white;
+    }
+    .audit-mask{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1003;
+      .mask-container{
+        width: 300px;
+        height: 250px;
+        background:rgba(255,255,255,1);
+        box-shadow:0px 3px 7px 0px rgba(0, 0, 0, 0.35);
+        border-radius:5px;
+        overflow: hidden;
+        .mask-title{
+          height: 35px;
+          line-height: 35px;
+          text-align: center;
+          position: relative;
+          font-weight: 500;
+          font-size: 16px;
+          border-bottom: 1px solid #ddd;
+          .iconshanchuqq{
+            position: absolute;
+            right: 10px;
+            top: 0;
+            font-size: 24px;
           }
-          .status-caozuo{
+        }
+        .mask-content{
+          padding: 16px;
+          width: 100%;
+          box-sizing: border-box;
+          #textarea{
+            width: 100%;
+            height: 150px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            line-height: 20px;
+            resize: none;
+            padding: 4px;
+          }
+        }
+        .mask-footer-btn{
+          height: 32px;
+          box-sizing: border-box;
+          border-top: 1px solid #ddd;
+          display: flex;
+          justify-content: space-between;
+          background-color: white;
+          .audit-refused,.audit-through{
+            color: white;
             font-size: 16px;
-            padding-bottom: 12px;
+            font-weight: 500;
+            text-align: center;
+            line-height: 32px;
+            width: 49.8%;
+          }
+          .audit-refused{
+            background-color: #03B3D8;
+          }
+          .audit-through{
+            background-color: #2BCD72;
           }
         }
       }

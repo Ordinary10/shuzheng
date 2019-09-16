@@ -31,8 +31,8 @@
         </div>
       </div>
     </div>
-    <div class="entry-submit">
-      <button type="button" @click="submitEntry" class="login_btn">录入采购</button>
+    <div class="details-operation-btns">
+      <button type="button" @click="submitEntry" class="large_btn_primary">提交</button>
     </div>
   </div>
 </template>
@@ -121,37 +121,33 @@
   }
 </script>
 
-<style lang="wxss">
-  page{
-    background-color: #F3F3F3;
-    height: 100%;
-  }
-</style>
 <style scoped lang="scss">
-  .pages{
+  .pages {
     height: 100%;
     box-sizing: border-box;
-    padding: 15px 0 40px 0;
+    padding: 15px 0 50px 0;
     display: flex;
     flex-direction: column;
-    .detail-box{
+    background-color: #FF4B5B;
+    .detail-box {
       flex: 1;
       width: 100%;
       background-color: white;
       box-sizing: border-box;
-      box-shadow:0 0 38rpx 11rpx rgba(0, 0, 0, 0.11);
-      border-radius:40rpx 40rpx 0 0;
-      padding: 0 40rpx;
+      box-shadow: 0 0 19px 5px rgba(0, 0, 0, 0.11);
+      border-radius: 20px 20px 0 0;
+      padding: 0 20px;
       overflow: scroll;
-      .divider-title{
-        padding: 40rpx 0 16rpx 0;
+      .divider-title {
+        padding: 20px 0 8px 0;
       }
-      .dataList{
+      .dataList {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        .dataItem{
+
+        .dataItem {
           width: 100%;
           min-height: 43px;
           box-sizing: border-box;
@@ -161,62 +157,25 @@
           display: flex;
           align-items: center;
           position: relative;
-          .dataItemLeft{
+
+          .dataItemLeft {
             color: #8A98AC;
           }
-          .dataItemRight{
+
+          .dataItemRight {
             margin-left: 8px;
           }
         }
       }
-      .goods-list{
-        padding-bottom: 12px;
-        .goods-item{
-          margin: 12px 0;
-          .content{
-            display: flex;
-            flex-wrap: wrap;
-            .content-item{
-              width: 50%;
-              padding: 8px;
-              box-sizing: border-box;
-              display: flex;
-              align-items: center;
-              .center{
-                flex: 1;
-                color: #04A9F5;
-              }
-              input{
-                flex: 1;
-                border-bottom: 1px solid #eee;
-                line-height: 40px;
-              }
-            }
-          }
-          .status-caozuo{
-            font-size: 16px;
-            padding-bottom: 12px;
-          }
-        }
-      }
     }
-    .entry-submit{
+    .details-operation-btns {
       position: fixed;
+      width: 100%;
+      height: 50px;
       bottom: 0;
       left: 0;
+      z-index: 1002;
       background-color: white;
-    }
-    .login_btn{
-      width:375px;
-      font-size: 18px;
-      color: white;
-      line-height: 40px;
-      background:#EC181F;
-      box-shadow:0px 7px 15px 3px rgba(236, 31, 24, 0.35);
-      border-radius:20px;
-      &:hover{
-        background: #EC5B5A;
-      }
     }
   }
 </style>

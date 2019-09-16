@@ -20,6 +20,7 @@
 }
 /*按钮样式*/
 .max_width_btn{
+  display: block;
   width: 100%;
   height: 50px;
   border:1px solid rgba(220,222,226,1);
@@ -31,6 +32,7 @@
   background-color: $btnColor;
 }
 .small_btn{
+  display: block;
   width:106px;
   height:37px;
   border-radius:37px;
@@ -280,6 +282,8 @@
   justify-content: space-between;
   align-items: center;
 }
+
+
 /*自定义list*/
 .mini-list{
   width: 100%;
@@ -337,22 +341,4 @@
     }
   }
 }
-/*按钮样式*/
-.btns{
-  border-radius: 2px;
-  padding: 2px 4px;
-  margin: 0 8px;
-  color: white;
-}
-.shenhe-btn{
-  @extend .btns;
-  background-color: #1E9FFF;
-}
-.ruku-btn{
-  @extend .btns;
-  background-color: #FFB800;
-}
-.luru-btn{
-  @extend .btns;
-  background-color: #009688;
-}
+
