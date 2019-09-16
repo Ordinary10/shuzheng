@@ -62,11 +62,11 @@
       </Col>
     </Row>
     <Row>
-                  <Col span="24">
-                    <div class="ma-spacing">
-                      <Input v-model="storageremark" type="textarea" placeholder="配货备注" />
-                    </div>
-                  </Col>
+      <Col span="24">
+        <div class="ma-spacing">
+          <Input v-model="storageremark" type="textarea" placeholder="配货备注" />
+        </div>
+      </Col>
       <Col span="24">
         <div class="ma-spacing">
           <Button type="success" @click="handleSubmit()">配货</Button>
@@ -103,9 +103,7 @@
     },
     created () {
       this.seeData = this.ApplyData.detail_info
-      console.log(this.seeData)
       this.commoData = JSON.parse(JSON.stringify(this.seeData))
-      console.log(this.ApplyData)
     },
     methods:{
       //点击配货进行表单验证
@@ -148,7 +146,6 @@
         if (!this.seeData[0]){
           this.seeData = this.commoData
         }
-        console.log(this.seeData)
       },
       //请求配货
       async storage(){
@@ -166,10 +163,10 @@
             })
         })
         let res = await _this.$axios('checkout/distribute', {order_id: this.ApplyData.id,data:data})
+        this.$parent.$parent.modasear(res,'modal3');
+
       }
-
     }
-
   }
 </script>
 
