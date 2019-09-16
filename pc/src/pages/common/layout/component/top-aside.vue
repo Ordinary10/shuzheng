@@ -11,12 +11,11 @@
      <div class="user_info" :class="{'user_info_right':PageMode!==1}">
        <div class="refresh" @click.stop="refresh">
          <i class="iconfont iconshuaxin"></i>
-
        </div>
-       <Dropdown placement="bottom">
+       <Dropdown placement="bottom-end" >
          <div class="Dropdown">
 <!--           <span class="user_img"></span>-->
-           {{username}}
+           <span class="username">{{username}}</span>
            <Icon type="ios-arrow-down"/>
          </div>
          <DropdownMenu slot="list">
@@ -289,14 +288,14 @@ export default {
   }
   .user_info{
     display: flex;
-    margin-right: 10px;
+    margin-right: 15px;
     &.user_info_right{
       position: absolute;
       right: 0;
     }
     .refresh{
       margin-top: 15px;
-      margin-right: 30px;
+      margin-right: 5px;
       width: 32px;
       height: 32px;
       text-align: center;
@@ -342,6 +341,11 @@ export default {
         border-radius: 50%;
         background-size: 30px 30px;
         margin: 5px 10px;
+      }
+      .username{
+        display: inline-block;
+        min-width: 60px;
+        text-align: center;
       }
     }
     .ivu-dropdown-menu{
