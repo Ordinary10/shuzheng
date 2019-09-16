@@ -2,15 +2,7 @@
   <div class="pages">
     <i-toast id="toast" />
     <div class="detail-box" v-if="orderDetail">
-      <div class="goods-list" v-if="orderDetail.detail_info.length>0">
-        <div class="goods-item">
-          <div class="content">
-            <div class="content-item" style="width:100%">
-              <span>备注：</span>
-              <input type="number" v-model="remark" placeholder="请输入备注" max="100">
-            </div>
-          </div>
-        </div>
+      <div class="goods-lists" v-if="orderDetail.detail_info.length>0">
         <div class="goods-item" v-for="(item,index) in orderDetail.detail_info" :key="item.id">
           <i-card :title="item.name" extra=" " thumb=" ">
             <div slot="content" class="content">
@@ -27,10 +19,15 @@
             </div>
           </i-card>
         </div>
+        <div class="goods-item">
+          <div class="content">
+            <textarea v-model="remark" id="textarea" placeholder="请输入配货备注" max="100" ></textarea>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="entry-submit">
-      <button type="button" @click="submitEntry" class="login_btn">配货</button>
+    <div class="details-operation-btns">
+      <button type="button" @click="submitEntry" class="large_btn_primary">提交</button>
     </div>
   </div>
 </template>
@@ -129,15 +126,10 @@
   }
 </script>
 
-<style lang="wxss">
-  page{
-    background-color: #F3F3F3;
-    height: 100%;
-  }
-</style>
 <style scoped lang="scss">
   .pages{
     height: 100%;
+    background-color: #FF4B5B;
     box-sizing: border-box;
     padding: 15px 0 40px 0;
     display: flex;
@@ -165,13 +157,23 @@
       border-radius:40rpx 40rpx 0 0;
       padding: 0 40rpx;
       overflow: scroll;
-      .goods-list{
+      .goods-lists{
         padding-bottom: 12px;
         .goods-item{
           margin: 12px 0;
           .content{
             display: flex;
             flex-wrap: wrap;
+            #textarea{
+              width: 100%;
+              height: 150px;
+              box-sizing: border-box;
+              border: 1px solid #ddd;
+              border-radius: 5px;
+              line-height: 20px;
+              resize: none;
+              padding: 4px;
+            }
             .content-item{
               width: 50%;
               padding: 8px;
@@ -195,24 +197,6 @@
             padding-bottom: 12px;
           }
         }
-      }
-    }
-    .entry-submit{
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      background-color: white;
-    }
-    .login_btn{
-      width:375px;
-      font-size: 18px;
-      color: white;
-      line-height: 40px;
-      background:#EC181F;
-      box-shadow:0px 7px 15px 3px rgba(236, 31, 24, 0.35);
-      border-radius:20px;
-      &:hover{
-        background: #EC5B5A;
       }
     }
   }

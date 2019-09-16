@@ -55,9 +55,9 @@
           <div class="text_center">
             <input style="line-height: 40px;height: 40px;" type="digit" v-model="item.unit_price" placeholder="0" @blur="unit_priceChange">
           </div>
-          <div class="amount-change text_center">
+          <div class="amount-change text_center" style="padding: 0 12px;box-sizing: border-box;">
             <span @click="amountSub(item,index)" class="sub_btn">-</span>
-            <span style="min-width: 40px">{{item.amount}}</span>
+            <input class="flex_1" style="padding: 0 4px;" v-model="item.amount" type="number">
             <span @click="amountAdd(item)" class="add_btn">+</span>
           </div>
         </div>

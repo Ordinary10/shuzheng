@@ -3,12 +3,14 @@
       <div class="goods-title">
         {{data.name}}
       </div>
-      <div class="goods-details">
-        <div class="goods-details-item nowrap">预购数量：{{data.apply_amount}}{{data.unit}}</div>
-        <div class="goods-details-item nowrap">预估费用：{{data.estimated_money}}元</div>
-        <div class="goods-details-item nowrap" v-if="status != 'apply'&&status != 'pass'">实购数量：{{data.buy_amount}}{{data.unit}}</div>
-        <div class="goods-details-item nowrap" v-if="status != 'apply'&&status != 'pass'">实购花费：{{data.buy_money}}元</div>
-      </div>
+      <slot name="content">
+        <div class="goods-details">
+          <div class="goods-details-item nowrap">预购数量：{{data.apply_amount}}{{data.unit}}</div>
+          <div class="goods-details-item nowrap">预估费用：{{data.estimated_money}}元</div>
+          <div class="goods-details-item nowrap" v-if="status != 'apply'&&status != 'pass'">实购数量：{{data.buy_amount}}{{data.unit}}</div>
+          <div class="goods-details-item nowrap" v-if="status != 'apply'&&status != 'pass'">实购花费：{{data.buy_money}}元</div>
+        </div>
+      </slot>
     </div>
 </template>
 
@@ -31,15 +33,15 @@
             default: 'apply'
           }
       },
-      onShow(){
+      onLoad(){
         this.data = null
         this.status = null
         this.data = this.$props.goodsData
         this.status = this.$props.orderStatus
       },
+      onShow(){
+      },
       mounted(){
-        this.data = this.$props.goodsData
-        this.status = this.$props.orderStatus
       }
     }
 </script>

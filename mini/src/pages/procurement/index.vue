@@ -33,7 +33,17 @@
     <div class="pages_container">
       <div class="results-box">
         <div class="results-header">
-          共{{purchaseOrderList.length}}笔订单
+          <div class="turn-page">
+            <icon class="iconfont iconsdf" :class="{iconColor:page<2}" @click="pageChange('sub')"></icon>
+          </div>
+          <div class="center flex_1">
+            <span>{{total_count}}</span>
+            <input type="number" class="page-input" v-model="page" @change="inputChange">
+            <span>/{{pages}}</span>
+          </div>
+          <div class="turn-page">
+            <icon class="iconfont iconxiangyoujiantou" :class="{iconColor:page>=pages}" @click="pageChange('add')"></icon>
+          </div>
         </div>
         <div class="results-list">
           <div class="not-results" v-if="purchaseOrderList.length===0">
@@ -101,7 +111,10 @@
           }
         ],
         companyIndex:0,
-        companyList:[]
+        companyList:[],
+        total_count: 0,
+        page: 1,
+        pages: 1
       }
     },
     created() {
@@ -123,6 +136,7 @@
     methods:{
       init(){
         const _this = this
+        _this.total_count = 0
         _this.$common.getPageInfo(['company']).then(res => {
           _this.companyList = res.data.company
           _this.companyList.unshift({
@@ -135,10 +149,14 @@
       getList() {
         const _this = this
         _this.$ajax('purchaseOrder/getLists', {
+          page: _this.page,
+          limit: 20,
           status: _this.statusList[_this.statusIndex].status,
           company: _this.companyList[_this.companyIndex].id
         },function (res) {
           _this.purchaseOrderList = _this.dataFilter(res.data)
+          _this.total_count = res.count
+          _this.pages = Math.ceil(res.count/20)
         })
       },
       dataFilter (data) {
@@ -158,6 +176,22 @@
       orderApply() {
         wx.navigateTo({url:'/pages/procurement/order-apply/main'})
       },
+      pageChange(type){
+        if(type === 'sub' && this.page>1){
+          this.page--
+        } else if(type === 'add' && this.page < this.pages) {
+          this.page++
+        } else {
+          return
+        }
+        this.getList()
+      },
+      inputChange(e){
+        let v = e.mp.detail.value
+        if(v<this.pages&&v>0){
+          this.getList()
+        }
+      },
       bindStatusPickerChange (e) {
         this.statusIndex = e.mp.detail.value
         this.getList()
@@ -171,6 +205,9 @@
 </script>
 
 <style scoped lang="scss">
+  .iconColor{
+    color: #999 !important;
+  }
     .search_box{
       width: 100%;
       position: absolute;

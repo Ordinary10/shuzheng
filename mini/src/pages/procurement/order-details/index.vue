@@ -79,27 +79,26 @@
     },
     created() {
     },
+    onLoad(){
+      this.id = this.$root.$mp.query.id
+      this.role = this.$store.state.role
+      this.orderDetail = null
+      this.getDetail()
+    },
     onShow() {
-      if(!this.$root.$mp.query.id||this.id !== this.$root.$mp.query.id){
-        this.init()
-      }
+      this.init()
     },
     mounted(){
     },
     methods:{
       init(){
-        this.orderDetail = null
-        this.id = this.$root.$mp.query.id
-        this.role = this.$store.state.role
         this.maskIsShow = false
         this.remark = ''
-        this.getDetail()
       },
       getDetail() {
         const _this = this
         _this.$ajax('purchaseOrder/getDetailInfo',{order_id:_this.id},function (res) {
           _this.orderDetail = _this.dataFilter(res.data)
-          // console.log(_this.orderDetail)
         })
       },
       dataFilter (data) {
@@ -136,7 +135,7 @@
           verify_status: type,
           remark: _this.remark
         }
-        _this.$ajax('Checkout/verify',data,function (res) {
+        _this.$ajax('purchaseOrder/verify',data,function (res) {
           if(res.code === 1 ){
             _this.$common.success_tip('审核成功',function () {
               _this.init()
@@ -195,87 +194,6 @@
       }
       .goods-item{
         margin: 12px 0;
-      }
-    }
-    .details-operation-btns{
-      position: fixed;
-      width: 100%;
-      height: 50px;
-      bottom: 0;
-      left: 0;
-      z-index: 1002;
-      background-color: white;
-    }
-    .audit-mask{
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1003;
-      .mask-container{
-        width: 300px;
-        height: 250px;
-        background:rgba(255,255,255,1);
-        box-shadow:0px 3px 7px 0px rgba(0, 0, 0, 0.35);
-        border-radius:5px;
-        overflow: hidden;
-        .mask-title{
-          height: 35px;
-          line-height: 35px;
-          text-align: center;
-          position: relative;
-          font-weight: 500;
-          font-size: 16px;
-          border-bottom: 1px solid #ddd;
-          .iconshanchuqq{
-            position: absolute;
-            right: 10px;
-            top: 0;
-            font-size: 24px;
-          }
-        }
-        .mask-content{
-          padding: 16px;
-          width: 100%;
-          box-sizing: border-box;
-          #textarea{
-            width: 100%;
-            height: 150px;
-            box-sizing: border-box;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            line-height: 20px;
-            resize: none;
-            padding: 4px;
-          }
-        }
-        .mask-footer-btn{
-          height: 32px;
-          box-sizing: border-box;
-          border-top: 1px solid #ddd;
-          display: flex;
-          justify-content: space-between;
-          background-color: white;
-          .audit-refused,.audit-through{
-            color: white;
-            font-size: 16px;
-            font-weight: 500;
-            text-align: center;
-            line-height: 32px;
-            width: 49.8%;
-          }
-          .audit-refused{
-            background-color: #03B3D8;
-          }
-          .audit-through{
-            background-color: #2BCD72;
-          }
-        }
       }
     }
   }

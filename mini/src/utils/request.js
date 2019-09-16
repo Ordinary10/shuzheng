@@ -60,6 +60,7 @@ const proxy = (fun, param, sucCallBack, failCallBack, LoadingStr) => {
       return wx.redirectTo({ url: '/pages/common/login/main' });
     }
   }).catch(err => {
+    console.log(err)
     showLoading && common.close_toast()
     common.error_tip('系统繁忙，请稍后再试');
   })
