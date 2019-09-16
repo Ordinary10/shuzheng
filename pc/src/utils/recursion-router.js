@@ -7,17 +7,17 @@
 
 export function recursionRouter (userRouter = [], allRouter = []) {
   var realRoutes = []
-  allRouter.forEach((v, i) => {
-    userRouter.forEach((item, index) => {
-      if (item.title === v.meta.name) {
-        if (item.children && item.children.length > 0) {
-          v.children = recursionRouter(item.children, v.children)
+  userRouter.forEach((v, i) => {
+    allRouter.forEach((item, index) => {
+      if (v.title === item.meta.name) {
+        if (v.children && v.children.length > 0) {
+          item.children = recursionRouter(v.children, item.children)
         }
-        realRoutes.push(v)
+        realRoutes.push(item)
       }
-      if (v.meta.pass) {
-        realRoutes.push(v)
-        v.meta.pass = false
+      if (item.meta.pass) {
+        realRoutes.push(item)
+        item.meta.pass = false
       }
     })
   })

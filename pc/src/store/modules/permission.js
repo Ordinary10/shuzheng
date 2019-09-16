@@ -40,6 +40,7 @@ export default {
       // console.log(permissionList)
       /*  根据权限筛选出我们设置好的路由并加入到path=''的children */
       let routes = recursionRouter(permissionList, dynamicRouter)
+      // console.log(routes)
       let MainContainer = DynamicRoutes.find(v => v.path === '')
       let children = MainContainer.children
       children.push(...routes)
