@@ -4,7 +4,7 @@
       <div class="search-box">
         <!--搜索输入框-->
         <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入申请人姓名" />
-        <DatePicker class="search-input" type="date" placeholder="申请时间"  value='yyyy-MM-dd' @on-change="searchData.apply_time=$event" v-model="searchData.apply_time"></DatePicker>
+        <DatePicker class="search-input top_sea"  size="large" type="date" placeholder="申请时间"  value='yyyy-MM-dd' @on-change="searchData.apply_time=$event" v-model="searchData.apply_time"></DatePicker>
 
         <!--搜索按钮-->
         <div class="search-submit">
@@ -33,7 +33,7 @@
       class-name="vertical-center-modal"
       :footer-hide="true"
     >
-      <see v-if="newseeData" :ApplyData="newseeData"></see>
+      <see v-if="newseeData" :ApplyData="newseeData" :key="newseeData.id"></see>
     </Modal>
     <!--审核-->
     <Modal
@@ -43,7 +43,7 @@
       class-name="vertical-center-modal"
       :footer-hide="true"
     >
-      <approval v-if="newseeData" :ApplyData="newseeData"></approval>
+      <approval v-if="newseeData" :ApplyData="newseeData" :key="newseeData.id"></approval>
     </Modal>
     <!--配货-->
     <Modal
@@ -53,17 +53,17 @@
       class-name="vertical-center-modal"
       :footer-hide="true"
     >
-      <distribution v-if="newseeData" :ApplyData="newseeData"></distribution>
+      <distribution v-if="newseeData" :ApplyData="newseeData" :key="newseeData.id"></distribution>
     </Modal>
     <!--新增-->
     <Modal
       v-model="addisShow"
-      :title="modal1Title"
+      :title="Title"
       :width='980'
       class-name="vertical-center-modal"
       :footer-hide="true"
     >
-      <add></add>
+      <add v-if="addisShow" :key="addisShow"></add>
     </Modal>
 
   </div>
@@ -104,6 +104,7 @@
         getDeta:'',
         modal1Title:'',
         newseeData:'',
+        Title:'',
         addisShow:false,
         neworder_id:'',
         goodsData:'',
@@ -187,6 +188,7 @@
     },
     components: {
       add,
+      see,
       approval,
       distribution
     },
@@ -197,7 +199,7 @@
     methods: {
 
       add () {
-        this.modal1Title = '出库申请'
+        this.Title = '出库申请'
         this.addisShow =true
       },
       cancel () {
@@ -226,6 +228,19 @@
       search () {
         this.$refs.pagingTable.search(this.searchData)
       },
+      modasear(res,is){
+        if (res.code === 1) {
+          this.pageRefresh()
+          this.$Modal.remove()
+          this.$set(this.$data,is,false);
+          this.instance('success',res)
+        }else {
+          this.$Message.success({
+            content: res.msg,
+            duration: 2
+          })
+        }
+      },
       /* 刷新按钮 */
       refresh () {
         /* 注意：不能将searchData引用为startSearchData，否则后续刷新将失效——引用（指针）与内存空间的问题 */
@@ -247,7 +262,6 @@
       },
       /* table操作栏 */
       tableBtnClick (item, type) {
-        console.log(item,type)
         if (type =='approval'){
           this.modal1Title = '审核'
           this.ApplyData = item
@@ -274,6 +288,38 @@
         this.newseeData = res.data
         // this.commoData = JSON.parse(JSON.stringify(this.seeData))
       },
+      instance (type,res) {
+        let content = res.msg;
+        switch (type) {
+          case 'info':
+            this.$Modal.info({
+              title: '提示',
+              content: content
+            });
+            break;
+          case 'success':
+            this.$Modal.success({
+              title: '成功',
+              content: content
+            });
+            setTimeout(() => {
+              this.$Modal.remove();
+            }, 2500);
+            break;
+          case 'warning':
+            this.$Modal.warning({
+              title: '警告',
+              content: content
+            });
+            break;
+          case 'error':
+            this.$Modal.error({
+              title: '错误',
+              content: content
+            });
+            break;
+        }
+      }
 
     }
   }
