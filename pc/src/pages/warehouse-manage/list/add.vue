@@ -35,15 +35,6 @@
         <Button type="success" @click="goodsarray('add')">新增</Button>
       </div>
     </Col>
-    <Modal
-      v-model="addisShow"
-      :title="modal1Title"
-      :width='980'
-      class-name="vertical-center-modal"
-      :footer-hide="true"
-    >
-      <add></add>
-    </Modal>
   </Row>
 </template>
 
@@ -105,8 +96,10 @@
       //提交请求
       async save(){
         const _this =this
+        // let res = {code:1,msg:'成功'}
         let res = await _this.$axios('Checkout/apply',{order_id:0,data:this.fromdata})
-        console.log(res)
+          this.$parent.$parent.modasear(res,'addisShow');
+
       }
     }
   }
