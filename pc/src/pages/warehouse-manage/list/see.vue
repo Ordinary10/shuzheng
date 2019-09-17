@@ -1,5 +1,10 @@
 <template>
   <Row v-if="this.ApplyData">
+    <div class="ma-spacing">
+      <steps type="warehouse" :file="this.ApplyData"></steps>
+    </div>
+    <Divider />
+
     <Col span="12">
       <div class="ma-spacing">
         申请人：<span class="key_text">{{ApplyData.uname}}</span>

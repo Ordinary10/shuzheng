@@ -190,7 +190,7 @@
       add,
       see,
       approval,
-      distribution
+      distribution,
     },
     created () {
     },

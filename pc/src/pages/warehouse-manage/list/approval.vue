@@ -1,6 +1,11 @@
 <template>
-  <Row>
+  <Row v-if="ApplyData">
     <Row>
+      <div class="ma-spacing">
+        <steps type="warehouse" :file="this.ApplyData"></steps>
+      </div>
+      <Divider />
+
       <Col span="6">
         <div class="ma-spacing">
           申请人：<span class="key_text">{{ApplyData.uname}}</span>
@@ -94,7 +99,6 @@
       }
     },
     created () {
-      console.log(this.ApplyData)
       this.seeData = this.ApplyData.detail_info
       this.commoData = JSON.parse(JSON.stringify(this.seeData))
     },
@@ -117,7 +121,6 @@
         if (!this.seeData[0]){
           this.seeData = this.commoData
         }
-        console.log(this.seeData)
       },
       //审核请求
       async examine(type,remark){

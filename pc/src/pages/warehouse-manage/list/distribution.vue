@@ -1,6 +1,12 @@
 <template>
   <Row>
+
     <Row>
+      <div class="ma-spacing">
+        <steps type="warehouse" :file="this.ApplyData"></steps>
+      </div>
+      <Divider />
+
       <Col span="6">
         <div class="ma-spacing">
           申请人：<span class="key_text">{{ApplyData.uname}}</span>
