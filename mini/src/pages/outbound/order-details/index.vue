@@ -63,7 +63,7 @@
     <div class="audit-mask" v-if="maskIsShow1" catchtouchmove="ture">
       <div class="mask-container">
         <div class="mask-title">
-          审核
+          签收
           <icon class="iconfont iconshanchuqq" @click="maskIsShow1 = false"></icon>
         </div>
         <div class="mask-content">

@@ -68,7 +68,7 @@
         const _this = this
         _this.$ajax('purchaseOrder/getDetailInfo',{order_id:_this.order_id},function (res) {
           _this.orderDetail = _this.dataFilter(res.data)
-          console.log(_this.orderDetail)
+          // console.log(_this.orderDetail)
         })
       },
       dataFilter (data) {

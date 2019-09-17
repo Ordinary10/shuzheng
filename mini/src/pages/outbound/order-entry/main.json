@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "配货"
+  "navigationBarTitleText": "配货",
+  "disableScroll":true
 }

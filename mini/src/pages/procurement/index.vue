@@ -189,10 +189,12 @@
       },
       bindStatusPickerChange (e) {
         this.statusIndex = e.mp.detail.value
+        this.page = 1
         this.getList()
       },
       bindCompanyPickerChange(e) {
         this.companyIndex = e.mp.detail.value
+        this.page = 1
         this.getList()
       }
     }

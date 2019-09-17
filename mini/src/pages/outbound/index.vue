@@ -192,10 +192,12 @@
         }
       },
       bindStatusPickerChange (e) {
+        this.page = 1
         this.statusIndex = e.mp.detail.value
         this.getList()
       },
       bindCompanyPickerChange(e) {
+        this.page = 1
         this.companyIndex = e.mp.detail.value
         this.getList()
       }

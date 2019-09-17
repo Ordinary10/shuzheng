@@ -46,7 +46,6 @@
     created() {
     },
     onShow() {
-      console.log(this.$root.$mp.query.order_id)
       if(this.$root.$mp.query.order_id&&this.order_id != this.$root.$mp.query.order_id){
         this.orderDetail = null
         this.order_id = this.$root.$mp.query.order_id
@@ -60,7 +59,7 @@
         const _this = this
         _this.$ajax('checkout/getDetailInfo',{order_id:_this.order_id},function (res) {
           _this.orderDetail = _this.dataFilter(res.data)
-          console.log(_this.orderDetail)
+          // console.log(_this.orderDetail)
         })
       },
       dataFilter (data) {
@@ -117,7 +116,7 @@
         _this.$ajax('checkout/distribute',data,function (res) {
           if(res.code === 1){
             _this.$common.success_tip('配货成功',function () {
-              wx.navigateBack()
+              wx.reLaunch({url:`/pages/outbound/main`})
             })
           }
         })

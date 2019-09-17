@@ -53,11 +53,11 @@
         <div class="order-list-item" v-show="item.isShow" v-for="(item,index) in orderList" :key="item.goods_id">
           <div>{{item.name}}</div>
           <div class="text_center">
-            <input style="line-height: 40px;height: 40px;" type="digit" v-model="item.unit_price" placeholder="0" @blur="unit_priceChange">
+            <input style="line-height: 40px;height: 40px;" type="digit" v-model="item.unit_price" placeholder="0" @change="unit_priceChange">
           </div>
           <div class="amount-change text_center" style="padding: 0 12px;box-sizing: border-box;">
             <span @click="amountSub(item,index)" class="sub_btn">-</span>
-            <input class="flex_1" style="padding: 0 4px;" v-model="item.amount" type="number">
+            <input class="flex_1" style="padding: 0 4px;" @change="totalAmountChange" v-model="item.amount" type="number">
             <span @click="amountAdd(item)" class="add_btn">+</span>
           </div>
         </div>
