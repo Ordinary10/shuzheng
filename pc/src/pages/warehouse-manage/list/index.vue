@@ -5,7 +5,11 @@
         <!--搜索输入框-->
         <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入申请人姓名" />
         <DatePicker class="search-input top_sea"  size="large" type="date" placeholder="申请时间"  value='yyyy-MM-dd' @on-change="searchData.apply_time=$event" v-model="searchData.apply_time"></DatePicker>
-
+        <Select v-model="searchData.status" class="search-input" size="large" placeholder="选择状态">
+          <Option :value="String(item.id)" v-for="item of statusData" :key="item.id">
+            {{item.name}}
+          </Option>
+        </Select>
         <!--搜索按钮-->
         <div class="search-submit">
           <Tooltip content="更多搜索条件" placement="bottom-start">
@@ -108,6 +112,7 @@
         addisShow:false,
         neworder_id:'',
         goodsData:'',
+        statusData:'',
         config: {
           fun: 'checkout/getLists',
           columns: [
@@ -158,11 +163,13 @@
         },
         searchData: {
           name: '',
-          apply_time: ''
+          apply_time: '',
+          status:''
         },
         startSearchData: {
           name: '',
-          apply_time: ''
+          apply_time: '',
+          status:''
         },
         formItem: {
           id: '',   //id
@@ -195,6 +202,11 @@
     created () {
     },
     mounted () {
+      // 初始化
+      let _this = this
+      this.$common.PageInitInfo([ 'checkout_status']).then((res) => {
+        _this.statusData = res.data.checkout_status
+      })
     },
     methods: {
 
