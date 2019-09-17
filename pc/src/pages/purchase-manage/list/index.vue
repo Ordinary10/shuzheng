@@ -4,7 +4,12 @@
       <div class="search-box">
         <!--搜索输入框-->
         <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入申请人姓名" />
-        <DatePicker class="search-input" type="date" placeholder="申请时间"  value='yyyy-MM-dd' @on-change="searchData.apply_time=$event" v-model="searchData.apply_time"></DatePicker>
+        <DatePicker class="search-input" type="date" placeholder="申请时间" size="large" value='yyyy-MM-dd' @on-change="searchData.apply_time=$event" v-model="searchData.apply_time"></DatePicker>
+        <Select v-model="searchData.status" class="search-input" size="large" placeholder="选择状态">
+          <Option :value="String(item.id)" v-for="item of statusData" :key="item.id">
+            {{item.name}}
+          </Option>
+        </Select>
 
         <!--搜索按钮-->
         <div class="search-submit">
@@ -394,6 +399,7 @@
       neworder_id:'',
       modal1Title: '',
       popupData: {},
+      statusData:'',
       ruleInline: {
         name: [
           { required: true, message: '请输入内容', trigger: 'blur' }
@@ -473,11 +479,14 @@
       },
       searchData: {
         name: '',
-        apply_time: ''
+        apply_time: '',
+        status:''
       },
       startSearchData: {
         name: '',
-        apply_time: ''
+        apply_time: '',
+        status:''
+
       },
       formItem: {
         id: '',   //id
@@ -507,7 +516,12 @@
   created () {
   },
   mounted () {
-  },
+      // 初始化
+      let _this = this
+      this.$common.PageInitInfo(['purchase_order_status']).then((res) => {
+        _this.statusData = res.data.purchase_order_status
+      })
+    },
   methods: {
     //点击入库进行表单验证
     handleSubmit() {
