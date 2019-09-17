@@ -4,6 +4,7 @@ import licensePlate from './licensePlate'
 import imgUpload from './ImgUpload'
 import typeCascader from './TypeCascader'
 import excelUpload from './excelUpload/index'
+import steps from './stepsMange/steps'
 /* 全局组件 */
 export default {
   search,
@@ -11,5 +12,6 @@ export default {
   licensePlate,
   imgUpload,
   excelUpload,
-  typeCascader
+  typeCascader,
+  steps
 }
