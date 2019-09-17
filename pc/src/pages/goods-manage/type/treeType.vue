@@ -79,32 +79,7 @@ export default {
       }
       recursion(typeData)
       // 一次性添加  不然expand会出bug
-      _this.type_data = typeData
-      // this.$axios('goods/getGoodsType', {}).then((res) => {
-      //   if (res.code === 1) {
-      //     let obj = res.data
-      //     // 清洗数据
-      //     function recursion (list) {
-      //       list.forEach(e => {
-      //         e.value = e.id
-      //         e.title = e.type_name
-      //         if (e.children && e.children.length) {
-      //           e.expand = true
-      //           recursion(e.children)
-      //         } else {
-      //           e.last = true
-      //           // 第一级显示添加按钮
-      //           if (e.pid === 0) {
-      //             e.last = false
-      //           }
-      //         }
-      //       })
-      //     }
-      //     recursion(obj)
-      //     // 使用obj中转保存数组 一次性添加  不然expand会出bug
-      //     _this.type_data = obj
-      //   }
-      // })
+      _this.type_data = JSON.parse(JSON.stringify(typeData))
     },
     // 重置输入框
     cleanFormItem () {

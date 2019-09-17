@@ -29,7 +29,8 @@ export default {
   },
   get TabPage () {
     if (sessionStorage.getItem('TabPage') === null) {
-      sessionStorage.setItem('TabPage', 0)
+      // 1为多页面 否则为0
+      sessionStorage.setItem('TabPage', 1)
     }
     return +sessionStorage.getItem('TabPage')
   },

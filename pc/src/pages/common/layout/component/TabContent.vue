@@ -94,14 +94,14 @@ export default {
   }
   @mixin active(){
     color: #fff;
-    background-color: #4c7cf3;
+    background-color: #1572e8;
   }
   .content-wrapper{
     height:100%;
     border-radius:15px;
     .tabs{
       height: 40px;
-      border-bottom: 1px solid #4c7cf3;
+      border-bottom: 1px solid #1572e8;
       margin-bottom: 5px;
       &::after{
         content: '';
