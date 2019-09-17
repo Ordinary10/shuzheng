@@ -50,6 +50,7 @@ class CheckoutOrder extends Model {
             ->where($where)
             ->page($page)
             ->field('a.*,u.uname')
+            ->order('a.id desc')
             ->select();
         $data['lists'] = empty($lists) ? [] : collection($lists)->toArray();
         return  $data;
