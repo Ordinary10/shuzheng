@@ -247,12 +247,51 @@
           this.$set(this.$data,is,false);
           this.instance('success',res)
         }else {
-          this.$Message.success({
-            content: res.msg,
-            duration: 2
-          })
+          this.instance('error',res)
         }
       },
+      instance (type,res) {
+        let content = res.msg;
+        switch (type) {
+          case 'info':
+            this.$Modal.info({
+              title: '提示',
+              content: content
+            });
+            setTimeout(() => {
+              this.$Modal.remove();
+            }, 2500);
+            break;
+          case 'success':
+            this.$Modal.success({
+              title: '成功',
+              content: content
+            });
+            setTimeout(() => {
+              this.$Modal.remove();
+            }, 2500);
+            break;
+          case 'warning':
+            this.$Modal.warning({
+              title: '警告',
+              content: content
+            });
+            setTimeout(() => {
+              this.$Modal.remove();
+            }, 2500);
+            break;
+          case 'error':
+            this.$Modal.error({
+              title: '错误',
+              content: content
+            });
+            setTimeout(() => {
+              this.$Modal.remove();
+            }, 2500);
+            break;
+        }
+      },
+
       /* 刷新按钮 */
       refresh () {
         /* 注意：不能将searchData引用为startSearchData，否则后续刷新将失效——引用（指针）与内存空间的问题 */
@@ -300,38 +339,6 @@
         this.newseeData = res.data
         // this.commoData = JSON.parse(JSON.stringify(this.seeData))
       },
-      instance (type,res) {
-        let content = res.msg;
-        switch (type) {
-          case 'info':
-            this.$Modal.info({
-              title: '提示',
-              content: content
-            });
-            break;
-          case 'success':
-            this.$Modal.success({
-              title: '成功',
-              content: content
-            });
-            setTimeout(() => {
-              this.$Modal.remove();
-            }, 2500);
-            break;
-          case 'warning':
-            this.$Modal.warning({
-              title: '警告',
-              content: content
-            });
-            break;
-          case 'error':
-            this.$Modal.error({
-              title: '错误',
-              content: content
-            });
-            break;
-        }
-      }
 
     }
   }
