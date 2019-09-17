@@ -61,22 +61,20 @@
     created () {
       let progress =  this.file.progress
       for (let v in progress){
+        console.log(progress[v].ctime.slice(5,16))
         let title = `${progress[v].uname}${progress[v].status_name}`
-        let content = progress[v].remark ?  progress[v].remark :'暂无备注'
+        let content = progress[v].remark ?  `${progress[v].ctime.slice(5,16)}${progress[v].remark}` :`${progress[v].ctime.slice(5,16)}`
         if (this.newdata.length<4){
           this.newdata.push({title,content})
         }
       }
       this.current = this.newdata.length
-      console.log(this.type)
 
       if (this.newdata.length<4){
         if (this.type =='warehouse'){
           for (let s=this.newdata.length;this.newdata.length<4;s++){
             this.newdata.push(this.warehouse[s])
-
           }
-
         }else if (this.type=='purchase'){
           for (let s=this.newdata.length;this.newdata.length<4;s++){
             this.newdata.push(this.purchase[s])
