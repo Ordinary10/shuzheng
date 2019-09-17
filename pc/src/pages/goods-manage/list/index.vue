@@ -113,7 +113,7 @@ export default {
             title: '状态',
             align: 'center',
             render: (h, params) => {
-              if (params.row.status === 1) {
+              if (params.row.status == 1) {
                 return <span class="green-color">正常</span>
               } else {
                 return <span class="redtext">禁用</span>
@@ -212,27 +212,6 @@ export default {
         })
       }
       recursion(typeData)
-      // this.typeSelectData = this.$refs.typeCascader.type_data
-      // 获取类目信息
-      // this.$axios('goods/getGoodsType', {}).then((res) => {
-      //   if (res.code === 1) {
-      //     let List = res.data
-      //     let typeData = []
-      //     // 清洗数据
-      //     function recursion (list) {
-      //       list.forEach(e => {
-      //         // e.id = String(e.id)
-      //         e.value = e.id
-      //         e.label = e.type_name
-      //         typeData.push({name: e.type_name, id: e.id})
-      //         if (e.children && e.children.length) recursion(e.children)
-      //       })
-      //     }
-      //     recursion(List)
-      //     console.log(typeData)
-      //     this.typeSelectData = typeData
-      //   }
-      // })
     },
     add () {
       this.$refs.form.resetFields()
@@ -297,8 +276,8 @@ export default {
       switch (type) {
         case 'change':
           let _this = this
-          let title = item.status === -1 ? '启用' : '禁用'
-          let content = `<p>确认${item.status === -1 ? '启动' : '禁用'}<span class="prominentText">${item.name}</span>？</p>`
+          let title = item.status == -1 ? '启用' : '禁用'
+          let content = `<p>确认${item.status == -1 ? '启动' : '禁用'}<span class="prominentText">${item.name}</span>？</p>`
           this.$Modal.confirm({
             title,
             content,
