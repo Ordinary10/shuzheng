@@ -3,6 +3,7 @@ import CONFIG from './config'
 import tabBarRoleList from './tabBarRoleList'
 const {$Toast} = require('../../static/dist/base/index')
 import state from '@/store/state'
+import store from '@/store/index'
 import request from './request'
 
 const common = {
@@ -150,9 +151,11 @@ const common = {
    * company： 门店
    * supplier： 供应商
    */
-  getPageInfo(data) {
+  getPageInfo() {
     return new Promise((resolve, reject)=>{
-      request('Common/getPageInitInfo',{type:data},function (res) {
+      request('Common/getPageInitInfo',{type:[
+          'company','supplier','role'
+        ]},function (res) {
         resolve(res)
       })
     })

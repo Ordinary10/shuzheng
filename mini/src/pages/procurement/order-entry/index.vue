@@ -53,19 +53,16 @@
     created() {
     },
     onShow() {
-      this.orderDetail = null
-      this.order_id = this.$root.$mp.query.order_id
       this.init()
-      this.getDetail()
     },
     mounted(){
     },
     methods:{
       init(){
-        const _this = this
-        _this.$common.getPageInfo(['supplier']).then(res => {
-          _this.supplierList = res.data.supplier
-        })
+        this.orderDetail = null
+        this.order_id = this.$root.$mp.query.order_id
+        this.supplierList = JSON.parse(JSON.stringify(this.$store.state.initData.supplier))
+        this.getDetail()
       },
       getDetail() {
         const _this = this

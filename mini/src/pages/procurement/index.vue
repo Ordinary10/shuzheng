@@ -117,11 +117,8 @@
         pages: 1
       }
     },
-    created() {
-    },
     onShow() {
       this.init()
-      this.role=this.$store.state.role
     },
     mounted(){
       wx.hideTabBar()
@@ -135,16 +132,14 @@
     },
     methods:{
       init(){
-        const _this = this
-        _this.total_count = 0
-        _this.$common.getPageInfo(['company']).then(res => {
-          _this.companyList = res.data.company
-          _this.companyList.unshift({
-            id:'',
-            name: '全部'
-          })
-          _this.getList()
+        this.total_count = 0
+        this.role=this.$store.state.role
+        this.companyList = JSON.parse(JSON.stringify(this.$store.state.initData.company))
+        this.companyList.unshift({
+          id:'',
+          name: '全部'
         })
+        this.getList()
       },
       getList() {
         const _this = this

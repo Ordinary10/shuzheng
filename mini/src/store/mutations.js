@@ -10,5 +10,8 @@ export default {
   // 保存内容高度(rpx)
   setClientHeight(state, clientHeight) {
     state.clientHeight = clientHeight
+  },
+  setInitData(state, data) {
+    state.initData = data
   }
 }

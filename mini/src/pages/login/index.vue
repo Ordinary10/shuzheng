@@ -45,25 +45,10 @@
         const _this = this
         wx.login({
           success:function (res) {
-            _this.$ajax('login/mimiProgramLogin',{code:res.code},function (res) {
-              if(res.code !== 1) {
-                common.error_tip(res.msg)
-                return
-              }
-              _this.$store.commit('setToken', res.data.token)
-              _this.$store.commit('setRole', res.data.show_page.role)
-              _this.$common.normal_tip('自动登录成功')
-              if(res.data.show_page.role === 'chef'){
-                wx.switchTab({
-                  url:'/pages/outbound/main'
-                })
-              } else {
-                wx.switchTab({
-                  url:'/pages/procurement/main'
-                })
-              }
+            _this.$ajax('login/mimiProgramLogin',{code:res.code},function (res){
+              _this.loginSuccess(res)
             },function (err) {
-              _this.$common.normal_tip('自动登录失败，请使用账号密码登录','',1000)
+              _this.$common.normal_tip('登录失败，请使用账号密码登录','',1000)
             },'自动登陆中')
           },
           fail:function (err) {
@@ -87,20 +72,8 @@
               return _this.$common.normal_tip('小程序登录失败，请重试')
             }
             _this.form.code = code
-            _this.$ajax('login/mimiProgramLogin',_this.form,function (res) {
-              if(res.code === 1){
-                _this.$store.commit('setToken', res.data.token)
-                _this.$store.commit('setRole', res.data.show_page.role)
-                if(res.data.show_page.role === 'chef'){
-                  wx.switchTab({
-                    url:'/pages/outbound/main'
-                  })
-                } else {
-                  wx.switchTab({
-                    url:'/pages/procurement/main'
-                  })
-                }
-              }
+            _this.$ajax('login/mimiProgramLogin',_this.form,function (res){
+              _this.loginSuccess(res)
             },function (res) {
               _this.$common.normal_tip(res.msg)
             },'登陆中。。。')
@@ -109,6 +82,34 @@
             _this.$common.normal_tip('小程序登录失败，请重试')
           }
         })
+      },
+      /*登陆成功后的信息处理*/
+      loginSuccess(res){
+        const _this = this
+        if(res.code === 1){
+          /*存储token和role*/
+          _this.$store.commit('setToken', res.data.token)
+          _this.$store.commit('setRole', res.data.show_page.role)
+          /*存储基础数据*/
+          _this.$common.getPageInfo().then(response => {
+            _this.$store.commit('setInitData', response.data)
+            _this.$common.normal_tip('登录成功')
+            /*根据role进入对应角色的首页*/
+            if(res.data.show_page.role === 'chef'){
+              wx.switchTab({
+                url:'/pages/outbound/main'
+              })
+            } else {
+              wx.switchTab({
+                url:'/pages/procurement/main'
+              })
+            }
+          }).catch(err => {
+            console.log(err)
+          })
+        } else {
+          common.error_tip(res.msg)
+        }
       },
       /*密码框聚焦*/
       next_input(){
