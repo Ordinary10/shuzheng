@@ -2,27 +2,35 @@
   <div class="pages">
     <i-toast id="toast" />
     <div class="detail-box" v-if="orderDetail">
-      <div class="goods-lists" v-if="orderDetail.detail_info.length>0">
-        <div class="goods-item" v-for="(item,index) in orderDetail.detail_info" :key="item.id">
-          <i-card :title="item.name" extra=" " thumb=" ">
-            <div slot="content" class="content">
-              <div class="content-item" style="width:100%">申请数：{{item.apply_amount}}</div>
-              <div class="content-item" style="width:100%">
-                <span>配货数：</span>
-                <input type="number" v-model="item.num" placeholder="请输入配货数">
+      <div class="detail-list" v-if="orderDetail.detail_info.length>0">
+        <div class="detail-list-item" v-for="(item,index) in upDateList" :key="item.id">
+          <div class="goods-title">
+            {{item.name}}
+          </div>
+          <div class="goods-content">
+            <div class="content-item nowrap" style="width: 100%;">
+              申请数：{{item.apply_amount}}
+              <span @click="addData(item)" class="add_btn" id="add-data">+</span>
+            </div>
+            <div class="goods-barCode-list">
+              <div class="content-item nowrap content-max-item">
+                <div class="goods-number">配货数</div>
+                <div class="goods-barCode flex_1">条形码</div>
               </div>
-              <div class="qrcode content-item" style="width: 100%">
-                <span>条形码：</span>
-                <input type="text" v-model="item.bar_code" placeholder="请输入或扫描条形码">
-                <icon class="iconfont iconQR-code1" @click="barCode(item)"></icon>
+              <div class="content-item nowrap content-max-item" v-for="(v,i) in item.data" :key="i">
+                <div class="goods-number">
+                  <input type="number" v-model="v.num" placeholder="请输入配货数">
+                </div>
+                <div class="goods-barCode">
+                  <input type="text" v-model="v.bar_code" placeholder="请输入或扫描条形码">
+                  <icon class="iconfont iconQR-code1" @click="barCode(v)"></icon>
+                </div>
               </div>
             </div>
-          </i-card>
-        </div>
-        <div class="goods-item">
-          <div class="content">
-            <textarea v-model="remark" id="textarea" placeholder="请输入配货备注" max="100" ></textarea>
           </div>
+        </div>
+        <div class="detail-list-item">
+          <textarea v-model="remark" id="textarea" placeholder="请输入配货备注(商品条形码或者数量为空不会被计入配货单)" max="100" ></textarea>
         </div>
       </div>
     </div>
@@ -54,12 +62,16 @@
     },
     mounted(){
     },
+    computed:{
+      upDateList(){
+        return this.orderDetail?this.orderDetail.detail_info:[]
+      }
+    },
     methods:{
       getDetail() {
         const _this = this
         _this.$ajax('checkout/getDetailInfo',{order_id:_this.order_id},function (res) {
-          _this.orderDetail = _this.dataFilter(res.data)
-          // console.log(_this.orderDetail)
+          _this.orderDetail =  _this.dataFilter(res.data)
         })
       },
       dataFilter (data) {
@@ -70,24 +82,34 @@
             }
             if(key=='detail_info') {
               for(let item of data.detail_info){
-                item.bar_code = ''
-                item.num = item.apply_amount
+                this.$set(item,'data',[{
+                  bar_code: '',
+                  num: item.apply_amount
+                }])
               }
             }
           })
         }
         return data
       },
-      barCode(item) {
+      barCode(v) {
         const _this = this
         wx.scanCode({
           success (res) {
-            item.bar_code = res.result
+            v.bar_code = res.result
           },
           fail(){
             _this.$common.error_tip('扫码失败，请重试')
           }
         })
+      },
+      addData(item){
+        item.data.push({
+          bar_code: '',
+          num: item.apply_amount
+        })
+        this.orderDetail = JSON.parse(JSON.stringify(this.orderDetail))
+        console.log(this.orderDetail)
       },
       submitEntry(){
         const _this = this
@@ -97,15 +119,14 @@
         }
         let detail = []
         for(let v of _this.orderDetail.detail_info){
-          if(v.bar_code!==''&&v.num!==''){
-            detail.push({
-              detail_id: v.id,
-              bar_code: v.bar_code,
-              num: v.num
-            })
-          } else {
-            _this.$common.error_tip('商品条形码和数量不能为空')
-            return
+          for(let val of v.data) {
+            if(val.bar_code!==''&&val.num!==''){
+              detail.push({
+                detail_id: v.id,
+                bar_code: val.bar_code,
+                num: val.num
+              })
+            }
           }
         }
         let data = {
@@ -113,6 +134,7 @@
           order_id: _this.order_id,
           data: detail
         }
+        console.log(data)
         _this.$ajax('checkout/distribute',data,function (res) {
           if(res.code === 1){
             _this.$common.success_tip('配货成功',function () {
@@ -135,68 +157,20 @@
     font-size: 16px;
     color:#495060;
     flex-direction: column;
-    .qrcode{
-      .iconQR-code1{
-        line-height: 40px;
-        font-size: 16px;
-        padding: 0 12px;
-        color: #2486ff;
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 998;
-      }
-    }
     .detail-box{
       flex: 1;
       width: 100%;
       background-color: white;
       box-sizing: border-box;
-      box-shadow:0 0 38rpx 11rpx rgba(0, 0, 0, 0.11);
-      border-radius:40rpx 40rpx 0 0;
-      padding: 0 40rpx;
+      box-shadow:0 0 19px 6px rgba(0, 0, 0, 0.11);
+      border-radius:20px 20px 0 0;
+      padding: 0 20px;
       overflow: scroll;
-      .goods-lists{
-        padding-bottom: 12px;
-        .goods-item{
-          margin: 12px 0;
-          .content{
-            display: flex;
-            flex-wrap: wrap;
-            #textarea{
-              width: 100%;
-              height: 150px;
-              box-sizing: border-box;
-              border: 1px solid #ddd;
-              border-radius: 5px;
-              line-height: 20px;
-              resize: none;
-              padding: 4px;
-            }
-            .content-item{
-              width: 50%;
-              padding: 8px;
-              box-sizing: border-box;
-              display: flex;
-              align-items: center;
-              position: relative;
-              .center{
-                flex: 1;
-                color: #04A9F5;
-              }
-              input{
-                flex: 1;
-                border-bottom: 1px solid #eee;
-                line-height: 40px;
-              }
-            }
-          }
-          .status-caozuo{
-            font-size: 16px;
-            padding-bottom: 12px;
-          }
-        }
-      }
+    }
+    #add-data{
+      position: absolute;
+      top: 0;
+      right: 0;
     }
   }
 </style>

@@ -59,7 +59,6 @@
         </div>
       </div>
     </div>
-
     <div class="audit-mask" v-if="maskIsShow1" catchtouchmove="ture">
       <div class="mask-container">
         <div class="mask-title">
