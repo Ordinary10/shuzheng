@@ -523,6 +523,57 @@
       })
     },
   methods: {
+    modasear(res,is){
+      if (res.code === 1) {
+        this.pageRefresh()
+        this.$Modal.remove()
+        this.$set(this.$data,is,false);
+        this.instance('success',res)
+      }else {
+        this.instance('error',res)
+      }
+    },
+    instance (type,res) {
+      let content = res.msg;
+      switch (type) {
+        case 'info':
+          this.$Modal.info({
+            title: '提示',
+            content: content
+          });
+          setTimeout(() => {
+            this.$Modal.remove();
+          }, 2500);
+          break;
+        case 'success':
+          this.$Modal.success({
+            title: '成功',
+            content: content
+          });
+          setTimeout(() => {
+            this.$Modal.remove();
+          }, 2500);
+          break;
+        case 'warning':
+          this.$Modal.warning({
+            title: '警告',
+            content: content
+          });
+          setTimeout(() => {
+            this.$Modal.remove();
+          }, 2500);
+          break;
+        case 'error':
+          this.$Modal.error({
+            title: '错误',
+            content: content
+          });
+          setTimeout(() => {
+            this.$Modal.remove();
+          }, 2500);
+          break;
+      }
+    },
     //点击入库进行表单验证
     handleSubmit() {
       let arr = [];
@@ -637,6 +688,8 @@
     async examine(type,remark){
       const _this = this
       let res = await _this.$axios('purchaseOrder/verify', {verify_status:type,remark:remark,order_id:this.ApplyData.id})
+      this.modasear(res,'modal3');
+
     },
     //请求采购单详情
     async purchaseSee(order_id){
@@ -662,6 +715,8 @@
           detail_id:value.id,})
       })
       let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id,data:data})
+      this.modasear(res,'modal2');
+
     }
   }
 }
