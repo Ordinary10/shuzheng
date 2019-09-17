@@ -295,7 +295,6 @@ export default {
     }
     .refresh{
       margin-top: 15px;
-      margin-right: 5px;
       width: 32px;
       height: 32px;
       text-align: center;
@@ -344,8 +343,8 @@ export default {
       }
       .username{
         display: inline-block;
-        min-width: 60px;
-        text-align: center;
+        margin-left: 20px;
+        margin-right: 5px;
       }
     }
     .ivu-dropdown-menu{
