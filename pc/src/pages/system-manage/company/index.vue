@@ -129,7 +129,7 @@ export default {
             title: '状态',
             align: 'center',
             render: (h, params) => {
-              if (params.row.status === 1) {
+              if (params.row.status == 1) {
                 return <span class="green-color">正常</span>
               } else {
                 return <span class="redtext">禁用</span>
@@ -142,7 +142,7 @@ export default {
             width: 160,
             align: 'center',
             render: (h, params) => {
-              if (params.row.status === 1) {
+              if (params.row.status == 1) {
                 return <div class="table-btn-box">
                   <i-button class="table-btn" type="primary" size="small"
                     nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>编辑
@@ -216,7 +216,7 @@ export default {
       _this.$refs.form.validate(valid => {
         if (valid) {
           _this.$axios('Company/editorCompany', this.formItem).then((res) => {
-            if (res.code === 1) {
+            if (res.code == 1) {
               _this.$Message.success({
                 content: res.msg,
                 duration: 2
@@ -253,8 +253,8 @@ export default {
       switch (type) {
         case 'change':
           let _this = this
-          let title = item.status === 0 ? '启用' : '禁用'
-          let content = `<p>确认${item.status === 0 ? '启动' : '禁用'}<span class="prominentText">${item.name}</span>？</p>`
+          let title = item.status == 0 ? '启用' : '禁用'
+          let content = `<p>确认${item.status == 0 ? '启动' : '禁用'}<span class="prominentText">${item.name}</span>？</p>`
           this.$Modal.confirm({
             title,
             content,
@@ -262,7 +262,7 @@ export default {
             onOk: () => {
               this.$axios('Company/renewalCompany', {id: item.id}, true).then((res) => {
                 _this.$Modal.remove()
-                if (res.code === 1) {
+                if (res.code == 1) {
                   _this.$Message.success({
                     content: res.msg,
                     duration: 2

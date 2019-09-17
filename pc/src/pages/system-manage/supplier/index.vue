@@ -99,7 +99,7 @@ export default {
             title: '状态',
             align: 'center',
             render: (h, params) => {
-              if (params.row.status === 1) {
+              if (params.row.status == 1) {
                 return <span class="green-color">正常</span>
               } else {
                 return <span class="redtext">禁用</span>
@@ -170,7 +170,7 @@ export default {
       _this.$refs.form.validate(valid => {
         if (valid) {
           _this.$axios('Supplier/edit', this.formItem).then((res) => {
-            if (res.code === 1) {
+            if (res.code == 1) {
               _this.$Message.success({
                 content: res.msg,
                 duration: 2

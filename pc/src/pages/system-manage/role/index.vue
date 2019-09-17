@@ -82,7 +82,7 @@ export default {
             title: '状态',
             align: 'center',
             render: (h, params) => {
-              if (params.row.status === 1) {
+              if (params.row.status == 1) {
                 return <span class="green-color">正常</span>
               } else {
                 return <span class="redtext">禁用</span>
@@ -95,7 +95,7 @@ export default {
             width: 160,
             align: 'center',
             render: (h, params) => {
-              if (params.row.status === 1) {
+              if (params.row.status == 1) {
                 return <div class="table-btn-box">
                   <i-button class="table-btn" type="primary" size="small"
                     nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>编辑
@@ -178,7 +178,7 @@ export default {
       _this.formItem.rules = _this.form_rules
       console.log(this.formItem)
       let res = await _this.$axios('Role/editorRole', this.formItem)
-      if (res.code === 1) {
+      if (res.code == 1) {
         this.modal1 = false
         _this.pageRefresh()
       }
@@ -206,8 +206,8 @@ export default {
       switch (type) {
         case 'change':
           let _this = this
-          let title = item.status === -1 ? '启用' : '禁用'
-          let content = `<p>确认${item.status === -1 ? '启动' : '禁用'}<span class="prominentText">${item.title}</span>？</p>`
+          let title = item.status == -1 ? '启用' : '禁用'
+          let content = `<p>确认${item.status == -1 ? '启动' : '禁用'}<span class="prominentText">${item.title}</span>？</p>`
           this.$Modal.confirm({
             title,
             content,
@@ -215,7 +215,7 @@ export default {
             onOk: () => {
               _this.$axios('Role/renewalRoleStatus', {id: item.id}, true).then((res) => {
                 _this.$Modal.remove()
-                if (res.code === 1) {
+                if (res.code == 1) {
                   _this.$Message.success({
                     content: res.msg,
                     duration: 2
@@ -268,7 +268,7 @@ export default {
     async get_role_data (roleId) {
       let _this = this
       let res = await _this.$axios('Role/getRoleRules', {role_id: roleId})
-      if (res.code === 1) {
+      if (res.code == 1) {
         _this.role_data = res.data
         _this.clean_role(_this.role_data)
         _this.clean_roleId(_this.role_data)
