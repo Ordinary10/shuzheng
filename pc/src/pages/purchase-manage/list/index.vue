@@ -44,6 +44,11 @@
       :footer-hide="true"
     >
       <Row v-if="seeData">
+        <div class="ma-spacing">
+          <steps type="purchase" :file="this.getDeta.data"></steps>
+        </div>
+        <Divider />
+
         <Col span="12">
           <div class="ma-spacing">
             申请人：<span class="key_text">{{ApplyData.uname}}</span>
@@ -120,7 +125,7 @@
         </Col>
       </Row>
     </Modal>
-    <!--审核-->
+    <!--入库-->
     <Modal
       v-model="modal2"
       :title="modal1Title"
@@ -129,8 +134,12 @@
       :footer-hide="true"
     >
       <Row v-if="this.getDeta">
-        <Row v-if="getDeta.data.status=='buy'">
-          <Row>
+        <div class="ma-spacing">
+          <steps type="purchase" :file="this.getDeta.data"></steps>
+        </div>
+        <Divider />
+
+        <Row>
             <Col span="6">
               <div class="ma-spacing">
                 申请人：<span class="key_text">{{ApplyData.uname}}</span>
@@ -218,9 +227,21 @@
               </div>
             </Col>
           </Row>
-        </Row>
-        <Row v-else>
-          <Row>
+      </Row>
+    </Modal>
+    <!--审核-->
+    <Modal
+      v-model="modal3"
+      :title="modal1Title"
+      :width='980'
+      class-name="vertical-center-modal"
+      :footer-hide="true"
+    >
+      <Row v-if="this.getDeta">
+        <steps type="purchase" :file="this.getDeta.data"></steps>
+        <Divider />
+
+        <Row>
             <Col span="6">
               <div class="ma-spacing">
                 申请人：<span class="key_text">{{ApplyData.uname}}</span>
@@ -329,7 +350,6 @@
               </div>
             </Col>
           </Form>
-        </Row>
       </Row>
     </Modal>
 
@@ -441,7 +461,10 @@
                     nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>查看
                   </i-button>
                   <i-button class="table-btn" type="error" size="small"
-                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'change')}>详情
+                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'change')}>审核
+                  </i-button>
+                  <i-button className="table-btn" type="error" size="small"
+                            nativeOnClick={this.tableBtnClick.bind(this, params.row, 'approval')}>入库
                   </i-button>
                 </div>
             }
@@ -579,8 +602,8 @@
     },
     /* table操作栏 */
     tableBtnClick (item, type) {
-      if (type =='change'){
-        this.modal1Title = '审核'
+      if (type =='approval'){
+        this.modal1Title = '入库'
         this.ApplyData = item
         this.purchaseSee(item.id)
         this.modal2 = true
@@ -589,6 +612,11 @@
         this.ApplyData = item
         this.purchaseSee(item.id)
         this.modal1 = true
+      }else {
+        this.modal1Title = '审核'
+        this.ApplyData = item
+        this.purchaseSee(item.id)
+        this.modal3 = true
       }
     },
     //审核同意
