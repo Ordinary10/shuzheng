@@ -1,9 +1,9 @@
 <template>
   <div style="height: 100%;">
     <Top @refresh="refresh"></Top>
-    <mainContent :active="active" :PageMode="PageMode" v-if="TabPage !== 1"/>
+    <mainContent :active="active" :PageMode="PageMode" v-if="TabPage != 1"/>
     <TabMainContent :PageMode="PageMode" :active="active" v-else></TabMainContent>
-    <side v-if="PageMode!==1"></side>
+    <side v-if="PageMode != 1"></side>
   </div>
 </template>
 

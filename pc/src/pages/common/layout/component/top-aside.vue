@@ -148,7 +148,7 @@ export default {
     }
   },
   created () {
-    this.formItem.TabPage = this.TabPage === '1'
+    this.formItem.TabPage = this.TabPage === 1
     this.formItem.PageMode = String(this.PageMode)
   },
   computed: {
