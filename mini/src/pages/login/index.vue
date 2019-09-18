@@ -34,8 +34,9 @@
 
     created() {
     },
-    onShow(){
-      this.autoLogin()
+    onShow() {
+      /*自动登录功能*/
+      // this.autoLogin()
     },
     mounted(){
     },
