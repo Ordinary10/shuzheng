@@ -276,8 +276,8 @@ export default {
       switch (type) {
         case 'change':
           let _this = this
-          let title = item.status == -1 ? '启用' : '禁用'
-          let content = `<p>确认${item.status == -1 ? '启动' : '禁用'}<span class="prominentText">${item.name}</span>？</p>`
+          let title = item.status == 1 ? '禁用' : '启用'
+          let content = `<p>确认${item.status == 1 ? '禁用' : '启动'}<span class="prominentText">${item.name}</span>？</p>`
           this.$Modal.confirm({
             title,
             content,
