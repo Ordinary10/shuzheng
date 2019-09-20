@@ -40,31 +40,11 @@ const dynamicRoutes = [
         meta: {
           name: '供应商管理'
         }
-      }
-    ]
-  },
-  {
-    path: '/goods',
-    component: () => import('@/pages/goods-manage'),
-    name: 'goods-manage',
-    meta: {
-      name: '商品管理',
-      icon: 'iconxitongguanli'
-    },
-    children: [
-      {
-        path: 'list',
-        name: 'goods-list',
-        component: () => import('@/pages/goods-manage/list'),
-        meta: {
-          name: '商品列表'
-        }
       },
       {
-        path: 'type',
-        name: 'goods-type',
-        // component: () => import('@/pages/goods-manage/type'),
-        component: () => import('@/pages/goods-manage/type/treeType'),
+        path: 'category',
+        name: 'category',
+        component: () => import('@/pages/system-manage/category/treeType'),
         meta: {
           name: '类目列表'
         }
@@ -85,7 +65,7 @@ const dynamicRoutes = [
         name: 'purchase-list',
         component: () => import('@/pages/purchase-manage/list'),
         meta: {
-          name: '采购管理'
+          name: '采购列表'
         }
       }
     ]
@@ -95,14 +75,22 @@ const dynamicRoutes = [
     component: () => import('@/pages/warehouse-manage'),
     name: 'warehouse-manage',
     meta: {
-      name: '出库管理',
+      name: '仓库管理',
       icon: 'iconxitongguanli'
     },
     children: [
       {
         path: 'list',
+        name: 'goods-list',
+        component: () => import('@/pages/warehouse-manage/goodsList'),
+        meta: {
+          name: '商品管理'
+        }
+      },
+      {
+        path: 'list',
         name: 'warehouse-list',
-        component: () => import('@/pages/warehouse-manage/list'),
+        component: () => import('@/pages/warehouse-manage/outList'),
         meta: {
           name: '出库管理'
         }

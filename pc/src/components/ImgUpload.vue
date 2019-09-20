@@ -1,8 +1,18 @@
 <template>
   <div class="upload-wrapper">
     <div class="title" v-if="config.title" v-html="config.title">{{config.title}}</div>
-    <viewer class="img-box" ref="viewer" :images="uploadList">
-        <div class="upload-list" v-for="(item,index) in uploadList" :key="index">
+    <viewer class="img-box" ref="viewer" :style="{
+    margin:onlyShow?0:'10px 0 0 10px',
+    display: uploadList.length === 1 && onlyShow?'inline-block':'flex'
+    }" :images="uploadList">
+        <div class="upload-list"
+             v-for="(item,index) in uploadList"
+             :style="{
+             marginRight: uploadList.length === 1 && onlyShow?'':'15px',
+             width: config.width || '80px',
+             height: config.width || '80px'
+             }"
+             :key="index">
           <template v-if="item.status === 'finished'">
           <img :src="item.url" alt="">
             <Icon type="md-close-circle" v-if="!onlyShow" @click.native="handleRemove(item)"/>
@@ -43,10 +53,13 @@ export default {
       default: () => {
         return {
           // title: '图片标题', // 图片标题 不传入 默认空
+          // width: '80px', // 图片框宽度 默认为80px
+          // height: '80px', // 图片框高度 默认为80px
           // multiple: false  // 是否多文件  不传入 默认为true
-          // max: 5, // 最大文件数量  不传入 默认为5
+          // max: 5, // 最大文件数量  不传入 默认为5  为1是图片间距为0
           // type: 'Car', // 接口 图片保存的类型 不传入 默认为Car
           // onlyShow: true, // 是否仅仅作为图片回显  不传入 默认为false
+          // 图片回显时 么有删除 添加按钮  img-box的margin为0
           // oldImg 为数组 或者 ,分割的字符串
           oldImg: [
             {url: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15664441942763.png'},
@@ -149,15 +162,11 @@ export default {
       padding-left: 7px;
     }
     .img-box{
-      margin-left: 20px;
-      margin-top: 10px;
       display: flex;
     }
   }
   .upload-list{
     display: inline-block;
-    width: 80px;
-    height: 80px;
     text-align: center;
     line-height: 80px;
     border: 1px solid transparent;
@@ -165,9 +174,11 @@ export default {
     background: #fff;
     position: relative;
     box-shadow: 0 1px 1px rgba(0,0,0,.2);
-    margin-right: 15px;
     img{
       width: 100%;
+      position:absolute;
+      left: 0;
+      top: 0;
       height: 100%;
     }
     .ivu-icon{

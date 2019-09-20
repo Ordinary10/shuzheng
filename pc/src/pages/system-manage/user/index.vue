@@ -67,7 +67,7 @@
         </Select>
       </FormItem>
         <FormItem label="所属公司" prop="dp_id">
-          <Select v-model="formItem.dp_id" class="search-input" size="large" placeholder="请选择角色">
+          <Select v-model="formItem.dp_id" class="search-input" size="large" placeholder="请选择所属公司">
             <Option :value="String(item.id)" v-for="item of companyData" :key="item.id">
               {{item.name}}
             </Option>

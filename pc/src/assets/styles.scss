@@ -462,4 +462,11 @@ $defaultRed: #ed4014;
   color: $defaultBlue;
   font-weight: 600;
 }
+.defaultImg{
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background: url("../../static/images/logo.png") no-repeat center;
+  background-size: 25px 25px;
+}
 // xy end
