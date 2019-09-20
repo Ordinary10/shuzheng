@@ -91,9 +91,29 @@ class Goods extends Base {
     {
         $data = self::$goods_type_model->getLists();
         if(empty($data)) {
-            return self::success_result($re,'查询成功');
+            return self::success_result([],'查询成功');
         }
         return self::success_result(array2tree($data),'查询成功');
+    }
+
+    public function getTypeWithGoods()
+    {
+        $goods = self::$model->where(['status'=>1])->select();
+        $goods = empty($goods) ? [] : collection($goods)->toArray();
+        $data = self::$goods_type_model->getTopType();
+        if(empty($data)) {
+            return self::success_result([],'查询成功');
+        }
+        foreach ($data as &$val){
+            $val['goods'] = [];
+            foreach ($goods as $key => $value){
+                if($value['top_type_id'] == $val['id']){
+                    $val['goods'][] = $value;
+                    unset($goods[$key]);
+                }
+            }
+        }
+        return self::success_result($data);
     }
 
     //编辑或新增商品类型

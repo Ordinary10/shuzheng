@@ -21,6 +21,12 @@ class GoodsType extends Model {
         return empty($data) ? [] : collection($data)->toArray();
     }
 
+    public function getTopType()
+    {
+        $data = $this->field('type_id as id,pid,type_name')->where(['pid'=>0])->select();
+        return empty($data) ? [] : collection($data)->toArray();
+    }
+
     public function getInfoById($type_id)
     {
         $info = $this->where(['type_id'=>$type_id])->find();
