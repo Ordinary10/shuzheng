@@ -1,7 +1,7 @@
 import store from '../store'
 import axios from 'axios'
 import qs from 'qs'
-import { Message, Spin, Icon } from 'iview'
+import { Modal,Message, Spin, Icon } from 'iview'
 import common from './common'
 
 // 创建axios实例
@@ -86,7 +86,7 @@ export function tableRequest (options, data, Loadings) {
   })
 }
 /* 其他数据请求的通用方法 */
-export function request (fun, data, Loadings) {
+export function requests (fun, data, Loadings) {
   if (!Loadings) {
     Spin.show({
       render: (h) => {
@@ -121,3 +121,32 @@ export function no_long_request (fun, data) {
     'url': `${common.API_PATH}/${fun}`
   })
 }
+/* 带有成功失败提示的 */
+export function request  (fun, data) {
+  return new Promise(function (resolve, reject) {
+
+    data.token = window.sessionStorage.getItem('token') || ''
+
+    // 执行异步ajax请求
+    let promise
+      // 发送get请求
+      promise = service({
+        'method': 'post',
+        'data': qs.stringify(data),
+        'url': `${common.API_PATH}/${fun}`
+      })
+
+    promise.then(function (response) {
+      // 成功了调用resolve()
+      console.log(123)
+      resolve(response)
+      // console.log(123)
+    }).catch(function (error) {
+      //失败了调用reject()
+      reject(error)
+    })
+  })
+
+
+}
+
