@@ -126,7 +126,7 @@ export default {
             width: 160,
             align: 'center',
             render: (h, params) => {
-              if (params.row.status === 1) {
+              if (params.row.status == 1) {
                 return <div class="table-btn-box">
                   <i-button class="table-btn" type="primary" size="small"
                     nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>编辑
