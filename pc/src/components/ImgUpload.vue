@@ -113,26 +113,6 @@ export default {
     handleBeforeUpload () {
       // 上传文件之前的钩子，参数为上传的文件，若返回 false s或者 Promise 则停止上传
       return true
-    }
-  },
-  mounted () {
-    this.uploadList = this.$refs.upload.fileList
-  },
-  computed: {
-    API_PATH () {
-      return this.$common.API_PATH
-    },
-    oldImgs () {
-      if (Array.isArray(this.config.oldImg)) {
-        return this.config.oldImg
-      } else {
-        let newarray = []
-        let imgs = this.config.oldImg.split(',')
-        for (let k of imgs) {
-          newarray.push({url: k})
-        }
-        return newarray
-      }
     },
     // 获取上传的url字符串
     getImgUrl () {
@@ -145,7 +125,40 @@ export default {
       return res
     }
   },
+  mounted () {
+    this.uploadList = this.$refs.upload.fileList
+  },
+  computed: {
+    API_PATH () {
+      return this.$common.API_PATH
+    },
+    oldImgs () {
+      if (Array.isArray(this.config.oldImg)) {
+        for (let k of this.config.oldImg) {
+          if (k) k.status = 'finished'
+        }
+        return this.config.oldImg
+      } else {
+        let newarray = []
+        let imgs = this.config.oldImg.split(',')
+        for (let k of imgs) {
+          if (k) newarray.push({url: k, status: 'finished'})
+        }
+        return newarray
+      }
+    },
+    oldImgData () {
+      return this.config.oldImg
+    }
+  },
   watch: {
+    // 监听传入的旧图片数据 更新
+    oldImgData: {
+      deep: true,
+      handler: function () {
+        this.uploadList = this.oldImgs
+      }
+    }
   }
 }
 </script>
