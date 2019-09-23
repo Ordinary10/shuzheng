@@ -43,6 +43,9 @@ class Goods extends Model {
             'type_id' => $param['type_id'],
             'unit' => $param['unit'],
             'safe_stock' => intval($param['safe_stock']),
+            'img' => $param['img'],
+            'lower_unit' => $param['lower_unit'],
+            'top_type_id' => $param['top_type_id'],
         ];
         if(empty($id)) {
             $save_data['status'] = 1;

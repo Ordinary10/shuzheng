@@ -66,6 +66,9 @@ class Goods extends Base {
             }
         }
         !empty(self::$params['over_safe_stock']) && $where['stock'] = Db::Raw('< safe_stock');
+        if(!empty(self::$params['top_type_id'])) {
+            $where['top_type_id'] = self::$params['top_type_id'];
+        }
         return $where;
     }
 
