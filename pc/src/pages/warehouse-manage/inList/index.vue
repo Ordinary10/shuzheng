@@ -28,59 +28,55 @@
     <Modal
       v-model="modal"
       :title="modalTitle"
-      :width='980'
+      :width='1200'
       class-name="vertical-center-modal"
     >
-      <div><Button type="primary" size="large" @click="addGood">增加</Button></div>
-      <Form :model="item" :label-width="65" class="card-body"  :ref="'form'+index" v-for="(item,index) in addGoods">
-        <Col span="5">
-          <FormItem label="批次号">
-            {{addGoodsId}}
-          <Input v-model="item.code" type="text" placeholder="请输入批次号" disabled></Input>
-        </FormItem>
-        </Col>
-        <Col span="5">
-        <FormItem label="商品">
-          <Cascader :data="goodsData" @mouseenter.native="selectGoodsBefore(item.serial)"  @on-change="selectGoods"></Cascader>
-        </FormItem>
-        </Col>
-        <Col span="4">
-        <FormItem label="单位" >
-            <Select v-model="item.unit" class="search-input" size="large" placeholder="请选择角色">
-              <Option :value="String(i.unit)" v-for="i of unitData" :key="i.unit">
-                {{i.unit}}
-              </Option>
-            </Select>
-        </FormItem>
-        </Col>
-        <Col span="4">
-        <FormItem label="库位" >
-          <Input v-model="item.location" type="text" placeholder="请输入真实姓名"></Input>
-        </FormItem>
-        </Col>
-        <Col span="4">
-          <FormItem label="数量" >
-            <Input v-model="item.num" type="text" placeholder=""></Input>
+      <div class="card-body">
+        <div style="margin: 5px 0;overflow: hidden">
+          <Button style="float: right" type="primary" size="large" @click="addGood">添加商品</Button>
+        </div>
+        <Divider />
+        <Form :model="item" :rules="rule" :label-width="60"   ref="form" v-for="(item,index) in addGoods">
+          <Col span="4">
+            <FormItem label="批次号">
+              <Input v-model="item.code" type="text" placeholder="请输入批次号" disabled></Input>
+            </FormItem>
+          </Col>
+          <Col span="6">
+            <FormItem label="商品">
+              <Cascader :data="goodsData" placeholder="请选择商品" @mouseenter.native="selectGoodsBefore(item.serial)"  @on-change="selectGoods"></Cascader>
+            </FormItem>
+          </Col>
+          <Col span="4">
+            <FormItem label="单位" prop="unit" >
+              <Select v-model="item.unit" class="search-input" size="large" placeholder="请选择单位">
+                <Option :value="String(i)" v-for="i of item.unitData"  :key="i">
+                  {{i}}
+                </Option>
+              </Select>
+            </FormItem>
+          </Col>
+          <Col span="4">
+            <FormItem label="库位" prop="location" >
+              <Input v-model="item.location" type="text" placeholder="请填写入库位置"></Input>
+            </FormItem>
+          </Col>
+          <Col span="4">
+            <FormItem label="数量" prop="num" >
+              <Input v-model="item.num" type="text" placeholder="请填写入库数量"></Input>
+            </FormItem>
+          </Col>
+          <Col span="2" style="display: flex;justify-content: center">
+            <div class="iconfont icon_delete iconshanchuqq" @click="remove(item)"></div>
+          </Col>
+        </Form>
+        <Divider />
+        <Form :model="formItem" :label-width="60">
+          <FormItem label="备注">
+            <Input v-model="formItem.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入备注"></Input>
           </FormItem>
-        </Col>
-        <Col span="2">
-          <div class="iconfont icon_delete iconshanchuqq" @click="remove(item)"></div>
-        </Col>
-<!--        <FormItem label="备注" prop="role">-->
-<!--          <Select v-model="formItem.role" class="search-input" size="large" placeholder="请选择角色">-->
-<!--            <Option :value="String(item.id)" v-for="item of roleData" :key="item.id">-->
-<!--              {{item.name}}-->
-<!--            </Option>-->
-<!--          </Select>-->
-<!--        </FormItem>-->
-<!--        <FormItem label="所属公司" prop="dp_id">-->
-<!--          <Select v-model="formItem.dp_id" class="search-input" size="large" placeholder="请选择所属公司">-->
-<!--            <Option :value="String(item.id)" v-for="item of companyData" :key="item.id">-->
-<!--              {{item.name}}-->
-<!--            </Option>-->
-<!--          </Select>-->
-<!--        </FormItem>-->
-      </Form>
+        </Form>
+      </div>
       <div slot="footer">
         <Button type="text" size="large" @click="cancel">取消</Button>
         <Button type="primary" size="large" @click="handleSubmit">入库</Button>
@@ -102,27 +98,26 @@ export default {
     return {
       isShow: false,
       modal: false,
-      seeData: '',
-      getDeta: '',
-      selectedArr: [],
       modalTitle: '',
       statusData: '',
       goodsData: [],
       // 添加商品的信息条
       addGoods: [],
       // 联级选择商品时,临时用来存储当前信息条的编号
-      addGoodsId: '',
-      formItem: {
-        unit: '',
-        unitData: [],
-        num: '',
-        location: '',
-        code: ''
-      },
+      currentSerial: '',
       rule: {
-        name: [
-          { required: true, message: '请输入商品名称', trigger: 'blur' }
+        unit: [
+          { required: true, message: '请选择商品单位', trigger: 'blur' }
+        ],
+        location: [
+          { required: true, message: '请填写入库位置', trigger: 'blur' }
+        ],
+        num: [
+          { required: true, message: '请填写入库数量', trigger: 'blur' }
         ]
+      },
+      formItem: {
+        remark: ''
       },
       config: {
         fun: 'purchaseOrder/getLists',
@@ -226,6 +221,9 @@ export default {
     add () {
       this.modal = true
       this.modalTitle = '入库'
+      // this.addGoods = []
+      // this.addGood()
+      // this.formItem.remark=''
     },
     // 添加出库商品条
     addGood () {
@@ -258,29 +256,35 @@ export default {
     },
     // 删除出库商品条
     remove (item) {
-
+      this.addGoods.splice(this.addGoods.indexOf(item), 1)
     },
     // 选择完商品后回调
     selectGoods (e, selectedData) {
       let selectedGoods = selectedData.pop()
-      let goods = this.addGoods[+this.addGoodsId]
+      let goods = this.addGoods[+this.currentSerial]
       // 赋值
+      // console.log(selectedGoods)
       goods.id = selectedGoods.id
+      goods.unitData = [selectedGoods.unit]
+      if (selectedGoods.lower_unit === selectedGoods.unit) {
+        goods.unit = selectedGoods.unit
+      } else {
+        goods.unitData.push(selectedGoods.lower_unit)
+      }
     },
     // 准备选择商品
     selectGoodsBefore (id) {
-      this.addGoodsId = id
+      this.currentSerial = id
     },
     // 点击入库进行表单验证
     handleSubmit () {
-      // if (!this.selectedArr.length) {
-      //   this.$Message.error('请选择出库商品')
-      //   return false
-      // }
+      if (!this.addGoods.length) {
+        this.$Message.error('请选择出库商品')
+        return false
+      }
       let arr = []
-      this.selectedArr.forEach((data, key) => {
-        let form = 'seeData' + data.id
-        this.$refs[form][0].validate((valid) => {
+      this.$refs.form.forEach(form => {
+        form.validate((valid) => {
           if (valid) {
             arr.push(true)
           } else {
@@ -297,28 +301,8 @@ export default {
         this.$Message.error('请填写相关内容')
       }
     },
-    createForm (data) {
-      if (this.selectedArr.includes(data)) {
-        this.selectedArr = this.selectedArr.filter(function (ele) { return ele !== data })
-      } else {
-        this.selectedArr.push(data)
-      }
-      // this.seeData = []
-      // for (let key in this.selectedArr) {
-      //   for (let i in this.commoData) {
-      //     if (this.commoData[i].name === this.selectedArr[key]) {
-      //       this.seeData.push(this.commoData[i])
-      //     }
-      //   }
-      // }
-      // // 如果没有过滤则显示全部
-      // if (!this.seeData[0]) {
-      //   this.seeData = this.commoData
-      // }
-    },
     cancel () {
       // 关闭入库框
-      alert(1)
       this.modal = false
     },
     /* 搜索按钮 */
@@ -343,29 +327,12 @@ export default {
         // this.ApplyData = item
         // this.purchaseSee(item.id)
         // this.modal = true
-        // this.selectedArr = []
       }
     },
-    // // 请求采购单详情
-    // async purchaseSee (order_id) {
-    //   const _this = this
-    //   let res = await _this.$axios('purchaseOrder/getDetailInfo', {order_id: order_id})
-    //   this.seeData = res.data.detail
-    //   function test (num) {
-    //     return num > 9 ? num : '0' + num
-    //   }
-    // },
     // 入库
     async storage () {
       const _this = this
-      let data = []
-      _this.selectedArr.map((value, index, arry) => {
-        data.push({
-          place: value.place,
-          bar_code: value.bar_code,
-          detail_id: value.id})
-      })
-      console.log(data)
+      console.log(_this.addGoods)
       // let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id, data: data})
       // if (res.code === 1) {
       //   this.pageRefresh()
@@ -380,5 +347,4 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
 </style>
