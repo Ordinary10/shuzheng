@@ -13,6 +13,12 @@
           <Button class="search-btn " size="large" icon="md-search" type="primary" @click.native="search"></Button>
           <Button class="refresh-btn search-btn" size="large" icon="md-refresh" type="info" @click.native="refresh"></Button>
         </div>
+        <!--常用操作按钮-->
+        <div class="commonly-used-btn-box">
+          <Tooltip content="入库" placement="bottom-start">
+            <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="add" style="font-size: 18px"></Button>
+          </Tooltip>
+        </div>
       </div>
     </search>
     <div class="content-block">
@@ -25,109 +31,61 @@
       :width='980'
       class-name="vertical-center-modal"
     >
-      <Row v-if="this.getDeta">
-        <div class="ma-spacing">
-          <steps type="purchase" :file="this.getDeta.data"></steps>
-        </div>
-        <Divider />
-
-        <Row>
-            <Col span="6">
-              <div class="ma-spacing">
-                申请人：<span class="key_text">{{ApplyData.uname}}</span>
-              </div>
-            </Col>
-            <Col span="6">
-              <div class="ma-spacing">
-                门店：<span class="key_text">{{ApplyData.store_name}}</span>
-              </div>
-            </Col>
-            <Col span="6">
-              <div class="ma-spacing">
-                申请时间：<span class="key_text">{{ApplyData.ctime}}</span>
-              </div>
-            </Col>
-            <Col span="6">
-              <div class="ma-spacing">
-                状态：<span class="key_text">{{ApplyData.status_name}}</span>
-              </div>
-            </Col>
-          </Row>
-          <Divider />
-          <Row class="storage-body roll">
-            <Col span="24" v-for="(list,index) in seeData" :key="list.id">
-              <Row>
-                <Col span="6">
-                  <div class="ma-spacing">
-                    商品名称：<span class="key_text">{{list.name}}</span>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-spacing">
-                    买入数量：<span class="key_text">{{list.buy_amount}}</span>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-spacing">
-                    申请金额：<span class="key_text">{{list.apply_amount}}</span>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-spacing">
-                    购买金额：<span class="key_text">{{list.buy_money}}</span>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-spacing">
-                    单位：<span class="key_text">{{list.unit}}</span>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-spacing">
-                    单价：<span class="key_text">{{list.unit_price}}</span>
-                  </div>
-                </Col>
-              </Row>
-              <Form :ref="'seeData' + index" :model="list" :rules="ruleInline" :label-width="70">
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="批次号" prop="bar_code">
-                      <Input v-model="list.bar_code" disabled></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="仓库"prop="place">
-                      <Input v-model="list.place"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="单位"prop="unit">
-                      <Input v-model="list.unit"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-                <Col span="6">
-                  <div class="ma-nomb-spacing">
-                    <FormItem label="数量"prop="inNum">
-                      <Input v-model="list.inNum"></Input>
-                    </FormItem>
-                  </div>
-                </Col>
-              </Form>
-              <Divider />
-            </Col>
-          </Row>
-        <div slot="footer">
-              <Button type="text" size="large" @click="cancel">取消</Button>
-              <Button type="primary" size="large" @click="handleSubmit">确定</Button>
-        </div>
-      </Row>
+      <div><Button type="primary" size="large" @click="addGood">增加</Button></div>
+      <Form :model="item" :label-width="65" class="card-body"  :ref="'form'+index" v-for="(item,index) in addGoods">
+        <Col span="5">
+          <FormItem label="批次号">
+            {{addGoodsId}}
+          <Input v-model="item.code" type="text" placeholder="请输入批次号" disabled></Input>
+        </FormItem>
+        </Col>
+        <Col span="5">
+        <FormItem label="商品">
+          <Cascader :data="goodsData" @mouseenter.native="selectGoodsBefore(item.serial)"  @on-change="selectGoods"></Cascader>
+        </FormItem>
+        </Col>
+        <Col span="4">
+        <FormItem label="单位" >
+            <Select v-model="item.unit" class="search-input" size="large" placeholder="请选择角色">
+              <Option :value="String(i.unit)" v-for="i of unitData" :key="i.unit">
+                {{i.unit}}
+              </Option>
+            </Select>
+        </FormItem>
+        </Col>
+        <Col span="4">
+        <FormItem label="库位" >
+          <Input v-model="item.location" type="text" placeholder="请输入真实姓名"></Input>
+        </FormItem>
+        </Col>
+        <Col span="4">
+          <FormItem label="数量" >
+            <Input v-model="item.num" type="text" placeholder=""></Input>
+          </FormItem>
+        </Col>
+        <Col span="2">
+          <div class="iconfont icon_delete iconshanchuqq" @click="remove(item)"></div>
+        </Col>
+<!--        <FormItem label="备注" prop="role">-->
+<!--          <Select v-model="formItem.role" class="search-input" size="large" placeholder="请选择角色">-->
+<!--            <Option :value="String(item.id)" v-for="item of roleData" :key="item.id">-->
+<!--              {{item.name}}-->
+<!--            </Option>-->
+<!--          </Select>-->
+<!--        </FormItem>-->
+<!--        <FormItem label="所属公司" prop="dp_id">-->
+<!--          <Select v-model="formItem.dp_id" class="search-input" size="large" placeholder="请选择所属公司">-->
+<!--            <Option :value="String(item.id)" v-for="item of companyData" :key="item.id">-->
+<!--              {{item.name}}-->
+<!--            </Option>-->
+<!--          </Select>-->
+<!--        </FormItem>-->
+      </Form>
+      <div slot="footer">
+        <Button type="text" size="large" @click="cancel">取消</Button>
+        <Button type="primary" size="large" @click="handleSubmit">入库</Button>
+      </div>
     </Modal>
-
   </div>
 </template>
 <script type="text/jsx">
@@ -142,71 +100,50 @@ export default {
       * startSearchData： 存储searchData的初始值，用于重置table
       * */
     return {
-      addisShow: false,
       isShow: false,
       modal: false,
       seeData: '',
       getDeta: '',
-      examineremark: '',
-      storageremark: '',
-      commoData: [],
-      arr: [],
+      selectedArr: [],
       modalTitle: '',
       statusData: '',
-      ruleInline: {
-        unit: [
-          { required: true, message: '请输入单位', trigger: 'blur' }
-        ],
-        bar_code: [
-          { required: true, message: '请输入商品批次号', trigger: 'blur' }
-        ],
-        place: [
-          { required: true, message: '请输入仓库', trigger: 'blur' }
-        ],
-        inNum: [
-          { required: true, message: '请输入入库数量', trigger: 'blur' }
+      goodsData: [],
+      // 添加商品的信息条
+      addGoods: [],
+      // 联级选择商品时,临时用来存储当前信息条的编号
+      addGoodsId: '',
+      formItem: {
+        unit: '',
+        unitData: [],
+        num: '',
+        location: '',
+        code: ''
+      },
+      rule: {
+        name: [
+          { required: true, message: '请输入商品名称', trigger: 'blur' }
         ]
       },
       config: {
         fun: 'purchaseOrder/getLists',
         columns: [
           {
-            key: 'uname',
-            title: '申请人',
-            align: 'center'
-          },
-          {
             key: 'store_name',
             title: '门店',
             align: 'center'
-          },
-          {
-            key: 'ctime',
-            title: '申请时间',
-            align: 'center'
-          },
-          {
-            key: 'status_name',
-            title: '状态',
-            align: 'center'
-          },
-          {
-            key: 'total_amount',
-            title: '总金额',
-            align: 'center'
-          },
-          {
-            key: 'caozuo',
-            title: '操作',
-            align: 'center',
-            render: (h, params) => {
-              return <div class="table-btn-box">
-                <i-button className="table-btn" type="success" size="small"
-                  nativeOnClick={this.tableBtnClick.bind(this, params.row, 'approval')}>入库
-                </i-button>
-              </div>
-            }
           }
+          // {
+          //   key: 'caozuo',
+          //   title: '操作',
+          //   align: 'center',
+          //   render: (h, params) => {
+          //     return <div class="table-btn-box">
+          //       <i-button className="table-btn" type="success" size="small"
+          //         nativeOnClick={this.tableBtnClick.bind(this, params.row, 'approval')}>入库
+          //       </i-button>
+          //     </div>
+          //   }
+          // }
         ]
       },
       searchData: {
@@ -226,8 +163,25 @@ export default {
   created () {
   },
   mounted () {
+    this.init()
   },
   methods: {
+    async init () {
+      let res = await this.$axios('goods/getTypeWithGoods', {})
+      function test (data) {
+        data.forEach(e => {
+          e.label = e.type_name || e.name
+          e.value = e.id
+          e.children = e.goods || []
+          if (e.children.length) {
+            test(e.children)
+          }
+        })
+      }
+      test(res.data)
+      this.goodsData = JSON.parse((JSON.stringify(res.data)))
+      this.addGood()
+    },
     instance (type, res) {
       let content = res.msg
       switch (type) {
@@ -269,11 +223,63 @@ export default {
           break
       }
     },
+    add () {
+      this.modal = true
+      this.modalTitle = '入库'
+    },
+    // 添加出库商品条
+    addGood () {
+      // 自动填入批次号
+      function test (num) {
+        return num > 9 ? num : '0' + num
+      }
+      let date = new Date()
+      let month = test(date.getMonth() + 1)
+      let code =
+            '' +
+            date.getFullYear() +
+            month + test(date.getDate()) +
+            test(date.getHours()) +
+            test(date.getMinutes()) +
+            test(date.getSeconds()) +
+            test(this.addGoods.length)
+
+      let obj = {
+        // 商品条序号
+        serial: this.addGoods.length,
+        code,
+        id: '',
+        unit: '',
+        unitData: [],
+        location: '',
+        num: ''
+      }
+      this.addGoods.push(obj)
+    },
+    // 删除出库商品条
+    remove (item) {
+
+    },
+    // 选择完商品后回调
+    selectGoods (e, selectedData) {
+      let selectedGoods = selectedData.pop()
+      let goods = this.addGoods[+this.addGoodsId]
+      // 赋值
+      goods.id = selectedGoods.id
+    },
+    // 准备选择商品
+    selectGoodsBefore (id) {
+      this.addGoodsId = id
+    },
     // 点击入库进行表单验证
     handleSubmit () {
+      // if (!this.selectedArr.length) {
+      //   this.$Message.error('请选择出库商品')
+      //   return false
+      // }
       let arr = []
-      this.seeData.forEach((data, key) => {
-        let form = 'seeData' + key
+      this.selectedArr.forEach((data, key) => {
+        let form = 'seeData' + data.id
         this.$refs[form][0].validate((valid) => {
           if (valid) {
             arr.push(true)
@@ -291,47 +297,29 @@ export default {
         this.$Message.error('请填写相关内容')
       }
     },
-    // commodity (name) {
-    //   if (this.arr.includes(name)) {
-    //     this.arr = this.arr.filter(function (ele) { return ele != name })
-    //   } else {
-    //     this.arr.push(name)
-    //   }
-    //   this.seeData = []
-    //   for (let key in this.arr) {
-    //     for (let i in this.commoData) {
-    //       if (this.commoData[i].name === this.arr[key]) {
-    //         this.seeData.push(this.commoData[i])
-    //       }
-    //     }
-    //   }
-    //   // 如果没有过滤则显示全部
-    //   if (!this.seeData[0]) {
-    //     this.seeData = this.commoData
-    //   }
-    // },
+    createForm (data) {
+      if (this.selectedArr.includes(data)) {
+        this.selectedArr = this.selectedArr.filter(function (ele) { return ele !== data })
+      } else {
+        this.selectedArr.push(data)
+      }
+      // this.seeData = []
+      // for (let key in this.selectedArr) {
+      //   for (let i in this.commoData) {
+      //     if (this.commoData[i].name === this.selectedArr[key]) {
+      //       this.seeData.push(this.commoData[i])
+      //     }
+      //   }
+      // }
+      // // 如果没有过滤则显示全部
+      // if (!this.seeData[0]) {
+      //   this.seeData = this.commoData
+      // }
+    },
     cancel () {
       // 关闭入库框
+      alert(1)
       this.modal = false
-    },
-    save () {
-      // let _this = this
-      // _this.$refs.form.validate(valid => {
-      //   if (valid) {
-      //     // _this.$axios('Company/editorCompany', this.formItem, true).then((res) => {
-      //     //   if (res.code === 1) {
-      //     //     _this.$Message.success({
-      //     //       content: res.msg,
-      //     //       duration: 2
-      //     //     })
-      //     //     this.modal1 = false
-      //     //     _this.pageRefresh()
-      //     //   }
-      //     // })
-      //   } else {
-      //     return false
-      //   }
-      // })
     },
     /* 搜索按钮 */
     search () {
@@ -345,64 +333,48 @@ export default {
     },
     /* 保留page刷新table */
     pageRefresh () {
-      let obj = {}
-      Object.keys(this.startSearchData).forEach(key => {
-        obj[key] = this.startSearchData[key]
-      })
-      this.searchData = obj
+      this.searchData = JSON.parse(JSON.stringify(this.startSearchData))
       this.$refs.pagingTable.pageRefresh(this.searchData)
     },
     /* table操作栏 */
     tableBtnClick (item, type) {
       if (type === 'approval') {
-        this.modalTitle = '入库'
-        this.ApplyData = item
-        this.purchaseSee(item.id)
-        this.modal = true
+        // this.modalTitle = '入库'
+        // this.ApplyData = item
+        // this.purchaseSee(item.id)
+        // this.modal = true
+        // this.selectedArr = []
       }
     },
-    // 请求采购单详情
-    async purchaseSee (order_id) {
-      const _this = this
-      let res = await _this.$axios('purchaseOrder/getDetailInfo', {order_id: order_id})
-      this.seeData = res.data.detail
-      function test (num) {
-        return num > 9 ? num : '0' + num
-      }
-      this.seeData.forEach((e, index) => {
-        // 自动填入批次号
-        let date = new Date()
-        let month = test(date.getMonth() + 1)
-        e.bar_code =
-          '' +
-          date.getFullYear() +
-          month + test(date.getDate()) +
-          test(date.getHours()) +
-          test(date.getMinutes()) +
-          test(date.getSeconds()) +
-          test(index)
-      })
-      this.getDeta = res
-    },
+    // // 请求采购单详情
+    // async purchaseSee (order_id) {
+    //   const _this = this
+    //   let res = await _this.$axios('purchaseOrder/getDetailInfo', {order_id: order_id})
+    //   this.seeData = res.data.detail
+    //   function test (num) {
+    //     return num > 9 ? num : '0' + num
+    //   }
+    // },
     // 入库
     async storage () {
       const _this = this
       let data = []
-      this.seeData.map((value, index, arry) => {
+      _this.selectedArr.map((value, index, arry) => {
         data.push({
           place: value.place,
           bar_code: value.bar_code,
           detail_id: value.id})
       })
-      let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id, data: data})
-      if (res.code === 1) {
-        this.pageRefresh()
-        this.$Modal.remove()
-        this.$set(this.$data, 'modal', false)
-        this.instance('success', res)
-      } else {
-        this.instance('error', res)
-      }
+      console.log(data)
+      // let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id, data: data})
+      // if (res.code === 1) {
+      //   this.pageRefresh()
+      //   this.$Modal.remove()
+      //   this.$set(this.$data, 'modal', false)
+      //   this.instance('success', res)
+      // } else {
+      //   this.instance('error', res)
+      // }
     }
   }
 }
