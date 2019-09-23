@@ -117,26 +117,13 @@ class Login extends Base {
         //获取权限
         $role_model = new AuthGroupAccess();
         $role = $role_model->where(['uid'=>$info['uid']])->value('group_id');
-        if($role == 1) {
-            $show_pages['role'] = 'admin';
-        }else {
-            $auth = new Auth();
-            $rules = $auth->getRoleAuthTree($role,'10,11,12,13',$info['company_id']);
-            if(empty($rules)) {
-                return  self::error_result('该账号权限被禁用，请联系管理员');
-            }
-            // 判断权限
-            $rules = array_column($rules[0]['data'],null,'id');
-            if(isset($rules[11]) && $rules[11]['checked']){
-                $show_pages['role'] = 'admin';
-            }elseif (isset($rules[12]) && $rules[12]['checked']){
-                $show_pages['role'] = 'salesman';
-            }elseif (isset($rules[13]) && $rules[13]['checked']){
-                $show_pages['role'] = 'chef';
-            }else {
-                $show_pages['role'] = 'other';
-            }
-        }
+        $rules =[
+            1 =>'boss',
+            2 =>'store',
+            3 =>'storage',
+            4 =>'purchase',
+        ];
+        $show_pages['role'] = isset($rules[$role]) ? $rules[$role] : 'other';
 
         //更新token
         $userExtra = new UserExtra();
