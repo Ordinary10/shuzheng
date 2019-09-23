@@ -86,7 +86,7 @@ export function tableRequest (options, data, Loadings) {
   })
 }
 /* 其他数据请求的通用方法 */
-export function requests (fun, data, Loadings) {
+export function request (fun, data, Loadings) {
   if (!Loadings) {
     Spin.show({
       render: (h) => {
@@ -122,9 +122,8 @@ export function no_long_request (fun, data) {
   })
 }
 /* 带有成功失败提示的 */
-export function request  (fun, data) {
+export function receipt  (fun, data) {
   return new Promise(function (resolve, reject) {
-
     data.token = window.sessionStorage.getItem('token') || ''
 
     // 执行异步ajax请求
@@ -137,13 +136,26 @@ export function request  (fun, data) {
       })
 
     promise.then(function (response) {
-      // 成功了调用resolve()
-      console.log(123)
+
       resolve(response)
+      Modal.success({
+        title: '成功',
+        content: response.msg
+      });
+      setTimeout(() => {
+        Modal.remove();
+      }, 2500);
       // console.log(123)
     }).catch(function (error) {
       //失败了调用reject()
       reject(error)
+      Modal.error({
+        title: '失败',
+        content: error.msg
+      });
+      setTimeout(() => {
+        Modal.remove();
+      }, 2500);
     })
   })
 
