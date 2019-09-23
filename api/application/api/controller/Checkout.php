@@ -13,6 +13,7 @@ namespace app\api\controller;
 use app\common\model\CheckoutOrder;
 use app\common\service\CheckoutOrderService;
 use app\common\service\CommonService;
+use app\common\model\GoodsInOut;
 
 class Checkout extends Base {
     private static $service;
@@ -100,5 +101,26 @@ class Checkout extends Base {
         if(!$re)    return self::error_result(self::$service->getError());
         return  self::success_result('','操作成功');
     }
-    
+
+    // 商品入库
+    public function commodityWarehousing()
+    {
+        if(empty(self::$params)) {
+            return self::error_result('请输入要录入的信息');
+        }
+        if(empty(self::$params['batch_number'])) {
+            return self::error_result('批次编号生成为空');
+        }
+        $goods_in_out = new GoodsInOut();
+        $id = $goods_in_out->where(['batch_number'=>self::$params['batch_number']])->value('id');
+        if($id != self::$params['$id']) {
+            return self::error_result('批次编号生成重复');
+        }
+        self::$params['uid'] = self::$userInfo['uid'];
+        $re =  $goods_in_out->editorCommodityWarehousing(self::$params);
+        if(!$re) {
+            return self::error_result('商品入库失败');
+        }
+        return  self::success_result('','商品入库成功');
+    }
 }
