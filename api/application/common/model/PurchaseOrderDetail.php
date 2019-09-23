@@ -34,7 +34,7 @@ class PurchaseOrderDetail extends Model {
             ->where(['a.order_id'=>$order_id])
             ->join('goods b','a.goods_id=b.id','left')
             ->join('supplier c','a.supplier_id=c.id','left')
-            ->field('a.*,b.name,b.unit,c.name supplier')
+            ->field('a.*,b.name,b.unit,c.name supplier,b.lower_unit')
             ->select();
         return  empty($info) ? [] : collection($info)->toArray();
     }

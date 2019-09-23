@@ -17,7 +17,7 @@ class PurchaseOrder extends Model {
     public $status = [
         'apply' => '待审核',
         'pass' => '待采购',
-        'buy' => '待入库',
+        'buy' => '已采购',
         'done' => '已完成',
         'deny' => '已拒绝',
     ];
@@ -26,7 +26,7 @@ class PurchaseOrder extends Model {
         'apply' => '发起申请',
         'pass' => '通过审核',
         'buy' => '采购完成',
-        'done' => '入库完成',
+        'done' => '已完成',
         'deny' => '拒绝审核',
     ];
 

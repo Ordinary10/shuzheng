@@ -44,7 +44,7 @@ class Goods extends Model {
             'unit' => $param['unit'],
             'safe_stock' => intval($param['safe_stock']),
             'img' => $param['img'],
-            'lower_unit' => $param['lower_unit'],
+            'lower_unit' => empty($param['lower_unit']) ? $param['unit'] : $param['lower_unit'],
             'top_type_id' => $param['top_type_id'],
         ];
         if(empty($id)) {

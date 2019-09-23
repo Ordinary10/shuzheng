@@ -48,12 +48,11 @@ class PurchaseOrderService extends BaseService {
             'total_count' => 0,
             'total_amount' => 0,
             'uid'=>$uid,
-            'batch_no' => date('YmdHis') . mt_rand(1000,9999),
         ];
         $detail_data = [];
         foreach ($param['data'] as $val){
             if(empty($val['goods_id']) || empty($val['amount']) || empty($val['unit_price'])){
-                return self::setError('采购数量和单价必填');
+                return self::setError('采购数量、单价必填');
             }
             $amount = round($val['amount'] * $val['unit_price'],2);
             $detail_data[] = [
