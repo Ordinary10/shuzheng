@@ -42,8 +42,9 @@
       </div>
     </div>
     <div class="details-operation-btns" v-if="orderDetail">
-      <span class="large_btn_primary" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&role === 'admin'">审核</span>
-      <span class="large_btn_primary" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'&&(role === 'salesman'||role==='admin')">录入</span>
+      <span class="large_btn_primary" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&role === 'boss'&&orderDetail.verify_status==1">审核</span>
+      <span class="large_btn_primary" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&role === 'purchase'&&orderDetail.verify_status==5">审核</span>
+      <span class="large_btn_primary" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'&&(role === 'boss'||role==='purchase')">录入</span>
     </div>
     <div class="audit-mask" v-if="maskIsShow" catchtouchmove="ture">
       <div class="mask-container">

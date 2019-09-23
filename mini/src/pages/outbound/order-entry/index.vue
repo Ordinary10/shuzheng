@@ -3,6 +3,9 @@
     <i-toast id="toast" />
     <div class="detail-box" v-if="orderDetail">
       <div class="detail-list" v-if="orderDetail.detail_info.length>0">
+        <div class="divider-title">
+          <divider content="配货详情" :css="{'font-size': '17px'}"></divider>
+        </div>
         <div class="detail-list-item" v-for="(item,index) in upDateList" :key="item.id">
           <div class="goods-title">
             {{item.name}}
@@ -40,8 +43,9 @@
   </div>
 </template>
 <script>
+  import divider from '@/components/divider'
   export default {
-    components: {},
+    components: {divider},
 
     data() {
       return {

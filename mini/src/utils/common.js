@@ -1,6 +1,5 @@
 // 公共方法
 import CONFIG from './config'
-import tabBarRoleList from './tabBarRoleList'
 const {$Toast} = require('../../static/dist/base/index')
 import state from '@/store/state'
 import store from '@/store/index'
@@ -139,7 +138,7 @@ const common = {
   },
   getRole() {
     let roleName = state.role || 'admin'
-    let tabs = tabBarRoleList[roleName] || []
+    let tabs = CONFIG.tabBarRoleList[roleName] || []
     return tabs
   },
   getToken() {
@@ -159,6 +158,15 @@ const common = {
         resolve(res)
       })
     })
+  },
+  /*
+  * 角色操作权限检查
+  * userType: 用户角色类型
+  * operationType：操作类型，详见CONFIG.operationType
+  * 拥有该操作权限返回true，否则返回false
+  * */
+  getUserOperationRole(userType,operationType){
+    return CONFIG.operationRoleList[userType].includes(operationType)
   }
 }
 

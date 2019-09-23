@@ -40,9 +40,9 @@
       </div>
     </div>
     <div class="details-operation-btns" v-if="orderDetail">
-      <span class="large_btn_primary" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&role==='admin'">审核</span>
-      <span class="large_btn_primary" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'&&role==='admin'">配货</span>
-      <span class="large_btn_primary" @click="orderEditor('distribute')" v-if="orderDetail.status==='distribute'&&(role==='chef'||role==='admin')">签收</span>
+      <span class="large_btn_primary" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&(role==='boss'||role==='storage')">审核</span>
+      <span class="large_btn_primary" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'&&(role==='boss'||role==='storage')">配货</span>
+      <span class="large_btn_primary" @click="orderEditor('distribute')" v-if="orderDetail.status==='distribute'&&(role==='boss'||role==='store')">签收</span>
     </div>
     <div class="audit-mask" v-if="maskIsShow" catchtouchmove="ture">
       <div class="mask-container">

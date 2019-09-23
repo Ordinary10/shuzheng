@@ -4,7 +4,7 @@
     <div class="detail-box" v-if="orderDetail">
       <div class="detail-list" v-if="orderDetail.detail.length>0">
         <div class="divider-title">
-          <divider content="商品录入" :css="{'font-size': '17px'}"></divider>
+          <divider content="录入详情" :css="{'font-size': '17px'}"></divider>
         </div>
         <div class="detail-list-item" v-for="(item,index) in orderDetail.detail" :key="item.id">
               <div class="goods-title">

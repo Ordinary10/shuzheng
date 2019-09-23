@@ -20,7 +20,7 @@
             </div>
           </picker>
         </div>
-        <div class="multiple_search_input" v-if="role==='salesman'||role==='admin'" @click="orderApply">
+        <div class="multiple_search_input" v-if="role=='boss'||role=='storage'||role=='store'" @click="orderApply">
           <div class="left nowrap" style="text-align: center">
             新增
           </div>
@@ -63,7 +63,10 @@
                   <div class="item item1">{{item.uname}}</div>
                   <div class="item item2">{{item.store_name}}</div>
                   <div class="item item3">{{item.ctime}}</div>
-                  <div class="item item4">{{item.status_name}}</div>
+                  <div class="item item4">
+                    {{item.status_name}}
+                    <icon class="iconfont iconbianji" style="color: #1da3ff;" @click="editorOrder(item.id)" v-if="item.status === 'apply'"></icon>
+                  </div>
                 </div>
               </scroll-view>
             </div>
@@ -98,7 +101,7 @@
             status: 'pass'
           },
           {
-            name: '待入库',
+            name: '已采购',
             status: 'buy'
           },
           {
@@ -106,7 +109,7 @@
             status: 'done'
           },
           {
-            name: '拒绝',
+            name: '已拒绝',
             status: 'deny'
           }
         ],
@@ -164,6 +167,11 @@
           })
         }
         return arr
+      },
+      editorOrder(order_id){
+        wx.navigateTo({
+          url:`/pages/procurement/order-apply/main?order_id=${order_id}`
+        })
       },
       get_details(item) {
         wx.navigateTo({url:`/pages/procurement/order-details/main?id=${item.id}`})
