@@ -56,10 +56,10 @@ export default {
           // width: '80px', // 图片框宽度 默认为80px
           // height: '80px', // 图片框高度 默认为80px
           // multiple: false  // 是否多文件  不传入 默认为true
-          // max: 5, // 最大文件数量  不传入 默认为5  为1是图片间距为0
+          // max: 5, // 最大文件数量  不传入 默认为5  为1是图片间距为0 否则是15px
           // type: 'Car', // 接口 图片保存的类型 不传入 默认为Car
           // onlyShow: true, // 是否仅仅作为图片回显  不传入 默认为false
-          // 图片回显时 么有删除 添加按钮  img-box的margin为0
+          //                    图片回显时 么有删除 添加按钮  img-box的margin为0
           // oldImg 为数组 或者 ,分割的字符串
           oldImg: [
             {url: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15664441942763.png'},

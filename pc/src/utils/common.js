@@ -1,5 +1,6 @@
 /* 全局方法对象 */
-import { request } from './request'
+import {request} from './request'
+
 const common = {
   API_PATH: 'http://47.104.57.174:8070/api',
   pageInitInfo: JSON.parse(sessionStorage.getItem('pageInitInfo')) || {},
@@ -44,8 +45,16 @@ const common = {
       return 0
     }
     let r1, r2, m
-    try { r1 = arg1.toString().split('.')[1].length } catch (e) { r1 = 0 }
-    try { r2 = arg2.toString().split('.')[1].length } catch (e) { r2 = 0 }
+    try {
+      r1 = arg1.toString().split('.')[1].length
+    } catch (e) {
+      r1 = 0
+    }
+    try {
+      r2 = arg2.toString().split('.')[1].length
+    } catch (e) {
+      r2 = 0
+    }
     m = Math.pow(10, Math.max(r1, r2))
     return (arg1 * m + arg2 * m) / m
   },
@@ -58,8 +67,16 @@ const common = {
       return 0
     }
     let r1, r2, m, n
-    try { r1 = arg1.toString().split('.')[1].length } catch (e) { r1 = 0 }
-    try { r2 = arg2.toString().split('.')[1].length } catch (e) { r2 = 0 }
+    try {
+      r1 = arg1.toString().split('.')[1].length
+    } catch (e) {
+      r1 = 0
+    }
+    try {
+      r2 = arg2.toString().split('.')[1].length
+    } catch (e) {
+      r2 = 0
+    }
     m = Math.pow(10, Math.max(r1, r2))
     n = (r1 >= r2) ? r1 : r2
     return ((arg1 * m - arg2 * m) / m).toFixed(n)
@@ -73,8 +90,16 @@ const common = {
       return 0
     }
     let t1, t2, r1, r2
-    try { t1 = arg1.toString().split('.')[1].length } catch (e) { t1 = 0 }
-    try { t2 = arg2.toString().split('.')[1].length } catch (e) { t2 = 0 }
+    try {
+      t1 = arg1.toString().split('.')[1].length
+    } catch (e) {
+      t1 = 0
+    }
+    try {
+      t2 = arg2.toString().split('.')[1].length
+    } catch (e) {
+      t2 = 0
+    }
     r1 = Number(arg1) * Math.pow(10, Math.max(t1, t2))
     r2 = Number(arg2) * Math.pow(10, Math.max(t1, t2))
     return (r1 / r2)
@@ -89,8 +114,14 @@ const common = {
     }
     // eslint-disable-next-line one-var
     let m = 0, s1 = arg1.toString(), s2 = arg2.toString()
-    try { m += s1.split('.')[1].length } catch (e) {}
-    try { m += s2.split('.')[1].length } catch (e) {}
+    try {
+      m += s1.split('.')[1].length
+    } catch (e) {
+    }
+    try {
+      m += s2.split('.')[1].length
+    } catch (e) {
+    }
     return Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m)
   },
   // 获得基础数据
