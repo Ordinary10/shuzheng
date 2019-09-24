@@ -14,7 +14,7 @@
              }"
              :key="index">
           <template v-if="item.status === 'finished'">
-          <img :src="item.url" alt="">
+          <img :src="item.url" alt="" :style="{borderRadius:config.borderRadius || '10px'}">
             <Icon type="md-close-circle" v-if="!onlyShow" @click.native="handleRemove(item)"/>
           </template>
           <template v-else>
@@ -55,9 +55,9 @@ export default {
           // title: '图片标题', // 图片标题 不传入 默认空
           // width: '80px', // 图片框宽度 默认为80px
           // height: '80px', // 图片框高度 默认为80px
+          // borderRadius: '80px', // 图片框倒角 默认为10px
           // multiple: false  // 是否多文件  不传入 默认为true
           // max: 5, // 最大文件数量  不传入 默认为5  为1是图片间距为0 否则是15px
-          // type: 'Car', // 接口 图片保存的类型 不传入 默认为Car
           // onlyShow: true, // 是否仅仅作为图片回显  不传入 默认为false
           //                    图片回显时 么有删除 添加按钮  img-box的margin为0
           // oldImg 为数组 或者 ,分割的字符串
@@ -74,15 +74,15 @@ export default {
   data () {
     return {
       networkConfig: {
-        fun: 'common/uploadImg',
-        token: JSON.parse(sessionStorage.getItem('loginData')).token,
-        type: this.config.type || 'Car'
+        token: JSON.parse(sessionStorage.getItem('loginData')).token
       },
       multiple: this.config.multiple === true || this.config.multiple === undefined,
       max: this.config.max === 0 || this.config.max ? this.config.max : 5,
       onlyShow: this.config.onlyShow,
       showUrl: '',
       visible: false,
+      API_PATH: this.$common.API_PATH + '/Common/uploadImg',
+      // 图片上传的列表  必须随时和组件内部的上传列表信息保持一致
       uploadList: []
     }
   },
@@ -90,13 +90,14 @@ export default {
     handleRemove (file) {
       const fileList = this.$refs.upload.fileList
       this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
+      this.uploadList = this.$refs.upload.fileList
     },
     handleSuccess (res, file) {
-      // console.log(res, file)
       file.url = file.response.data.url
       setTimeout(e => {
         this.$refs.viewer.$viewer.update()
       }, 10)
+      this.uploadList = this.$refs.upload.fileList
     },
     handleFormatError (file) {
       this.$Notice.warning({
@@ -129,14 +130,13 @@ export default {
     this.uploadList = this.$refs.upload.fileList
   },
   computed: {
-    API_PATH () {
-      return this.$common.API_PATH
-    },
     oldImgs () {
+      if (!this.config.oldImg) this.uploadList = []
       if (Array.isArray(this.config.oldImg)) {
         for (let k of this.config.oldImg) {
           if (k) k.status = 'finished'
         }
+        this.uploadList = this.config.oldImg
         return this.config.oldImg
       } else {
         let newarray = []
@@ -144,6 +144,7 @@ export default {
         for (let k of imgs) {
           if (k) newarray.push({url: k, status: 'finished'})
         }
+        this.uploadList = newarray
         return newarray
       }
     },
@@ -155,8 +156,13 @@ export default {
     // 监听传入的旧图片数据 更新
     oldImgData: {
       deep: true,
-      handler: function () {
-        this.uploadList = this.oldImgs
+      handler: function (v1, v2) {
+        if (v2) {
+          this.uploadList = this.oldImgs
+        } else {
+          this.uploadList = []
+          this.$refs.upload.fileList = []
+        }
       }
     }
   }

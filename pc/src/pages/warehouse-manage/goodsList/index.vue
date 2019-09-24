@@ -98,7 +98,8 @@ export default {
                     {url}
                   ],
                   width: '25px',
-                  height: '25px'
+                  height: '25px',
+                  borderRadius:'2px'
                 }
                 return <div style="cursor: pointer;">
                   <imgUpload config={config}></imgUpload>
