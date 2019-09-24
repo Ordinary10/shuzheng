@@ -462,17 +462,25 @@
             title: '操作',
             align: 'center',
             render: (h, params) => {
+              let status =params.row.status
+              let text =params.row.status_name
+              console.log(status)
+              if (status =='apply'){ //待审核
                 return <div class="table-btn-box">
-                  <i-button class="table-btn" type="primary" size="small"
-                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>查看
-                  </i-button>
                   <i-button class="table-btn" type="error" size="small"
-                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'change')}>审核
-                  </i-button>
-                  <i-button className="table-btn" type="error" size="small"
-                            nativeOnClick={this.tableBtnClick.bind(this, params.row, 'approval')}>入库
+                            nativeOnClick={this.tableBtnClick.bind(this, params.row,status )}>{{text}}
                   </i-button>
                 </div>
+              }else {
+                return <div class="table-btn-box">
+                  <i-button class="table-btn" type="primary" size="small"
+                            nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>查看
+                  </i-button>
+                </div>
+
+              }
+
+
             }
           }
         ]
@@ -667,7 +675,7 @@
     },
     /* table操作栏 */
     tableBtnClick (item, type) {
-      if (type =='approval'){
+      if (type =='buy'){
         this.modal1Title = '入库'
         this.ApplyData = item
         this.purchaseSee(item.id)
@@ -677,7 +685,7 @@
         this.ApplyData = item
         this.purchaseSee(item.id)
         this.modal1 = true
-      }else {
+      }else if (type =='apply') {
         this.modal1Title = '审核'
         this.ApplyData = item
         this.purchaseSee(item.id)
