@@ -36,18 +36,18 @@
           <Button style="float: right" type="primary" size="large" @click="addGood">添加商品</Button>
         </div>
         <Divider />
-        <Form :model="item" :rules="rule" :label-width="60"   ref="form" v-for="(item,index) in addGoods">
+        <Form :model="item" :rules="rule" :label-width="60"   ref="form" v-for="(item,index) in addGoods" :key="item.code">
           <Col span="4">
             <FormItem label="批次号">
               <Input v-model="item.code" type="text" placeholder="请输入批次号" disabled></Input>
             </FormItem>
           </Col>
-          <Col span="6">
-            <FormItem label="商品">
+          <Col span="5">
+            <FormItem label="商品" prop="cascaderList">
               <Cascader :data="goodsData" placeholder="请选择商品" @mouseenter.native="selectGoodsBefore(item.serial)"  @on-change="selectGoods"></Cascader>
             </FormItem>
           </Col>
-          <Col span="4">
+          <Col span="5">
             <FormItem label="单位" prop="unit" >
               <Select v-model="item.unit" class="search-input" size="large" placeholder="请选择单位">
                 <Option :value="String(i)" v-for="i of item.unitData"  :key="i">
@@ -56,7 +56,7 @@
               </Select>
             </FormItem>
           </Col>
-          <Col span="4">
+          <Col span="5">
             <FormItem label="库位" prop="location" >
               <Input v-model="item.location" type="text" placeholder="请填写入库位置"></Input>
             </FormItem>
@@ -66,7 +66,7 @@
               <Input v-model="item.num" type="text" placeholder="请填写入库数量"></Input>
             </FormItem>
           </Col>
-          <Col span="2" style="display: flex;justify-content: center">
+          <Col span="1" style="display: flex;justify-content: center">
             <div class="iconfont icon_delete iconshanchuqq" @click="remove(item)"></div>
           </Col>
         </Form>
@@ -74,6 +74,9 @@
         <Form :model="formItem" :label-width="60">
           <FormItem label="备注">
             <Input v-model="formItem.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入备注"></Input>
+          </FormItem>
+          <FormItem label="凭证" >
+            <img-upload ref="imgUpload" :config="ImgConfig"></img-upload>
           </FormItem>
         </Form>
       </div>
@@ -107,13 +110,25 @@ export default {
       currentSerial: '',
       rule: {
         unit: [
-          { required: true, message: '请选择商品单位', trigger: 'blur' }
+          { required: true, message: '请选择单位', trigger: 'blur' }
         ],
         location: [
           { required: true, message: '请填写入库位置', trigger: 'blur' }
         ],
+        cascaderList: [ {trigger: 'change',
+          validator: (rule, value, callback) => {
+            // console.log(value)
+            if (!value.length) {
+              return callback(new Error('请选择商品'))
+            } else {
+              callback()
+            }
+          },
+          required: true,
+          type: 'array'}
+        ],
         num: [
-          { required: true, message: '请填写入库数量', trigger: 'blur' }
+          {validator: this.$validateFun.Znumber, required: true, trigger: 'blur'}
         ]
       },
       formItem: {
@@ -150,6 +165,12 @@ export default {
         name: '',
         apply_time: '',
         status: 'buy'
+      },
+      ImgConfig: {
+        oldImg: [
+          {url: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15689663869632.png'},
+          {url: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15689663869632.png'}
+        ]
       }
     }
   },
@@ -250,6 +271,8 @@ export default {
         unit: '',
         unitData: [],
         location: '',
+        // 选择商品的结果数组 用于验证的
+        cascaderList: '',
         num: ''
       }
       this.addGoods.push(obj)
@@ -260,9 +283,10 @@ export default {
     },
     // 选择完商品后回调
     selectGoods (e, selectedData) {
-      let selectedGoods = selectedData.pop()
       let goods = this.addGoods[+this.currentSerial]
-      // 赋值
+      // 商品验证赋值
+      goods.cascaderList = [selectedData]
+      let selectedGoods = selectedData.pop()
       // console.log(selectedGoods)
       goods.id = selectedGoods.id
       goods.unitData = [selectedGoods.unit]
@@ -333,6 +357,7 @@ export default {
     async storage () {
       const _this = this
       console.log(_this.addGoods)
+      console.log(_this.$refs.imgUpload.getImgUrl())
       // let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id, data: data})
       // if (res.code === 1) {
       //   this.pageRefresh()
