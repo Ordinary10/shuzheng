@@ -135,7 +135,6 @@ export default {
   },
   computed: {
     oldImgs () {
-      if (!this.config.oldImg) this.uploadList = []
       if (Array.isArray(this.config.oldImg)) {
         for (let k of this.config.oldImg) {
           if (k) k.status = 'finished'
