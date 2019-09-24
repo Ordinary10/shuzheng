@@ -26,12 +26,12 @@ class GoodsInOut extends Model {
             $save_data[$k] = [
                 'id'=>$val['id'],
                 'order_id' => $order_id,
-                'goods_id' => $data['goods_id'],
-                'batch_number' => $data['batch_number'],
-                'locator' => $data['locator'],
-                'unit_type' => $data['unit_type'],
-                'flag' => $data['flag'],
-                'num' => $data['num'],
+                'goods_id' => $val['goods_id'],
+                'batch_number' => $val['batch_number'],
+                'locator' => $val['locator'],
+                'unit_type' => $val['unit_type'],
+                'flag' => $val['flag'],
+                'num' => $val['num'],
                 'ctime' => date('Y-m-d H:i:s'),
             ];
             if(empty($val['id'])) {

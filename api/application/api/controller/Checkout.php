@@ -163,6 +163,7 @@ class Checkout extends Base {
         }
         $in_out_order = new InOutOrder();
         self::$params['uid'] = self::$userInfo['uid'];
+        self::$params['uid'] = 69;
         $in_out_order->startTrans();
         $order_id = $in_out_order->editorGoodsInventory(self::$params);
         if(!$order_id) {
