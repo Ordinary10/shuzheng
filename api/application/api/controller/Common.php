@@ -24,6 +24,9 @@ class Common extends Base {
         if(empty($file)) {
             return self::error_result('参数错误');
         }
+        if($file['size'] < 40) {
+            return self::error_result('图片太小');
+        }
         if(!is_array($file['name'])){
             $file = [
                 'name' => [$file['name']],
