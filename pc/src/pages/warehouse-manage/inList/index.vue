@@ -270,7 +270,8 @@ export default {
       this.modalTitle = '入库'
       this.addGoods = []
       this.addGood()
-      // this.formItem.remark=''
+      this.formItem.remark = ''
+      this.ImgConfig.oldImg = []
     },
     // 添加出库商品条
     addGood () {
