@@ -29,14 +29,27 @@ const validate = {
       return callback(new Error('必输项不能为空'))
     }
     if (!Number(value)) {
-      callback(new Error('请输入非零正整数'))
+      callback(new Error('请输入数字'))
     } else if (!(/(^[1-9]\d*$)/.test(value))) {
       callback(new Error('请输入非零正整数'))
     } else {
       callback()
     }
+  },
+  // 验证小数点最多两位
+  Fnumber: (rule, value, callback) => {
+    // console.log(value)
+    if (!value) {
+      return callback(new Error('必输项不能为空'))
+    }
+    if (!Number(value)) {
+      callback(new Error('请输入数字'))
+    } else if (!(/^\d+\.?\d{0,2}$/.test(value))) {
+      callback(new Error('最多两位小数'))
+    } else {
+      callback()
+    }
   }
-
 }
 
 export default validate

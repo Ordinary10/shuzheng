@@ -3,8 +3,8 @@
     <search>
       <div class="search-box">
         <!--搜索输入框-->
-        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入申请人姓名" />
-        <DatePicker class="search-input" type="date" placeholder="申请时间" size="large" value='yyyy-MM-dd' @on-change="searchData.apply_time=$event" v-model="searchData.apply_time"></DatePicker>
+<!--        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入申请人姓名" />-->
+<!--        <DatePicker class="search-input" type="date" placeholder="申请时间" size="large" value='yyyy-MM-dd' @on-change="searchData.apply_time=$event" v-model="searchData.apply_time"></DatePicker>-->
         <!--搜索按钮-->
         <div class="search-submit">
           <Tooltip content="更多搜索条件" placement="bottom-start">
@@ -36,10 +36,10 @@
           <Button style="float: right" type="primary" size="large" @click="addGood">添加商品</Button>
         </div>
         <Divider />
-        <Form :model="item" :rules="rule" :label-width="60"   ref="form" v-for="(item,index) in addGoods" :key="item.code">
+        <Form :model="item" :rules="rule" :label-width="60"   ref="form" v-for="(item,index) in addGoods" :key="item.batch_number">
           <Col span="4">
             <FormItem label="批次号">
-              <Input v-model="item.code" type="text" placeholder="请输入批次号" disabled></Input>
+              <Input v-model="item.batch_number" type="text" placeholder="请输入批次号" disabled></Input>
             </FormItem>
           </Col>
           <Col span="5">
@@ -50,15 +50,18 @@
           <Col span="5">
             <FormItem label="单位" prop="unit" >
               <Select v-model="item.unit" class="search-input" size="large" placeholder="请选择单位">
-                <Option :value="String(i)" v-for="i of item.unitData"  :key="i">
-                  {{i}}
+                <Option :value="i.id" v-for="i of item.unitData"  :key="i.name">
+                  {{i.name}}
                 </Option>
               </Select>
             </FormItem>
+            <FormItem label="规格" prop="specs" v-if="item.unit===1 && item.unitData.length===2">
+              <Input v-model="item.specs" type="text" :placeholder="`请填写规格(1${item.unitData[0].name}=?${item.unitData[1].name})`"></Input>
+            </FormItem>
           </Col>
           <Col span="5">
-            <FormItem label="库位" prop="location" >
-              <Input v-model="item.location" type="text" placeholder="请填写入库位置"></Input>
+            <FormItem label="库位" prop="locator" >
+              <Input v-model="item.locator" type="text" placeholder="请填写入库位置"></Input>
             </FormItem>
           </Col>
           <Col span="4">
@@ -110,10 +113,13 @@ export default {
       currentSerial: '',
       rule: {
         unit: [
-          { required: true, message: '请选择单位', trigger: 'blur' }
+          { required: true, type: 'number', message: '请选择单位', trigger: 'blur' }
         ],
-        location: [
+        locator: [
           { required: true, message: '请填写入库位置', trigger: 'blur' }
+        ],
+        specs: [
+          {validator: this.$validateFun.Znumber, required: true, trigger: 'blur'}
         ],
         cascaderList: [ {trigger: 'change',
           validator: (rule, value, callback) => {
@@ -128,18 +134,42 @@ export default {
           type: 'array'}
         ],
         num: [
-          {validator: this.$validateFun.Znumber, required: true, trigger: 'blur'}
+          {validator: this.$validateFun.Fnumber, required: true, trigger: 'blur'}
         ]
       },
       formItem: {
         remark: ''
       },
       config: {
-        fun: 'purchaseOrder/getLists',
+        fun: 'Checkout/goodsInventoryList',
         columns: [
           {
-            key: 'store_name',
-            title: '门店',
+            key: 'uname',
+            title: '操作人',
+            align: 'center'
+          },
+          {
+            title: '详情',
+            align: 'center',
+            render: (h, params) => {
+              let detail = params.row.detail
+              console.log(detail)
+              let a = 1
+              return <div class="table-btn-box">
+                <span>
+                  {a}
+                </span>
+              </div>
+            }
+          },
+          {
+            key: 'remark',
+            title: '备注',
+            align: 'center'
+          },
+          {
+            key: 'ctime',
+            title: '入库时间',
             align: 'center'
           }
           // {
@@ -158,17 +188,14 @@ export default {
       },
       searchData: {
         name: '',
-        apply_time: '',
-        status: 'buy'
+        type: 1
       },
       startSearchData: {
         name: '',
-        apply_time: '',
-        status: 'buy'
+        type: 1
       },
       ImgConfig: {
         oldImg: [
-          {url: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15689663869632.png'}
         ]
       }
     }
@@ -241,8 +268,8 @@ export default {
     add () {
       this.modal = true
       this.modalTitle = '入库'
-      // this.addGoods = []
-      // this.addGood()
+      this.addGoods = []
+      this.addGood()
       // this.formItem.remark=''
     },
     // 添加出库商品条
@@ -253,7 +280,7 @@ export default {
       }
       let date = new Date()
       let month = test(date.getMonth() + 1)
-      let code =
+      let batch_number =
             '' +
             date.getFullYear() +
             month + test(date.getDate()) +
@@ -265,13 +292,15 @@ export default {
       let obj = {
         // 商品条序号
         serial: this.addGoods.length,
-        code,
+        batch_number,
         id: '',
         unit: '',
         unitData: [],
-        location: '',
+        locator: '',
         // 选择商品的结果数组 用于验证的
         cascaderList: '',
+        // 选择两级单位用的规格
+        specs: '',
         num: ''
       }
       this.addGoods.push(obj)
@@ -288,11 +317,11 @@ export default {
       let selectedGoods = selectedData.pop()
       // console.log(selectedGoods)
       goods.id = selectedGoods.id
-      goods.unitData = [selectedGoods.unit]
+      goods.unitData = [{name: selectedGoods.unit, id: 1}]
       if (selectedGoods.lower_unit === selectedGoods.unit) {
-        goods.unit = selectedGoods.unit
+        goods.unit = 1
       } else {
-        goods.unitData.push(selectedGoods.lower_unit)
+        goods.unitData.push({name: selectedGoods.lower_unit, id: 2})
       }
     },
     // 准备选择商品
@@ -355,17 +384,34 @@ export default {
     // 入库
     async storage () {
       const _this = this
-      console.log(_this.addGoods)
-      console.log(_this.$refs.imgUpload.getImgUrl())
-      // let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id, data: data})
-      // if (res.code === 1) {
-      //   this.pageRefresh()
-      //   this.$Modal.remove()
-      //   this.$set(this.$data, 'modal', false)
-      //   this.instance('success', res)
-      // } else {
-      //   this.instance('error', res)
-      // }
+      let detail = []
+      _this.addGoods.forEach(e => {
+        detail.push({
+          goods_id: e.id,
+          locator: e.locator,
+          num: e.num,
+          batch_number: e.batch_number,
+          unit_type: e.unit,
+          specs: e.specs,
+          flag: 1
+        })
+      })
+      let obj = {
+        detail,
+        remark: _this.formItem.remark,
+        img: _this.$refs.imgUpload.getImgUrl(),
+        type: 1
+      }
+      console.log(obj)
+      // console.log(_this.$refs.imgUpload.getImgUrl())
+      let res = await _this.$axios('Checkout/commodityWarehousing', obj)
+      if (res.code === 1) {
+        _this.modal = false
+        this.pageRefresh()
+        this.instance('success', res)
+      } else {
+        this.instance('error', res)
+      }
     }
   }
 }
