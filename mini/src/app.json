@@ -8,7 +8,8 @@
     "pages/outbound/main",
     "pages/outbound/order-apply/main",
     "pages/outbound/order-details/main",
-    "pages/outbound/order-entry/main"
+    "pages/outbound/order-entry/main",
+    "pages/common/order-receive/main"
   ],
   "tabBar": {
     "list": [

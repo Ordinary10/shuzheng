@@ -87,6 +87,7 @@
 
     data() {
       return {
+        order_id: 0,
         data: null,
         categoryActive: '',
         el_name_list: [],
@@ -105,6 +106,7 @@
     methods:{
       init(){
         const  _this = this
+        _this.order_id = this.$mp.query.order_id || 0
         _this.data = []
         _this.scroll_into_id = ''
         _this.categoryActive = ''
@@ -113,6 +115,22 @@
         _this.isSeeOrderList = false
         _this.$ajax('goods/getTypeWithGoods','',function (res) {
           _this.data = _this.dataFilter(res.data)
+          if(_this.order_id != 0){
+            _this.$ajax('checkout/getDetailInfo',{order_id:_this.order_id},function (res) {
+              for(let item of res.data.detail_info){
+                for(let val of _this.data){
+                  if(val.goods.length>0){
+                    for(let v of val.goods){
+                      if(v.id === item.goods_id){
+                        v.amount = item.apply_amount
+                      }
+                    }
+                  }
+                }
+              }
+              _this.goodsCountChange()
+            })
+          }
         })
       },
       /*增加el_id用于scroll-view的页面内锚点跳转标志*/
@@ -145,15 +163,22 @@
       },
       amountSub(item){
         item.amount--
-        if(item.amount === 0){
-          this.goodsCount--
-        }
+        this.goodsCountChange()
       },
       amountAdd(item){
         item.amount++
-        if(item.amount === 1){
-          this.goodsCount++
+        this.goodsCountChange()
+      },
+      goodsCountChange(){
+        let goodsCount = 0
+        for(let item of this.data){
+          for(let val of item.goods){
+            if(val.amount > 0){
+              goodsCount++
+            }
+          }
         }
+        this.goodsCount = goodsCount
       },
       scrollView(e){
         const _this = this

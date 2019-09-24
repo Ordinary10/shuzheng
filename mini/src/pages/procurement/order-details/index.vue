@@ -45,6 +45,7 @@
       <span class="large_btn_primary" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&role === 'boss'&&orderDetail.verify_status==1">审核</span>
       <span class="large_btn_primary" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&role === 'purchase'&&orderDetail.verify_status==5">审核</span>
       <span class="large_btn_primary" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'&&(role === 'boss'||role==='purchase')">录入</span>
+      <span class="large_btn_primary" @click="orderEditor('buy')" v-if="orderDetail.status==='buy'&&(role==='boss'||role==='store')">签收</span>
     </div>
     <div class="audit-mask" v-if="maskIsShow" catchtouchmove="ture">
       <div class="mask-container">
@@ -121,6 +122,11 @@
           case 'pass':
             wx.navigateTo({
               url:`/pages/procurement/order-entry/main?order_id=${_this.id}`
+            })
+            break
+          case 'buy':
+            wx.navigateTo({
+              url:`/pages/common/order-receive/main?order_id=${_this.id}&type=procurement`
             })
             break
         }

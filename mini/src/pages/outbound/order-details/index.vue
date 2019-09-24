@@ -59,20 +59,6 @@
         </div>
       </div>
     </div>
-    <div class="audit-mask" v-if="maskIsShow1" catchtouchmove="ture">
-      <div class="mask-container">
-        <div class="mask-title">
-          签收
-          <icon class="iconfont iconshanchuqq" @click="maskIsShow1 = false"></icon>
-        </div>
-        <div class="mask-content">
-          <textarea name="remark" id="textarea" placeholder="请输入签收备注" v-model="remark"></textarea>
-        </div>
-        <div class="mask-footer-btn">
-          <div class="audit-through" style="width: 100%" @click="through()">签收</div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -88,7 +74,6 @@
         role: '',
         remark: '',
         maskIsShow: false,
-        maskIsShow1: false
       }
     },
     created() {
@@ -96,7 +81,6 @@
     onLoad(){
       this.remark = ''
       this.maskIsShow = false
-      this.maskIsShow1 = false
       this.orderDetail = null
       this.id = this.$root.$mp.query.id
       this.role = this.$store.state.role
@@ -135,7 +119,9 @@
             })
             break
           case 'distribute':
-            _this.maskIsShow1 = true
+            wx.navigateTo({
+              url:`/pages/common/order-receive/main?order_id=${_this.id}&type=outbound`
+            })
             break
         }
       },

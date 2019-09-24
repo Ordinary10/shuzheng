@@ -80,7 +80,7 @@ const common = {
    * @param fail  失败的回调
    */
   uploadFile: (filePath, fun, param, success, fail) => {
-    param['x-token'] = common.getToken()
+    param['token'] = common.getToken()
     wx.uploadFile({
       url: CONFIG.API_PATH + fun,
       name: 'file',
