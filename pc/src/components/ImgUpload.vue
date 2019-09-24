@@ -90,6 +90,7 @@ export default {
     handleRemove (file) {
       const fileList = this.$refs.upload.fileList
       this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
+      // 图片上传的列表  必须随时和组件内部的上传列表信息保持一致
       this.uploadList = this.$refs.upload.fileList
     },
     handleSuccess (res, file) {
@@ -97,6 +98,9 @@ export default {
       setTimeout(e => {
         this.$refs.viewer.$viewer.update()
       }, 10)
+      // 防止网络慢 出现超出max的上传框
+      if (this.$refs.upload.fileList > this.max) this.$refs.upload.fileList.slice(0, this.max)
+      // 图片上传的列表  必须随时和组件内部的上传列表信息保持一致
       this.uploadList = this.$refs.upload.fileList
     },
     handleFormatError (file) {
