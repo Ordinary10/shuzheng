@@ -130,7 +130,7 @@ class Checkout extends Base {
             foreach ($detail as $k => $val) {
                 $val['flag_name'] = $goods_in_out->goodsType[$val['flag']];
                 if($value['id'] == $val['order_id']) {
-                    $value['detail'] = $val;
+                    $value['detail'][] = $val;
                 }
             }
         }
