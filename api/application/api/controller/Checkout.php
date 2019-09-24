@@ -107,6 +107,7 @@ class Checkout extends Base {
     public function goodsInventoryList()
     {
         $in_out_order = new InOutOrder();
+        $where = $this->condition();
         $data = $in_out_order->getGoodsInventoryList($where,$this->makePage());
         if(empty($data['lists'])) {
             return self::success_result([],'查询成功',[],0);
@@ -198,6 +199,6 @@ class Checkout extends Base {
             return self::error_result('出库商品失败');
         }
         $in_out_order->commit();
-        return  self::success_result('','商品入库成功');
+        return  self::success_result('','商品出库成功');
     }
 }

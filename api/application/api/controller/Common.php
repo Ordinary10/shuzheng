@@ -17,4 +17,33 @@ class Common extends Base {
         return self::success_result($initial_model->getData(self::$params['type'],self::$userInfo));
     }
 
+    // 上传图片
+    public function uploadImg()
+    {
+        $file = $_FILES['file'];//获取文件信息
+        if(empty($file)) {
+            return self::error_result('参数错误');
+        }
+        if(!is_array($file['name'])){
+            $file = [
+                'name' => [$file['name']],
+                'type' => [$file['type']],
+                'tmp_name' => [$file['tmp_name']],
+                'error' => [$file['error']],
+                'size' => [$file['size']],
+            ];
+        }
+        $re = [];
+        foreach($file['tmp_name'] as $key=>$item){
+            $houzhui = substr(strrchr($file['name'][$key], '.'), 1);
+            $newPath = (empty(self::$post['type']) ? '' : self::$post['type'] . '/') . time().rand(1000,9999) . '.' . $houzhui;
+            $return = ossUpload($newPath,$item);
+            if(!$return) {
+                return self::error_result('上传失败');
+            }
+            $re[] = $return;
+        }
+        return self::success_result(['url'=>count($re)==1 ? $re[0] : $re],'成功');
+    }
+
 }

@@ -55,4 +55,3 @@ if(!function_exists('get_file_ext')){
         return  substr($filename,strrpos($filename,'.'));
     }
 }
-

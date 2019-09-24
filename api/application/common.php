@@ -8,9 +8,8 @@
 // +----------------------------------------------------------------------
 // | Author: 流年 <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
+require_once __DIR__ .'/../vendor/aliyuncs/oss-sdk-php/autoload.php';
 // 应用公共文件
-
 if (!function_exists('dd')) {
     /**
      * 打印变量并终止程序，主要用于调试
@@ -23,7 +22,6 @@ if (!function_exists('dd')) {
         exit();
     }
 }
-
 
 /**
  * 构建层级（树状）数组
@@ -93,4 +91,26 @@ function array_child_append($parent, $pid, $child, $child_key_name)
     }
 
     return $parent;
+}
+
+//单条上传
+if (!function_exists('ossUpload')) {
+    function ossUpload($newPath,$filePath){
+        $config = config('ali_oss');
+        if(empty($config) || !isset($config['bucket']) || !isset($config['endpoint'])
+            || !isset($config['accessKeyId']) || !isset($config['accessKeySecret'])){
+            return  false;
+        }
+        try{
+            $ossClient = new \OSS\OssClient($config['accessKeyId'], $config['accessKeySecret'], $config['endpoint']);
+            $re=$ossClient->uploadFile($config['bucket'], $newPath, $filePath);
+            if(!$re || !isset($re['info']['url'])) {
+                return  false;
+            }
+            return $re['info']['url'];
+        }catch(\OSS\Core\OssException $e){
+            \think\Log::mylog('oss',$e->getErrorMessage(),'oss_error');
+            return  false;
+        }
+    }
 }

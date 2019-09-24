@@ -133,6 +133,9 @@ class Goods extends Base {
                 return  self::error_result('类目已添加');
             }
         }
+        // 获取top_type_id
+        $goods_type = new GoodsType();
+        self::$params['top_type_id']= $goods_type->where(['type_id'=>self::$params['type_id']])->value('pid');
         $re = self::$goods_type_model->edit(self::$params,intval(self::$params['id']));
         if($re === false) {
             return  self::error_result('操作失败');
