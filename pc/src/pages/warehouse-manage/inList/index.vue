@@ -168,7 +168,6 @@ export default {
       },
       ImgConfig: {
         oldImg: [
-          {url: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15689663869632.png'},
           {url: 'http://zucheguanjia.oss-cn-qingdao.aliyuncs.com/car/15689663869632.png'}
         ]
       }
