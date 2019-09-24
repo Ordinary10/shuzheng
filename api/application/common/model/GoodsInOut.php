@@ -32,8 +32,11 @@ class GoodsInOut extends Model {
                 'unit_type' => $val['unit_type'],
                 'flag' => $val['flag'],
                 'num' => $val['num'],
-                'ctime' => date('Y-m-d H:i:s'),
+                'specs' => $val['specs'],
             ];
+            if($val['unit_type'] == 1) {
+                $save_data[$k]['num'] = $val['unit_num'] * $val['specs'];
+            }
             if(empty($val['id'])) {
                 $save_data[$k]['ctime'] = date('Y-m-d H:i:s');
             }
