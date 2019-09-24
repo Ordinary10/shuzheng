@@ -26,6 +26,7 @@ export default {
       // 默认最大级别的限定
       typeList: [],
       type_id: '',
+      top_type_id: '',
       // 类目数据
       type_data: []
     }
@@ -78,6 +79,7 @@ export default {
       }
       let active = value[value.length - 1]
       _this.type_id = active || ''
+      _this.top_type_id = value[0] || ''
       setTimeout(() => {
         _this.$emit('typeid')
       }, 100)

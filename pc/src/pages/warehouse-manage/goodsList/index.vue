@@ -208,6 +208,7 @@ export default {
         safe_stock: '',
         // 用于提交
         type_id: '',
+        top_type_id: '',
         // 用于做验证
         typeList: [],
         // 回显的id
@@ -279,6 +280,7 @@ export default {
     // 选择类目后 回显验证
     letType () {
       this.formItem.type_id = this.$refs.typeCascader.type_id
+      this.formItem.top_type_id = this.$refs.typeCascader.top_type_id
       let obj = []
       this.$refs.typeCascader.typeList.forEach(key => {
         obj.push(key)
@@ -289,10 +291,7 @@ export default {
       let _this = this
       _this.$refs.form.validate(valid => {
         if (valid) {
-          let imgUrl = _this.$refs.imgUpload.getImgUrl()
-          if (imgUrl) {
-            _this.formItem.imgUrl = imgUrl
-          }
+          _this.formItem.img = _this.$refs.imgUpload.getImgUrl()
           _this.$axios('goods/editGoods', _this.formItem).then((res) => {
             if (res.code === 1) {
               _this.$Message.success({
