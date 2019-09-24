@@ -157,7 +157,7 @@ class Checkout extends Base {
         }
         $batch_number = $order_id = array_column(self::$params['detail'],'batch_number');
         $goods_in_out = new GoodsInOut();
-        $verification = $goods_in_out->where(['batch_number'=>['in',$batch_number])->select();
+        $verification = $goods_in_out->where(['batch_number'=>['in',$batch_number]])->select();
         if(!empty($verification)) {
             return self::error_result('录入的批次号重复');
         }

@@ -48,5 +48,4 @@ class Common extends Base {
         }
         return self::success_result(['url'=>count($re)==1 ? $re[0] : $re],'成功');
     }
-
 }
