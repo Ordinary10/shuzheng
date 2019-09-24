@@ -14,6 +14,7 @@ use app\common\model\CheckoutOrder;
 use app\common\service\CheckoutOrderService;
 use app\common\service\CommonService;
 use app\common\model\GoodsInOut;
+use app\common\model\InOutOrder;
 
 class Checkout extends Base {
     private static $service;
@@ -102,25 +103,101 @@ class Checkout extends Base {
         return  self::success_result('','操作成功');
     }
 
+    // 商品入库列表
+    public function goodsInventoryList()
+    {
+        $in_out_order = new InOutOrder();
+        $data = $in_out_order->getGoodsInventoryList($where,$this->makePage());
+        if(empty($data['lists'])) {
+            return self::success_result([],'查询成功',[],0);
+        }
+        $this->disposeData($data['lists']);
+        return self::success_result($data['lists'],'查询成功',[],$data['count']);
+    }
+
+    // 处理数据
+    public function disposeData(&$data)
+    {
+        $order_id = array_column($data,'id');
+        $all_uid = array_column($data,'uid');
+        $goods_in_out = new GoodsInOut();
+        $common_service = new CommonService();
+        $detail = $goods_in_out->where(['order_id'=>['in',$order_id]])->select();
+        foreach ($data as $key => &$value) {
+            $value['uname'] = $common_service->getUserNameByUid($value['uid'],$all_uid);
+            $value['type_name'] = $goods_in_out->goodsType[$value['type']];
+            foreach ($detail as $k => $val) {
+                $val['flag_name'] = $goods_in_out->goodsType[$val['flag']];
+                if($value['id'] == $val['order_id']) {
+                    $value['detail'] = $val;
+                }
+            }
+        }
+
+    }
+
+    // 商品入库列表搜索条件
+    private function condition() {
+        $where = [];
+        if(!empty(self::$params['type'])) {
+            $where['type'] = self::$params['type'];
+        }
+        return $where;
+    }
+    
     // 商品入库
     public function commodityWarehousing()
     {
         if(empty(self::$params)) {
             return self::error_result('请输入要录入的信息');
         }
-        if(empty(self::$params['batch_number'])) {
-            return self::error_result('批次编号生成为空');
+        if(empty(self::$params['detail'])) {
+            return self::error_result('没有录入商品信息');
+        }
+        $batch_number = $order_id = array_column(self::$params['detail'],'batch_number');
+        $goods_in_out = new GoodsInOut();
+        $verification = $goods_in_out->where(['batch_number'=>['in',$batch_number])->select();
+        if(!empty($verification)) {
+            return self::error_result('录入的批次号重复');
+        }
+        $in_out_order = new InOutOrder();
+        self::$params['uid'] = self::$userInfo['uid'];
+        $in_out_order->startTrans();
+        $order_id = $in_out_order->editorGoodsInventory(self::$params);
+        if(!$order_id) {
+            $in_out_order->rollback();
+            return self::error_result('入库商品基础信息失败');
+        }
+        $raw = $goods_in_out->editorCommodityWarehousing($order_id,self::$params['detail']);
+        if(!$raw) {
+            $in_out_order->rollback();
+            return self::error_result('入库商品基础信息失败');
+        }
+        $in_out_order->commit();
+        return  self::success_result('','商品入库成功');
+    }
+
+    // 商品出库
+    public function goodsDecrease()
+    {
+        if(empty(self::$params)) {
+            return self::error_result('请输入要录入的信息');
+        }
+        $in_out_order = new InOutOrder();
+        self::$params['uid'] = self::$userInfo['uid'];
+        $in_out_order->startTrans();
+        $order_id = $in_out_order->editorGoodsInventory(self::$params);
+        if(!$order_id) {
+            $in_out_order->rollback();
+            return self::error_result('出库商品失败');
         }
         $goods_in_out = new GoodsInOut();
-        $id = $goods_in_out->where(['batch_number'=>self::$params['batch_number']])->value('id');
-        if($id != self::$params['$id']) {
-            return self::error_result('批次编号生成重复');
+        $raw = $goods_in_out->editorCommodityWarehousing($order_id,self::$params['detail']);
+        if(!$raw) {
+            $in_out_order->rollback();
+            return self::error_result('出库商品失败');
         }
-        self::$params['uid'] = self::$userInfo['uid'];
-        $re =  $goods_in_out->editorCommodityWarehousing(self::$params);
-        if(!$re) {
-            return self::error_result('商品入库失败');
-        }
+        $in_out_order->commit();
         return  self::success_result('','商品入库成功');
     }
 }
