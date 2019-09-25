@@ -91,9 +91,10 @@ class PurchaseOrder extends Base {
         $order_info['uname'] = $common_service->getUserNameByUid($order_info['uid'],[$order_info['uid']]);
         $order_info['store_name'] = $common_service->getStoreNameByUid($order_info['uid'],[$order_info['uid']]);
         $order_info['status_name'] = self::$order_model->status[$order_info['status']];
-        $order_info['detail'] = self::$detail_model->getInfoByOrderId($order_id);
         $order_info['estimated_amount'] = floatval($order_info['estimated_amount']);
         $order_info['total_amount'] = floatval($order_info['total_amount']);
+        $order_info['detail'] = self::$detail_model->getInfoByOrderId($order_id);
+
         //流程
         $progress = new PurchaseOrderProgress();
         $order_info['progress'] = $progress->getProgressByOrderId($order_id);

@@ -40,6 +40,7 @@ class PurchaseOrderDetail extends Model {
         foreach ($info as &$val){
             $val['estimated_money'] = floatval($val['estimated_money']);
         }
+        return $info;
     }
 
     //购买后回填购买数量及金额
