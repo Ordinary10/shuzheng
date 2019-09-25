@@ -193,6 +193,7 @@ export default {
       isShow: false,
       inModal: false,
       outModal: false,
+      iconType: 'md-arrow-dropdown',
       modalTitle: '',
       statusData: '',
       goodsData: [],
@@ -620,7 +621,7 @@ export default {
         _this.cancel()
         this.search()
         // 如果是出库操作 侧记到库存需要重新初始化数据
-        type && _this.init()
+        !type && _this.init()
         this.instance('success', res)
       } else {
         this.instance('error', res)
@@ -668,7 +669,7 @@ export default {
         Object.keys(_this.searchData).forEach(key => {
           str += `&params[${key}]=${_this.searchData[key]}`
         })
-        window.open(`${_this.$common.API_PATH}?fun=${d.exportFun}&token=${sessionStorage.getItem('token')}${str}`)
+        window.open(`${_this.$common.API_PATH}/${d.exportFun}?token=${sessionStorage.getItem('token')}${str}`)
       } else {
         alert(d.label)
       }
