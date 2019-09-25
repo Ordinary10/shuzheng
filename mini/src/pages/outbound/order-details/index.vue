@@ -175,9 +175,10 @@
 </style>
 <style scoped lang="scss">
   .pages{
+    background-color: #FF4B5B;
     height: 100%;
     box-sizing: border-box;
-    padding-top: 30rpx;
+    padding: 15px 0 50px 0;
     display: flex;
     flex-direction: column;
     .detail-box{
