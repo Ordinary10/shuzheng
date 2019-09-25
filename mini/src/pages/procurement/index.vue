@@ -65,7 +65,7 @@
                   <div class="item item3">{{item.ctime}}</div>
                   <div class="item item4">
                     {{item.status_name}}
-                    <icon class="iconfont iconbianji" style="color: #1da3ff;" @click.stop="editorOrder(item.id)" v-if="item.status === 'apply'"></icon>
+                    <icon class="iconfont iconbianji" style="color: #1da3ff;" @click.stop="editorOrder(item.id)" v-if="item.status === 'apply'&&role!=='purchase'"></icon>
                   </div>
                 </div>
               </scroll-view>
@@ -86,7 +86,7 @@
       return {
         purchaseOrderList: [],
         role: '',
-        statusIndex: 0,
+        statusIndex: 1,
         statusList: [
           {
             name: '全部',

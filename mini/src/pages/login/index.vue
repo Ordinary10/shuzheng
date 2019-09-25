@@ -94,17 +94,17 @@
           /*存储基础数据*/
           _this.$common.getPageInfo().then(response => {
             _this.$store.commit('setInitData', response.data)
-            _this.$common.normal_tip('登录成功')
             /*根据role进入对应角色的首页*/
-            if(res.data.show_page.role === 'chef'){
-              wx.switchTab({
-                url:'/pages/outbound/main'
-              })
-            } else {
-              wx.switchTab({
-                url:'/pages/procurement/main'
-              })
-            }
+            let tabList = _this.$common.getRole()
+           if(tabList && tabList.length>0){
+             _this.$common.success_tip('登录成功',function () {
+               wx.switchTab({
+                 url: tabList[0].path
+               })
+             })
+           } else {
+             _this.$common.error_tip('该角色权限不足')
+           }
           }).catch(err => {
             console.log(err)
           })
