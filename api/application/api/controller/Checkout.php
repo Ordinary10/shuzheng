@@ -191,6 +191,9 @@ class Checkout extends Base {
         $batch_number = $order_id = array_column(self::$params['detail'],'batch_number');
         $goods_in_out = new GoodsInOut();
         $info = $goods_in_out->where(['batch_number'=>['in',$batch_number]])->select();
+        if(empty($info)) {
+            return self::error_result('没有对应的商品批次号');
+        }
         foreach (self::$params['detail'] as $k => &$val) {
             foreach ($info as $key => $value) {
                 if($val['num'] > $value['num']) {
@@ -205,8 +208,10 @@ class Checkout extends Base {
                 }
             }
         }
+        dd(self::$params['detail']);
         $in_out_order = new InOutOrder();
         self::$params['uid'] = self::$userInfo['uid'];
+        self::$params['uid']=1;
         $in_out_order->startTrans();
         $order_id = $in_out_order->editorGoodsInventory(self::$params);
         if(!$order_id) {
