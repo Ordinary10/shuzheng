@@ -168,7 +168,8 @@ class CheckoutOrderService extends BaseService {
         if(empty($order_info))  return   self::setError('订单信息查询失败');
         Db::startTrans();
         $status = 'done';
-        $re = $this->dealProgress($order_id,$uid,$status,$param['remark'],$param['proof']);
+        $proof = is_array($param['proof']) ? join(',',$param['proof']) : $param['proof'];
+        $re = $this->dealProgress($order_id,$uid,$status,$param['remark'],$proof);
         if(!$re){
             Db::rollback();
             return self::setError('流程处理失败');

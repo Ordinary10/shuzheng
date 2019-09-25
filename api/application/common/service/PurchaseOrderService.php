@@ -151,7 +151,8 @@ class PurchaseOrderService extends BaseService {
         if(empty($order_info))  return   self::setError('订单信息查询失败');
         Db::startTrans();
         $status = 'done';
-        $re = $this->dealProgress($order_id,$uid,$status,$param['remark'],$param['proof']);
+        $proof = is_array($param['proof']) ? join(',',$param['proof']) : $param['proof'];
+        $re = $this->dealProgress($order_id,$uid,$status,$param['remark'],$proof);
         if(!$re){
             Db::rollback();
             return self::setError('流程处理失败');
@@ -221,7 +222,7 @@ class PurchaseOrderService extends BaseService {
     }
 
     //流程处理
-    private function dealProgress($order_id,$uid,$progress,$remark = '',$proof){
+    private function dealProgress($order_id,$uid,$progress,$remark = '',$proof = ''){
         $progress_model = new PurchaseOrderProgress();
         return  $progress_model->addProgress($order_id,$uid,$progress,$remark,$proof);
     }

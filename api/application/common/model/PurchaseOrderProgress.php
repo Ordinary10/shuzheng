@@ -21,8 +21,8 @@ class PurchaseOrderProgress extends Model {
             'order_id' => $order_id,
             'uid' => $uid,
             'status' => $status,
-            'remark' => $remark,
-            'proof' => $proof,
+            'remark' => empty($remark) ? '' : $remark,
+            'proof' => empty($proof) ? '' : $proof,
             'ctime' =>date('Y-m-d'),
         ];
         return  $this->insert($data);

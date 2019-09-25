@@ -20,8 +20,8 @@ class CheckoutOrderProgress extends Model {
             'order_id' => $order_id,
             'uid' => $uid,
             'status' => $status,
-            'remark' => $remark,
-            'proof' => empty($proof) ? [] : $proof,
+            'remark' => empty($remark) ? '' : $remark,
+            'proof' => empty($proof) ? '' : $proof,
             'ctime' =>date('Y-m-d H:i:s'),
         ];
         return  $this->insert($data);
