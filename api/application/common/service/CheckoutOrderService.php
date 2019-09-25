@@ -118,7 +118,7 @@ class CheckoutOrderService extends BaseService {
         $detail_info = array_column($detail_info,null,'goods_id');
         $inout_info = [
             'uid'=>$uid,
-            'img'=>$param['img'],
+            'img'=>$param['proof'],
             'remark'=>$param['remark'],
             'goods_info'=>[],
         ];
@@ -156,7 +156,7 @@ class CheckoutOrderService extends BaseService {
             return self::setError($inout_service->getError());
         }
         $status = 'distribute';
-        $re = $this->dealProgress($order_id,$uid,$status,$param['remark']);
+        $re = $this->dealProgress($order_id,$uid,$status,$param['remark'],$param['proof']);
         if(!$re){
             Db::rollback();
             return self::setError('流程处理失败');
