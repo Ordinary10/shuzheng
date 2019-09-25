@@ -116,20 +116,32 @@ class CheckoutOrderService extends BaseService {
         $storage_model = new GoodsInOut();
         $detail_info = self::$detail_model->getInfoByOrderId($order_id);
         $detail_info = array_column($detail_info,null,'goods_id');
+        $inout_info = [
+            'uid'=>$uid,
+            'img'=>$param['img'],
+            'remark'=>$param['remark'],
+            'goods_info'=>[],
+        ];
         foreach ($param['data'] as $val){
             if(empty($val['bar_code']) || empty($val['num'])) return self::setError('数据有误');
             $stock = $storage_model->getGoodsNumByBarcode($val['bar_code']);
             if(empty($stock) || $stock['num'] < $val['num']){
-                return  self::setError('条形码为' . $val['bar_code'] . '的商品库存不足');
+                return  self::setError('批次号为' . $val['bar_code'] . '的商品库存不足');
             }
             $goods_id = $stock['goods_id'];
             if(!isset($detail_info[$goods_id])){
-                return  self::setError('该笔出库单没有条形码为' . $val['bar_code'] . '的商品');
+                return  self::setError('该笔出库单没有批次号为' . $val['bar_code'] . '的商品');
             }
             $detail_info[$goods_id]['delivery_amount'] += $val['num'];
             if($detail_info[$goods_id]['delivery_amount'] > $detail_info[$goods_id]){
                 return  self::setError($stock['name'] . '出库数量超过了申请数量');
             }
+            $inout_info['goods_info'][] = [
+                'goods_id' => $goods_id,
+                'batch_number'=>$val['bar_code'],
+                'num'=>$val['num'],
+                'locator'=>$stock['locator'],
+            ];
         }
         $re = self::$detail_model->distribute($detail_info);
         if(!$re){
@@ -137,13 +149,11 @@ class CheckoutOrderService extends BaseService {
             return self::setError('数据录入失败，请重试');
         }
         //出库处理
-
-        //采购单处理
-        $purchase_service = new PurchaseOrderService();
-        $re = $purchase_service->checkOut($param['data']);
+        $inout_service = new InOutService();
+        $re = $inout_service->checkOut($inout_info);
         if(!$re){
             Db::rollback();
-            return self::setError('出库数据处理失败，请重试');
+            return self::setError($inout_service->getError());
         }
         $status = 'distribute';
         $re = $this->dealProgress($order_id,$uid,$status,$param['remark']);

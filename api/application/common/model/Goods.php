@@ -55,4 +55,14 @@ class Goods extends Model {
         $re = $this->where(['id'=>$id])->update($save_data);
         return $re === false ? false : $id;
     }
+
+    //修改库存数量
+    public function setStock($goods_id,$num)
+    {
+        if($num > 0){
+            return  $this->where(['id'=>$goods_id])->setInc('stock',$num);
+        }else{
+            return  $this->where(['id'=>$goods_id])->setDec('stock',$num);
+        }
+    }
 }

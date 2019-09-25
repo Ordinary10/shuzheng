@@ -52,7 +52,7 @@ class GoodsInOut extends Model {
         return  empty($info) ? [] : $info->toArray();
     }
 
-    //出库
+    //出库出库为二级单位
     public function checkOut($order_id,$data)
     {
         $save_data = [];
@@ -61,8 +61,11 @@ class GoodsInOut extends Model {
                 'order_id' => $order_id,
                 'goods_id' => $val['goods_id'],
                 'batch_number' => $val['batch_number'],
-                'locator' => '',
+                'locator' => empty($val['locator']) ? '' : $val['locator'],
+                'unit_type'=>2,
+                'unit_num'=>$val['num'],
                 'flag' => -1,
+                'specs'=> 1,
                 'num' => $val['num'],
                 'ctime' => date('Y-m-d H:i:s'),
             ];

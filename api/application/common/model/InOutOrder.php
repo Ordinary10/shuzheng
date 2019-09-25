@@ -36,6 +36,7 @@ class InOutOrder extends Model {
             $save_data['ctime'] = date('Y-m-d H:i:s');
             return  $this->insertGetId($save_data);
         }
-        return $this->where(['id'=>$data['order_id']])->update($save_data);
+        $re = $this->where(['id'=>$data['order_id']])->update($save_data);
+        return  $re === false ? false : $data['order_id'];
     }
 }
