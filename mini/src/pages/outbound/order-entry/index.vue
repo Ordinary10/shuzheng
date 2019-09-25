@@ -142,7 +142,7 @@
         _this.$ajax('checkout/distribute',data,function (res) {
           if(res.code === 1){
             _this.$common.success_tip('配货成功',function () {
-              wx.reLaunch({url:`/pages/outbound/main`})
+              wx.navigateBack()
             })
           }
         })

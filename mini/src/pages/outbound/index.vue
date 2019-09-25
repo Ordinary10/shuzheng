@@ -37,9 +37,9 @@
             <icon class="iconfont iconsdf" :class="{iconColor:page<2}" @click="pageChange('sub')"></icon>
           </div>
           <div class="center flex_1">
-            <span>{{total_count}}</span>
-            <input type="number" class="page-input" v-model="page" @change="inputChange">
-            <span>/{{pages}}</span>
+            <input type="number" class="page-input"  v-model="page" @change="inputChange">
+            <span>/{{pages}}页</span>
+            <span style="margin-left: 16px">共{{total_count}}条</span>
           </div>
           <div class="turn-page">
             <icon class="iconfont iconxiangyoujiantou" :class="{iconColor:page>=pages}" @click="pageChange('add')"></icon>
@@ -130,7 +130,7 @@
     },
     computed:{
       tab_show_pages(){
-        return this.$store.state.role==='admin'||this.$store.state.role==='other'
+        return this.$store.state.role!=='purchase'
           ?'tab_show_pages'
           :''
       }

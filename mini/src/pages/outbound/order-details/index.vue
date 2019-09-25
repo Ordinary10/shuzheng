@@ -76,21 +76,20 @@
         maskIsShow: false,
       }
     },
-    created() {
-    },
-    onLoad(){
-      this.remark = ''
-      this.maskIsShow = false
-      this.orderDetail = null
-      this.id = this.$root.$mp.query.id
-      this.role = this.$store.state.role
-      this.getDetail()
-    },
     onShow() {
+      this.init()
     },
     mounted(){
     },
     methods:{
+      init(){
+        this.remark = ''
+        this.maskIsShow = false
+        this.orderDetail = null
+        this.id = this.$root.$mp.query.id
+        this.role = this.$store.state.role
+        this.getDetail()
+      },
       getDetail() {
         const _this = this
         _this.$ajax('checkout/getDetailInfo',{order_id:_this.id},function (res) {
@@ -139,26 +138,7 @@
         _this.$ajax('checkout/verify',data,function (res) {
           if(res.code === 1 ){
             _this.$common.success_tip('审核成功',function () {
-              wx.reLaunch({
-                url: '/pages/outbound/main'
-              })
-            })
-          }
-        })
-      },
-      through(){
-        const _this = this
-        if(this.remark===''){
-          this.$common.error_tip('请填写备注')
-          return
-        }
-        _this.$ajax('checkout/confirmReceipt',{
-          order_id: +_this.id,
-          remark: _this.remark
-        },function (res) {
-          if(res.code === 1 ){
-            _this.$common.success_tip('签收成功',function () {
-              wx.reLaunch({url:`/pages/outbound/main`})
+              _this.init()
             })
           }
         })

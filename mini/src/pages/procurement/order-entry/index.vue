@@ -30,6 +30,22 @@
                 </picker>
               </div>
         </div>
+        <div class="form-box flex_parent">
+          <div class="form-item flex_1">
+            <div class="form-label">凭证</div>
+            <div class="form-input">
+              <scroll-view scroll-y class="upfile-box" :enable-flex="true">
+                <div class="file-box" v-for="(path,index) in imageList" :key="index">
+                  <icon class="iconfont iconshanchuqq" @click.stop="delImage(index)"></icon>
+                  <image :src="path" alt="" class="images" mode="aspectFit" @click.stop="seeImageList(index)"></image>
+                </div>
+                <div class="file-box add-file" @click="addFile">
+                  <icon class="iconfont iconxiangji"></icon>
+                </div>
+              </scroll-view>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="details-operation-btns">
@@ -47,20 +63,25 @@
         order_id: '',
         orderDetail: null,
         supplierIndex: 0,
-        supplierList: null
+        supplierList: null,
+        images:[]
       }
-    },
-    created() {
     },
     onShow() {
       this.init()
     },
     mounted(){
     },
+    computed:{
+      imageList(){
+        return this.images
+      }
+    },
     methods:{
       init(){
         this.orderDetail = null
         this.order_id = this.$root.$mp.query.order_id
+        this.images = []
         this.supplierList = JSON.parse(JSON.stringify(this.$store.state.initData.supplier))
         this.getDetail()
       },
@@ -87,6 +108,31 @@
         }
         return data
       },
+      delImage(index){
+        this.images.splice(index,1)
+      },
+      seeImageList(index){
+        const images = this.images
+        wx.previewImage({
+          current: images[index],
+          urls: images
+        })
+      },
+      addFile(){
+        const _this =this
+        wx.chooseImage({
+          count: 1,
+          sizeType: ['original', 'compressed'],
+          sourceType: ['album', 'camera'],
+          success (res) {
+            _this.$common.uploadFile(res.tempFilePaths[0],'/Common/uploadImg',{},function (res) {
+              _this.images.push(res.data.url)
+            }),function (err) {
+              console.log(err)
+            }
+          }
+        })
+      },
       bindPickerChange (e) {
         this.supplierIndex = e.mp.detail.value
         let index = e.mp.currentTarget.dataset.index
@@ -107,11 +153,12 @@
         }
         let data = {
           order_id: _this.order_id,
+          proof: _this.images,
           data: detail
         }
         _this.$ajax('purchaseOrder/buy',data,function (res) {
           _this.$common.success_tip('录入成功',function () {
-            wx.reLaunch({url:`/pages/procurement/main`})
+            wx.navigateBack()
           })
         })
       }

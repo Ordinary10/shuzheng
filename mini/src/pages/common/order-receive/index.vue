@@ -126,12 +126,11 @@
         } else if(_this.form.sign_type !== 1&&_this.form.remark===''){
           _this.$common.error_tip('非全部签收请填写备注说明情况')
         } else {
-          let fun = _this.type==='outbound'?'checkout/confirmReceipt':'purchaseOrder/confirmReceipt',
-              url = _this.type==='outbound'?'/pages/outbound/main':'/pages/procurement/main'
+          let fun = _this.type==='outbound'?'checkout/confirmReceipt':'purchaseOrder/confirmReceipt'
           _this.$ajax(fun,_this.form,function (res) {
             if(res.code===1){
               _this.$common.success_tip('签收成功')
-              wx.reLaunch({url})
+              wx.navigateBack()
             }
           })
         }
@@ -143,77 +142,5 @@
 <style scoped lang="scss">
   .pages_header{
     padding-bottom: 8px !important;
-  }
-  .form-box{
-    font-size: 14px;
-    flex: 1;
-    padding-bottom: 50px;
-    .form-item{
-      background-color: white;
-      margin: 8px 0;
-      display: flex;
-      min-height: 40px;
-      padding: 4px;
-      .form-label{
-        line-height: 40px;
-        padding-right: 8px;
-        box-sizing: border-box;
-      }
-      .form-input{
-        flex: 1;
-        line-height: 40px;
-        .radio{
-          margin-right: 20px;
-        }
-        #textarea{
-          width: 100%;
-          height: 150px;
-          box-sizing: border-box;
-          line-height: 20px;
-          resize: none;
-          padding: 4px;
-          border: 1px solid #ddd;
-          border-radius: 5px;
-        }
-      }
-      .upfile-box{
-        height: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        .file-box{
-          width: 80px;
-          height: 80px;
-          margin: 10px;
-          border: 1px dashed #ddd;
-          border-radius: 5px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          .images{
-            width: 80px;
-            height: 80px;
-          }
-          .iconxiangji{
-            font-size: 48rpx;
-            color: #ddd;
-          }
-          .iconshanchuqq{
-            position: absolute;
-            right: -7px;
-            top: -7px;
-            width: 18px;
-            height: 18px;
-            color: white;
-            background-color: #aaa;
-            border-radius: 50%;
-            z-index: 999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-        }
-      }
-    }
   }
 </style>

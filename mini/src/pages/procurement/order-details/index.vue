@@ -39,7 +39,7 @@
     </div>
     <div class="details-operation-btns" v-if="orderDetail">
       <span class="large_btn_primary" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&role === 'boss'&&orderDetail.verify_status==1">审核</span>
-      <span class="large_btn_primary" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&role === 'purchase'&&orderDetail.verify_status==5">审核</span>
+      <span class="large_btn_primary" @click="orderEditor('apply')" v-if="orderDetail.status==='apply'&&(role === 'purchase'||role === 'boss')&&orderDetail.verify_status==5">审核</span>
       <span class="large_btn_primary" @click="orderEditor('pass')" v-if="orderDetail.status==='pass'&&(role === 'boss'||role==='purchase')">录入</span>
       <span class="large_btn_primary" @click="orderEditor('buy')" v-if="orderDetail.status==='buy'&&(role==='boss'||role==='store')">签收</span>
     </div>
@@ -75,23 +75,20 @@
         remark: ''
       }
     },
-    created() {
-    },
     onLoad(){
-      this.id = this.$root.$mp.query.id
-      this.role = this.$store.state.role
-      this.orderDetail = null
-      this.getDetail()
+      // this.init()
     },
     onShow() {
       this.init()
-    },
-    mounted(){
     },
     methods:{
       init(){
         this.maskIsShow = false
         this.remark = ''
+        this.id = this.$root.$mp.query.id
+        this.role = this.$store.state.role
+        this.orderDetail = null
+        this.getDetail()
       },
       getDetail() {
         const _this = this
@@ -142,9 +139,6 @@
           if(res.code === 1 ){
             _this.$common.success_tip('审核成功',function () {
               _this.init()
-              wx.reLaunch({
-                url: '/pages/procurement/main'
-              })
             })
           }
         })
