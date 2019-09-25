@@ -65,7 +65,7 @@ class PurchaseOrderService extends BaseService {
             $order_data['estimated_amount'] += $amount;
         }
         if(empty($order_data['total_count']))   return self::setError('采购商品信息不正确');
-        $order_data['verify_status'] = $order_data['total_count'] >= config('boss_verify') ? 1 : 5;
+        $order_data['verify_status'] = $order_data['estimated_amount'] >= config('boss_verify') ? 1 : 5;
         Db::startTrans();
         $order_id = self::$order_model->edit($order_data,$param['order_id']);
         if(!$order_id){
@@ -142,6 +142,28 @@ class PurchaseOrderService extends BaseService {
         Db::commit();
         return true;
     }
+    
+    //签收
+    public function sign($param,$uid)
+    {
+        $order_id = $param['order_id'];
+        $order_info = self::$order_model->getInfoById($order_id);
+        if(empty($order_info))  return   self::setError('订单信息查询失败');
+        Db::startTrans();
+        $status = 'done';
+        $re = $this->dealProgress($order_id,$uid,$status,$param['remark'],$param['proof']);
+        if(!$re){
+            Db::rollback();
+            return self::setError('流程处理失败');
+        }
+        $re = self::$order_model->setStatus($order_id,$status);
+        if(!$re){
+            Db::rollback();
+            return self::setError('状态修改失败');
+        }
+        Db::commit();
+        return true;
+    }
 
     //入库
     public function putIn($order_id,$param,$uid)
@@ -199,9 +221,9 @@ class PurchaseOrderService extends BaseService {
     }
 
     //流程处理
-    private function dealProgress($order_id,$uid,$progress,$remark = ''){
+    private function dealProgress($order_id,$uid,$progress,$remark = '',$proof){
         $progress_model = new PurchaseOrderProgress();
-        return  $progress_model->addProgress($order_id,$uid,$progress,$remark);
+        return  $progress_model->addProgress($order_id,$uid,$progress,$remark,$proof);
     }
     
 }

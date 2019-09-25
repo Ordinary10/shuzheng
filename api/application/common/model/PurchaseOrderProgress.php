@@ -15,13 +15,14 @@ use think\Model;
 
 class PurchaseOrderProgress extends Model {
 
-    public function addProgress($order_id,$uid,$status,$remark)
+    public function addProgress($order_id,$uid,$status,$remark,$proof)
     {
         $data = [
             'order_id' => $order_id,
             'uid' => $uid,
             'status' => $status,
             'remark' => $remark,
+            'proof' => $proof,
             'ctime' =>date('Y-m-d'),
         ];
         return  $this->insert($data);

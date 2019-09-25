@@ -36,7 +36,10 @@ class PurchaseOrderDetail extends Model {
             ->join('supplier c','a.supplier_id=c.id','left')
             ->field('a.*,b.name,b.unit,c.name supplier,b.lower_unit')
             ->select();
-        return  empty($info) ? [] : collection($info)->toArray();
+        $info =  empty($info) ? [] : collection($info)->toArray();
+        foreach ($info as &$val){
+            $val['estimated_money'] = floatval($val['estimated_money']);
+        }
     }
 
     //购买后回填购买数量及金额

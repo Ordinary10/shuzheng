@@ -92,6 +92,8 @@ class PurchaseOrder extends Base {
         $order_info['store_name'] = $common_service->getStoreNameByUid($order_info['uid'],[$order_info['uid']]);
         $order_info['status_name'] = self::$order_model->status[$order_info['status']];
         $order_info['detail'] = self::$detail_model->getInfoByOrderId($order_id);
+        $order_info['estimated_amount'] = floatval($order_info['estimated_amount']);
+        $order_info['total_amount'] = floatval($order_info['total_amount']);
         //流程
         $progress = new PurchaseOrderProgress();
         $order_info['progress'] = $progress->getProgressByOrderId($order_id);
@@ -127,6 +129,17 @@ class PurchaseOrder extends Base {
         if(empty(self::$params['order_id']))    return self::error_result('参数错误');
         if(empty(self::$params['data']))  return  self::error_result('请录入商品入库信息');
         $re = self::$service->putIn(self::$params['order_id'],self::$params,self::$userInfo['uid']);
+        if(!$re)    return self::error_result(self::$service->getError());
+        return  self::success_result('','操作成功');
+    }
+
+    public function confirmReceipt()
+    {
+        if(empty(self::$params['order_id']))    return self::error_result('数据错误');
+        if(self::$params['sign_type'] != 1 && empty(self::$params['remark'])){
+            return  self::error_result('请填写拒收原因');
+        }
+        $re = self::$service->sign(self::$params,self::$userInfo['uid']);
         if(!$re)    return self::error_result(self::$service->getError());
         return  self::success_result('','操作成功');
     }
