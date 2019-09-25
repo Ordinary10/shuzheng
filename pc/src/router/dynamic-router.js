@@ -96,11 +96,11 @@ const dynamicRoutes = [
         }
       },
       {
-        path: 'inlist',
-        name: 'warehouse-inlist',
-        component: () => import('@/pages/warehouse-manage/inList'),
+        path: 'outInlist',
+        name: 'warehouse-outInlist',
+        component: () => import('@/pages/warehouse-manage/outInlist'),
         meta: {
-          name: '入库管理'
+          name: '出入库管理'
         }
       }
     ]

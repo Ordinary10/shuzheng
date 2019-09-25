@@ -21,11 +21,11 @@
         <!--常用操作按钮-->
         <div class="commonly-used-btn-box">
           <Tooltip content="出库" placement="bottom-start">
-            <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="out"
+            <Button class="commonly-used-btn" type="error" size="large" icon="ios-add-circle-outline" @click="out"
                     style="font-size: 18px"></Button>
           </Tooltip>
           <Tooltip content="入库" placement="bottom-start">
-            <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="add"
+            <Button class="commonly-used-btn" type="success" size="large" icon="ios-add-circle-outline" @click="add"
                     style="font-size: 18px"></Button>
           </Tooltip>
         </div>
@@ -55,7 +55,7 @@
           </Col>
           <Col span="5">
             <FormItem label="商品" prop="cascaderList">
-              <Cascader :data="goodsData" placeholder="请选择商品" @mouseenter.native="selectGoodsBefore(item.serial)"
+              <Cascader ref="inFormCascader" :data="goodsData" placeholder="请选择商品" @mouseenter.native="selectGoodsBefore(item.serial)"
                         @on-change="selectGoods"></Cascader>
             </FormItem>
           </Col>
@@ -118,12 +118,12 @@
               :key="item.serial">
           <Col span="6">
             <FormItem label="批次号"  prop="batch_number">
-              <Input v-model="item.batch_number" type="text" placeholder="请输入批次号" ></Input>
+              <Input v-model="item.batch_number" :maxlength="20" type="text" placeholder="请输入批次号" ></Input>
             </FormItem>
           </Col>
           <Col span="6">
             <FormItem label="商品" prop="cascaderList">
-              <Cascader :data="goodsData" placeholder="请选择商品" @mouseenter.native="selectGoodsBefore(item.serial)"
+              <Cascader ref="outFormCascader" :data="goodsData" placeholder="请选择商品" @mouseenter.native="selectGoodsBefore(item.serial)"
                         @on-change="selectGoods"></Cascader>
             </FormItem>
           </Col>
@@ -197,7 +197,17 @@ export default {
           {required: true, type: 'number', message: '请选择单位', trigger: 'blur'}
         ],
         batch_number: [
-          {required: true, message: '请填写批次号', trigger: 'blur'}
+          {required: true, message: '请填写批次号', trigger: 'blur'},
+          {validator: (rule, value, callback) => {
+            if (!Number(value)) {
+              return callback(new Error('请填写批次号(数字16位)'))
+            } else if (value.length !== 16) {
+              return callback(new Error('请填写批次号(数字16位)'))
+            } else {
+              callback()
+            }
+          },
+          trigger: 'blur'}
         ],
         locator: [
           {required: true, message: '请填写入库位置', trigger: 'blur'}
@@ -251,7 +261,7 @@ export default {
             title: '详情',
             align: 'center',
             render: (h, params) => {
-              let detail = params.row.detail
+              let detail = params.row.detail || []
               let showData = ''
               detail.forEach(e => {
                 let goods = this.$common.recursiveQuery(this.AllGoodsData, 'id', e.goods_id) || {}
@@ -603,8 +613,14 @@ export default {
       this.OutGood()
       this.formItem.remark = ''
       this.ImgConfig.oldImg = []
+      this.$nextTick(() => {
+        this.$refs.outForm[0].resetFields()
+        this.$refs.outFormCascader[0].currentValue = []
+        this.$refs.outFormCascader[0].selected = []
+        this.$refs.outFormCascader[0].tmpselected = []
+      })
     },
-    // 添加出库商品条
+    // 添加出库商品条1
     OutGood () {
       let obj = {
         batch_number: '',
