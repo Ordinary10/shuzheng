@@ -14,13 +14,14 @@ namespace app\common\model;
 use think\Model;
 
 class CheckoutOrderProgress extends Model {
-    public function addProgress($order_id,$uid,$status,$remark)
+    public function addProgress($order_id,$uid,$status,$remark,$proof)
     {
         $data = [
             'order_id' => $order_id,
             'uid' => $uid,
             'status' => $status,
             'remark' => $remark,
+            'proof' => empty($proof) ? [] : $proof,
             'ctime' =>date('Y-m-d H:i:s'),
         ];
         return  $this->insert($data);

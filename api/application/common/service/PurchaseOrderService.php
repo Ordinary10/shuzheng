@@ -26,7 +26,7 @@ class PurchaseOrderService extends BaseService {
     }
 
     /**
-     * 采购单编辑,有ID则更新，无则添加
+     * 采购单编辑,有ID则更新，无则添加，采购金额超过5000则需要管理员审核，否则直接到采购员审核
      * @param $param array
      * array(2) {
         ["remark"] => string(27) "库存告急，急需采购"
@@ -65,6 +65,7 @@ class PurchaseOrderService extends BaseService {
             $order_data['estimated_amount'] += $amount;
         }
         if(empty($order_data['total_count']))   return self::setError('采购商品信息不正确');
+        $order_data['verify_status'] = $order_data['total_count'] >= config('boss_verify') ? 1 : 5;
         Db::startTrans();
         $order_id = self::$order_model->edit($order_data,$param['order_id']);
         if(!$order_id){
@@ -78,7 +79,10 @@ class PurchaseOrderService extends BaseService {
         }
         $progress = empty($param['order_id']) ? 'apply' : 'edit';
         $re = $this->dealProgress($order_id,$uid,$progress,$param['remark']);
-        if(!$re) return self::setError('流程处理失败');
+        if(!$re){
+            Db::rollback();
+            return self::setError('流程处理失败');
+        }
         Db::commit();
         return  $order_id;
     }
@@ -95,7 +99,12 @@ class PurchaseOrderService extends BaseService {
             Db::rollback();
             return self::setError('流程处理失败');
         }
-        $re = self::$order_model->setStatus($order_id,$status);
+        //boss审核通过订单状态不变，只改变verify_status
+        if($order_info['verify_status'] == 1 && $status === 'pass'){
+            $re = self::$order_model->setStatus($order_id,$order_info['status'],['verify_status'=>5]);
+        }else{
+            $re = self::$order_model->setStatus($order_id,$status,['verify_status'=>($status =='pass' ? 10 : 15)]);
+        }
         if(!$re){
             Db::rollback();
             return self::setError('状态修改失败');

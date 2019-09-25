@@ -15,7 +15,7 @@ class GoodsInOut extends Model {
     // 出入库类型
     public $goodsType = [
         '1'=>'入库',
-        '-1'=>'出口'
+        '-1'=>'出库'
     ];
     
     // 编辑商品录入库信息
@@ -44,4 +44,32 @@ class GoodsInOut extends Model {
         if(empty($save_data))   return  true;
         return $this->saveAll($save_data);
     }
+
+
+    public function getGoodsNumByBarcode($bar_code)
+    {
+        $info = $this->where(['batch_number'=>$bar_code])->field('sum(num * flag) num,goods_id')->find();
+        return  empty($info) ? [] : $info->toArray();
+    }
+
+    //出库
+    public function checkOut($order_id,$data)
+    {
+        $save_data = [];
+        foreach ($data as $val){
+            $save_data[] = [
+                'order_id' => $order_id,
+                'goods_id' => $val['goods_id'],
+                'batch_number' => $val['batch_number'],
+                'locator' => '',
+                'flag' => -1,
+                'num' => $val['num'],
+                'ctime' => date('Y-m-d H:i:s'),
+            ];
+        }
+        return $this->insertAll($save_data);
+    }
+
+
+
 }

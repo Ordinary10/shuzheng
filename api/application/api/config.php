@@ -29,5 +29,7 @@ return  [
         'accessKeySecret'   =>  'usOFFVDmWLfDNLyCAQpmzCMHag6w3N',
     ],
 
+    'boss_verify' => 5000,          //采购单金额超过5000需要boss审核
+
 ];
  

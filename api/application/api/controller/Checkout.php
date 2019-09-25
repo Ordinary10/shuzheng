@@ -69,7 +69,7 @@ class Checkout extends Base {
     //出库申请
     public function apply()
     {
-        if(empty(self::$params['data']))  return  self::error_result('请录入需要采购的商品');
+        if(empty(self::$params['data']))  return  self::error_result('请录入需要申请的商品');
         $order_id = self::$service->editCheckoutOrder(self::$params,self::$userInfo['uid']);
         if(!$order_id)    return self::error_result(self::$service->getError());
         return  self::success_result($order_id,'操作成功');
@@ -98,6 +98,9 @@ class Checkout extends Base {
     public function confirmReceipt()
     {
         if(empty(self::$params['order_id']))    return self::error_result('数据错误');
+        if(self::$params['sign_type'] != 1 && empty(self::$params['remark'])){
+            return  self::error_result('请填写拒收原因');
+        }
         $re = self::$service->done(self::$params,self::$userInfo['uid']);
         if(!$re)    return self::error_result(self::$service->getError());
         return  self::success_result('','操作成功');

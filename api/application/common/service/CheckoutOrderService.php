@@ -14,6 +14,7 @@ namespace app\common\service;
 use app\common\model\CheckoutOrder;
 use app\common\model\CheckoutOrderDetail;
 use app\common\model\CheckoutOrderProgress;
+use app\common\model\GoodsInOut;
 use app\common\model\PurchaseOrderDetail;
 use think\Db;
 
@@ -112,16 +113,16 @@ class CheckoutOrderService extends BaseService {
         $order_info = self::$order_model->getInfoById($order_id);
         if(empty($order_info))  return   self::setError('订单信息查询失败');
         Db::startTrans();
-        $purchase_detail_model = new PurchaseOrderDetail();
+        $storage_model = new GoodsInOut();
         $detail_info = self::$detail_model->getInfoByOrderId($order_id);
         $detail_info = array_column($detail_info,null,'goods_id');
         foreach ($param['data'] as $val){
             if(empty($val['bar_code']) || empty($val['num'])) return self::setError('数据有误');
-            $stock = $purchase_detail_model->getInfoByBarCode($val['bar_code']);
-            $goods_id = $stock['goods_id'];
-            if(empty($stock) || ($stock['buy_amount'] - $stock['used_amount']) < $val['num']){
+            $stock = $storage_model->getGoodsNumByBarcode($val['bar_code']);
+            if(empty($stock) || $stock['num'] < $val['num']){
                 return  self::setError('条形码为' . $val['bar_code'] . '的商品库存不足');
             }
+            $goods_id = $stock['goods_id'];
             if(!isset($detail_info[$goods_id])){
                 return  self::setError('该笔出库单没有条形码为' . $val['bar_code'] . '的商品');
             }
@@ -135,6 +136,8 @@ class CheckoutOrderService extends BaseService {
             Db::rollback();
             return self::setError('数据录入失败，请重试');
         }
+        //出库处理
+
         //采购单处理
         $purchase_service = new PurchaseOrderService();
         $re = $purchase_service->checkOut($param['data']);
@@ -157,7 +160,7 @@ class CheckoutOrderService extends BaseService {
         return true;
     }
 
-    //确认收货,出库单完成
+    //确认收货,出库单完成，type 1确认收货 2部分收货 3拒收
     public function done($param,$uid)
     {
         $order_id = $param['order_id'];
@@ -165,7 +168,7 @@ class CheckoutOrderService extends BaseService {
         if(empty($order_info))  return   self::setError('订单信息查询失败');
         Db::startTrans();
         $status = 'done';
-        $re = $this->dealProgress($order_id,$uid,$status,$param['remark']);
+        $re = $this->dealProgress($order_id,$uid,$status,$param['remark'],$param['proof']);
         if(!$re){
             Db::rollback();
             return self::setError('流程处理失败');
@@ -181,9 +184,9 @@ class CheckoutOrderService extends BaseService {
 
 
     //流程处理
-    private function dealProgress($order_id,$uid,$progress,$remark = ''){
+    private function dealProgress($order_id,$uid,$progress,$remark = '',$proof){
         $progress_model = new CheckoutOrderProgress();
-        return  $progress_model->addProgress($order_id,$uid,$progress,$remark);
+        return  $progress_model->addProgress($order_id,$uid,$progress,$remark,$proof);
     }
 
     public function getProgress($order_id)
