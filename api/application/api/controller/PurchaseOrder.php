@@ -71,7 +71,7 @@ class PurchaseOrder extends Base {
         //门店和库管只能查看自己的
         $common_service = new CommonService();
         $role = $common_service->getRole(self::$userInfo['uid']);
-        if($role == 'store' || $role['storage']){
+        if($role == 'store' || $role == 'storage'){
             $where['uid'] = self::$userInfo['uid'];
         }
         return $where;
