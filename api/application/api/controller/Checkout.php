@@ -187,6 +187,24 @@ class Checkout extends Base {
         if(empty(self::$params)) {
             return self::error_result('请输入要录入的信息');
         }
+        // 判断商品数据是否充足
+        $batch_number = $order_id = array_column(self::$params['detail'],'batch_number');
+        $goods_in_out = new GoodsInOut();
+        $info = $goods_in_out->where(['batch_number'=>['in',$batch_number]])->select();
+        foreach (self::$params['detail'] as $k => &$val) {
+            foreach ($info as $key => $value) {
+                if($val['num'] > $value['num']) {
+                    return self::error_result('商品编码'.$val['batch_number'].'库存不足');
+                }
+                if($val['batch_number'] == $value['batch_number']) {
+                    $val['locator'] = $value['locator'];
+                    $val['specs'] = 1;
+                    $val['unit_num'] = $val['num'];
+                    $val['unit_type'] = 2;
+                    $val['flag'] = -1;
+                }
+            }
+        }
         $in_out_order = new InOutOrder();
         self::$params['uid'] = self::$userInfo['uid'];
         $in_out_order->startTrans();
@@ -195,7 +213,6 @@ class Checkout extends Base {
             $in_out_order->rollback();
             return self::error_result('出库商品失败');
         }
-        $goods_in_out = new GoodsInOut();
         $raw = $goods_in_out->editorCommodityWarehousing($order_id,self::$params['detail']);
         if(!$raw) {
             $in_out_order->rollback();
