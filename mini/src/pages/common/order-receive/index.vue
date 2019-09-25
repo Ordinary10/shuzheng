@@ -47,12 +47,12 @@
 
     data() {
       return {
-        order_id: null,
         type:'',
         form:{
           remark: '',
           sign_type: '',
-          proof: []
+          proof: [],
+          order_id: ''
         },
         radioList: [
           {
@@ -71,13 +71,13 @@
       }
     },
     onLoad(){
-      if(this.order_id !== this.$mp.query.order_id){
-        this.order_id = this.$mp.query.order_id
+      if(this.form.order_id !== this.$mp.query.order_id){
         this.type = this.$mp.query.type
         this.form = {
           remark: '',
           sign_type: '',
-          proof: []
+          proof: [],
+          order_id:this.$mp.query.order_id
         }
       }
     },
@@ -126,9 +126,13 @@
         } else if(_this.form.sign_type !== 1&&_this.form.remark===''){
           _this.$common.error_tip('非全部签收请填写备注说明情况')
         } else {
-          let fun = _this.type==='outbound'?'checkout/confirmReceipt':''
+          let fun = _this.type==='outbound'?'checkout/confirmReceipt':'',
+              url = _this.type==='outbound'?'/pages/outbound/main':'/pages/procurement/main'
           _this.$ajax(fun,_this.form,function (res) {
-            console.log(res)
+            if(res.code===1){
+              _this.$common.success_tip('签收成功')
+              wx.reLaunch({url})
+            }
           })
         }
       }
