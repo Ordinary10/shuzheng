@@ -3,10 +3,10 @@
     <i-toast id="toast" />
     <div class="detail-box" v-if="orderDetail">
       <div class="dataList">
-        <div class="dataItem">
-          <span class="dataItemLeft">订单编号：</span>
-          <span class="dataItemRight">{{orderDetail.batch_no||'-'}}</span>
-        </div>
+<!--        <div class="dataItem">-->
+<!--          <span class="dataItemLeft">订单编号：</span>-->
+<!--          <span class="dataItemRight">{{orderDetail.batch_no||'-'}}</span>-->
+<!--        </div>-->
         <div class="dataItem">
           <span class="dataItemLeft">申请人：</span>
           <span class="dataItemRight">{{orderDetail.uname||'-'}}</span>

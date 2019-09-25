@@ -138,6 +138,9 @@
     text-align: right;
     font-size: 18px;
     font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 /*page顶部修饰圆弧*/
@@ -180,7 +183,7 @@
     .center{
       display: flex;
       justify-content: center;
-      line-height: 25px;
+      align-items: center;
       .page-input{
         width: 18px;
         height: 18px;
@@ -317,6 +320,8 @@
       .goods-barCode-list{
         border: 1px solid #ddd;
         border-top: none;
+        box-sizing: border-box;
+        width: 100%;
         .content-max-item.content-item{
           width: 100%;
           padding: 0 8px;
@@ -348,13 +353,16 @@
           .goods-barCode{
             padding-left: 4px;
             .iconQR-code1{
-              line-height: 24px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
               font-size: 16px;
               padding: 0 12px;
               color: #2486ff;
               position: absolute;
-              top: 0;
-              right: -2px;
+              top: 50%;
+              transform: translateY(-50%);
+              right: 0;
               z-index: 998;
             }
           }
