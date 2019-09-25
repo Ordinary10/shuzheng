@@ -126,7 +126,7 @@
         } else if(_this.form.sign_type !== 1&&_this.form.remark===''){
           _this.$common.error_tip('非全部签收请填写备注说明情况')
         } else {
-          let fun = _this.type==='outbound'?'checkout/confirmReceipt':'',
+          let fun = _this.type==='outbound'?'checkout/confirmReceipt':'purchaseOrder/confirmReceipt',
               url = _this.type==='outbound'?'/pages/outbound/main':'/pages/procurement/main'
           _this.$ajax(fun,_this.form,function (res) {
             if(res.code===1){
