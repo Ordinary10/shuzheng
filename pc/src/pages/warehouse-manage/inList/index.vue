@@ -6,7 +6,7 @@
         <!--  <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入申请人姓名" />-->
         <Select v-model="searchData.type" class="search-input" size="large" placeholder="请选择角色">
           <Option :value="1">入库列表</Option>
-          <Option :value="2">出库列表</Option>
+          <Option :value="-1">出库列表</Option>
         </Select>
         <!--搜索按钮-->
         <div class="search-submit">
@@ -472,8 +472,8 @@ export default {
         let selectedGoods = selectedData.pop()
         // console.log(selectedGoods)
         goods.id = selectedGoods.id
-        goods.unitData = [{name: selectedGoods.lower_unit, id: 1}]
-        goods.unit = 1
+        goods.unitData = [{name: selectedGoods.lower_unit, id: 2}]
+        goods.unit = 2
         goods.stock = selectedGoods.stock
       }
     },
@@ -544,7 +544,7 @@ export default {
       if (type === 'approval') {
       }
     },
-    // 调用接口  type为True时是入库
+    // 调用接口  type为true时是入库
     async storage (type) {
       const _this = this
       let detail = []
@@ -571,7 +571,6 @@ export default {
             goods_id: e.id,
             batch_number: e.batch_number,
             num: e.outNum,
-            locator: '',
             unit_type: e.unit,
             flag: -1
           })
@@ -588,10 +587,10 @@ export default {
       let res = await _this.$axios(fun, obj)
       if (res.code === 1) {
         _this.cancel()
-        this.pageRefresh()
-        this.instance('success', res)
+        this.search()
         // 如果是出库操作 侧记到库存需要重新初始化数据
         type && _this.init()
+        this.instance('success', res)
       } else {
         this.instance('error', res)
       }
