@@ -28,8 +28,8 @@ class InOutOrder extends Model {
     {
         $save_data = [
             'uid' => $data['uid'],
-            'img' => $data['img'],
-            'remark' => $data['remark'],
+            'img' => empty($data['img']) ? '' : $data['img'],
+            'remark' => empty($data['remark']) ? '' : $data['remark'],
             'type' => $data['type'],
         ];
         if(empty($data['order_id'])) {
