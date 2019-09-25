@@ -3,20 +3,30 @@
     <search>
       <div class="search-box">
         <!--搜索输入框-->
-<!--        <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入申请人姓名" />-->
-<!--        <DatePicker class="search-input" type="date" placeholder="申请时间" size="large" value='yyyy-MM-dd' @on-change="searchData.apply_time=$event" v-model="searchData.apply_time"></DatePicker>-->
+        <!--  <Input class="search-input" v-model="searchData.name" size="large" placeholder="请输入申请人姓名" />-->
+        <Select v-model="searchData.type" class="search-input" size="large" placeholder="请选择角色">
+          <Option :value="1">入库列表</Option>
+          <Option :value="2">出库列表</Option>
+        </Select>
         <!--搜索按钮-->
         <div class="search-submit">
           <Tooltip content="更多搜索条件" placement="bottom-start">
-            <Button class="search-btn " size="large" icon="ios-options-outline" type="primary" @click.native="isShow=!isShow"></Button>
+            <Button class="search-btn " size="large" icon="ios-options-outline" type="primary"
+                    @click.native="isShow=!isShow"></Button>
           </Tooltip>
           <Button class="search-btn " size="large" icon="md-search" type="primary" @click.native="search"></Button>
-          <Button class="refresh-btn search-btn" size="large" icon="md-refresh" type="info" @click.native="refresh"></Button>
+          <Button class="refresh-btn search-btn" size="large" icon="md-refresh" type="info"
+                  @click.native="refresh"></Button>
         </div>
         <!--常用操作按钮-->
         <div class="commonly-used-btn-box">
+          <Tooltip content="出库" placement="bottom-start">
+            <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="out"
+                    style="font-size: 18px"></Button>
+          </Tooltip>
           <Tooltip content="入库" placement="bottom-start">
-            <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="add" style="font-size: 18px"></Button>
+            <Button class="commonly-used-btn" type="warning" size="large" icon="ios-add-circle-outline" @click="add"
+                    style="font-size: 18px"></Button>
           </Tooltip>
         </div>
       </div>
@@ -26,17 +36,18 @@
     </div>
     <!--入库-->
     <Modal
-      v-model="modal"
+      v-model="inModal"
       :title="modalTitle"
       :width='1200'
       class-name="vertical-center-modal"
     >
       <div class="card-body">
         <div style="margin: 5px 0;overflow: hidden">
-          <Button style="float: right" type="primary" size="large" @click="addGood">添加商品</Button>
+          <Button style="float: right" type="primary" size="large" @click="addGood">添加入库商品</Button>
         </div>
-        <Divider />
-        <Form :model="item" :rules="rule" :label-width="60"   ref="form" v-for="(item,index) in addGoods" :key="item.batch_number">
+        <Divider/>
+        <Form :model="item" :rules="rule" :label-width="60" ref="inForm" v-for="(item,index) in addGoods"
+              :key="item.batch_number">
           <Col span="4">
             <FormItem label="批次号">
               <Input v-model="item.batch_number" type="text" placeholder="请输入批次号" disabled></Input>
@@ -44,28 +55,30 @@
           </Col>
           <Col span="5">
             <FormItem label="商品" prop="cascaderList">
-              <Cascader :data="goodsData" placeholder="请选择商品" @mouseenter.native="selectGoodsBefore(item.serial)"  @on-change="selectGoods"></Cascader>
+              <Cascader :data="goodsData" placeholder="请选择商品" @mouseenter.native="selectGoodsBefore(item.serial)"
+                        @on-change="selectGoods"></Cascader>
             </FormItem>
           </Col>
           <Col span="5">
-            <FormItem label="单位" prop="unit" >
+            <FormItem label="单位" prop="unit">
               <Select v-model="item.unit" class="search-input" size="large" placeholder="请选择单位">
-                <Option :value="i.id" v-for="i of item.unitData"  :key="i.name">
+                <Option :value="i.id" v-for="i of item.unitData" :key="i.name">
                   {{i.name}}
                 </Option>
               </Select>
             </FormItem>
             <FormItem label="规格" prop="specs" v-if="item.unit===1 && item.unitData.length===2">
-              <Input v-model="item.specs" type="text" :placeholder="`请填写规格(1${item.unitData[0].name}=?${item.unitData[1].name})`"></Input>
+              <Input v-model="item.specs" type="text"
+                     :placeholder="`请填写规格(1${item.unitData[0].name}=?${item.unitData[1].name})`"></Input>
             </FormItem>
           </Col>
           <Col span="5">
-            <FormItem label="库位" prop="locator" >
+            <FormItem label="库位" prop="locator">
               <Input v-model="item.locator" type="text" placeholder="请填写入库位置"></Input>
             </FormItem>
           </Col>
           <Col span="4">
-            <FormItem label="数量" prop="num" >
+            <FormItem label="数量" prop="num">
               <Input v-model="item.num" type="text" placeholder="请填写入库数量"></Input>
             </FormItem>
           </Col>
@@ -73,19 +86,82 @@
             <div class="iconfont icon_delete iconshanchuqq" @click="remove(item)"></div>
           </Col>
         </Form>
-        <Divider />
+        <Divider/>
         <Form :model="formItem" :label-width="60">
           <FormItem label="备注">
-            <Input v-model="formItem.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入备注"></Input>
+            <Input v-model="formItem.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
+                   placeholder="请输入备注"></Input>
           </FormItem>
-          <FormItem label="凭证" >
+          <FormItem label="凭证">
             <img-upload ref="imgUpload" :config="ImgConfig"></img-upload>
           </FormItem>
         </Form>
       </div>
       <div slot="footer">
         <Button type="text" size="large" @click="cancel">取消</Button>
-        <Button type="primary" size="large" @click="handleSubmit">入库</Button>
+        <Button type="primary" size="large" @click="handleSubmit">{{modalTitle}}</Button>
+      </div>
+    </Modal>
+    <!--出库-->
+    <Modal
+      v-model="outModal"
+      :title="modalTitle"
+      :width='1200'
+      class-name="vertical-center-modal"
+    >
+      <div class="card-body">
+        <div style="margin: 5px 0;overflow: hidden">
+          <Button style="float: right" type="primary" size="large" @click="OutGood">添加出库商品</Button>
+        </div>
+        <Divider/>
+        <Form :model="item" :rules="rule" :label-width="65" ref="outForm" v-for="(item,index) in addGoodsOut"
+              :key="item.serial">
+          <Col span="6">
+            <FormItem label="批次号"  prop="batch_number">
+              <Input v-model="item.batch_number" type="text" placeholder="请输入批次号" ></Input>
+            </FormItem>
+          </Col>
+          <Col span="6">
+            <FormItem label="商品" prop="cascaderList">
+              <Cascader :data="goodsData" placeholder="请选择商品" @mouseenter.native="selectGoodsBefore(item.serial)"
+                        @on-change="selectGoods"></Cascader>
+            </FormItem>
+          </Col>
+          <Col span="6">
+            <FormItem label="单位" prop="unit">
+              <Select v-model="item.unit" class="search-input" size="large" placeholder="请选择单位">
+                <Option :value="i.id" v-for="i of item.unitData" :key="i.name">
+                  {{i.name}}
+                </Option>
+              </Select>
+            </FormItem>
+          </Col>
+          <Col span="5">
+            <FormItem label="数量" prop="outNum">
+              <Input v-model="item.outNum" type="text" placeholder="请填写出库数量"></Input>
+            </FormItem>
+            <FormItem label="库存" v-show="item.stock !== ''">
+              <Input v-model="item.stock" type="text" disabled></Input>
+            </FormItem>
+          </Col>
+          <Col span="1" style="display: flex;justify-content: center">
+            <div class="iconfont icon_delete iconshanchuqq" @click="outRemove(item)"></div>
+          </Col>
+        </Form>
+        <Divider/>
+        <Form :model="formItem" :label-width="60">
+          <FormItem label="备注">
+            <Input v-model="formItem.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
+                   placeholder="请输入备注"></Input>
+          </FormItem>
+          <FormItem label="凭证">
+            <img-upload ref="imgUpload" :config="ImgConfig"></img-upload>
+          </FormItem>
+        </Form>
+      </div>
+      <div slot="footer">
+        <Button type="text" size="large" @click="cancel">取消</Button>
+        <Button type="primary" size="large" @click="handleSubmit">{{modalTitle}}</Button>
       </div>
     </Modal>
   </div>
@@ -94,36 +170,43 @@
 export default {
   data () {
     /*
-      * isShow: 用于折叠搜索框的显示隐藏
-      * config: table的配置
-      *     --> fun: table数据的接口
-      *     --> columns: table的具体配置
-      * searchData： 搜索栏的数据存储对象
-      * startSearchData： 存储searchData的初始值，用于重置table
-      * */
+        * isShow: 用于折叠搜索框的显示隐藏
+        * config: table的配置
+        *     --> fun: table数据的接口
+        *     --> columns: table的具体配置
+        * searchData： 搜索栏的数据存储对象
+        * startSearchData： 存储searchData的初始值，用于重置table
+        * */
     return {
       isShow: false,
-      modal: false,
+      inModal: false,
+      outModal: false,
       modalTitle: '',
       statusData: '',
       goodsData: [],
-      // 添加商品的信息条
+      // 添加商品的信息条  入库
       addGoods: [],
+      // 添加商品的信息条  出库
+      addGoodsOut: [],
       // 联级选择商品时,临时用来存储当前信息条的编号
       currentSerial: '',
       // 接口获得的所有商品列表 用于表格根据商品id获得名称
       AllGoodsData: [],
       rule: {
         unit: [
-          { required: true, type: 'number', message: '请选择单位', trigger: 'blur' }
+          {required: true, type: 'number', message: '请选择单位', trigger: 'blur'}
+        ],
+        batch_number: [
+          {required: true, message: '请填写批次号', trigger: 'blur'}
         ],
         locator: [
-          { required: true, message: '请填写入库位置', trigger: 'blur' }
+          {required: true, message: '请填写入库位置', trigger: 'blur'}
         ],
         specs: [
           {validator: this.$validateFun.Znumber, required: true, trigger: 'blur'}
         ],
-        cascaderList: [ {trigger: 'change',
+        cascaderList: [{
+          trigger: 'change',
           validator: (rule, value, callback) => {
             // console.log(value)
             if (!value.length) {
@@ -133,10 +216,24 @@ export default {
             }
           },
           required: true,
-          type: 'array'}
+          type: 'array'
+        }
         ],
         num: [
           {validator: this.$validateFun.Fnumber, required: true, trigger: 'blur'}
+        ],
+        outNum: [
+          {validator: this.$validateFun.Fnumber, required: true, trigger: 'blur'},
+          {validator: (rule, value, callback) => {
+            let stock = +this.addGoodsOut[+this.currentSerial].stock
+            if (stock < +value) {
+              callback(new Error('超出库存'))
+            } else {
+              callback()
+            }
+          },
+          trigger: 'blur'
+          }
         ]
       },
       formItem: {
@@ -160,14 +257,6 @@ export default {
                 let goods = this.$common.recursiveQuery(this.AllGoodsData, 'id', e.goods_id) || {}
                 showData += `批次号:${e.batch_number}，商品:${goods.name}，单位:${goods.lower_unit}，库位:${e.locator}，数量:${e.num}<br>`
               })
-              // return <div class="table-btn-box">
-              //   <span>
-              //     {detail.length}项
-              //   </span>
-              // </div>
-              // <Poptip title="Title" content="content" placement="left">
-              // <Button>Left Center</Button>
-              // </Poptip>
               return h('Tooltip', {
                 props: {
                   placement: 'right',
@@ -190,7 +279,8 @@ export default {
                   }
                 })
               ])
-            }},
+            }
+          },
           {
             key: 'remark',
             title: '备注',
@@ -235,13 +325,11 @@ export default {
         type: 1
       },
       ImgConfig: {
-        oldImg: [
-        ]
+        oldImg: []
       }
     }
   },
-  components: {
-  },
+  components: {},
   created () {
     this.init()
   },
@@ -257,7 +345,9 @@ export default {
           e.value = e.id
           e.children = e.goods || []
           // 如果有名称和单位 说明该数据是商品而非类目 保存第二级商品信息1
-          if (e.name && e.unit) { _this.AllGoodsData.push(e) }
+          if (e.name && e.unit) {
+            _this.AllGoodsData.push(e)
+          }
           if (e.children.length) {
             test(e.children)
           }
@@ -265,7 +355,6 @@ export default {
       }
       test(res.data)
       _this.goodsData = JSON.parse((JSON.stringify(res.data)))
-      _this.addGood()
     },
     instance (type, res) {
       let content = res.msg
@@ -308,30 +397,32 @@ export default {
           break
       }
     },
+    // 入库
     add () {
-      this.modal = true
+      this.inModal = true
       this.modalTitle = '入库'
       this.addGoods = []
       this.addGood()
       this.formItem.remark = ''
       this.ImgConfig.oldImg = []
     },
-    // 添加出库商品条
+    // 添加入库商品条
     addGood () {
       // 自动填入批次号
       function test (num) {
         return num > 9 ? num : '0' + num
       }
+
       let date = new Date()
       let month = test(date.getMonth() + 1)
       let batch_number =
-            '' +
-            date.getFullYear() +
-            month + test(date.getDate()) +
-            test(date.getHours()) +
-            test(date.getMinutes()) +
-            test(date.getSeconds()) +
-            test(this.addGoods.length)
+          '' +
+          date.getFullYear() +
+          month + test(date.getDate()) +
+          test(date.getHours()) +
+          test(date.getMinutes()) +
+          test(date.getSeconds()) +
+          test(this.addGoods.length)
 
       let obj = {
         // 商品条序号
@@ -353,19 +444,37 @@ export default {
     remove (item) {
       this.addGoods.splice(this.addGoods.indexOf(item), 1)
     },
+    outRemove (item) {
+      this.addGoodsOut.splice(this.addGoodsOut.indexOf(item), 1)
+    },
     // 选择完商品后回调
     selectGoods (e, selectedData) {
-      let goods = this.addGoods[+this.currentSerial]
-      // 商品验证赋值
-      goods.cascaderList = [selectedData]
-      let selectedGoods = selectedData.pop()
-      // console.log(selectedGoods)
-      goods.id = selectedGoods.id
-      goods.unitData = [{name: selectedGoods.unit, id: 1}]
-      if (selectedGoods.lower_unit === selectedGoods.unit) {
-        goods.unit = 1
+      if (this.inModal) {
+        // 入库操作
+        let goods = this.addGoods[+this.currentSerial]
+        // 商品验证赋值
+        goods.cascaderList = [selectedData]
+        let selectedGoods = selectedData.pop()
+        // console.log(selectedGoods)
+        goods.id = selectedGoods.id
+        goods.unitData = [{name: selectedGoods.unit, id: 1}]
+        if (selectedGoods.lower_unit === selectedGoods.unit) {
+          goods.unit = 1
+        } else {
+          goods.unitData.push({name: selectedGoods.lower_unit, id: 2})
+        }
       } else {
-        goods.unitData.push({name: selectedGoods.lower_unit, id: 2})
+        // 出库操作
+        let goods = this.addGoodsOut[+this.currentSerial]
+        // console.log(goods)
+        // 商品验证赋值
+        goods.cascaderList = [selectedData]
+        let selectedGoods = selectedData.pop()
+        // console.log(selectedGoods)
+        goods.id = selectedGoods.id
+        goods.unitData = [{name: selectedGoods.lower_unit, id: 1}]
+        goods.unit = 1
+        goods.stock = selectedGoods.stock
       }
     },
     // 准备选择商品
@@ -374,12 +483,25 @@ export default {
     },
     // 点击入库进行表单验证
     handleSubmit () {
-      if (!this.addGoods.length) {
+      if (this.inModal && !this.addGoods.length) {
+        this.$Message.error('请选择入库商品')
+        return false
+      }
+      if (!this.inModal && !this.addGoodsOut.length) {
         this.$Message.error('请选择出库商品')
         return false
       }
       let arr = []
-      this.$refs.form.forEach(form => {
+      // 两种from 一种入库 一种出库
+      let formType
+      if (this.inModal) {
+        // 入库操作
+        formType = 'inForm'
+      } else {
+        // 出库操作
+        formType = 'outForm'
+      }
+      this.$refs[formType].forEach(form => {
         form.validate((valid) => {
           if (valid) {
             arr.push(true)
@@ -392,14 +514,15 @@ export default {
         return item === true
       })
       if (flag) {
-        this.storage()
+        this.storage(this.inModal)
       } else {
         this.$Message.error('请填写相关内容')
       }
     },
     cancel () {
       // 关闭入库框
-      this.modal = false
+      this.inModal = false
+      this.outModal = false
     },
     /* 搜索按钮 */
     search () {
@@ -419,43 +542,85 @@ export default {
     /* table操作栏 */
     tableBtnClick (item, type) {
       if (type === 'approval') {
-        // this.modalTitle = '入库'
-        // this.ApplyData = item
-        // this.purchaseSee(item.id)
-        // this.modal = true
       }
     },
-    // 入库
-    async storage () {
+    // 调用接口  type为True时是入库
+    async storage (type) {
       const _this = this
       let detail = []
-      _this.addGoods.forEach(e => {
-        detail.push({
-          goods_id: e.id,
-          locator: e.locator,
-          unit_num: e.num,
-          batch_number: e.batch_number,
-          unit_type: e.unit,
-          specs: e.specs,
-          flag: 1
+      let fun
+      if (type) {
+        fun = 'Checkout/commodityWarehousing'
+        // 入库
+        _this.addGoods.forEach(e => {
+          detail.push({
+            goods_id: e.id,
+            locator: e.locator,
+            unit_num: e.num,
+            batch_number: e.batch_number,
+            unit_type: e.unit,
+            specs: e.specs,
+            flag: 1
+          })
         })
-      })
+      } else {
+        fun = 'Checkout/goodsDecrease'
+        //  出库
+        _this.addGoodsOut.forEach(e => {
+          detail.push({
+            goods_id: e.id,
+            batch_number: e.batch_number,
+            num: e.outNum,
+            locator: '',
+            unit_type: e.unit,
+            flag: -1
+          })
+        })
+      }
       let obj = {
         detail,
         remark: _this.formItem.remark,
         img: _this.$refs.imgUpload.getImgUrl(),
-        type: 1
+        type: type ? 1 : -1
       }
-      console.log(obj)
+      // console.log(obj)
       // console.log(_this.$refs.imgUpload.getImgUrl())
-      let res = await _this.$axios('Checkout/commodityWarehousing', obj)
+      let res = await _this.$axios(fun, obj)
       if (res.code === 1) {
-        _this.modal = false
+        _this.cancel()
         this.pageRefresh()
         this.instance('success', res)
+        // 如果是出库操作 侧记到库存需要重新初始化数据
+        type && _this.init()
       } else {
         this.instance('error', res)
       }
+    },
+    // 出库
+    out () {
+      this.outModal = true
+      this.modalTitle = '出库'
+      this.addGoodsOut = []
+      this.OutGood()
+      this.formItem.remark = ''
+      this.ImgConfig.oldImg = []
+    },
+    // 添加出库商品条
+    OutGood () {
+      let obj = {
+        batch_number: '',
+        // 商品条序号
+        serial: this.addGoodsOut.length,
+        id: '',
+        unit: '',
+        stock: '',
+        unitData: [],
+        // 选择商品的结果数组 用于验证的
+        cascaderList: [],
+        // 选择出库的数量
+        outNum: ''
+      }
+      this.addGoodsOut.push(obj)
     }
   }
 }

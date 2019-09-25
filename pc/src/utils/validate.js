@@ -28,7 +28,7 @@ const validate = {
     if (!value) {
       return callback(new Error('必输项不能为空'))
     }
-    if (!Number(value)) {
+    if (!Number(value) && Number(value) !== 0) {
       callback(new Error('请输入数字'))
     } else if (!(/(^[1-9]\d*$)/.test(value))) {
       callback(new Error('请输入非零正整数'))
@@ -42,7 +42,7 @@ const validate = {
     if (!value) {
       return callback(new Error('必输项不能为空'))
     }
-    if (!Number(value)) {
+    if (!Number(value) && Number(value) !== 0) {
       callback(new Error('请输入数字'))
     } else if (!(/^\d+\.?\d{0,2}$/.test(value))) {
       callback(new Error('最多两位小数'))
