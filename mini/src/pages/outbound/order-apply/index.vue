@@ -44,7 +44,7 @@
                 </div>
                 <div class="goods-amount">
                   <span @click="amountSub(val,i)" class="sub_btn" v-if="val.amount>0">-</span>
-                  <input class="flex_1" style="padding: 0 4px;" @change="totalAmountChange" v-model="val.amount" v-if="val.amount>0" type="number" >
+                  <input class="flex_1" style="margin: 0 4px;" @change="totalAmountChange" v-model="val.amount" v-if="val.amount>0" type="number" >
                   <span @click="amountAdd(val)" class="add_btn">+</span>
                 </div>
               </div>
@@ -68,7 +68,7 @@
             <div>{{val.name}}</div>
             <div class="amount-change text_center" style="padding: 0 12px;box-sizing: border-box;">
               <span @click="amountSub(val)" class="sub_btn">-</span>
-              <input class="flex_1" style="padding: 0 4px;" v-model="val.amount" type="number">
+              <input class="flex_1" style="margin: 0 4px;" v-model="val.amount" type="number">
               <span @click="amountAdd(val)" class="add_btn">+</span>
             </div>
           </div>
