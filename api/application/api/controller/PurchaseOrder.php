@@ -68,6 +68,12 @@ class PurchaseOrder extends Base {
             if (empty($uid))    return false;
             $where['uid'] = ['in',$uid];
         }
+        //门店和库管只能查看自己的
+        $common_service = new CommonService();
+        $role = $common_service->getRole(self::$userInfo['uid']);
+        if($role == 'store' || $role['storage']){
+            $where['uid'] = self::$userInfo['uid'];
+        }
         return $where;
     }
 

@@ -11,6 +11,7 @@
 namespace app\common\service;
 
 
+use app\common\model\AuthGroupAccess;
 use app\common\model\User;
 
 class CommonService extends BaseService {
@@ -50,6 +51,19 @@ class CommonService extends BaseService {
         $users = $model->getStoreName($all_uid);
         $users = array_column($users,'name','uid');
         return isset($users[$uid]) ? $users[$uid] : '';
+    }
+
+    public function getRole($uid)
+    {
+        $role_model = new AuthGroupAccess();
+        $role = $role_model->where(['uid'=>$uid])->value('group_id');
+        $rules =[
+            1 =>'boss',
+            2 =>'store',
+            3 =>'storage',
+            4 =>'purchase',
+        ];
+        return  isset($rules[$role]) ? $rules[$role] : '';
     }
 
 

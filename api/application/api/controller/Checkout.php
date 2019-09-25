@@ -49,6 +49,12 @@ class Checkout extends Base {
         $where = [];
         if(!empty(self::$params['dp_id']))  $where['u.dp_id'] = self::$params['dp_id'];
         if(!empty(self::$params['status']))  $where['a.status'] = self::$params['status'];
+        //门店只能查看自己的
+        $common_service = new CommonService();
+        $role = $common_service->getRole(self::$userInfo['uid']);
+        if($role == 'store'){
+            $where['a.uid'] = self::$userInfo['uid'];
+        }
         return  $where;
     }
 

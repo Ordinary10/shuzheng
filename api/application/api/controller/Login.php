@@ -123,6 +123,7 @@ class Login extends Base {
             3 =>'storage',
             4 =>'purchase',
         ];
+        if(!isset($rules[$role]))   return self::error_result('账号权限不足，请联系管理员');
         $show_pages['role'] = isset($rules[$role]) ? $rules[$role] : 'other';
 
         //更新token
