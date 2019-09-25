@@ -24,7 +24,7 @@
           <span class="dataItemRight">{{orderDetail.status_name}}</span>
         </div>
       </div>
-      <div class="detail-list" v-if="orderDetail.detail_info.length>0">
+      <div class="detail-list" v-if="orderDetail.detail_info&&orderDetail.detail_info.length>0">
         <div class="divider-title">
           <divider content="出库商品" :css="{'font-size': '17px'}"></divider>
         </div>
