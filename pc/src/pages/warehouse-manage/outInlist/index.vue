@@ -29,6 +29,18 @@
                     style="font-size: 18px"></Button>
           </Tooltip>
         </div>
+        <!--更多操作-->
+        <div class="redundant-btn" v-if="redundantList && redundantList.length>0">
+          <Dropdown>
+            <Button type="primary" size="large" @mouseout.native="iconType='md-arrow-dropdown'" @mouseover.native="iconType='md-arrow-dropup'">
+              更多操作
+              <Icon :type="iconType" />
+            </Button>
+            <DropdownMenu slot="list">
+              <DropdownItem v-if="item.isShow === true" v-for="(item,index) in redundantList" :key="item.type" @click.native="redundant(index)">{{item.label}}</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
       </div>
     </search>
     <div class="content-block">
@@ -336,7 +348,15 @@ export default {
       },
       ImgConfig: {
         oldImg: []
-      }
+      },
+      redundantList: [
+        {
+          type: 'exportList',
+          label: '导出列表',
+          isShow: true,
+          exportFun: 'car/exportCars'
+        }
+      ]
     }
   },
   components: {},
@@ -467,11 +487,11 @@ export default {
         let selectedGoods = selectedData.pop()
         // console.log(selectedGoods)
         goods.id = selectedGoods.id
-        goods.unitData = [{name: selectedGoods.unit, id: 1}]
         if (selectedGoods.lower_unit === selectedGoods.unit) {
-          goods.unit = 1
+          goods.unitData = [{name: selectedGoods.unit, id: 2}]
+          goods.unit = 2
         } else {
-          goods.unitData.push({name: selectedGoods.lower_unit, id: 2})
+          goods.unitData = [{name: selectedGoods.unit, id: 1}, {name: selectedGoods.lower_unit, id: 2}]
         }
       } else {
         // 出库操作
@@ -567,6 +587,7 @@ export default {
             goods_id: e.id,
             locator: e.locator,
             unit_num: e.num,
+            num: e.num,
             batch_number: e.batch_number,
             unit_type: e.unit,
             specs: e.specs,
@@ -636,6 +657,21 @@ export default {
         outNum: ''
       }
       this.addGoodsOut.push(obj)
+    },
+    /* 更多操作 */
+    redundant (index) {
+      let d = this.redundantList[index]
+      if (d.isExcelModal === true) {
+      } else if (d.type === 'exportList' && d.exportFun) {
+        const _this = this
+        let str = ''
+        Object.keys(_this.searchData).forEach(key => {
+          str += `&params[${key}]=${_this.searchData[key]}`
+        })
+        window.open(`${_this.$common.API_PATH}?fun=${d.exportFun}&token=${sessionStorage.getItem('token')}${str}`)
+      } else {
+        alert(d.label)
+      }
     }
   }
 }
