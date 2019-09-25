@@ -208,10 +208,8 @@ class Checkout extends Base {
                 }
             }
         }
-        dd(self::$params['detail']);
         $in_out_order = new InOutOrder();
         self::$params['uid'] = self::$userInfo['uid'];
-        self::$params['uid']=1;
         $in_out_order->startTrans();
         $order_id = $in_out_order->editorGoodsInventory(self::$params);
         if(!$order_id) {
