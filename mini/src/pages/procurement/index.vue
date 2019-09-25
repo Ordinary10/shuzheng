@@ -65,7 +65,6 @@
                   <div class="item item3">{{item.ctime}}</div>
                   <div class="item item4">
                     {{item.status_name}}
-                    <icon class="iconfont iconbianji" style="color: #1da3ff;" @click.stop="editorOrder(item.id)" v-if="item.status === 'apply'&&role!=='purchase'"></icon>
                   </div>
                 </div>
               </scroll-view>
@@ -167,11 +166,6 @@
           })
         }
         return arr
-      },
-      editorOrder(order_id){
-        wx.navigateTo({
-          url:`/pages/procurement/order-apply/main?order_id=${order_id}`
-        })
       },
       get_details(item) {
         wx.navigateTo({url:`/pages/procurement/order-details/main?id=${item.id}`})

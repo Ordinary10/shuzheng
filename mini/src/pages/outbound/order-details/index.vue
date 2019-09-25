@@ -5,7 +5,8 @@
       <div class="dataList">
         <div class="dataItem">
           <span class="dataItemLeft">申请人：</span>
-          <span class="dataItemRight">{{orderDetail.uname||'-'}}</span>
+          <span class="dataItemRight flex_1">{{orderDetail.uname||'-'}}</span>
+          <icon class="iconfont iconbianji" style="color: #1da3ff;" @click.stop="editorOrder" v-if="orderDetail.status === 'apply'&&role!=='purchase'"></icon>
         </div>
         <div class="dataItem">
           <span class="dataItemLeft">出库商品数：</span>
@@ -105,6 +106,11 @@
           })
         }
         return data
+      },
+      editorOrder(){
+        wx.navigateTo({
+          url:`/pages/outbound/order-apply/main?order_id=${this.id}`
+        })
       },
       orderEditor(status){
         const _this = this

@@ -35,6 +35,22 @@
         <div class="detail-list-item">
           <textarea v-model="remark" id="textarea" placeholder="请输入配货备注(商品条形码或者数量为空不会被计入配货单)" max="100" ></textarea>
         </div>
+        <div class="form-box flex_parent">
+          <div class="form-item flex_1">
+            <div class="form-label">凭证</div>
+            <div class="form-input">
+              <scroll-view scroll-y class="upfile-box" :enable-flex="true">
+                <div class="file-box" v-for="(path,index) in imageList" :key="index">
+                  <icon class="iconfont iconshanchuqq" @click.stop="delImage(index)"></icon>
+                  <image :src="path" alt="" class="images" mode="aspectFit" @click.stop="seeImageList(index)"></image>
+                </div>
+                <div class="file-box add-file" @click="addFile">
+                  <icon class="iconfont iconxiangji"></icon>
+                </div>
+              </scroll-view>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="details-operation-btns">
@@ -52,10 +68,9 @@
         order_id: '',
         orderDetail: null,
         searchText: '',
-        remark: ''
+        remark: '',
+        images:[]
       }
-    },
-    created() {
     },
     onShow() {
       if(this.$root.$mp.query.order_id&&this.order_id != this.$root.$mp.query.order_id){
@@ -69,6 +84,9 @@
     computed:{
       upDateList(){
         return this.orderDetail?this.orderDetail.detail_info:[]
+      },
+      imageList(){
+        return this.images
       }
     },
     methods:{
@@ -95,6 +113,31 @@
           })
         }
         return data
+      },
+      delImage(index){
+        this.images.splice(index,1)
+      },
+      seeImageList(index){
+        const images = this.images
+        wx.previewImage({
+          current: images[index],
+          urls: images
+        })
+      },
+      addFile(){
+        const _this =this
+        wx.chooseImage({
+          count: 1,
+          sizeType: ['original', 'compressed'],
+          sourceType: ['album', 'camera'],
+          success (res) {
+            _this.$common.uploadFile(res.tempFilePaths[0],'/Common/uploadImg',{},function (res) {
+              _this.images.push(res.data.url)
+            }),function (err) {
+              console.log(err)
+            }
+          }
+        })
       },
       barCode(v) {
         const _this = this
@@ -136,7 +179,8 @@
         let data = {
           remark: _this.remark,
           order_id: _this.order_id,
-          data: detail
+          data: detail,
+          proof:_this.images
         }
         console.log(data)
         _this.$ajax('checkout/distribute',data,function (res) {

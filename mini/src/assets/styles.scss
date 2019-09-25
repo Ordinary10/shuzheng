@@ -1,6 +1,11 @@
 /*全局样式表*/
 @import "./animate";
 @import "./variables";
+.iconbianji{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /*布局样式,高度自适应*/
 .flex_parent{
   display: flex;
