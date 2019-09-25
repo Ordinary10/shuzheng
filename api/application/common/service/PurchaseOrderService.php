@@ -19,10 +19,12 @@ use think\Db;
 class PurchaseOrderService extends BaseService {
     private static $order_model;
     private static $detail_model;
+    private static $common_service;
 
     public function __construct() {
         self::$order_model = new PurchaseOrder();
         self::$detail_model = new PurchaseOrderDetail();
+        self::$common_service = new CommonService();
     }
 
     /**
@@ -92,6 +94,10 @@ class PurchaseOrderService extends BaseService {
     {
         $order_info = self::$order_model->getInfoById($order_id);
         if(empty($order_info) || $order_info['status'] != 'apply')  return   self::setError('订单信息查询失败');
+        //判断权限 boss可以进行所有审核， 采购员只能审核自己的步骤
+        if($order_info['verify_status'] == 1 && self::$common_service->getRole($uid,['purchase'])){
+            return   self::setError('需要boss先审核');
+        }
         Db::startTrans();
         $status = $param['verify_status'] === 'pass' ? 'pass' : 'deny';
         $re = $this->dealProgress($order_id,$uid,$status,$param['remark']);
@@ -113,7 +119,7 @@ class PurchaseOrderService extends BaseService {
         return  true;
     }
 
-    //采购完成，录入系统
+    //采购完成，录入系统,只有采购员和boss才能录入
     public function buy($order_id,$param,$uid)
     {
         $order_info = self::$order_model->getInfoById($order_id);
@@ -129,7 +135,7 @@ class PurchaseOrderService extends BaseService {
             }
         }
         $status = 'buy';
-        $re = $this->dealProgress($order_id,$uid,$status,$param['remark']);
+        $re = $this->dealProgress($order_id,$uid,$status,$param['remark'],$param['proof']);
         if(!$re){
             Db::rollback();
             return self::setError('流程处理失败');
@@ -151,8 +157,7 @@ class PurchaseOrderService extends BaseService {
         if(empty($order_info))  return   self::setError('订单信息查询失败');
         Db::startTrans();
         $status = 'done';
-        $proof = is_array($param['proof']) ? join(',',$param['proof']) : $param['proof'];
-        $re = $this->dealProgress($order_id,$uid,$status,$param['remark'],$proof);
+        $re = $this->dealProgress($order_id,$uid,$status,$param['remark'],$param['proof']);
         if(!$re){
             Db::rollback();
             return self::setError('流程处理失败');

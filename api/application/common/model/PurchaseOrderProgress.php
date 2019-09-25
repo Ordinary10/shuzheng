@@ -17,6 +17,7 @@ class PurchaseOrderProgress extends Model {
 
     public function addProgress($order_id,$uid,$status,$remark,$proof)
     {
+        $proof = is_array($proof) ? join(',',$proof) : $proof;
         $data = [
             'order_id' => $order_id,
             'uid' => $uid,
