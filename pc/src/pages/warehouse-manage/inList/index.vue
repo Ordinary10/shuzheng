@@ -158,7 +158,7 @@ export default {
               let showData = ''
               detail.forEach(e => {
                 let goods = this.$common.recursiveQuery(this.AllGoodsData, 'id', e.goods_id) || {}
-                showData += `批次号:${e.batch_number}，商品:${goods.name}，单位:${e.unit_type === 1 ? goods.unit : goods.lower_unit}，库位:${e.locator}，数量:${e.num}<br>`
+                showData += `批次号:${e.batch_number}，商品:${goods.name}，单位:${goods.lower_unit}，库位:${e.locator}，数量:${e.num}<br>`
               })
               // return <div class="table-btn-box">
               //   <span>
@@ -197,8 +197,19 @@ export default {
             align: 'center'
           },
           {
+            title: '状态',
+            align: 'center',
+            render: (h, params) => {
+              if (params.row.type_name === '入库') {
+                return <span class="green-color">入库</span>
+              } else {
+                return <span class="redtext">出库</span>
+              }
+            }
+          },
+          {
             key: 'ctime',
-            title: '入库时间',
+            title: '操作时间',
             align: 'center'
           }
           // {
@@ -422,7 +433,7 @@ export default {
         detail.push({
           goods_id: e.id,
           locator: e.locator,
-          num: e.num,
+          unit_num: e.num,
           batch_number: e.batch_number,
           unit_type: e.unit,
           specs: e.specs,
