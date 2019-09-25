@@ -111,6 +111,8 @@ export default {
       addGoods: [],
       // 联级选择商品时,临时用来存储当前信息条的编号
       currentSerial: '',
+      // 接口获得的所有商品列表 用于表格根据商品id获得名称
+      AllGoodsData: [],
       rule: {
         unit: [
           { required: true, type: 'number', message: '请选择单位', trigger: 'blur' }
@@ -153,15 +155,42 @@ export default {
             align: 'center',
             render: (h, params) => {
               let detail = params.row.detail
-              console.log(detail)
-              let a = 1
-              return <div class="table-btn-box">
-                <span>
-                  {a}
-                </span>
-              </div>
-            }
-          },
+              let showData = ''
+              detail.forEach(e => {
+                let goods = this.$common.recursiveQuery(this.AllGoodsData, 'id', e.goods_id) || {}
+                showData += `批次号:${e.batch_number}，商品:${goods.name}，单位:${e.unit_type === 1 ? goods.unit : goods.lower_unit}，库位:${e.locator}，数量:${e.num}<br>`
+              })
+              // return <div class="table-btn-box">
+              //   <span>
+              //     {detail.length}项
+              //   </span>
+              // </div>
+              // <Poptip title="Title" content="content" placement="left">
+              // <Button>Left Center</Button>
+              // </Poptip>
+              return h('Tooltip', {
+                props: {
+                  placement: 'right',
+                  maxWidth: '450'
+                }
+              }, [
+                h('Button', {
+                  domProps: {
+                    innerHTML: detail.length + '项'
+                  }
+                }), // 表格中的数据
+                h('div', {
+                  slot: 'content',
+                  style: {
+                    whiteSpace: 'normal',
+                    wordBreak: 'break-all'
+                  },
+                  domProps: {
+                    innerHTML: showData
+                  }
+                })
+              ])
+            }},
           {
             key: 'remark',
             title: '备注',
@@ -203,26 +232,29 @@ export default {
   components: {
   },
   created () {
+    this.init()
   },
   mounted () {
-    this.init()
   },
   methods: {
     async init () {
-      let res = await this.$axios('goods/getTypeWithGoods', {})
+      let _this = this
+      let res = await _this.$axios('goods/getTypeWithGoods', {})
       function test (data) {
         data.forEach(e => {
           e.label = e.type_name || e.name
           e.value = e.id
           e.children = e.goods || []
+          // 如果有名称和单位 说明该数据是商品而非类目 保存第二级商品信息1
+          if (e.name && e.unit) { _this.AllGoodsData.push(e) }
           if (e.children.length) {
             test(e.children)
           }
         })
       }
       test(res.data)
-      this.goodsData = JSON.parse((JSON.stringify(res.data)))
-      this.addGood()
+      _this.goodsData = JSON.parse((JSON.stringify(res.data)))
+      _this.addGood()
     },
     instance (type, res) {
       let content = res.msg

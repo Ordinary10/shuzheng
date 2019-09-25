@@ -132,6 +132,33 @@ const common = {
    * */
   PageInitInfo: function (type) {
     return request('Common/getPageInitInfo', {type}, true)
+  },
+  // 递归在数组中查询件满足条件的对象
+  /**  list  数组
+   *  att 满足条件的属性名
+   *  value 满足条件的属性值
+   *  children 需要递归查询的属性
+   * */
+  recursiveQuery: function (list, att, value, children) {
+    function test (list, att, value, children) {
+      if (Array.isArray(list)) {
+        for (let i = 0; i < list.length; i++) {
+        // if (res) break
+          if (list[i][att] === value) {
+            res = list[i]
+            break
+          }
+          if (children && list[i][children] && list[i][children].length) {
+            res = test(list[i][children], att, value, children)
+          }
+        }
+      } else {
+        alert('参数错误')
+      }
+      if (res) return res
+    }
+    let res
+    return test(list, att, value, children)
   }
 }
 export default common
