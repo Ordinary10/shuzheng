@@ -4,9 +4,7 @@
     <div class="detail-box" v-if="orderDetail">
       <div class="dataList">
         <div class="dataItem">
-          <span class="dataItemLeft">
-            申请人：
-          </span>
+          <span class="dataItemLeft">申请人：</span>
           <span class="dataItemRight flex_1">{{orderDetail.uname||'-'}}</span>
           <icon class="iconfont iconbianji" style="color: #1da3ff;" @click.stop="editorOrder" v-if="orderDetail.status === 'apply'&&role!=='purchase'"></icon>
         </div>

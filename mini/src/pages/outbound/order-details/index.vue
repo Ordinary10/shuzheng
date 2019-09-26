@@ -6,7 +6,7 @@
         <div class="dataItem">
           <span class="dataItemLeft">申请人：</span>
           <span class="dataItemRight flex_1">{{orderDetail.uname||'-'}}</span>
-          <icon class="iconfont iconbianji" style="color: #1da3ff;" @click.stop="editorOrder" v-if="orderDetail.status === 'apply'&&role!=='purchase'"></icon>
+          <icon class="iconfont iconbianji" style="color: #1da3ff;" @click.stop="editorOrder" v-if="orderDetail.status === 'apply'&&(role=='boss'||role=='store')"></icon>
         </div>
         <div class="dataItem">
           <span class="dataItemLeft">出库商品数：</span>

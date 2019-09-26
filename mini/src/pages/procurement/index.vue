@@ -65,6 +65,8 @@
                   <div class="item item3">{{item.ctime}}</div>
                   <div class="item item4">
                     {{item.status_name}}
+                    <icon class="iconfont iconshenhe" v-if="(role=='purchase'||role=='boss')&&item.status=='apply'&&item.verify_status==5"></icon>
+                    <icon class="iconfont iconshenhe" v-if="role=='boss'&&item.status=='apply'&&item.verify_status==1"></icon>
                   </div>
                 </div>
               </scroll-view>
@@ -216,4 +218,7 @@
       display: flex;
       justify-content: space-around;
     }
+  .iconshenhe{
+    color: #1da3ff;
+  }
 </style>
