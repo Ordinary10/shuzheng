@@ -44,13 +44,13 @@
     <Modal
       v-model="modal1"
       :title="modal1Title"
-      :width='600'
+      :width='800'
       class-name="vertical-center-modal"
       :footer-hide="true"
     >
-      <Row v-if="seeData">
+      <Row v-if="getDeta">
         <div class="ma-spacing">
-          <steps type="purchase" :file="this.getDeta.data"></steps>
+          <steps type="purchase" :progress="progress"></steps>
         </div>
         <Divider />
 
@@ -138,9 +138,9 @@
       class-name="vertical-center-modal"
       :footer-hide="true"
     >
-      <Row v-if="this.getDeta">
+      <Row v-if="getDeta">
         <div class="ma-spacing">
-          <steps type="purchase" :file="this.getDeta.data"></steps>
+          <steps type="purchase" :progress="progress"></steps>
         </div>
         <Divider />
 
@@ -242,8 +242,8 @@
       class-name="vertical-center-modal"
       :footer-hide="true"
     >
-      <Row v-if="this.getDeta">
-        <steps type="purchase" :file="this.getDeta.data"></steps>
+      <Row v-if="getDeta">
+        <steps type="purchase" :progress="progress"></steps>
         <Divider />
 
         <Row>
@@ -361,9 +361,9 @@
   </div>
 </template>
 <script type="text/jsx">
-  import add from './add'
+import add from './add'
 
-  export default {
+export default {
   data () {
     /*
       * isShow: 用于折叠搜索框的显示隐藏
@@ -384,22 +384,24 @@
       *                   --> str 批量上传的注意说明
       * */
     return {
-      addisShow:false,
+      addisShow: false,
       isShow: false,
       modal1: false,
-      modal2:false,
-      modal3:false,
-      seeData:'',
-      ApplyData:'',
-      getDeta:'',
-      examineremark:'',
-      storageremark:'',
-      commoData:[],
-      arr:[],
-      neworder_id:'',
+      modal2: false,
+      modal3: false,
+      seeData: '',
+      ApplyData: '',
+      getDeta: '',
+      // steps用的流程数组
+      progress: [],
+      examineremark: '',
+      storageremark: '',
+      commoData: [],
+      arr: [],
+      neworder_id: '',
       modal1Title: '',
       popupData: {},
-      statusData:'',
+      statusData: '',
       ruleInline: {
         name: [
           { required: true, message: '请输入内容', trigger: 'blur' }
@@ -427,7 +429,7 @@
         ],
         place: [
           { required: true, message: '请输入仓库', trigger: 'blur' }
-        ],
+        ]
       },
       config: {
         fun: 'purchaseOrder/getLists',
@@ -462,25 +464,22 @@
             title: '操作',
             align: 'center',
             render: (h, params) => {
-              let status =params.row.status
-              let text =params.row.status_name
+              let status = params.row.status
+              let text = params.row.status_name
               console.log(status)
-              if (status =='apply'){ //待审核
+              if (status == 'apply') { // 待审核
                 return <div class="table-btn-box">
                   <i-button class="table-btn" type="error" size="small"
-                            nativeOnClick={this.tableBtnClick.bind(this, params.row,status )}>{{text}}
+                    nativeOnClick={this.tableBtnClick.bind(this, params.row, status)}>{{text}}
                   </i-button>
                 </div>
-              }else {
+              } else {
                 return <div class="table-btn-box">
                   <i-button class="table-btn" type="primary" size="small"
-                            nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>查看
+                    nativeOnClick={this.tableBtnClick.bind(this, params.row, 'editor')}>查看
                   </i-button>
                 </div>
-
               }
-
-
             }
           }
         ]
@@ -488,22 +487,22 @@
       searchData: {
         name: '',
         apply_time: '',
-        status:''
+        status: ''
       },
       startSearchData: {
         name: '',
         apply_time: '',
-        status:''
+        status: ''
 
       },
       formItem: {
-        id: '',   //id
-        name: '', //申请人
-        time:'',  //时间
-        store:'', //门店
-        type:'',  //加盟
-        state:'', //状态
-        remark:'' //备注
+        id: '', // id
+        name: '', // 申请人
+        time: '', // 时间
+        store: '', // 门店
+        type: '', // 加盟
+        state: '', // 状态
+        remark: '' // 备注
       },
       rule: {
         name: [{required: true, message: '必输项不能为空', trigger: 'blur'}
@@ -524,109 +523,109 @@
   created () {
   },
   mounted () {
-      // 初始化
-      let _this = this
-      this.$common.PageInitInfo(['purchase_order_status']).then((res) => {
-        _this.statusData = res.data.purchase_order_status
-      })
-    },
+    // 初始化
+    let _this = this
+    this.$common.PageInitInfo(['purchase_order_status']).then((res) => {
+      _this.statusData = res.data.purchase_order_status
+    })
+  },
   methods: {
-    modasear(res,is){
+    modasear (res, is) {
       if (res.code === 1) {
         this.pageRefresh()
         this.$Modal.remove()
-        this.$set(this.$data,is,false);
-        this.instance('success',res)
-      }else {
-        this.instance('error',res)
+        this.$set(this.$data, is, false)
+        this.instance('success', res)
+      } else {
+        this.instance('error', res)
       }
     },
-    instance (type,res) {
-      let content = res.msg;
+    instance (type, res) {
+      let content = res.msg
       switch (type) {
         case 'info':
           this.$Modal.info({
             title: '提示',
             content: content
-          });
+          })
           setTimeout(() => {
-            this.$Modal.remove();
-          }, 2500);
-          break;
+            this.$Modal.remove()
+          }, 2500)
+          break
         case 'success':
           this.$Modal.success({
             title: '成功',
             content: content
-          });
+          })
           setTimeout(() => {
-            this.$Modal.remove();
-          }, 2500);
-          break;
+            this.$Modal.remove()
+          }, 2500)
+          break
         case 'warning':
           this.$Modal.warning({
             title: '警告',
             content: content
-          });
+          })
           setTimeout(() => {
-            this.$Modal.remove();
-          }, 2500);
-          break;
+            this.$Modal.remove()
+          }, 2500)
+          break
         case 'error':
           this.$Modal.error({
             title: '错误',
             content: content
-          });
+          })
           setTimeout(() => {
-            this.$Modal.remove();
-          }, 2500);
-          break;
+            this.$Modal.remove()
+          }, 2500)
+          break
       }
     },
-    //点击入库进行表单验证
-    handleSubmit() {
-      let arr = [];
+    // 点击入库进行表单验证
+    handleSubmit () {
+      let arr = []
       this.seeData.forEach((data, key) => {
-        let form = 'seeData' + key;
+        let form = 'seeData' + key
 
         this.$refs[form][0].validate((valid) => {
           if (valid) {
-            arr.push(true);
+            arr.push(true)
           } else {
-            arr.push(false);
+            arr.push(false)
           }
-        });
-      });
+        })
+      })
       let flag = arr.every((item) => {
-        return item === true;
-      });
+        return item === true
+      })
       if (flag) {
         this.storage()
       } else {
-        this.$Message.error('请填写相关内容');
+        this.$Message.error('请填写相关内容')
       }
     },
-    commodity(name){
-      if (this.arr.includes(name)){
-        this.arr=this.arr.filter(function (ele){return ele != name;});
+    commodity (name) {
+      if (this.arr.includes(name)) {
+        this.arr = this.arr.filter(function (ele) { return ele != name })
       } else {
         this.arr.push(name)
       }
       this.seeData = []
-      for (let key in this.arr){
+      for (let key in this.arr) {
         for (let i in this.commoData) {
-          if (this.commoData[i].name==this.arr[key]){
+          if (this.commoData[i].name == this.arr[key]) {
             this.seeData.push(this.commoData[i])
           }
         }
       }
-      //如果没有过滤则显示全部
-      if (!this.seeData[0]){
+      // 如果没有过滤则显示全部
+      if (!this.seeData[0]) {
         this.seeData = this.commoData
       }
     },
     add () {
       this.modal1Title = '采购申请'
-      this.addisShow =true
+      this.addisShow = true
     },
     cancel () {
       this.modal1 = false
@@ -675,56 +674,57 @@
     },
     /* table操作栏 */
     tableBtnClick (item, type) {
-      if (type =='buy'){
+      if (type === 'buy') {
         this.modal1Title = '入库'
         this.ApplyData = item
         this.purchaseSee(item.id)
         this.modal2 = true
-      } else if (type =='editor'){
+      } else if (type === 'editor') {
         this.modal1Title = '查看编辑'
         this.ApplyData = item
         this.purchaseSee(item.id)
         this.modal1 = true
-      }else if (type =='apply') {
+      } else if (type === 'apply') {
         this.modal1Title = '审核'
         this.ApplyData = item
         this.purchaseSee(item.id)
         this.modal3 = true
       }
     },
-    //审核同意
-    async examine(type,remark){
+    // 审核同意
+    async examine (type, remark) {
       const _this = this
-      let res = await _this.$axios('purchaseOrder/verify', {verify_status:type,remark:remark,order_id:this.ApplyData.id})
-      this.modasear(res,'modal3');
-
+      let res = await _this.$axios('purchaseOrder/verify', {verify_status: type, remark: remark, order_id: this.ApplyData.id})
+      this.modasear(res, 'modal3')
     },
-    //请求采购单详情
-    async purchaseSee(order_id){
+    // 请求采购单详情
+    async purchaseSee (order_id) {
       const _this = this
       let res = await _this.$axios('purchaseOrder/getDetailInfo', {order_id: order_id})
-      this.seeData = res.data.detail
-      this.getDeta = res
-      this.commoData = JSON.parse(JSON.stringify(this.seeData))
+      if (res.code === 1) {
+        this.seeData = res.data.detail
+        this.getDeta = res
+        this.progress = JSON.parse(JSON.stringify(res.data.progress))
+        this.commoData = JSON.parse(JSON.stringify(this.seeData))
+      }
     },
-    //入库
-    async storage(){
+    // 入库
+    async storage () {
       const _this = this
-      let data = [];
-      let admins={
-        place:'',
-        bar_code:'',
-        detail_id:'',
-      };
-      this.seeData.map((value,index,arry)=>{
+      let data = []
+      let admins = {
+        place: '',
+        bar_code: '',
+        detail_id: ''
+      }
+      this.seeData.map((value, index, arry) => {
         data.push({
-          place:value.place,
-          bar_code:value.bar_code,
-          detail_id:value.id,})
+          place: value.place,
+          bar_code: value.bar_code,
+          detail_id: value.id})
       })
-      let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id,data:data})
-      this.modasear(res,'modal2');
-
+      let res = await _this.$axios('purchaseOrder/putInStorage', {order_id: this.ApplyData.id, data: data})
+      this.modasear(res, 'modal2')
     }
   }
 }
